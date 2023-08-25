@@ -1,0 +1,35 @@
+{
+  "name": "my-work-log",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 8100",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "generate-svg": "npx @svgr/cli --out-dir ./src/components/svgs --typescript --no-svgo -- ./src/assets/svgs",
+    "ts-check": "tsc --noEmit -p ./tsconfig.json"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@types/mermaid": "^9.2.0",
+    "@types/node": "20.4.2",
+    "@types/react": "18.2.15",
+    "@types/react-dom": "18.2.7",
+    "dayjs": "^1.11.9",
+    "eslint": "8.45.0",
+    "eslint-config-next": "13.4.10",
+    "mermaid": "^10.2.4",
+    "next": "13.4.10",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.4",
+    "recoil": "^0.7.7",
+    "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "devtools-detector": "^2.0.14"
+  },
+  "packageManager": "yarn@3.6.1"
+}
