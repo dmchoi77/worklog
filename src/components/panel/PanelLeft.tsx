@@ -1,7 +1,8 @@
 import NestedList from '../list/NestedList';
 import data from '../../../app.json';
 import { ICommonAPIResponse, IMenuListResponse } from '~/types/api.types';
-import { List, ListSubheader } from '@mui/material';
+import { Divider, IconButton, InputBase, List, ListSubheader, Paper } from '@mui/material';
+import SearchInput from '../input/SearchInput';
 
 const PanelLeft = () => {
   const result: ICommonAPIResponse<IMenuListResponse[]> = data;
@@ -15,6 +16,8 @@ const PanelLeft = () => {
         maxWidth: '200px',
       }}
     >
+      <SearchInput />
+      <Divider/>
       <List
         sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
         component='nav'
