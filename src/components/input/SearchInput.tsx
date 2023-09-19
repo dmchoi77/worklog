@@ -1,4 +1,6 @@
-import { Paper, IconButton, InputBase, Interpolation, Theme } from '@mui/material';
+import { Paper, IconButton, InputBase } from '@mui/material';
+import { Interpolation, Theme } from '@emotion/react';
+
 import SearchIcon from '@mui/icons-material/Search';
 
 const SearchInput = ({ style }: { style?: Interpolation<Theme> }) => {
