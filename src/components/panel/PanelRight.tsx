@@ -26,6 +26,8 @@ const PanelRight = ({ slug }: { slug?: string }) => {
       css={{
         backgroundColor: '#FFFDFA',
         flex: 1,
+        width: '100%',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -45,7 +47,9 @@ const PanelRight = ({ slug }: { slug?: string }) => {
             padding: 20,
           }}
         >
-          {pathname === '/today' ? today : `${targetYear}년 ${targetMonth}월 ${targetDay}일`}
+          {pathname === '/today'
+            ? today
+            : `${targetYear}년 ${targetMonth}월 ${targetDay}일의 워크 로그`}
         </div>
       </div>
       <div
@@ -85,6 +89,7 @@ const PanelRight = ({ slug }: { slug?: string }) => {
         css={{
           display: 'flex',
           height: '100%',
+          flexDirection: 'row',
         }}
       >
         <div
@@ -101,6 +106,7 @@ const PanelRight = ({ slug }: { slug?: string }) => {
           css={{
             flex: 0.5,
             padding: 20,
+            height: '100%',
           }}
         >
           <TodayMemo />

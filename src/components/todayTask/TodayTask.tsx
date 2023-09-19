@@ -1,8 +1,8 @@
 const TodayTask = () => {
   return (
     <div>
-      <div>Task</div>
-      {['차세대가맹', '비씨카드', '소화물공제조합'].map((item, index) => (
+      <h2>Task</h2>
+      {['업무1', '업무2', '업무3'].map((item, index) => (
         <li key={index}>{item}</li>
       ))}
     </div>

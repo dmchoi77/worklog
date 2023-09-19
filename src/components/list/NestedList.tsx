@@ -1,9 +1,11 @@
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
+import { List, ListItemButton, ListItemText, Collapse, ListItemIcon, Divider } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useState } from 'react';
 import { IMenuListResponse } from '~/types/api.types';
+import FolderIcon from '@mui/icons-material/Folder';
+import ArticleIcon from '@mui/icons-material/Article';
 
 const NestedList = ({ data }: { data: IMenuListResponse }) => {
   const [openYear, setOpenYear] = useState(false);
@@ -27,29 +29,42 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
   return (
     <React.Fragment>
       <ListItemButton onClick={handleClickYear}>
-        {/* <ListItemIcon>추후 아이콘 추가</ListItemIcon> */}
+        <ListItemIcon
+          sx={{
+            display: 'flex',
+          }}
+        >
+          <FolderIcon />
+        </ListItemIcon>
         <ListItemText
           primary={`${data?.year}년`}
           primaryTypographyProps={{
-            textAlign: 'right',
-            pr: 6,
-            fontWeight: 600,
-            fontSize: 20,
+            textAlign: 'left',
+            pr: 1,
+            fontSize: 18,
           }}
         />
         {openYear ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
+      <Divider />
       <Collapse in={openYear} timeout='auto' unmountOnExit>
         {data?.months?.map((month, index) => (
           <List component='div' disablePadding key={index}>
             <ListItemButton onClick={handleClickMonth}>
+              <ListItemIcon
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <FolderIcon />
+              </ListItemIcon>
               <ListItemText
                 primary={`${month?.month}월`}
                 primaryTypographyProps={{
-                  textAlign: 'right',
-                  pr: 2,
-                  fontWeight: 600,
-                  fontSize: 18,
+                  textAlign: 'left',
+                  pl: 3,
+                  fontSize: 16,
                 }}
               />
               {openMonth ? <ExpandLess /> : <ExpandMore />}
@@ -57,27 +72,39 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
             <Collapse in={openMonth} timeout='auto' unmountOnExit>
               <List component='div' disablePadding>
                 {month.days.map((day, index) => (
-                  <ListItemButton
-                    sx={{ pl: 4 }}
-                    key={index}
-                    onClick={handleClickDay({
-                      year: data?.year,
-                      month: month.month,
-                      day,
-                    })}
-                  >
-                    <ListItemText
-                      primary={`${day}일`}
-                      primaryTypographyProps={{
-                        textAlign: 'right',
-                        fontWeight: 600,
-                        fontSize: 16,
-                      }}
-                    />
-                  </ListItemButton>
+                  <>
+                    <ListItemButton
+                      sx={{ pl: 6 }}
+                      key={index}
+                      onClick={handleClickDay({
+                        year: data?.year,
+                        month: month.month,
+                        day,
+                      })}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'flex-end',
+                        }}
+                      >
+                        <ArticleIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={`${day}일`}
+                        primaryTypographyProps={{
+                          textAlign: 'left',
+                          fontSize: 15,
+                          paddingLeft: 2,
+                        }}
+                      />
+                    </ListItemButton>
+                    <Divider variant='inset' />
+                  </>
                 ))}
               </List>
             </Collapse>
+            <Divider />
           </List>
         ))}
       </Collapse>
