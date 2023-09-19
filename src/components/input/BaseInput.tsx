@@ -3,7 +3,7 @@ import { ChangeEventHandler } from 'react';
 
 interface BaseInputProps {
   name?: string;
-  value: string | number;
+  value?: string | number;
   onChange: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string | undefined;
   style?: Interpolation<Theme>;

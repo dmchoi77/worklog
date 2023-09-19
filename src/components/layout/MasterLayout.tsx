@@ -9,7 +9,19 @@ const MasterLayout: React.FC<IProps> = ({ children }) => {
   return (
     <MasterLayoutContainer>
       <Header />
-      <PageArea>{children}</PageArea>
+
+      <PageArea>
+        <div
+          className='panel-container'
+          css={{
+            display: 'flex',
+            flexDirection: 'row',
+            height: 'calc(100vh - 50px)',
+          }}
+        >
+          {children}
+        </div>
+      </PageArea>
     </MasterLayoutContainer>
   );
 };

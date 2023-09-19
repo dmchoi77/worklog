@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
 const HeaderContainer = styled.header`
+  background-color: #fffdfa;
   width: 100%;
   height: 50px;
-  background-color: #c0c0c0;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid #e2e2e2e6;
 `;
 
 const Header: React.FC = () => {
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
         css={{
           fontSize: 20,
           fontWeight: 700,
-          padding: 20,
+          padding: 10,
         }}
       >
         My Work Log
