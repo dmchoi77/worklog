@@ -1,4 +1,10 @@
+import NestedList from '../list/NestedList';
+import data from '../../../app.json';
+import { ICommonAPIResponse, IMenuListResponse } from '~/types/api.types';
+import { List, ListSubheader } from '@mui/material';
+
 const PanelLeft = () => {
+  const result: ICommonAPIResponse<IMenuListResponse[]> = data;
   return (
     <div
       css={{
@@ -9,7 +15,20 @@ const PanelLeft = () => {
         maxWidth: '200px',
       }}
     >
-      왼쪽 패널
+      <List
+        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+        component='nav'
+        aria-labelledby='nested-list-subheader'
+        subheader={
+          <ListSubheader component='div' id='nested-list-subheader'>
+            worklog
+          </ListSubheader>
+        }
+      >
+        {result.data.map((data, index) => (
+          <NestedList data={data} key={index} />
+        ))}
+      </List>
     </div>
   );
 };
