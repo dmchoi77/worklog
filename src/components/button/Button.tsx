@@ -4,7 +4,7 @@ interface IProps {
   isDisabled?: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
-
+//
 const Button: React.FC<IProps> = ({ text, onClick, color, isDisabled = false }) => {
   return (
     <button
