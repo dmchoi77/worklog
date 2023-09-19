@@ -3,11 +3,17 @@ import TodayMemo from '../todayMemo/TodayMemo';
 import TodayTask from '../todayTask/TodayTask';
 import Button from '../button/Button';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const today = dayjs().format('YYYY년 MM월 DD일');
 
-const PanelRight = () => {
+const PanelRight = ({ slug }: { slug?: string }) => {
   const [input, setInput] = useState('');
+  const targetYear = slug?.[0];
+  const targetMonth = slug?.[1];
+  const targetDay = slug?.[2];
+
+  const pathname = usePathname();
 
   const handleInput = ({
     target: { value },
@@ -39,7 +45,7 @@ const PanelRight = () => {
             padding: 20,
           }}
         >
-          {today}
+          {pathname === '/today' ? today : `${targetYear}년 ${targetMonth}월 ${targetDay}일`}
         </div>
       </div>
       <div
