@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useState } from 'react';
 import { IMenuListResponse } from '~/types/api.types';
-import FolderIcon from '@mui/icons-material/Folder';
 import ArticleIcon from '@mui/icons-material/Article';
+import FolderIcon from '@mui/icons-material/Folder';
 
 const NestedList = ({ data }: { data: IMenuListResponse }) => {
   const [openYear, setOpenYear] = useState(false);
@@ -34,14 +34,14 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
             display: 'flex',
           }}
         >
-          <FolderIcon />
+          <FolderIcon sx={{ color: '#d1d1d1' }} />
         </ListItemIcon>
         <ListItemText
           primary={`${data?.year}년`}
           primaryTypographyProps={{
             textAlign: 'left',
             pr: 1,
-            fontSize: 18,
+            fontSize: 16,
           }}
         />
         {openYear ? <ExpandLess /> : <ExpandMore />}
@@ -57,7 +57,7 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
                   justifyContent: 'flex-end',
                 }}
               >
-                <FolderIcon />
+                <FolderIcon sx={{ color: '#d1d1d1' }} />
               </ListItemIcon>
               <ListItemText
                 primary={`${month?.month}월`}
@@ -88,7 +88,7 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
                           justifyContent: 'flex-end',
                         }}
                       >
-                        <ArticleIcon />
+                        <ArticleIcon sx={{ color: '#d1d1d1' }} />
                       </ListItemIcon>
                       <ListItemText
                         primary={`${day}일`}

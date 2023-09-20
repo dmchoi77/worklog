@@ -2,7 +2,7 @@ import PanelRight from '~/components/panel/PanelRight';
 
 const Today = () => {
   return (
-    <div>
+    <div css={{ width: '100%' }}>
       <PanelRight />
     </div>
   );

@@ -18,7 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         ) : (
           <MasterLayout>
-            <PanelLeft />
             <Component {...pageProps} />
           </MasterLayout>
         )}

@@ -4,6 +4,7 @@ import TodayTask from '../todayTask/TodayTask';
 import Button from '../button/Button';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Header from '../header/Header';
 
 const today = dayjs().format('YYYY년 MM월 DD일');
 
@@ -32,6 +33,7 @@ const PanelRight = ({ slug }: { slug?: string }) => {
         flexDirection: 'column',
       }}
     >
+      {/* <Header /> */}
       <div
         className='today-container'
         css={{

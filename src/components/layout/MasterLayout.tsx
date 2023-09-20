@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import Header from '~/components/header/Header';
+import PanelLeft from '../panel/PanelLeft';
+import Header from '../header/Header';
 
 interface IProps {
   children: JSX.Element | JSX.Element[];
@@ -8,20 +9,21 @@ interface IProps {
 const MasterLayout: React.FC<IProps> = ({ children }) => {
   return (
     <MasterLayoutContainer>
-      <Header />
-
-      <PageArea>
-        <div
-          className='panel-container'
-          css={{
-            display: 'flex',
-            flexDirection: 'row',
-            height: 'calc(100vh - 50px)',
-          }}
-        >
+      <div
+        className='panel-container'
+        css={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+          height: '100vh',
+        }}
+      >
+        <PanelLeft />
+        <PanelRightContainer>
+          <Header />
           {children}
-        </div>
-      </PageArea>
+        </PanelRightContainer>
+      </div>
     </MasterLayoutContainer>
   );
 };
@@ -40,16 +42,8 @@ const MasterLayoutContainer = styled.div`
   padding: 0;
 `;
 
-const PageArea = styled.main`
+const PanelRightContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  /* padding: 10px 0; */
-  /* border: 1px solid #dadada87; */
   width: 100%;
-  height: calc(100% - 55px);
-  overflow: hidden;
-
-  @media (max-width: 320px) {
-    height: calc(100% - 40px);
-  }
+  flex-direction: column;
 `;

@@ -17,16 +17,7 @@ const Header: React.FC = () => {
   const router = useRouter();
   return (
     <HeaderContainer>
-      <div>
-        <span
-          css={{
-            fontSize: 20,
-            fontWeight: 700,
-            padding: 10,
-          }}
-        >
-          오늘의 워크로그
-        </span>
+      <div>  
         <span
           css={{
             cursor: 'pointer',
