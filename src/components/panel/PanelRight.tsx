@@ -25,7 +25,7 @@ const PanelRight = ({ slug }: { slug?: string }) => {
   return (
     <div
       css={{
-        backgroundColor: '#FFFDFA',
+        backgroundColor: 'rgb(242, 242, 242)',
         flex: 1,
         width: '100%',
         height: '100%',
