@@ -9,7 +9,7 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 
-const options = ['fix', 'update', 'refact', 'chore'];
+const options = ['fix', 'update', 'refact', 'chore', 'feat'];
 
 export default function SplitButton() {
   const [open, setOpen] = React.useState(false);
@@ -42,15 +42,37 @@ export default function SplitButton() {
 
   return (
     <React.Fragment>
-      <ButtonGroup variant='contained' ref={anchorRef} aria-label='split button'>
-        <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+      <ButtonGroup
+        variant='contained'
+        ref={anchorRef}
+        aria-label='split button'
+        sx={{
+          height: '30px',
+          '.MuiButtonGroup-firstButton': {
+            width: '60px',
+            textAlign: 'left',
+            justifyContent: 'flex-start',
+            padding: 1,
+          },
+          '.MuiButtonGroup-lastButton': {
+            width: '12px',
+            minWidth: '12px',
+          },
+        }}
+      >
+        <Button onClick={handleClick} sx={{ fontSize: 10 }}>
+          {options[selectedIndex]}
+        </Button>
         <Button
-          size='small'
+          // size='small'
           aria-controls={open ? 'split-button-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-label='select merge strategy'
           aria-haspopup='menu'
           onClick={handleToggle}
+          sx={{
+            width: '20px',
+          }}
         >
           <ArrowDropDownIcon />
         </Button>
