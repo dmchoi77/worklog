@@ -1,31 +1,53 @@
-import { Checkbox, Paper } from '@mui/material';
-import SplitButton from '../button/SplitButton';
+import { Droppable } from 'react-beautiful-dnd';
+import styled from '@emotion/styled';
+import Work from '../work/Work';
+import { useEffect, useState } from 'react';
 
-export default function WorkList() {
+interface IList {
+  isDraggingOver: boolean;
+}
+
+const List = styled.div<IList>`
+  flex-grow: 1;
+`;
+interface IWorkListProps {
+  column: { id: string; title: string; taskIds: string[] };
+  tasks: {
+    id: string;
+    content: string;
+  }[];
+}
+export default function WorkList({ column, tasks }: IWorkListProps) {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const animation = requestAnimationFrame(() => setEnabled(true));
+
+    return () => {
+      cancelAnimationFrame(animation);
+      setEnabled(false);
+    };
+  }, []);
+
+  if (!enabled) {
+    return null;
+  }
   return (
-    <Paper
-      elevation={1}
-      css={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 10,
-        height: 40,
-        // backgroundColor: '#dbdbdb42',
-        padding: 5,
-        '&:hover': {
-          backgroundColor: 'skyblue',
-        },
-        borderRadius: 6,
-        margin: 5,
+    <Droppable droppableId={column?.id}>
+      {(provided, snapshot) => {
+        return (
+          <List
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+            {tasks?.map((task, idx) => (
+              <Work key={task.id} task={task} index={idx} />
+            ))}
+            {provided.placeholder}
+          </List>
+        );
       }}
-    >
-      <div>
-        <SplitButton />
-        <span css={{ fontSize: 13, padding: 10 }}>User Service JWT 없이 호출되는 이슈 수정</span>
-      </div>
-      <Checkbox defaultChecked />
-    </Paper>
+    </Droppable>
   );
 }

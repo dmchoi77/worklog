@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import TodayMemo from '../todayMemo/TodayMemo';
-import TodayTask from '../todayTask/TodayTask';
+import TodayWork from '../todayWork/TodayWork';
 import Button from '../button/Button';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -63,7 +63,7 @@ const PanelRight = ({ slug }: { slug?: string }) => {
             borderRight: '1px solid #d5d5d552',
           }}
         >
-          <TodayTask />
+          <TodayWork />
         </div>
         <div
           css={{

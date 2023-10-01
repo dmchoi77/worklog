@@ -25,12 +25,14 @@
     "mermaid": "^10.2.4",
     "next": "13.4.10",
     "react": "18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "recoil": "^0.7.7",
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@types/react-beautiful-dnd": "^13",
     "devtools-detector": "^2.0.14"
   },
   "packageManager": "yarn@3.6.1"

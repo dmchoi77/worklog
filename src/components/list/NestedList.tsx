@@ -72,7 +72,7 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
             <Collapse in={openMonth} timeout='auto' unmountOnExit>
               <List component='div' disablePadding>
                 {month.days.map((day, index) => (
-                  <>
+                  <React.Fragment key={index}>
                     <ListItemButton
                       sx={{ pl: 6 }}
                       key={index}
@@ -100,7 +100,7 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
                       />
                     </ListItemButton>
                     <Divider variant='inset' />
-                  </>
+                  </React.Fragment>
                 ))}
               </List>
             </Collapse>
