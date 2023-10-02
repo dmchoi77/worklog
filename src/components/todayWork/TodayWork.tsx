@@ -4,17 +4,7 @@ import WorkList from '../list/WorkList';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
-import { exampleTasks } from '~/example-data';
-
-interface IData {
-  tasks: {
-    [key: string]: { id: string; content: string };
-  };
-  columns: {
-    [key: string]: { id: string; title: string; taskIds: string[] };
-  };
-  columnOrder: string[];
-}
+import { IData, exampleTasks } from '~/example-data';
 
 const Container = styled.div`
   padding-top: 15;

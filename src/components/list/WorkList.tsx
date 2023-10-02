@@ -2,14 +2,8 @@ import { Droppable } from 'react-beautiful-dnd';
 import styled from '@emotion/styled';
 import Work from '../work/Work';
 import { useEffect, useState } from 'react';
+import { List } from './CommonList';
 
-interface IList {
-  isDraggingOver: boolean;
-}
-
-const List = styled.div<IList>`
-  flex-grow: 1;
-`;
 interface IWorkListProps {
   column: { id: string; title: string; taskIds: string[] };
   tasks: {
