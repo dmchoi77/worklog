@@ -1,18 +1,19 @@
 import { Button, Divider, Paper, TextField } from '@mui/material';
 import SplitButton from '../button/SplitButton';
 import WorkList from '../list/WorkList';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { IData, exampleTasks } from '~/example-data';
 
 const Container = styled.div`
   padding-top: 15;
+  height: 100%;
 `;
 const TodayWork = () => {
   const [data, setData] = useState<IData>(exampleTasks);
   const onDragEnd = useCallback(
-    (result: any) => {
+    (result: DropResult) => {
       const { destination, source, draggableId } = result;
       // 리스트 밖으로 drop되면 destination이 null
       if (!destination) return;

@@ -1,7 +1,7 @@
 import { Button, Paper } from '@mui/material';
 import { useCallback, useState } from 'react';
 import MemoList from '../list/MemoList';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { IData, exampleMemos } from '~/example-data';
 
 const TodayMemo = () => {
@@ -15,7 +15,7 @@ const TodayMemo = () => {
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {};
 
   const onDragEnd = useCallback(
-    (result: any) => {
+    (result: DropResult) => {
       const { destination, source, draggableId } = result;
       // 리스트 밖으로 drop되면 destination이 null
       if (!destination) return;
