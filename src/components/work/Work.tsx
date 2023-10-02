@@ -16,7 +16,9 @@ const Container = styled.div<IContainer>`
   border-radius: 8px;
   padding: 8px;
   margin-bottom: 8px;
-  background-color: ${(props) => (props.isDragging ? 'lightgreen' : '#ffffff')};
+  background-color: ${(props) => (props.isDragging ? 'lightblue' : '#ffffff')};
+  box-shadow: 0px 2px 7px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
 
 interface IWorkProps {
