@@ -19,7 +19,7 @@ const Button: React.FC<IProps> = ({ text, onClick, color, isDisabled = false }) 
         cursor: 'pointer',
 
         ':enabled': {
-          background: 'orange',
+          background: '#303030',
         },
         ':disabled': {
           background: 'grey',

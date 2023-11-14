@@ -1,83 +1,75 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import BaseInput from '~/components/input/BaseInput';
+import { useRouter } from 'next/navigation';
+import { Layout, LoginButton, LoginContainer, LoginForm, LoginInput } from './login.style';
+import { useLogin } from '~/hooks/queries/user';
+import useDialog from '~/hooks/useDialog';
+import Dialog from '~/components/dialog/Dialog';
+import { RoutePath } from '~/constants/route';
 
 type Inputs = {
   id: string;
   password: string;
 };
 
+const loginDescription = {
+  error: {
+    username: '아이디를 입력해주세요.',
+    password: '비밀번호를 입력해주세요.',
+  },
+} as const;
+
 const Login = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const { open, setDialog, onClose } = useDialog();
+
+  const { mutate: handleLogin } = useLogin();
+
+  const onSubmit: SubmitHandler<Inputs> = ({ id, password }) => {
+    setDialog((prev) => ({
+      ...prev,
+      cancelText: '',
+      open: true,
+      mainText: '로그인했다',
+      handleConfirm: onClose,
+    }));
+
+    handleLogin({ username: id, password });
+  };
 
   return (
-    <div
-      css={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        height: '100vh',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <div
-        css={{
-          paddingLeft: '30%',
-          paddingRight: '30%',
-          width: '100%',
-          height: '600px',
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: '1rem',
-        }}
-      >
-        <span
-          css={{
-            fontSize: 30,
-            fontWeight: 600,
-          }}
-        >
-          My worklog
-        </span>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          css={{
-            display: 'flex',
-            gap: '0.6rem',
-            width: '100%',
-            flexDirection: 'column',
-          }}
-        >
-          <BaseInput placeholder='아이디' {...register('id')} />
-          <BaseInput placeholder='비밀번호' {...register('password', { required: true })} />
-          {/* {errors.password && <span>password error!</span>} */}
-          <input
-            type='submit'
-            value='로그인'
+    <Layout>
+      <LoginContainer>
+        <div css={{ padding: '30px 0' }}>
+          <span css={{ fontSize: 30, fontWeight: 700 }}>Today worklog</span>
+        </div>
+        <LoginForm onSubmit={handleSubmit(onSubmit)}>
+          <LoginInput type='text' placeholder='아이디' {...register('id', { required: true })} />
+          {/* {errors.id && <span>{loginDescription.error.username}</span>} */}
+          <LoginInput type='password' placeholder='비밀번호' {...register('password', { required: true })} />
+          {/* {errors.password && <span>{loginDescription.error.password}</span>} */}
+          <LoginButton type='submit' value='로그인' />
+          <span
+            onClick={() => router.push(RoutePath.SignIn)}
             css={{
-              height: '50px',
-              borderRadius: '10px',
-
-              color: '#ffffff',
-              backgroundColor: 'gray',
-              border: '1px solid #cfcfcf',
-              fontSize: '14px',
-              fontWeight: 600,
-              padding: '5px',
+              color: '#5e6776',
+              fontSize: 16,
+              textAlign: 'center',
               cursor: 'pointer',
             }}
-          />
-        </form>
-      </div>
-    </div>
+          >
+            회원가입
+          </span>
+        </LoginForm>
+      </LoginContainer>
+      {open && <Dialog />}
+    </Layout>
   );
 };
 export default Login;

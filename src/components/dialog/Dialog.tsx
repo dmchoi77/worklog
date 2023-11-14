@@ -26,7 +26,6 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
         <div
           css={{
             width: '300px',
-            height: '300px',
             backgroundColor: '#ffffff',
             borderRadius: '15px',
             padding: '13px',
@@ -53,7 +52,6 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
           >
             <div
               css={{
-                height: '220px',
                 paddingTop: '10px',
                 paddingBottom: '10px',
               }}
