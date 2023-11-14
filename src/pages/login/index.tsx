@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { Layout, LoginButton, LoginContainer, LoginForm, LoginInput } from './login.style';
+import { Layout, LoginButton, LoginContainer, LoginForm, LoginInput } from '~/styles/login/login.style';
 import { useLogin } from '~/hooks/queries/user';
 import useDialog from '~/hooks/useDialog';
 import Dialog from '~/components/dialog/Dialog';
