@@ -9,20 +9,7 @@ type State = {
 };
 
 type Action = {
-  updateDialogOpen: (open: State['open']) => void;
-  updateDialogState: ({
-    cancelText,
-    confirmText,
-    mainText,
-    open,
-    title,
-  }: {
-    cancelText?: string;
-    confirmText?: string;
-    mainText?: string;
-    open?: boolean;
-    title?: string;
-  }) => void;
+  updateDialogState: ({ cancelText, confirmText, mainText, open, title }: Partial<State>) => void;
 };
 
 export const dialogDefaultState = {
@@ -35,10 +22,5 @@ export const dialogDefaultState = {
 
 export const useDialogStore = create<State & Action>((set) => ({
   ...dialogDefaultState,
-  updateDialogOpen: (open) => set(() => ({ open: !open })),
-  updateDialogState: (props) =>
-    set((prev) => ({
-      ...prev,
-      ...props,
-    })),
+  updateDialogState: (props) => set(() => ({ ...dialogDefaultState, ...props })),
 }));
