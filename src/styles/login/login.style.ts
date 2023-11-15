@@ -28,7 +28,7 @@ const LoginButton = styled.input({
   height: '50px',
   borderRadius: '10px',
   color: '#ffffff',
-  backgroundColor: '#7272eb',
+  backgroundColor: '#2f2f2f',
   border: '1px solid #cfcfcf',
   fontSize: '16px',
   fontWeight: 600,

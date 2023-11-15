@@ -1,11 +1,14 @@
+import { Interpolation, Theme } from '@emotion/react';
+
 interface IProps {
   text: string;
   color?: string;
   isDisabled?: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  style?: React.CSSProperties;
 }
-//
-const Button: React.FC<IProps> = ({ text, onClick, color, isDisabled = false }) => {
+
+const Button: React.FC<IProps> = ({ text, onClick, color, isDisabled = false, style }) => {
   return (
     <button
       css={{
@@ -13,8 +16,9 @@ const Button: React.FC<IProps> = ({ text, onClick, color, isDisabled = false }) 
         padding: '10px',
         border: 'none',
         backgroundColor: color ?? 'red',
-        borderRadius: '10px',
+        borderRadius: '5px',
         color: '#ffffff',
+        fontSize: 18,
         fontWeight: '600',
         cursor: 'pointer',
 
@@ -24,6 +28,7 @@ const Button: React.FC<IProps> = ({ text, onClick, color, isDisabled = false }) 
         ':disabled': {
           background: 'grey',
         },
+        ...style,
       }}
       disabled={isDisabled}
       onClick={onClick}

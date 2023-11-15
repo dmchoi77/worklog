@@ -24,23 +24,28 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
       >
         <div
           css={{
-            width: '300px',
+            width: '400px',
             backgroundColor: '#ffffff',
-            borderRadius: '15px',
-            padding: '13px',
             boxSizing: 'border-box',
+            borderRadius: '15px',
           }}
         >
           <div
             css={{
+              height: '50px',
               display: 'flex',
               justifyContent: 'space-between',
+              alignItems: 'center',
+              backgroundColor: '#3b3b3b',
+              borderTopLeftRadius: '15px',
+              borderTopRightRadius: '15px',
+              padding: '0 15px',
             }}
           >
-            <div css={{ fontWeight: 600 }}>{title}</div>
+            <span css={{ fontWeight: 800, color: '#fff', fontSize: 20 }}>{title}</span>
             <div
               onClick={() => updateDialogState({ open: !open })}
-              css={{ cursor: 'pointer', fontWeight: 600 }}
+              css={{ cursor: 'pointer', fontWeight: 600, color: '#fff' }}
             >
               X
             </div>
@@ -49,17 +54,14 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
             css={{
               display: 'flex',
               flexDirection: 'column',
+              justifyContent: 'space-between',
+              minHeight: '100px',
               height: '100%',
+              padding: 10,
+              paddingTop: 0,
             }}
           >
-            <div
-              css={{
-                paddingTop: '10px',
-                paddingBottom: '10px',
-              }}
-            >
-              {mainText}
-            </div>
+            <div css={{ padding: '10px 0' }}>{mainText}</div>
             <div
               css={{
                 display: 'flex',
@@ -67,7 +69,7 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
               }}
             >
               {cancelText && <Button text={cancelText} onClick={() => updateDialogState({ open: !open })} />}
-              <Button text={confirmText} onClick={() => updateDialogState({ open: !open })} />
+              <Button text={confirmText} onClick={() => updateDialogState({ open: !open })} style={{}} />
             </div>
           </div>
         </div>

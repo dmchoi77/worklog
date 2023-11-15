@@ -30,7 +30,11 @@ const SignIn = () => {
 
   const onSubmit: SubmitHandler<Inputs> = ({ username, email, password, passwordCheck }) => {
     if (password !== passwordCheck) {
-      return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+      return updateDialogState({
+        open: true,
+        mainText: '비밀번호와 비밀번호 확인이 일치하지 않습니다.',
+        cancelText: '',
+      });
     }
 
     handleSignIn({
