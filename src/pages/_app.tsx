@@ -3,11 +3,11 @@ import '~/styles/globals.css';
 import type { AppProps } from 'next/app';
 
 import MasterLayout from '~/components/layout/MasterLayout';
-import { RecoilRoot } from 'recoil';
 import { GlobalPortal } from '~/GlobalPortal';
 import { usePathname } from 'next/navigation';
-import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RoutePath } from '~/constants/route';
+import NonAuthLayout from '~/components/layout/NonAuthLayout';
 
 const queryClient = new QueryClient({
   defaultOptions: {},
@@ -18,15 +18,15 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <GlobalPortal.Provider>
       <QueryClientProvider client={queryClient}>
-        <RecoilRoot>
-          {pathname === RoutePath.Login || pathname === RoutePath.SignIn ? (
+        {pathname === RoutePath.Login || pathname === RoutePath.SignIn ? (
+          <NonAuthLayout>
             <Component {...pageProps} />
-          ) : (
-            <MasterLayout>
-              <Component {...pageProps} />
-            </MasterLayout>
-          )}
-        </RecoilRoot>
+          </NonAuthLayout>
+        ) : (
+          <MasterLayout>
+            <Component {...pageProps} />
+          </MasterLayout>
+        )}
       </QueryClientProvider>
     </GlobalPortal.Provider>
   );
