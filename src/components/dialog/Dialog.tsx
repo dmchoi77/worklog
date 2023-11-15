@@ -1,12 +1,11 @@
 import { forwardRef } from 'react';
 import Button from '../button/Button';
 import { GlobalPortal } from '~/GlobalPortal';
-import { useRecoilValue } from 'recoil';
-import { dialogState } from '~/store/dialog/dialog';
+import { useDialogStore } from '~/store/stores/useDialogStore';
 
 const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
-  const { mainText, title, cancelText, confirmText, handleClose, handleConfirm } =
-    useRecoilValue(dialogState);
+  const { cancelText, confirmText, mainText, open, title, updateDialogState } = useDialogStore();
+
   return (
     <GlobalPortal.Consumer>
       <div
@@ -39,7 +38,10 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
             }}
           >
             <div css={{ fontWeight: 600 }}>{title}</div>
-            <div onClick={handleClose} css={{ cursor: 'pointer', fontWeight: 600 }}>
+            <div
+              onClick={() => updateDialogState({ open: !open })}
+              css={{ cursor: 'pointer', fontWeight: 600 }}
+            >
               X
             </div>
           </div>
@@ -64,8 +66,8 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
                 gap: '10px',
               }}
             >
-              {cancelText && <Button text={cancelText} onClick={handleClose} />}
-              <Button text={confirmText} onClick={handleConfirm} />
+              {cancelText && <Button text={cancelText} onClick={() => updateDialogState({ open: !open })} />}
+              <Button text={confirmText} onClick={() => updateDialogState({ open: !open })} />
             </div>
           </div>
         </div>

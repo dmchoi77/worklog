@@ -1,5 +1,5 @@
-import { dialogDefaultState } from './../store/dialog/dialog';
-import { dialogState } from '~/store/dialog/dialog';
+import { dialogDefaultState } from '../store/stores/dialog/dialog';
+import { dialogState } from '~/store/stores/dialog/dialog';
 import { useCallback, useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 

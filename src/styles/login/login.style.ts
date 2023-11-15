@@ -1,14 +1,5 @@
 import styled from '@emotion/styled';
 
-const Layout = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  height: '100vh',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
-
 const LoginContainer = styled.div({
   width: '400px',
   height: '600px',
@@ -45,4 +36,4 @@ const LoginButton = styled.input({
   cursor: 'pointer',
 });
 
-export { Layout, LoginButton, LoginContainer, LoginForm, LoginInput };
+export { LoginButton, LoginContainer, LoginForm, LoginInput };
