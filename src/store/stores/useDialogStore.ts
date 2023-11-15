@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 type State = {
   open: boolean;
@@ -20,7 +21,9 @@ export const dialogDefaultState = {
   confirmText: '확인',
 };
 
-export const useDialogStore = create<State & Action>((set) => ({
-  ...dialogDefaultState,
-  updateDialogState: (props) => set(() => ({ ...dialogDefaultState, ...props })),
-}));
+export const useDialogStore = create<State & Action>()(
+  devtools((set) => ({
+    ...dialogDefaultState,
+    updateDialogState: (props) => set(() => ({ ...dialogDefaultState, ...props })),
+  })),
+);
