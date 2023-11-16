@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Dialog from '~/components/dialog/Dialog';
-import { useSignIn } from '~/store/queries/user';
-import { useDialogStore } from '~/store/stores/useDialogStore';
+import { useSignIn } from '~/queries/user';
+import { useDialogStore } from '~/stores/useDialogStore';
 import {
   LoginContainer as SignInContainer,
   LoginButton as SignInButton,

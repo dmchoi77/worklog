@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import Button from '../button/Button';
 import { GlobalPortal } from '~/GlobalPortal';
-import { useDialogStore } from '~/store/stores/useDialogStore';
+import { useDialogStore } from '~/stores/useDialogStore';
 
 const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
   const { cancelText, confirmText, mainText, open, title, updateDialogState } = useDialogStore();

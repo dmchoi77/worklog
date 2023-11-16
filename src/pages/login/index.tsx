@@ -1,10 +1,10 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { LoginButton, LoginContainer, LoginForm, LoginInput } from '~/styles/login/login.style';
-import { useLogin } from '~/store/queries/user';
+import { useLogin } from '~/queries/user';
 import Dialog from '~/components/dialog/Dialog';
 import { RoutePath } from '~/constants/route';
-import { useDialogStore } from '~/store/stores/useDialogStore';
+import { useDialogStore } from '~/stores/useDialogStore';
 
 type Inputs = {
   username: string;

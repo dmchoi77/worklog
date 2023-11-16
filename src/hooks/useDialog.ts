@@ -1,7 +1,6 @@
-import { dialogDefaultState } from '../store/stores/dialog/dialog';
-import { dialogState } from '~/store/stores/dialog/dialog';
 import { useCallback, useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
+import { dialogDefaultState, dialogState } from '~/stores/dialog/dialog';
 
 const useDialog = () => {
   const [{ open }, setDialog] = useRecoilState(dialogState);
