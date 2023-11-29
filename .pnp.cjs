@@ -30,6 +30,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@emotion/react", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.11.1"],\
             ["@emotion/styled", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.11.0"],\
+            ["@lukemorales/query-key-factory", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:1.3.2"],\
             ["@mui/icons-material", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.14.9"],\
             ["@mui/material", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.14.10"],\
             ["@tanstack/react-query", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.8.3"],\
@@ -500,6 +501,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@humanwhocodes-object-schema-npm-1.2.1-eb622b5d0e-a824a1ec31.zip/node_modules/@humanwhocodes/object-schema/",\
           "packageDependencies": [\
             ["@humanwhocodes/object-schema", "npm:1.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@lukemorales/query-key-factory", [\
+        ["npm:1.3.2", {\
+          "packageLocation": "./.yarn/cache/@lukemorales-query-key-factory-npm-1.3.2-1e303991d7-b7eec057a8.zip/node_modules/@lukemorales/query-key-factory/",\
+          "packageDependencies": [\
+            ["@lukemorales/query-key-factory", "npm:1.3.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:1.3.2", {\
+          "packageLocation": "./.yarn/__virtual__/@lukemorales-query-key-factory-virtual-21a529b032/0/cache/@lukemorales-query-key-factory-npm-1.3.2-1e303991d7-b7eec057a8.zip/node_modules/@lukemorales/query-key-factory/",\
+          "packageDependencies": [\
+            ["@lukemorales/query-key-factory", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:1.3.2"],\
+            ["@tanstack/query-core", null],\
+            ["@tanstack/react-query", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.8.3"],\
+            ["@types/tanstack__query-core", null],\
+            ["@types/tanstack__react-query", null]\
+          ],\
+          "packagePeers": [\
+            "@tanstack/query-core",\
+            "@tanstack/react-query",\
+            "@types/tanstack__query-core",\
+            "@types/tanstack__react-query"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4459,6 +4486,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["my-work-log", "workspace:."],\
             ["@emotion/react", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.11.1"],\
             ["@emotion/styled", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.11.0"],\
+            ["@lukemorales/query-key-factory", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:1.3.2"],\
             ["@mui/icons-material", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.14.9"],\
             ["@mui/material", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.14.10"],\
             ["@tanstack/react-query", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.8.3"],\

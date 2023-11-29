@@ -4,4 +4,5 @@ declare global {
   interface Window {
     debuggerCallback: (step: Step) => void;
   }
+  
 }

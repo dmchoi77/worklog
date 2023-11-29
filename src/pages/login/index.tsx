@@ -30,7 +30,17 @@ const Login = () => {
   const { open, updateDialogState } = useDialogStore();
 
   const onSubmit: SubmitHandler<Inputs> = ({ username, password }) => {
-    handleLogin({ username, password });
+    handleLogin(
+      { username, password },
+      {
+        onError: (error: any) =>
+          updateDialogState({
+            open: true,
+            mainText: error?.response?.data.message,
+            cancelText: '',
+          }),
+      },
+    );
   };
 
   return (

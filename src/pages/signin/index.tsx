@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Dialog from '~/components/dialog/Dialog';
 import { useSignIn } from '~/queries/user';
@@ -17,6 +18,8 @@ type Inputs = {
 };
 
 const SignIn = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -37,18 +40,29 @@ const SignIn = () => {
       });
     }
 
-    handleSignIn({
-      username,
-      email,
-      password,
-      passwordCheck,
-    });
-
-    updateDialogState({
-      open: true,
-      mainText: '회원가입에 성공하였습니다.',
-      cancelText: '',
-    });
+    handleSignIn(
+      {
+        username,
+        email,
+        password,
+        passwordCheck,
+      },
+      {
+        onSuccess: () =>
+          updateDialogState({
+            open: true,
+            mainText: '회원가입에 성공하였습니다.',
+            cancelText: '',
+            handleConfirm: () => router.push('/login'),
+          }),
+        onError: (error: any) =>
+          updateDialogState({
+            open: true,
+            mainText: error?.response?.data.message,
+            cancelText: '',
+          }),
+      },
+    );
   };
   return (
     <SignInContainer>
