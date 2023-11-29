@@ -4,7 +4,8 @@ import { GlobalPortal } from '~/GlobalPortal';
 import { useDialogStore } from '~/stores/useDialogStore';
 
 const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
-  const { cancelText, confirmText, mainText, open, title, updateDialogState } = useDialogStore();
+  const { cancelText, confirmText, mainText, open, title, updateDialogState, handleConfirm } =
+    useDialogStore();
 
   return (
     <GlobalPortal.Consumer>
@@ -69,7 +70,14 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
               }}
             >
               {cancelText && <Button text={cancelText} onClick={() => updateDialogState({ open: !open })} />}
-              <Button text={confirmText} onClick={() => updateDialogState({ open: !open })} style={{}} />
+              <Button
+                text={confirmText}
+                onClick={() => {
+                  updateDialogState({ open: !open });
+                  handleConfirm?.();
+                }}
+                style={{}}
+              />
             </div>
           </div>
         </div>

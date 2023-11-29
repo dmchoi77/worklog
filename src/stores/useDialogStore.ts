@@ -7,10 +7,13 @@ type State = {
   mainText: string;
   cancelText: string;
   confirmText: string;
+  handleConfirm?: () => void;
 };
 
 type Action = {
   updateDialogState: ({ cancelText, confirmText, mainText, open, title }: Partial<State>) => void;
+  handleConfirm?: () => void;
+
 };
 
 export const dialogDefaultState = {
