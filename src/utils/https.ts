@@ -7,6 +7,8 @@ const headers: Readonly<Record<string, string | boolean>> = {
   'X-Requested-With': 'XMLHttpRequest',
 };
 
+let accessToken: string | null = null;
+
 const http = axios.create({
   headers,
   withCredentials: true,
@@ -15,12 +17,15 @@ const http = axios.create({
 const injectToken = (
   config: InternalAxiosRequestConfig<any>,
 ): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> => {
-  const accessToken = '';
-  if (accessToken !== null) config.headers.Authorization = `Bearer ${accessToken}`;
-
+  if (accessToken !== null) config.headers.Authorization = accessToken;
   return config;
 };
 
 http.interceptors.request.use(injectToken, (error) => Promise.reject(error));
+
+http.interceptors.response.use((response) => {
+  accessToken = response.headers.authorization;
+  return response;
+});
 
 export default http;
