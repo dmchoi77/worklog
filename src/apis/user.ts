@@ -1,13 +1,10 @@
 import axios from 'axios';
+import { baseURL } from '~/constants/url';
 import { ICommonResponse } from '~/types/apis/common.types';
-
 import { ILoginRequest, ISignInRequest } from '~/types/apis/user.types';
-import http from '~/utils/https';
-
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const login = ({ username, password }: ILoginRequest) => {
-  return http.post<ICommonResponse<{ token: string }>>(
+  return axios.post<ICommonResponse<{ token: string }>>(
     '/users/login',
     {
       username,
@@ -21,7 +18,7 @@ export const login = ({ username, password }: ILoginRequest) => {
 
 export const signIn = ({ username, email, password, passwordCheck }: ISignInRequest) => {
   return axios.post<ISignInRequest, ICommonResponse>(
-    '/users',
+    '/users/signIn',
     {
       username,
       email,
