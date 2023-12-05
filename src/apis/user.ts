@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { baseURL } from '~/constants/url';
 import { ICommonResponse } from '~/types/apis/common.types';
-import { ILoginRequest, ISignInRequest } from '~/types/apis/user.types';
+import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
+import http from '~/utils/http';
 
-export const login = ({ username, password }: ILoginRequest) => {
-  return axios.post<ICommonResponse<{ token: string }>>(
+export const login = async ({ username, password }: ILoginRequest) => {
+  const response = await http.post<ICommonResponse<ILoginResponse>>(
     '/users/login',
     {
       username,
@@ -14,6 +15,8 @@ export const login = ({ username, password }: ILoginRequest) => {
       baseURL,
     },
   );
+
+  return response.data.data;
 };
 
 export const signIn = ({ username, email, password, passwordCheck }: ISignInRequest) => {
@@ -53,4 +56,15 @@ export const checkDuplicationUsername = ({ username }: { username: string }) => 
       username,
     },
   });
+};
+
+export const refreshAccessToken = async () => {
+  const response = await http.post<ICommonResponse<ILoginResponse>>('/users/reissue', null, {
+    headers: {
+      Refresh: sessionStorage.getItem('authKey'),
+    },
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
+  });
+
+  return response.data.data;
 };

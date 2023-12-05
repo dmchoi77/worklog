@@ -33,12 +33,16 @@ const Login = () => {
     handleLogin(
       { username, password },
       {
-        onError: (error: any) =>
+        onSuccess: () => {
+          router.push('/');
+        },
+        onError: (error: any) => {
           updateDialogState({
             open: true,
             mainText: error?.response?.data.message,
             cancelText: '',
-          }),
+          });
+        },
       },
     );
   };

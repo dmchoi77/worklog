@@ -34,6 +34,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mui/icons-material", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.14.9"],\
             ["@mui/material", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.14.10"],\
             ["@tanstack/react-query", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.8.3"],\
+            ["@tanstack/react-query-devtools", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.12.2"],\
             ["@types/mermaid", "npm:9.2.0"],\
             ["@types/node", "npm:20.4.2"],\
             ["@types/react", "npm:18.2.15"],\
@@ -972,6 +973,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@tanstack/query-devtools", [\
+        ["npm:5.12.1", {\
+          "packageLocation": "./.yarn/cache/@tanstack-query-devtools-npm-5.12.1-5b78252c6b-1956ef3edb.zip/node_modules/@tanstack/query-devtools/",\
+          "packageDependencies": [\
+            ["@tanstack/query-devtools", "npm:5.12.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@tanstack/react-query", [\
         ["npm:5.8.3", {\
           "packageLocation": "./.yarn/cache/@tanstack-react-query-npm-5.8.3-bc4fc3e1d8-79f46b103c.zip/node_modules/@tanstack/react-query/",\
@@ -998,6 +1008,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/react",\
             "react-dom",\
             "react-native",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tanstack/react-query-devtools", [\
+        ["npm:5.12.2", {\
+          "packageLocation": "./.yarn/cache/@tanstack-react-query-devtools-npm-5.12.2-6e06073c77-b08093902d.zip/node_modules/@tanstack/react-query-devtools/",\
+          "packageDependencies": [\
+            ["@tanstack/react-query-devtools", "npm:5.12.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.12.2", {\
+          "packageLocation": "./.yarn/__virtual__/@tanstack-react-query-devtools-virtual-22ed30a689/0/cache/@tanstack-react-query-devtools-npm-5.12.2-6e06073c77-b08093902d.zip/node_modules/@tanstack/react-query-devtools/",\
+          "packageDependencies": [\
+            ["@tanstack/react-query-devtools", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.12.2"],\
+            ["@tanstack/query-devtools", "npm:5.12.1"],\
+            ["@tanstack/react-query", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.8.3"],\
+            ["@types/react", "npm:18.2.15"],\
+            ["@types/tanstack__react-query", null],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@tanstack/react-query",\
+            "@types/react",\
+            "@types/tanstack__react-query",\
             "react"\
           ],\
           "linkType": "HARD"\
@@ -4490,6 +4527,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mui/icons-material", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.14.9"],\
             ["@mui/material", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.14.10"],\
             ["@tanstack/react-query", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.8.3"],\
+            ["@tanstack/react-query-devtools", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.12.2"],\
             ["@types/mermaid", "npm:9.2.0"],\
             ["@types/node", "npm:20.4.2"],\
             ["@types/react", "npm:18.2.15"],\

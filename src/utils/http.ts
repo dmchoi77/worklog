@@ -1,4 +1,6 @@
+import { useQueryClient } from '@tanstack/react-query';
 import axios, { InternalAxiosRequestConfig } from 'axios';
+import { authToken } from './authToken';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -6,8 +8,6 @@ const headers: Readonly<Record<string, string | boolean>> = {
   'Access-Control-Allow-Credentials': true,
   'X-Requested-With': 'XMLHttpRequest',
 };
-
-let accessToken: string | null = null;
 
 const http = axios.create({
   headers,
@@ -17,14 +17,14 @@ const http = axios.create({
 const injectToken = (
   config: InternalAxiosRequestConfig<any>,
 ): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> => {
-  if (accessToken !== null) config.headers.Authorization = accessToken;
+  const accessToken = authToken.getToken();
+  if (accessToken !== null) config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 };
 
 http.interceptors.request.use(injectToken, (error) => Promise.reject(error));
 
 http.interceptors.response.use((response) => {
-  accessToken = response.headers.authorization;
   return response;
 });
 

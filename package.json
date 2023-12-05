@@ -36,6 +36,7 @@
     "zustand": "^4.4.6"
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^5.12.2",
     "@types/react-beautiful-dnd": "^13",
     "devtools-detector": "^2.0.14"
   },

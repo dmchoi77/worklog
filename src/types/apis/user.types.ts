@@ -9,3 +9,8 @@ export interface ISignInRequest {
   password: string;
   passwordCheck: string;
 }
+
+export interface ILoginResponse {
+  accessToken: string;
+  refreshToken: string;
+}
