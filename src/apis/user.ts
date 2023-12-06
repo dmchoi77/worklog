@@ -3,6 +3,7 @@ import { baseURL } from '~/constants/url';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
 import http from '~/utils/http';
+import cookie from 'react-cookies';
 
 export const login = async ({ username, password }: ILoginRequest) => {
   const response = await http.post<ICommonResponse<ILoginResponse>>(
@@ -61,7 +62,7 @@ export const checkDuplicationUsername = ({ username }: { username: string }) => 
 export const refreshAccessToken = async () => {
   const response = await http.post<ICommonResponse<ILoginResponse>>('/users/reissue', null, {
     headers: {
-      Refresh: sessionStorage.getItem('authKey'),
+      Refresh: cookie.load('refreshToken'),
     },
     baseURL: process.env.NEXT_PUBLIC_API_URL,
   });

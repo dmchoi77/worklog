@@ -9,8 +9,11 @@ import {
 } from '~/apis/user';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
 import { authToken } from '~/utils/authToken';
+import cookie from 'react-cookies';
+import { useEffect } from 'react';
 
 const userQueryKeys = createQueryKeys('user', {
+  refreshAccessToken: ['refreshAccessToken'],
   checkDuplicationEmail: ['checkDuplicationEmail'],
   checkDuplicationUsername: ['checkDuplicationUsername'],
 });
@@ -21,7 +24,7 @@ export const useLogin = () => {
     onSuccess: (data) => {
       const { accessToken, refreshToken } = data as ILoginResponse;
       authToken.setToken(accessToken);
-      sessionStorage.setItem('authKey', refreshToken);
+      cookie.save('refreshToken', refreshToken, {});
     },
   });
 };
@@ -45,15 +48,20 @@ export const useCheckDuplicationUsername = (username: string) =>
     queryFn: () => checkDuplicationUsername({ username }),
   });
 
-export const useRefreshAccessToken = () =>
-  useMutation({
-    mutationFn: () => refreshAccessToken(),
-    onSuccess: (data) => {
-      const { refreshToken, accessToken } = data as ILoginResponse;
-
-      sessionStorage.removeItem('authKey');
-      sessionStorage.setItem('authKey', refreshToken);
-      authToken.setToken(accessToken);
-      
-    },
+export const useRefreshAccessToken = (refreshToken: string) => {
+  const query = useQuery({
+    queryKey: userQueryKeys.refreshAccessToken.queryKey,
+    queryFn: () => refreshAccessToken(),
+    enabled: !!refreshToken,
   });
+
+  useEffect(() => {
+    const { refreshToken, accessToken } = query.data as ILoginResponse;
+
+    cookie.remove('refreshToken');
+    cookie.save('refreshToken', refreshToken, {});
+    authToken.setToken(accessToken);
+  }, [query]);
+
+  return query;
+};

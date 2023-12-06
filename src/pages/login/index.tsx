@@ -33,7 +33,7 @@ const Login = () => {
     handleLogin(
       { username, password },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           router.push('/');
         },
         onError: (error: any) => {
