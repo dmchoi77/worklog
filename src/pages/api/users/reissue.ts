@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
+import { getCookie } from '~/utils/cookie';
 import http from '~/utils/http';
-import cookie from 'react-cookies';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   try {
     const response = await http.post<ICommonResponse<ILoginResponse>>('/users/reissue', null, {
       headers: {
-        Refresh: typeof window !== 'undefined' ? cookie.load('refreshAccessToken') : null,
+        Refresh: typeof window !== 'undefined' ? getCookie('refreshAccessToken') : null,
       },
       baseURL,
     });

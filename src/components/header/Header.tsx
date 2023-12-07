@@ -17,7 +17,7 @@ const Header: React.FC = () => {
   const router = useRouter();
   return (
     <HeaderContainer>
-      <div>  
+      <div>
         <span
           css={{
             cursor: 'pointer',
@@ -33,6 +33,7 @@ const Header: React.FC = () => {
           fontWeight: 700,
           padding: 20,
         }}
+        onClick={() => {}}
       >
         로그아웃
       </span>

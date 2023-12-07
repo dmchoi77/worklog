@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import axios, { InternalAxiosRequestConfig } from 'axios';
-import { authToken } from './authToken';
+import { getAuthTokenInstance } from './authToken';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -17,7 +17,7 @@ const http = axios.create({
 const injectToken = (
   config: InternalAxiosRequestConfig<any>,
 ): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> => {
-  const accessToken = authToken.getToken();
+  const accessToken = getAuthTokenInstance().getToken();
   if (accessToken !== null) config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 };

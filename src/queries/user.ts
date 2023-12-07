@@ -8,9 +8,9 @@ import {
   signIn,
 } from '~/apis/user';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
-import { authToken } from '~/utils/authToken';
-import cookie from 'react-cookies';
+import { getAuthTokenInstance } from '~/utils/authToken';
 import { useEffect } from 'react';
+import { removeCookie, setCookie } from '~/utils/cookie';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -23,8 +23,10 @@ export const useLogin = () => {
     mutationFn: ({ username, password }: ILoginRequest) => login({ username, password }),
     onSuccess: (data) => {
       const { accessToken, refreshToken } = data as ILoginResponse;
+      const authToken = getAuthTokenInstance(); // 클라이언트 및 서버에서 동일한 인스턴스 사용
+
       authToken.setToken(accessToken);
-      cookie.save('refreshToken', refreshToken, {});
+      setCookie('refreshToken', refreshToken, { path: '/', maxAge: 1000, secure: true });
     },
   });
 };
@@ -51,15 +53,18 @@ export const useCheckDuplicationUsername = (username: string) =>
 export const useRefreshAccessToken = (refreshToken: string) => {
   const query = useQuery({
     queryKey: userQueryKeys.refreshAccessToken.queryKey,
-    queryFn: () => refreshAccessToken(),
+    queryFn: () => refreshAccessToken(refreshToken),
     enabled: !!refreshToken,
   });
 
   useEffect(() => {
-    const { refreshToken, accessToken } = query.data as ILoginResponse;
+    if (!query.data) return;
+    const { refreshToken, accessToken } = query.data;
 
-    cookie.remove('refreshToken');
-    cookie.save('refreshToken', refreshToken, {});
+    removeCookie('refreshToken');
+    setCookie('refreshToken', refreshToken);
+    const authToken = getAuthTokenInstance(); // 클라이언트 및 서버에서 동일한 인스턴스 사용
+
     authToken.setToken(accessToken);
   }, [query]);
 

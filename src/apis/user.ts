@@ -2,8 +2,8 @@ import axios from 'axios';
 import { baseURL } from '~/constants/url';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
+import { getCookie } from '~/utils/cookie';
 import http from '~/utils/http';
-import cookie from 'react-cookies';
 
 export const login = async ({ username, password }: ILoginRequest) => {
   const response = await http.post<ICommonResponse<ILoginResponse>>(
@@ -59,13 +59,17 @@ export const checkDuplicationUsername = ({ username }: { username: string }) => 
   });
 };
 
-export const refreshAccessToken = async () => {
-  const response = await http.post<ICommonResponse<ILoginResponse>>('/users/reissue', null, {
-    headers: {
-      Refresh: cookie.load('refreshToken'),
+export const refreshAccessToken = async (refreshToken: string) => {
+  const response = await axios.post<ICommonResponse<ILoginResponse>>(
+    '/users/reissue',
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+      baseURL: process.env.NEXT_PUBLIC_API_URL,
     },
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
-  });
+  );
 
   return response.data.data;
 };
