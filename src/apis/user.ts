@@ -73,3 +73,15 @@ export const refreshAccessToken = async (refreshToken: string) => {
 
   return response.data.data;
 };
+
+export const logout = async () => {
+  const response = await http.post<ICommonResponse>(
+    '/users/logout',
+    {},
+    {
+      baseURL: process.env.NEXT_PUBLIC_API_URL,
+    },
+  );
+
+  return response.data.data;
+};

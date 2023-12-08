@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useLogout } from '~/queries/user';
 
 const HeaderContainer = styled.header`
   background-color: #fffdfa;
@@ -15,6 +16,8 @@ const HeaderContainer = styled.header`
 
 const Header: React.FC = () => {
   const router = useRouter();
+
+  const { mutate: logout } = useLogout();
   return (
     <HeaderContainer>
       <div>
@@ -32,8 +35,9 @@ const Header: React.FC = () => {
           fontSize: 14,
           fontWeight: 700,
           padding: 20,
+          cursor: 'pointer',
         }}
-        onClick={() => {}}
+        onClick={() => logout()}
       >
         로그아웃
       </span>

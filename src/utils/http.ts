@@ -1,6 +1,6 @@
+import { getCookie } from '~/utils/cookie';
 import { useQueryClient } from '@tanstack/react-query';
 import axios, { InternalAxiosRequestConfig } from 'axios';
-import { getAuthTokenInstance } from './authToken';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -17,7 +17,7 @@ const http = axios.create({
 const injectToken = (
   config: InternalAxiosRequestConfig<any>,
 ): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> => {
-  const accessToken = getAuthTokenInstance().getToken();
+  const accessToken = getCookie('accessToken');
   if (accessToken !== null) config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 };

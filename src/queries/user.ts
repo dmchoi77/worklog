@@ -4,13 +4,14 @@ import {
   checkDuplicationEmail,
   checkDuplicationUsername,
   login,
+  logout,
   refreshAccessToken,
   signIn,
 } from '~/apis/user';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
-import { getAuthTokenInstance } from '~/utils/authToken';
 import { useEffect } from 'react';
 import { removeCookie, setCookie } from '~/utils/cookie';
+import { useRouter } from 'next/router';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -23,9 +24,8 @@ export const useLogin = () => {
     mutationFn: ({ username, password }: ILoginRequest) => login({ username, password }),
     onSuccess: (data) => {
       const { accessToken, refreshToken } = data as ILoginResponse;
-      const authToken = getAuthTokenInstance(); // 클라이언트 및 서버에서 동일한 인스턴스 사용
 
-      authToken.setToken(accessToken);
+      setCookie('accessToken', accessToken);
       setCookie('refreshToken', refreshToken, { path: '/', maxAge: 1000, secure: true });
     },
   });
@@ -62,11 +62,23 @@ export const useRefreshAccessToken = (refreshToken: string) => {
     const { refreshToken, accessToken } = query.data;
 
     removeCookie('refreshToken');
+    removeCookie('accessToken');
     setCookie('refreshToken', refreshToken);
-    const authToken = getAuthTokenInstance(); // 클라이언트 및 서버에서 동일한 인스턴스 사용
-
-    authToken.setToken(accessToken);
+    setCookie('accessToken', accessToken);
   }, [query]);
 
   return query;
+};
+
+export const useLogout = () => {
+  const router = useRouter();
+  return useMutation({
+    mutationFn: () => logout(),
+    onSuccess: () => {
+      removeCookie('accessToken');
+      removeCookie('refreshToken');
+
+      router.push('/login');
+    },
+  });
 };
