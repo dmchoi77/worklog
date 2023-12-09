@@ -63,7 +63,7 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
             }}
           >
             <div css={{ padding: '10px 0' }}>
-              {typeof mainText === 'object' ? (
+              {Array.isArray(mainText) ? (
                 <div>
                   {mainText?.map((text) => (
                     <ul key={text}>{text}</ul>
