@@ -6,7 +6,7 @@ interface IProps {
   children: JSX.Element | JSX.Element[];
 }
 
-const MasterLayout: React.FC<IProps> = ({ children }) => {
+const MasterLayout = ({ children }: IProps) => {
   return (
     <MasterLayoutContainer>
       <div
