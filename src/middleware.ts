@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './constants/cookie';
+import { removeCookie } from './utils/cookie';
 
 export async function middleware(request: NextRequest) {
   const accessToken = request.cookies.get(ACCESS_TOKEN)?.value;

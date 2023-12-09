@@ -21,6 +21,8 @@ const injectToken = (
 ): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> => {
   const accessToken = getCookie(ACCESS_TOKEN);
   if (!!accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+  else config.headers.Authorization = null;
+
   return config;
 };
 
