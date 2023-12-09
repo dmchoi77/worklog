@@ -55,12 +55,16 @@ const SignIn = () => {
             cancelText: '',
             handleConfirm: () => router.push('/login'),
           }),
-        onError: (error: any) =>
+        onError: (error: any) => {
+          console.log('🚀 ~ file: index.tsx:59 ~ SignIn ~ error:', error);
+          const errorMessages = error?.response?.data?.message.join('\n');
+
           updateDialogState({
             open: true,
-            mainText: error?.response?.data.message,
+            mainText: `${errorMessages}` ?? 'error',
             cancelText: '',
-          }),
+          });
+        },
       },
     );
   };
