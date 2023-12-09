@@ -4,7 +4,7 @@ import { devtools } from 'zustand/middleware';
 type State = {
   open: boolean;
   title: string;
-  mainText: string;
+  mainText: string | string[];
   cancelText: string;
   confirmText: string;
   handleConfirm?: () => void;
@@ -13,7 +13,6 @@ type State = {
 type Action = {
   updateDialogState: ({ cancelText, confirmText, mainText, open, title }: Partial<State>) => void;
   handleConfirm?: () => void;
-
 };
 
 export const dialogDefaultState = {

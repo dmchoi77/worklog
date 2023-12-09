@@ -39,44 +39,40 @@ http.interceptors.response.use(
     if (status === 401) {
       const originalRequest = error.config;
       const refreshToken = getCookie(REFRESH_TOKEN);
-      try {
-        const response = await axios.post<ICommonResponse<ILoginResponse>>(
-          '/users/reissue',
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-            },
-            baseURL: process.env.NEXT_PUBLIC_API_URL,
+      const response = await axios.post<ICommonResponse<ILoginResponse>>(
+        '/users/reissue',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
           },
-        );
-        const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data
-          .data as ILoginResponse;
+          baseURL: process.env.NEXT_PUBLIC_API_URL,
+        },
+      );
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data
+        .data as ILoginResponse;
 
-        if (response.status === 200) {
-          setCookie(ACCESS_TOKEN, newAccessToken, {
-            secure: true,
-            path: '/',
-            maxAge: ONE_DAY,
-          });
-          setCookie(REFRESH_TOKEN, newRefreshToken, {
-            secure: true,
-            path: '/',
-            maxAge: TEN_HOURS,
-          });
-          originalRequest.headers = {
-            Authorization: `Bearer ${newAccessToken}`,
-          };
-          http.defaults.headers.common = {
-            Authorization: `Bearer ${newAccessToken}`,
-          };
-          return http(originalRequest);
-        }
-      } catch (error) {
-        console.error(error);
+      if (response.status === 200) {
+        setCookie(ACCESS_TOKEN, newAccessToken, {
+          secure: true,
+          path: '/',
+          maxAge: ONE_DAY,
+        });
+        setCookie(REFRESH_TOKEN, newRefreshToken, {
+          secure: true,
+          path: '/',
+          maxAge: TEN_HOURS,
+        });
+        originalRequest.headers = {
+          Authorization: `Bearer ${newAccessToken}`,
+        };
+        http.defaults.headers.common = {
+          Authorization: `Bearer ${newAccessToken}`,
+        };
+        return http(originalRequest);
       }
-      return error;
     }
+    throw error;
   },
 );
 
