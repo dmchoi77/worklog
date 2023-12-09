@@ -13,7 +13,7 @@ export const login = async ({ username, password }: ILoginRequest) => {
       password,
     },
     {
-      baseURL,
+      baseURL: process.env.NEXT_PUBLIC_API_URL,
     },
   );
 
@@ -30,7 +30,7 @@ export const signIn = ({ username, email, password, passwordCheck }: ISignInRequ
       passwordCheck,
     },
     {
-      baseURL,
+      baseURL: process.env.NEXT_PUBLIC_API_URL,
     },
   );
 };
@@ -40,7 +40,7 @@ export const signIn = ({ username, email, password, passwordCheck }: ISignInRequ
  */
 export const checkDuplicationEmail = ({ email }: { email: string }) => {
   return axios.get('/users/email/check', {
-    baseURL: baseURL,
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     params: {
       email,
     },
@@ -52,7 +52,7 @@ export const checkDuplicationEmail = ({ email }: { email: string }) => {
  */
 export const checkDuplicationUsername = ({ username }: { username: string }) => {
   return axios.get('/users/username/check', {
-    baseURL: baseURL,
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     params: {
       username,
     },
