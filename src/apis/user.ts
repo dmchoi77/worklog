@@ -1,8 +1,6 @@
 import axios from 'axios';
-import { baseURL } from '~/constants/url';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
-import { getCookie } from '~/utils/cookie';
 import http from '~/utils/http';
 
 export const login = async ({ username, password }: ILoginRequest) => {
@@ -22,7 +20,7 @@ export const login = async ({ username, password }: ILoginRequest) => {
 
 export const signIn = ({ username, email, password, passwordCheck }: ISignInRequest) => {
   return axios.post<ISignInRequest, ICommonResponse>(
-    '/users/signIn',
+    '/users',
     {
       username,
       email,
