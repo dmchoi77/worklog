@@ -62,7 +62,17 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
               paddingTop: 0,
             }}
           >
-            <div css={{ padding: '10px 0' }}>{mainText}</div>
+            <div css={{ padding: '10px 0' }}>
+              {typeof mainText === 'object' ? (
+                <div>
+                  {mainText?.map((text) => (
+                    <ul key={text}>{text}</ul>
+                  ))}
+                </div>
+              ) : (
+                mainText
+              )}
+            </div>
             <div
               css={{
                 display: 'flex',
