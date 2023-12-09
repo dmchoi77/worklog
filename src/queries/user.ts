@@ -12,6 +12,7 @@ import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user
 import { useEffect } from 'react';
 import { removeCookie, setCookie } from '~/utils/cookie';
 import { useRouter } from 'next/router';
+import { ACCESS_TOKEN, ONE_DAY, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -25,8 +26,16 @@ export const useLogin = () => {
     onSuccess: (data) => {
       const { accessToken, refreshToken } = data as ILoginResponse;
 
-      setCookie('accessToken', accessToken);
-      setCookie('refreshToken', refreshToken, { path: '/', maxAge: 1000, secure: true });
+      setCookie(ACCESS_TOKEN, accessToken, {
+        secure: true,
+        path: '/',
+        maxAge: ONE_DAY,
+      });
+      setCookie(REFRESH_TOKEN, refreshToken, {
+        secure: true,
+        path: '/',
+        maxAge: TEN_HOURS,
+      });
     },
   });
 };
@@ -61,10 +70,19 @@ export const useRefreshAccessToken = (refreshToken: string) => {
     if (!query.data) return;
     const { refreshToken, accessToken } = query.data;
 
-    removeCookie('refreshToken');
-    removeCookie('accessToken');
-    setCookie('refreshToken', refreshToken);
-    setCookie('accessToken', accessToken);
+    removeCookie(REFRESH_TOKEN);
+    removeCookie(ACCESS_TOKEN);
+
+    setCookie(REFRESH_TOKEN, refreshToken, {
+      secure: true,
+      path: '/',
+      maxAge: TEN_HOURS,
+    });
+    setCookie(ACCESS_TOKEN, accessToken, {
+      secure: true,
+      path: '/',
+      maxAge: ONE_DAY,
+    });
   }, [query]);
 
   return query;
@@ -75,8 +93,8 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: () => logout(),
     onSuccess: () => {
-      removeCookie('accessToken');
-      removeCookie('refreshToken');
+      removeCookie(ACCESS_TOKEN);
+      removeCookie(REFRESH_TOKEN);
 
       router.push('/login');
     },
