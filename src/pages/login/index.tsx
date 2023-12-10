@@ -20,20 +20,18 @@ const loginDescription = {
 
 const Login = () => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<Inputs>();
 
-  const { mutate: handleLogin } = useLogin();
+  const { mutate: handleLogin, status } = useLogin();
   const { open, updateDialogState } = useDialogStore();
+
+  const isLoading = status === 'pending' || status === 'success';
 
   const onSubmit: SubmitHandler<Inputs> = ({ username, password }) => {
     handleLogin(
       { username, password },
       {
-        onSuccess: (data) => {
+        onSuccess: () => {
           router.push('/');
         },
         onError: (error: any) => {
@@ -57,7 +55,12 @@ const Login = () => {
         {/* {errors.id && <span>{loginDescription.error.username}</span>} */}
         <LoginInput type='password' placeholder='비밀번호' {...register('password', { required: true })} />
         {/* {errors.password && <span>{loginDescription.error.password}</span>} */}
-        <LoginButton type='submit' value='로그인' />
+        <LoginButton
+          type='submit'
+          value={isLoading ? '로그인 중' : '로그인'}
+          isLoading={isLoading}
+          disabled={isLoading}
+        />
         <span
           onClick={() => router.push(RoutePath.SignIn)}
           css={{
