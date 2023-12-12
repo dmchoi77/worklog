@@ -2,6 +2,7 @@ import axios from 'axios';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
 import http from '~/utils/http';
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const login = async ({ username, password }: ILoginRequest) => {
   const response = await http.post<ICommonResponse<ILoginResponse>>(
@@ -11,7 +12,7 @@ export const login = async ({ username, password }: ILoginRequest) => {
       password,
     },
     {
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
+      baseURL,
     },
   );
 
@@ -28,7 +29,7 @@ export const signIn = ({ username, email, password, passwordCheck }: ISignInRequ
       passwordCheck,
     },
     {
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
+      baseURL,
     },
   );
 };
@@ -38,7 +39,7 @@ export const signIn = ({ username, email, password, passwordCheck }: ISignInRequ
  */
 export const checkDuplicationEmail = ({ email }: { email: string }) => {
   return axios.get('/users/email/check', {
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL,
     params: {
       email,
     },
@@ -50,7 +51,7 @@ export const checkDuplicationEmail = ({ email }: { email: string }) => {
  */
 export const checkDuplicationUsername = ({ username }: { username: string }) => {
   return axios.get('/users/username/check', {
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL,
     params: {
       username,
     },
@@ -65,7 +66,7 @@ export const refreshAccessToken = async (refreshToken: string) => {
       headers: {
         Authorization: `Bearer ${refreshToken}`,
       },
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
+      baseURL,
     },
   );
 
@@ -77,7 +78,7 @@ export const logout = async () => {
     '/users/logout',
     {},
     {
-      baseURL: process.env.NEXT_PUBLIC_API_URL,
+      baseURL,
     },
   );
 
