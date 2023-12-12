@@ -12,7 +12,7 @@ import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user
 import { useEffect } from 'react';
 import { removeCookie, setCookie } from '~/utils/cookie';
 import { useRouter } from 'next/router';
-import { ACCESS_TOKEN, ONE_DAY, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
+import { ACCESS_TOKEN, ONE_HOUR, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -29,7 +29,7 @@ export const useLogin = () => {
       setCookie(ACCESS_TOKEN, accessToken, {
         secure: true,
         path: '/',
-        maxAge: ONE_DAY,
+        maxAge: ONE_HOUR,
       });
       setCookie(REFRESH_TOKEN, refreshToken, {
         secure: true,
@@ -81,7 +81,7 @@ export const useRefreshAccessToken = (refreshToken: string) => {
     setCookie(ACCESS_TOKEN, accessToken, {
       secure: true,
       path: '/',
-      maxAge: ONE_DAY,
+      maxAge: ONE_HOUR,
     });
   }, [query]);
 

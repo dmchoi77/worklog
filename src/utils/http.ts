@@ -1,6 +1,6 @@
 import { getCookie, setCookie } from '~/utils/cookie';
 import axios, { InternalAxiosRequestConfig } from 'axios';
-import { ACCESS_TOKEN, ONE_DAY, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
+import { ACCESS_TOKEN, ONE_HOUR, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
 
@@ -58,7 +58,7 @@ http.interceptors.response.use(
         setCookie(ACCESS_TOKEN, newAccessToken, {
           secure: true,
           path: '/',
-          maxAge: ONE_DAY,
+          maxAge: ONE_HOUR,
         });
         setCookie(REFRESH_TOKEN, newRefreshToken, {
           secure: true,
