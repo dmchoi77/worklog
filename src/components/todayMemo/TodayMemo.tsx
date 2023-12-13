@@ -3,16 +3,27 @@ import { useCallback, useState } from 'react';
 import MemoList from '../list/MemoList';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { IData, exampleMemos } from '~/example-data';
+import useInput from '~/hooks/useInput';
+import { useAddMemo } from '~/queries/memo';
+import dayjs from 'dayjs';
 
-const TodayMemo = () => {
-  const [input, setInput] = useState('');
+interface IProps {
+  targetDate: string;
+}
+const TodayMemo = ({ targetDate }: IProps) => {
   const [data, setData] = useState<IData>(exampleMemos);
 
-  const handleInput = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => setInput(value);
+  const { input, handleInput, reset } = useInput();
+  const { mutate } = useAddMemo();
 
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {};
+  const handleAddMemo = () => {
+    mutate(
+      { content: input, date: targetDate },
+      {
+        onSuccess: () => reset(),
+      },
+    );
+  };
 
   const onDragEnd = useCallback(
     (result: DropResult) => {
@@ -20,8 +31,7 @@ const TodayMemo = () => {
       // 리스트 밖으로 drop되면 destination이 null
       if (!destination) return;
       // 출발지와 목적지가 같으면 할게 없다
-      if (destination.droppableId === source.droppableId && destination.index === source.index)
-        return;
+      if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
       // 출발지의 column 얻기
       const column = data.columns[source.droppableId];
@@ -102,6 +112,7 @@ const TodayMemo = () => {
               },
             }}
             variant='contained'
+            onClick={handleAddMemo}
           >
             저장하기
           </Button>

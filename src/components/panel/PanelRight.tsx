@@ -2,19 +2,9 @@ import dayjs from 'dayjs';
 import TodayMemo from '../todayMemo/TodayMemo';
 import TodayWork from '../todayWork/TodayWork';
 import Button from '../button/Button';
-import { useState } from 'react';
-import { usePathname } from 'next/navigation';
 import Header from '../header/Header';
 
-const today = dayjs().format('YYYY년 MM월 DD일');
-
-const PanelRight = ({ slug }: { slug?: string }) => {
-  const targetYear = slug?.[0];
-  const targetMonth = slug?.[1];
-  const targetDay = slug?.[2];
-
-  const pathname = usePathname();
-
+const PanelRight = ({ targetDate }: { targetDate: string }) => {
   return (
     <div
       css={{
@@ -43,9 +33,9 @@ const PanelRight = ({ slug }: { slug?: string }) => {
             padding: 20,
           }}
         >
-          {pathname === '/today'
-            ? today
-            : `${targetYear}년 ${targetMonth}월 ${targetDay}일의 워크 로그`}
+          {`${dayjs(targetDate).get('year')}년 ${dayjs(targetDate).get('month') + 1}월 ${dayjs(
+            targetDate,
+          ).get('date')}일의 워크로그`}
         </div>
       </div>
 
@@ -72,7 +62,7 @@ const PanelRight = ({ slug }: { slug?: string }) => {
             height: '100%',
           }}
         >
-          <TodayMemo />
+          <TodayMemo targetDate={targetDate} />
         </div>
       </div>
     </div>
