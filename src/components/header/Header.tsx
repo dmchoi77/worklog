@@ -1,5 +1,6 @@
-import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+
+import styled from '@emotion/styled';
 
 import { useLogout } from '~/queries/user';
 

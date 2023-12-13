@@ -1,10 +1,10 @@
 import { Divider, List, ListSubheader } from '@mui/material';
 
-import { ICommonAPIResponse, IMenuListResponse } from '~/types/api.types';
-
 import data from '../../../app.json';
 import SearchInput from '../input/SearchInput';
 import NestedList from '../list/NestedList';
+
+import { ICommonAPIResponse, IMenuListResponse } from '~/types/api.types';
 
 const PanelLeft = () => {
   const result: ICommonAPIResponse<IMenuListResponse[]> = data;

@@ -1,9 +1,10 @@
+import { useRouter } from 'next/router';
+
 import { useEffect } from 'react';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { useRouter } from 'next/router';
 
 import {
   checkDuplicationEmail,

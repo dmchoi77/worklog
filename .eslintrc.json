@@ -27,12 +27,12 @@
           "builtin",
           "external",
           "internal",
-          "unknown",
-          ["parent", "sibling", "index"],
-          "type"
+          ["sibling", "parent", "index"],
+          "type",
+          "unknown"
         ],
         "pathGroups": [
-          { "pattern": "next", "group": "builtin", "position": "before" },
+          { "pattern": "next/*", "group": "builtin", "position": "before" },
           { "pattern": "react", "group": "builtin", "position": "before" },
           { "pattern": "react-dom", "group": "builtin", "position": "before" },
   
@@ -53,7 +53,8 @@
           { "pattern": "~/constants/**", "group": "unknown"},
           { "pattern": "~/assets/**", "group": "unknown"},
           { "pattern": "~/styles/**", "group": "unknown"},
-          { "pattern": "~/src/**", "group": "unknown", "position": "after"}
+          { "pattern": "~/src/**", "group": "unknown", "position": "after"},
+          { "pattern": "~/**", "group": "unknown", "position": "after"}
         ],
         "pathGroupsExcludedImportTypes": ["react", "react-dom"],
         "newlines-between": "always",

@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import React, { useState } from 'react';
 
 import { List, ListItemButton, ListItemText, Collapse, ListItemIcon, Divider } from '@mui/material';
@@ -5,7 +7,6 @@ import { List, ListItemButton, ListItemText, Collapse, ListItemIcon, Divider } f
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import ArticleIcon from '@mui/icons-material/Article';
 import FolderIcon from '@mui/icons-material/Folder';
-import { useRouter } from 'next/router';
 
 import { IMenuListResponse } from '~/types/api.types';
 

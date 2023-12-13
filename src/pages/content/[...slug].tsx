@@ -1,8 +1,8 @@
-import { GetServerSideProps } from 'next';
-
 import { ParsedUrlQuery } from 'querystring';
 
 import dayjs from 'dayjs';
+
+import { GetServerSideProps } from 'next';
 
 import PanelRight from '~/components/panel/PanelRight';
 
