@@ -3,18 +3,18 @@ import type { NextRequest } from 'next/server';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './constants/cookie';
 
 export async function middleware(request: NextRequest) {
-  const accessToken = request.cookies.get(ACCESS_TOKEN)?.value;
+  // const accessToken = request.cookies.get(ACCESS_TOKEN)?.value;
   const refreshToken = request.cookies.get(REFRESH_TOKEN)?.value;
 
   if (request.nextUrl.pathname === '/login' && refreshToken) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/today', request.url));
   }
 
-  if (request.nextUrl.pathname === '/' && !refreshToken && !accessToken) {
+  if (request.nextUrl.pathname === '/' && !refreshToken) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  if (request.nextUrl.pathname !== '/login' && !accessToken) {
+  if (request.nextUrl.pathname !== '/login' && !refreshToken) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 }
