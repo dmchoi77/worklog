@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
-import TodayMemo from '../todayMemo/TodayMemo';
-import TodayWork from '../todayWork/TodayWork';
+
 import Button from '../button/Button';
 import Header from '../header/Header';
+import TodayMemo from '../todayMemo/TodayMemo';
+import TodayWork from '../todayWork/TodayWork';
 
 const PanelRight = ({ targetDate }: { targetDate: string }) => {
   return (
@@ -33,9 +34,9 @@ const PanelRight = ({ targetDate }: { targetDate: string }) => {
             padding: 20,
           }}
         >
-          {`${dayjs(targetDate).get('year')}년 ${dayjs(targetDate).get('month') + 1}월 ${dayjs(
-            targetDate,
-          ).get('date')}일의 워크로그`}
+          {`${dayjs(targetDate).get('year')}년 ${dayjs(targetDate).get('month') + 1}월 ${dayjs(targetDate).get(
+            'date',
+          )}일의 워크로그`}
         </div>
       </div>
 

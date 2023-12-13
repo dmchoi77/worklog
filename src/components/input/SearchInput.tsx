@@ -1,4 +1,5 @@
 import { Paper, IconButton, InputBase } from '@mui/material';
+
 import { Interpolation, Theme } from '@emotion/react';
 
 import SearchIcon from '@mui/icons-material/Search';

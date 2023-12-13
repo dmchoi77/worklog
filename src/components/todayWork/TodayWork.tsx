@@ -1,10 +1,14 @@
-import { Button, Divider, Paper, TextField } from '@mui/material';
-import SplitButton from '../button/SplitButton';
-import WorkList from '../list/WorkList';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useCallback, useState } from 'react';
+
+import { Button, Divider, Paper, TextField } from '@mui/material';
+
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+
 import styled from '@emotion/styled';
 import { IData, exampleTasks } from '~/example-data';
+
+import SplitButton from '../button/SplitButton';
+import WorkList from '../list/WorkList';
 
 const Container = styled.div`
   padding-top: 15;
@@ -18,8 +22,7 @@ const TodayWork = () => {
       // 리스트 밖으로 drop되면 destination이 null
       if (!destination) return;
       // 출발지와 목적지가 같으면 할게 없다
-      if (destination.droppableId === source.droppableId && destination.index === source.index)
-        return;
+      if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
       // 출발지의 column 얻기
       const column = data.columns[source.droppableId];

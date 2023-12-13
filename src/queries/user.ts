@@ -1,5 +1,10 @@
-import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { useEffect } from 'react';
+
 import { useMutation, useQuery } from '@tanstack/react-query';
+
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { useRouter } from 'next/router';
+
 import {
   checkDuplicationEmail,
   checkDuplicationUsername,
@@ -8,11 +13,9 @@ import {
   refreshAccessToken,
   signIn,
 } from '~/apis/user';
-import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
-import { useEffect } from 'react';
-import { removeCookie, setCookie } from '~/utils/cookie';
-import { useRouter } from 'next/router';
 import { ACCESS_TOKEN, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
+import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
+import { removeCookie, setCookie } from '~/utils/cookie';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],

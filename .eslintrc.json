@@ -1,5 +1,11 @@
 {
-  "extends": "next/core-web-vitals",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "import", "prettier"],
+    "extends": [
+      "next/core-web-vitals",
+      "plugin:prettier/recommended",
+      "plugin:import/recommended"
+  ],
   "rules": {
     "linebreak-style": 0,
     "import/no-dynamic-require": 0,
@@ -13,6 +19,58 @@
     "react/jsx-filename-extension": [
       1,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "unknown",
+          ["parent", "sibling", "index"],
+          "type"
+        ],
+        "pathGroups": [
+          { "pattern": "next", "group": "builtin", "position": "before" },
+          { "pattern": "react", "group": "builtin", "position": "before" },
+          { "pattern": "react-dom", "group": "builtin", "position": "before" },
+  
+          { "pattern": "@tanstack/react-query", "group": "external","position": "before" },
+          { "pattern": "dayjs", "group": "external","position": "before" },
+          { "pattern": "@mui/material", "group": "external" ,"position": "before"},
+          { "pattern": "@emotion/react", "group": "external" ,"position": "before"},
+          { "pattern": "react-beautiful-dnd", "group": "external" ,"position": "before"},
+  
+          { "pattern": "~/pages/**", "group": "unknown"},
+          { "pattern": "~/hooks/**", "group": "unknown"},
+          { "pattern": "~/queries/**", "group": "unknown"},
+          { "pattern": "~/components/**", "group": "unknown"},
+          { "pattern": "~/stores/**", "group": "unknown"},
+          { "pattern": "~/apis/**", "group": "unknown"},
+          { "pattern": "~/utils/**", "group": "unknown"},
+          { "pattern": "~/types/**", "group": "unknown"},
+          { "pattern": "~/constants/**", "group": "unknown"},
+          { "pattern": "~/assets/**", "group": "unknown"},
+          { "pattern": "~/styles/**", "group": "unknown"},
+          { "pattern": "~/src/**", "group": "unknown", "position": "after"}
+        ],
+        "pathGroupsExcludedImportTypes": ["react", "react-dom"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
     ]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx", ".js"]
+    },
+    "import/resolver": {
+      "typescript": "./tsconfig.json"
+    }
   }
+
 }

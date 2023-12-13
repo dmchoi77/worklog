@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import PanelLeft from '../panel/PanelLeft';
+
 import Header from '../header/Header';
+import PanelLeft from '../panel/PanelLeft';
 
 interface IProps {
   children: JSX.Element | JSX.Element[];

@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+
 import { useLogout } from '~/queries/user';
 
 const HeaderContainer = styled.header`

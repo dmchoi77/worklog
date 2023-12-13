@@ -1,14 +1,16 @@
 import '~/styles/globals.css';
 
-import type { AppProps } from 'next/app';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { usePathname } from 'next/navigation';
+import { GlobalPortal } from '~/GlobalPortal';
 
 import MasterLayout from '~/components/layout/MasterLayout';
-import { GlobalPortal } from '~/GlobalPortal';
-import { usePathname } from 'next/navigation';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { RoutePath } from '~/constants/route';
 import NonAuthLayout from '~/components/layout/NonAuthLayout';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { RoutePath } from '~/constants/route';
+
+import type { AppProps } from 'next/app';
 
 const queryClient = new QueryClient({
   defaultOptions: {},

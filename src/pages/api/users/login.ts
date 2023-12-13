@@ -1,5 +1,7 @@
-import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
+
+import axios from 'axios';
+
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
 import http from '~/utils/http';

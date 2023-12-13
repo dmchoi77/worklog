@@ -1,7 +1,9 @@
 import axios from 'axios';
+
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
 import http from '~/utils/http';
+
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const login = async ({ username, password }: ILoginRequest) => {

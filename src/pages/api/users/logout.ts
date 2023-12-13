@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+
 import { ICommonResponse } from '~/types/apis/common.types';
 import http from '~/utils/http';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;

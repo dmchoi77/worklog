@@ -1,7 +1,10 @@
-import { Draggable } from 'react-beautiful-dnd';
-import SplitButton from '../button/SplitButton';
 import { Checkbox } from '@mui/material';
+
+import { Draggable } from 'react-beautiful-dnd';
+
 import styled from '@emotion/styled';
+
+import SplitButton from '../button/SplitButton';
 
 interface IContainer {
   isDragging: boolean;
@@ -17,7 +20,9 @@ const Container = styled.div<IContainer>`
   padding: 8px;
   margin-bottom: 8px;
   background-color: ${(props) => (props.isDragging ? 'lightblue' : '#ffffff')};
-  box-shadow: 0px 2px 7px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+  box-shadow:
+    0px 2px 7px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
 

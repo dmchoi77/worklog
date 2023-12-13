@@ -1,5 +1,7 @@
-import { Interpolation, Theme } from '@emotion/react';
 import { ChangeEventHandler } from 'react';
+
+import { Interpolation, Theme } from '@emotion/react';
+
 import style from 'styled-jsx/style';
 
 interface IProps {
@@ -31,9 +33,7 @@ const SelectBox: React.FC<IProps> = ({ options, style, onChange, placeholder }) 
       ]}
     >
       <option hidden>{placeholder}</option>
-      {options?.map((option) => (
-        <option key={option.code}>{option.label}</option>
-      ))}
+      {options?.map((option) => <option key={option.code}>{option.label}</option>)}
     </select>
   );
 };

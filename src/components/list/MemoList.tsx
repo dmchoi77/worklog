@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+
 import { Droppable } from 'react-beautiful-dnd';
+
 import { List } from './CommonList';
 import Memo from '../memo/Memo';
 
@@ -28,22 +30,15 @@ export default function MemoList({ column, tasks }: IMemoListProps) {
   }
 
   return (
-
-      <Droppable droppableId={column?.id}>
-        {(provided, snapshot) => {
-          return (
-            <List
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              isDraggingOver={snapshot.isDraggingOver}
-            >
-              {tasks?.map((task, idx) => (
-                <Memo key={task.id} task={task} index={idx} />
-              ))}
-              {provided.placeholder}
-            </List>
-          );
-        }}
-      </Droppable>
+    <Droppable droppableId={column?.id}>
+      {(provided, snapshot) => {
+        return (
+          <List {...provided.droppableProps} ref={provided.innerRef} isDraggingOver={snapshot.isDraggingOver}>
+            {tasks?.map((task, idx) => <Memo key={task.id} task={task} index={idx} />)}
+            {provided.placeholder}
+          </List>
+        );
+      }}
+    </Droppable>
   );
 }

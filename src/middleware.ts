@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
+
+import { REFRESH_TOKEN } from '~/constants/cookie';
+
 import type { NextRequest } from 'next/server';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from './constants/cookie';
 
 export async function middleware(request: NextRequest) {
   // const accessToken = request.cookies.get(ACCESS_TOKEN)?.value;

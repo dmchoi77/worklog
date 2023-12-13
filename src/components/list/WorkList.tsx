@@ -1,8 +1,11 @@
-import { Droppable } from 'react-beautiful-dnd';
-import styled from '@emotion/styled';
-import Work from '../work/Work';
 import { useEffect, useState } from 'react';
+
+import { Droppable } from 'react-beautiful-dnd';
+
+import styled from '@emotion/styled';
+
 import { List } from './CommonList';
+import Work from '../work/Work';
 
 interface IWorkListProps {
   column: { id: string; title: string; taskIds: string[] };
@@ -30,14 +33,8 @@ export default function WorkList({ column, tasks }: IWorkListProps) {
     <Droppable droppableId={column?.id}>
       {(provided, snapshot) => {
         return (
-          <List
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            isDraggingOver={snapshot.isDraggingOver}
-          >
-            {tasks?.map((task, idx) => (
-              <Work key={task.id} task={task} index={idx} />
-            ))}
+          <List {...provided.droppableProps} ref={provided.innerRef} isDraggingOver={snapshot.isDraggingOver}>
+            {tasks?.map((task, idx) => <Work key={task.id} task={task} index={idx} />)}
             {provided.placeholder}
           </List>
         );

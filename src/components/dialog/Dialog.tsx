@@ -1,11 +1,13 @@
 import { forwardRef } from 'react';
-import Button from '../button/Button';
+
 import { GlobalPortal } from '~/GlobalPortal';
+
 import { useDialogStore } from '~/stores/useDialogStore';
 
+import Button from '../button/Button';
+
 const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
-  const { cancelText, confirmText, mainText, open, title, updateDialogState, handleConfirm } =
-    useDialogStore();
+  const { cancelText, confirmText, mainText, open, title, updateDialogState, handleConfirm } = useDialogStore();
 
   return (
     <GlobalPortal.Consumer>
@@ -63,15 +65,7 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
             }}
           >
             <div css={{ padding: '10px 0' }}>
-              {Array.isArray(mainText) ? (
-                <div>
-                  {mainText?.map((text) => (
-                    <ul key={text}>{text}</ul>
-                  ))}
-                </div>
-              ) : (
-                mainText
-              )}
+              {Array.isArray(mainText) ? <div>{mainText?.map((text) => <ul key={text}>{text}</ul>)}</div> : mainText}
             </div>
             <div
               css={{

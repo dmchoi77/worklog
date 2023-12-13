@@ -1,5 +1,3 @@
-import { Interpolation, Theme } from '@emotion/react';
-
 interface IProps {
   text: string;
   color?: string;

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import Dialog from '~/components/dialog/Dialog';
 import useDebounce from '~/hooks/useDebounce';
 import { useCheckDuplicationEmail, useSignIn } from '~/queries/user';
@@ -80,11 +81,7 @@ const SignIn = () => {
         />
         {isDuplicated && <span css={{ fontSize: 12, color: 'red' }}>이미 가입된 이메일 주소입니다.</span>}
         <SignInInput type='password' placeholder='비밀번호' {...register('password', { required: true })} />
-        <SignInInput
-          type='password'
-          placeholder='비밀번호 확인'
-          {...register('passwordCheck', { required: true })}
-        />
+        <SignInInput type='password' placeholder='비밀번호 확인' {...register('passwordCheck', { required: true })} />
         <SignInButton type='submit' value='회원가입' />
       </SignInForm>
       {open && <Dialog />}

@@ -1,8 +1,9 @@
-import { getCookie, setCookie } from '~/utils/cookie';
 import axios, { InternalAxiosRequestConfig } from 'axios';
+
 import { ACCESS_TOKEN, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
+import { getCookie, setCookie } from '~/utils/cookie';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -51,8 +52,7 @@ http.interceptors.response.use(
           baseURL: process.env.NEXT_PUBLIC_API_URL,
         },
       );
-      const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data
-        .data as ILoginResponse;
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data as ILoginResponse;
 
       if (response.status === 200) {
         setCookie(ACCESS_TOKEN, newAccessToken, {
