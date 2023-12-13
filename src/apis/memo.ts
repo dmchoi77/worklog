@@ -17,24 +17,18 @@ export const addMemo = ({ content, date }: IAddMemoRequest) => {
   );
 };
 
-export const updateMemo = ({ content, date, id }: IUpdateMemoRequest) => {
+export const updateMemo = ({ content, id }: IUpdateMemoRequest) => {
   return http.put<IUpdateMemoRequest, ICommonResponse>(
     `/memos/${id}`,
-    { content, date, id },
+    { content, id },
     {
       baseURL,
     },
   );
 };
 
-export const deleteMemo = ({ content, date, id, username }: IDeleteMemoRequest) => {
+export const deleteMemo = ({ id }: IDeleteMemoRequest) => {
   return http.delete<IDeleteMemoRequest, ICommonResponse>(`/memos/${id}`, {
-    data: {
-      content,
-      date,
-      id,
-      username,
-    },
     baseURL,
   });
 };

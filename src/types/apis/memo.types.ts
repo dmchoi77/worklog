@@ -5,13 +5,9 @@ export interface IAddMemoRequest {
 
 export interface IDeleteMemoRequest {
   id: number;
-  content: string;
-  date: string;
-  username: string;
 }
 
 export interface IUpdateMemoRequest {
   id: number;
   content: string;
-  date: string;
 }
