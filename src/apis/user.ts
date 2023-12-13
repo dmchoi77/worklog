@@ -37,25 +37,28 @@ export const signIn = ({ username, email, password, passwordCheck }: ISignInRequ
 /**
  * 이메일 중복확인
  */
-export const checkDuplicationEmail = ({ email }: { email: string }) => {
-  return axios.get('/users/email/check', {
+export const checkDuplicationEmail = async ({ email }: { email: string }) => {
+  const response = await axios.get('/users/email/check', {
     baseURL,
     params: {
       email,
     },
   });
+
+  return response.data.data;
 };
 
 /**
  * 아이디 중복확인
  */
-export const checkDuplicationUsername = ({ username }: { username: string }) => {
-  return axios.get('/users/username/check', {
+export const checkDuplicationUsername = async ({ username }: { username: string }) => {
+  const response = await axios.get('/users/username/check', {
     baseURL,
     params: {
       username,
     },
   });
+  return response.data.data;
 };
 
 export const refreshAccessToken = async (refreshToken: string) => {

@@ -19,7 +19,7 @@ const LoginInput = styled.input({
 
 const LoginForm = styled.form({
   display: 'flex',
-  gap: '1.5rem',
+  gap: '0.5rem',
   width: '100%',
   flexDirection: 'column',
 });

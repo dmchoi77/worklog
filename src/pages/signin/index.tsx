@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Dialog from '~/components/dialog/Dialog';
-import { useSignIn } from '~/queries/user';
+import useDebounce from '~/hooks/useDebounce';
+import { useCheckDuplicationEmail, useSignIn } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';
 import {
   LoginContainer as SignInContainer,
@@ -20,16 +21,14 @@ type Inputs = {
 const SignIn = () => {
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<Inputs>();
 
   const { open, updateDialogState } = useDialogStore();
 
   const { mutate: handleSignIn } = useSignIn();
+  const { mutate: checkDuplicationEmail, data: isDuplicated } = useCheckDuplicationEmail();
+
+  const onChangeEmail = useDebounce(checkDuplicationEmail, 400);
 
   const onSubmit: SubmitHandler<Inputs> = ({ username, email, password, passwordCheck }) => {
     if (password !== passwordCheck) {
@@ -73,7 +72,13 @@ const SignIn = () => {
       <SignInForm onSubmit={handleSubmit(onSubmit)}>
         <SignInInput type='text' placeholder='이름' {...register('username', { required: true })} />
         {/* 테스트용으로 input type text로 해놨음 나중에 email로 변경 필요 */}
-        <SignInInput type='text' placeholder='이메일' {...register('email', { required: true })} />
+        <SignInInput
+          type='text'
+          placeholder='이메일'
+          {...register('email', { required: true })}
+          onChange={(e) => onChangeEmail(e.target.value)}
+        />
+        {isDuplicated && <span css={{ fontSize: 12, color: 'red' }}>이미 가입된 이메일 주소입니다.</span>}
         <SignInInput type='password' placeholder='비밀번호' {...register('password', { required: true })} />
         <SignInInput
           type='password'

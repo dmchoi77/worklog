@@ -46,10 +46,9 @@ export const useSignIn = () => {
   });
 };
 
-export const useCheckDuplicationEmail = (email: string) =>
-  useQuery({
-    queryKey: userQueryKeys.checkDuplicationEmail.queryKey,
-    queryFn: () => checkDuplicationEmail({ email }),
+export const useCheckDuplicationEmail = () =>
+  useMutation({
+    mutationFn: (email: string) => checkDuplicationEmail({ email }),
   });
 
 export const useCheckDuplicationUsername = (username: string) =>
