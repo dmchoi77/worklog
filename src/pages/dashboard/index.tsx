@@ -12,7 +12,7 @@ const DashBoard = () => {
         height: 'calc(100vh - 50px)',
       }}
     >
-      <PanelRight />
+      {/* <PanelRight /> */}
     </div>
   );
 };

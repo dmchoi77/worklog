@@ -32,7 +32,7 @@ const Login = () => {
       { username, password },
       {
         onSuccess: () => {
-          router.push('/');
+          router.push('/today');
         },
         onError: (error: any) => {
           updateDialogState({
