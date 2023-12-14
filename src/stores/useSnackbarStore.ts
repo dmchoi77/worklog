@@ -1,7 +1,6 @@
 import { SnackbarOrigin } from '@mui/material';
 
 import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
 
 interface State extends SnackbarOrigin {
   open: boolean;
@@ -20,10 +19,8 @@ export const snackbarDefaultState: State = {
   message: '',
 };
 
-export const useSnackbarStore = create<State & Action>()(
-  devtools((set) => ({
-    ...snackbarDefaultState,
-    updateSnackbarState: (props) => set(() => ({ ...snackbarDefaultState, ...props })),
-    reset: () => set(() => ({ ...snackbarDefaultState })),
-  })),
-);
+export const useSnackbarStore = create<State & Action>()((set) => ({
+  ...snackbarDefaultState,
+  updateSnackbarState: (props) => set(() => ({ ...snackbarDefaultState, ...props })),
+  reset: () => set(() => ({ ...snackbarDefaultState })),
+}));

@@ -54,6 +54,14 @@ const Memo = ({ index, task }: IMemoProps) => {
       updateMemo(
         { content: e.target.innerHTML, id: Number(task.id) },
         {
+          onSuccess: () => {
+            updateSnackbarState({
+              open: true,
+              horizontal: 'center',
+              message: '저장하였습니다.',
+              vertical: 'bottom',
+            });
+          },
           onError: (error) =>
             updateSnackbarState({
               open: true,

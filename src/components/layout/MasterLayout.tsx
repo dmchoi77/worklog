@@ -38,7 +38,8 @@ const MasterLayout = ({ children }: IProps) => {
         onClose={() => reset()}
         message={message}
         key={vertical + horizontal}
-        autoHideDuration={2500}
+        autoHideDuration={2000}
+        transitionDuration={1000}
       />
     </MasterLayoutContainer>
   );
