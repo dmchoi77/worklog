@@ -1,13 +1,20 @@
+import { useState } from 'react';
+
+import { Snackbar } from '@mui/material';
+
 import styled from '@emotion/styled';
 
 import Header from '../header/Header';
 import PanelLeft from '../panel/PanelLeft';
+
+import { useSnackbarStore } from '~/stores/useSnackbarStore';
 
 interface IProps {
   children: JSX.Element | JSX.Element[];
 }
 
 const MasterLayout = ({ children }: IProps) => {
+  const { horizontal, message, open, vertical, reset } = useSnackbarStore();
   return (
     <MasterLayoutContainer>
       <div
@@ -25,6 +32,14 @@ const MasterLayout = ({ children }: IProps) => {
           {children}
         </PanelRightContainer>
       </div>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={() => reset()}
+        message={message}
+        key={vertical + horizontal}
+        autoHideDuration={2500}
+      />
     </MasterLayoutContainer>
   );
 };

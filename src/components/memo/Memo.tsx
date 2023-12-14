@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, Snackbar } from '@mui/material';
 
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -10,6 +10,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 
 import useDebounce from '~/hooks/useDebounce';
 import { useDeleteMemo, useUpdateMemo } from '~/queries/memo';
+import { useSnackbarStore } from '~/stores/useSnackbarStore';
 
 interface IContainer {
   isDragging: boolean;
@@ -48,7 +49,23 @@ const Memo = ({ index, task }: IMemoProps) => {
   const { mutate: updateMemo } = useUpdateMemo();
   const { mutate: deleteMemo } = useDeleteMemo();
 
-  const debounceUpdateMemo = useDebounce((e) => updateMemo({ content: e.target.innerHTML, id: Number(task.id) }), 300);
+  const debounceUpdateMemo = useDebounce(
+    (e) =>
+      updateMemo(
+        { content: e.target.innerHTML, id: Number(task.id) },
+        {
+          onError: (error) =>
+            updateSnackbarState({
+              open: true,
+              horizontal: 'center',
+              message: error.message,
+              vertical: 'bottom',
+            }),
+        },
+      ),
+    300,
+  );
+  const { updateSnackbarState } = useSnackbarStore();
 
   return (
     <Draggable draggableId={task.id} index={index}>
