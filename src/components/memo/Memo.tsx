@@ -91,6 +91,9 @@ const Memo = ({ index, task }: IMemoProps) => {
             onClick={() => setEditable(true)}
             onBlur={() => setEditable(false)}
             onInput={debounceUpdateMemo}
+            onKeyDown={(e) => {
+              if (e.code === 'Enter') setEditable(false);
+            }}
           >
             {task.content}
           </Box>
