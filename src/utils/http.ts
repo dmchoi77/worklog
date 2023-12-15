@@ -35,13 +35,14 @@ http.interceptors.response.use(
   },
   async (error) => {
     const {
-      config,
-      response: { status, data, headers, request },
+      response: { status },
     } = error;
 
     if (status === 401) {
       const originalRequest = error.config;
       const refreshToken = getCookie(REFRESH_TOKEN);
+      const accessToken = getCookie(ACCESS_TOKEN);
+      if (accessToken && !refreshToken) return (location.href = 'login');
       const response = await axios.post<ICommonResponse<ILoginResponse>>(
         '/users/reissue',
         {},
