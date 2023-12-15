@@ -62,7 +62,7 @@ const Memo = ({ index, task }: IMemoProps) => {
               vertical: 'bottom',
             });
           },
-          onError: (error) =>
+          onError: (error: any) =>
             updateSnackbarState({
               open: true,
               horizontal: 'center',
@@ -106,7 +106,21 @@ const Memo = ({ index, task }: IMemoProps) => {
               <Divider css={{ width: 1, background: 'rgba(15, 15, 15, 0.1)' }} />
               <DeleteIcon
                 css={{ borderRadius: 6, background: '#ffffff' }}
-                onClick={() => deleteMemo({ id: Number(task.id) })}
+                onClick={() =>
+                  deleteMemo(
+                    { id: Number(task.id) },
+                    {
+                      onError: (error: any) => {
+                        updateSnackbarState({
+                          open: true,
+                          horizontal: 'center',
+                          message: error.message,
+                          vertical: 'bottom',
+                        });
+                      },
+                    },
+                  )
+                }
               />
             </Box>
           )}

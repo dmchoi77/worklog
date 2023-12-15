@@ -43,7 +43,7 @@ const Login = () => {
         onError: (error: any) => {
           updateDialogState({
             open: true,
-            mainText: error?.response?.data.message,
+            mainText: error?.message,
             cancelText: '',
           });
         },

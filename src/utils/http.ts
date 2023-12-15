@@ -74,7 +74,7 @@ http.interceptors.response.use(
         return http(originalRequest);
       }
     }
-    throw error;
+    throw error.response.data;
   },
 );
 
