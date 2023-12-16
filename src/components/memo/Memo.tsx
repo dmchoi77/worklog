@@ -45,7 +45,6 @@ interface IMemoProps {
 
 const Memo = ({ index, task }: IMemoProps) => {
   const [visibleBtn, setVisibleBtn] = useState(false);
-  const [editable, setEditable] = useState(false);
   const { mutate: updateMemo } = useUpdateMemo();
   const { mutate: deleteMemo } = useDeleteMemo();
 
@@ -118,22 +117,21 @@ const Memo = ({ index, task }: IMemoProps) => {
                 css={{ borderRadius: 6, background: '#ffffff' }}
                 onClick={() => {
                   contentRef?.current?.focus();
-                  setEditable(true);
                 }}
-                onBlur={() => setEditable(false)}
               />
               <Divider css={{ width: 1, background: 'rgba(15, 15, 15, 0.1)' }} />
               <DeleteIcon css={{ borderRadius: 6, background: '#ffffff' }} onClick={handleDelete} />
             </Box>
           )}
           <Box
-            contentEditable={editable}
+            contentEditable={true}
             suppressContentEditableWarning
-            onClick={() => setEditable(true)}
-            onBlur={() => setEditable(false)}
             onInput={debounceUpdateMemo}
             onKeyDown={(e) => {
-              if (e.code === 'Enter' || e.code === 'Escape') setEditable(false);
+              if (e.code === 'Enter' || e.code === 'Escape') {
+                const currentElement = e.target as HTMLElement;
+                currentElement.blur();
+              }
             }}
             ref={contentRef}
           >
