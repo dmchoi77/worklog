@@ -65,7 +65,7 @@ const TodayMemo = ({ targetDate }: IProps) => {
 
   return (
     <div>
-      <h2>MEMO</h2>
+      <h3>MEMO</h3>
 
       <Paper
         elevation={1}

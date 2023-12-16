@@ -50,7 +50,7 @@ const TodayWork = () => {
   );
   return (
     <div>
-      <h2>Work</h2>
+      <h3>Work</h3>
       <Paper
         elevation={1}
         css={{

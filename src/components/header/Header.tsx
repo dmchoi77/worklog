@@ -35,7 +35,7 @@ const Header: React.FC = () => {
       <span
         css={{
           fontSize: 14,
-          fontWeight: 700,
+          fontWeight: 400,
           padding: 20,
           cursor: 'pointer',
         }}
