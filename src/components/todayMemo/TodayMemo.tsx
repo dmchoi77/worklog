@@ -10,6 +10,7 @@ import MemoList from '../list/MemoList';
 
 import useInput from '~/hooks/useInput';
 import { useAddMemo } from '~/queries/memo';
+import { useSnackbarStore } from '~/stores/useSnackbarStore';
 
 import { IData, exampleMemos } from '~/example-data';
 
@@ -22,11 +23,29 @@ const TodayMemo = ({ targetDate }: IProps) => {
   const { input, handleInput, reset } = useInput();
   const { mutate } = useAddMemo();
 
+  const { updateSnackbarState } = useSnackbarStore();
+
   const handleAddMemo = () => {
     mutate(
       { content: input, date: targetDate },
       {
-        onSuccess: () => reset(),
+        onSuccess: () => {
+          updateSnackbarState({
+            open: true,
+            horizontal: 'center',
+            message: '저장하였습니다.',
+            vertical: 'bottom',
+          });
+          reset();
+        },
+        onError: (error: any) => {
+          updateSnackbarState({
+            open: true,
+            horizontal: 'center',
+            message: error.message,
+            vertical: 'bottom',
+          });
+        },
       },
     );
   };

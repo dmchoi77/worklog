@@ -93,10 +93,9 @@ export const useLogout = () => {
   const router = useRouter();
   return useMutation({
     mutationFn: () => logout(),
-    onSuccess: () => {
+    onSettled: () => {
       removeCookie(ACCESS_TOKEN);
       removeCookie(REFRESH_TOKEN);
-
       router.push('/login');
     },
   });
