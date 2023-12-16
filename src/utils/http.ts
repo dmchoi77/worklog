@@ -1,5 +1,7 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
+import { getRemainExp } from './decodeJWT';
+
 import { ACCESS_TOKEN, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
@@ -21,6 +23,7 @@ const injectToken = (
   config: InternalAxiosRequestConfig<any>,
 ): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> => {
   const accessToken = getCookie(ACCESS_TOKEN);
+
   if (!!accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
   else config.headers.Authorization = null;
 
@@ -59,11 +62,12 @@ http.interceptors.response.use(
         setCookie(ACCESS_TOKEN, newAccessToken, {
           secure: true,
           path: '/',
+          maxAge: getRemainExp(newAccessToken),
         });
         setCookie(REFRESH_TOKEN, newRefreshToken, {
           secure: true,
           path: '/',
-          maxAge: TEN_HOURS,
+          maxAge: getRemainExp(newRefreshToken),
         });
         originalRequest.headers = {
           Authorization: `Bearer ${newAccessToken}`,

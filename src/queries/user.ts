@@ -17,6 +17,7 @@ import {
 import { ACCESS_TOKEN, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
 import { removeCookie, setCookie } from '~/utils/cookie';
+import { getRemainExp } from '~/utils/decodeJWT';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -33,11 +34,12 @@ export const useLogin = () => {
       setCookie(ACCESS_TOKEN, accessToken, {
         secure: true,
         path: '/',
+        maxAge: getRemainExp(accessToken),
       });
       setCookie(REFRESH_TOKEN, refreshToken, {
         secure: true,
         path: '/',
-        maxAge: TEN_HOURS,
+        maxAge: getRemainExp(refreshToken),
       });
     },
   });
@@ -78,11 +80,12 @@ export const useRefreshAccessToken = (refreshToken: string) => {
     setCookie(REFRESH_TOKEN, refreshToken, {
       secure: true,
       path: '/',
-      maxAge: TEN_HOURS,
+      maxAge: getRemainExp(refreshToken),
     });
     setCookie(ACCESS_TOKEN, accessToken, {
       secure: true,
       path: '/',
+      maxAge: getRemainExp(accessToken),
     });
   }, [query]);
 
