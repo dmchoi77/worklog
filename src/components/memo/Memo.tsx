@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { Box, Divider, Snackbar } from '@mui/material';
 
@@ -49,6 +49,8 @@ const Memo = ({ index, task }: IMemoProps) => {
   const { mutate: updateMemo } = useUpdateMemo();
   const { mutate: deleteMemo } = useDeleteMemo();
 
+  const contentRef = useRef<HTMLElement>(null);
+
   const debounceUpdateMemo = useDebounce(
     (e) =>
       updateMemo(
@@ -75,6 +77,20 @@ const Memo = ({ index, task }: IMemoProps) => {
   );
   const { updateSnackbarState } = useSnackbarStore();
 
+  const handleDelete = () =>
+    deleteMemo(
+      { id: Number(task.id) },
+      {
+        onError: (error: any) => {
+          updateSnackbarState({
+            open: true,
+            horizontal: 'center',
+            message: error.message,
+            vertical: 'bottom',
+          });
+        },
+      },
+    );
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
@@ -98,30 +114,16 @@ const Memo = ({ index, task }: IMemoProps) => {
                 boxShadow: 'rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px',
               }}
             >
-              {/* <EditNoteIcon
+              <EditNoteIcon
                 css={{ borderRadius: 6, background: '#ffffff' }}
-                onClick={() => setEditable(true)}
+                onClick={() => {
+                  contentRef?.current?.focus();
+                  setEditable(true);
+                }}
                 onBlur={() => setEditable(false)}
-              /> */}
-              <Divider css={{ width: 1, background: 'rgba(15, 15, 15, 0.1)' }} />
-              <DeleteIcon
-                css={{ borderRadius: 6, background: '#ffffff' }}
-                onClick={() =>
-                  deleteMemo(
-                    { id: Number(task.id) },
-                    {
-                      onError: (error: any) => {
-                        updateSnackbarState({
-                          open: true,
-                          horizontal: 'center',
-                          message: error.message,
-                          vertical: 'bottom',
-                        });
-                      },
-                    },
-                  )
-                }
               />
+              <Divider css={{ width: 1, background: 'rgba(15, 15, 15, 0.1)' }} />
+              <DeleteIcon css={{ borderRadius: 6, background: '#ffffff' }} onClick={handleDelete} />
             </Box>
           )}
           <Box
@@ -131,8 +133,9 @@ const Memo = ({ index, task }: IMemoProps) => {
             onBlur={() => setEditable(false)}
             onInput={debounceUpdateMemo}
             onKeyDown={(e) => {
-              if (e.code === 'Enter') setEditable(false);
+              if (e.code === 'Enter' || e.code === 'Escape') setEditable(false);
             }}
+            ref={contentRef}
           >
             {task.content}
           </Box>
