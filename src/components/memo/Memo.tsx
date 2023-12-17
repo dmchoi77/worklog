@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import { Box, Divider, Snackbar } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 
 import { Draggable } from 'react-beautiful-dnd';
 

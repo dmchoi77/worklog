@@ -78,7 +78,7 @@ const TodayWork = () => {
             resize: 'none',
             padding: 10,
             borderRadius: 8,
-            border: 'none',
+            border: '1px solid rgb(153 153 153 / 38%)',
           }}
         />
         <div

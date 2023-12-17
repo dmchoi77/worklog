@@ -62,7 +62,7 @@ http.interceptors.response.use(
         setCookie(ACCESS_TOKEN, newAccessToken, {
           secure: true,
           path: '/',
-          maxAge: getRemainExp(newAccessToken),
+          // maxAge: getRemainExp(newAccessToken),
         });
         setCookie(REFRESH_TOKEN, newRefreshToken, {
           secure: true,
