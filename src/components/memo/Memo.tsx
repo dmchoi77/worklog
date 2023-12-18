@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { Box, Divider } from '@mui/material';
 
 import { Draggable } from 'react-beautiful-dnd';
@@ -9,8 +11,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 
 import useDebounce from '~/hooks/useDebounce';
-import { useDeleteMemo, useUpdateMemo } from '~/queries/memo';
+import { memoQueryKeys, useDeleteMemo, useUpdateMemo } from '~/queries/memo';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
+import { IMemo } from '~/types/apis/memo.types';
 
 interface IContainer {
   isDragging: boolean;
@@ -35,15 +38,9 @@ const Container = styled.div<IContainer>`
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
 
-interface IMemoProps {
-  task: {
-    id: string;
-    content: string;
-  };
-  index: number;
-}
+const Memo = ({ content, date, id }: IMemo) => {
+  const queryClient = useQueryClient();
 
-const Memo = ({ index, task }: IMemoProps) => {
   const [visibleBtn, setVisibleBtn] = useState(false);
   const { mutate: updateMemo } = useUpdateMemo();
   const { mutate: deleteMemo } = useDeleteMemo();
@@ -53,7 +50,7 @@ const Memo = ({ index, task }: IMemoProps) => {
   const debounceUpdateMemo = useDebounce(
     (e) =>
       updateMemo(
-        { content: e.target.innerHTML, id: Number(task.id) },
+        { content: e.target.innerHTML, id: Number(id) },
         {
           onSuccess: () => {
             updateSnackbarState({
@@ -62,6 +59,7 @@ const Memo = ({ index, task }: IMemoProps) => {
               message: '저장하였습니다.',
               vertical: 'bottom',
             });
+            queryClient.invalidateQueries(memoQueryKeys.fetchMemos({}));
           },
           onError: (error: any) =>
             updateSnackbarState({
@@ -78,8 +76,9 @@ const Memo = ({ index, task }: IMemoProps) => {
 
   const handleDelete = () =>
     deleteMemo(
-      { id: Number(task.id) },
+      { id: Number(id) },
       {
+        onSuccess: () => queryClient.invalidateQueries(memoQueryKeys.fetchMemos({})),
         onError: (error: any) => {
           updateSnackbarState({
             open: true,
@@ -91,10 +90,10 @@ const Memo = ({ index, task }: IMemoProps) => {
       },
     );
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={String(id)} index={id}>
       {(provided, snapshot) => (
         <Container
-          key={task.id}
+          key={id}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -135,7 +134,7 @@ const Memo = ({ index, task }: IMemoProps) => {
             }}
             ref={contentRef}
           >
-            {task.content}
+            {content}
           </Box>
         </Container>
       )}

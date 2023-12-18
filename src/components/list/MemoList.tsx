@@ -1,44 +1,32 @@
 import { useEffect, useState } from 'react';
 
-import { Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import { List } from './CommonList';
 import Memo from '../memo/Memo';
 
-interface IMemoListProps {
-  column: { id: string; title: string; taskIds: string[] };
-  tasks: {
-    id: string;
-    content: string;
-  }[];
-}
+import { useFetchMemos } from '~/queries/memo';
 
-export default function MemoList({ column, tasks }: IMemoListProps) {
-  const [enabled, setEnabled] = useState(false);
+export default function MemoList() {
+  const { data: memoList } = useFetchMemos({});
 
-  useEffect(() => {
-    const animation = requestAnimationFrame(() => setEnabled(true));
-
-    return () => {
-      cancelAnimationFrame(animation);
-      setEnabled(false);
-    };
-  }, []);
-
-  if (!enabled) {
-    return null;
-  }
+  const onDragEnd = () => {};
 
   return (
-    <Droppable droppableId={column?.id}>
-      {(provided, snapshot) => {
-        return (
-          <List {...provided.droppableProps} ref={provided.innerRef} isDraggingOver={snapshot.isDraggingOver}>
-            {tasks?.map((task, idx) => <Memo key={task.id} task={task} index={idx} />)}
-            {provided.placeholder}
-          </List>
-        );
-      }}
-    </Droppable>
+    <DragDropContext onDragEnd={onDragEnd}>
+      {memoList?.map((memo) => (
+        <Droppable droppableId={'memo'} key={memo.id}>
+          {(provided, snapshot) => (
+            <List
+              // {...provided.droppableProps} ref={provided.innerRef}
+              isDraggingOver={snapshot.isDraggingOver}
+            >
+              <Memo key={memo.id} content={memo.content} id={memo.id} date={memo.date} />
+              {provided.placeholder}
+            </List>
+          )}
+        </Droppable>
+      ))}
+    </DragDropContext>
   );
 }

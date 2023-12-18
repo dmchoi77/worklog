@@ -1,24 +1,22 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import dayjs from 'dayjs';
 
 import { Button, Paper } from '@mui/material';
 
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-
 import MemoList from '../list/MemoList';
 
 import useInput from '~/hooks/useInput';
-import { useAddMemo } from '~/queries/memo';
+import { memoQueryKeys, useAddMemo } from '~/queries/memo';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-
-import { IData, exampleMemos } from '~/example-data';
 
 interface IProps {
   targetDate: string;
 }
 const TodayMemo = ({ targetDate }: IProps) => {
-  const [data, setData] = useState<IData>(exampleMemos);
+  const queryClient = useQueryClient();
 
   const { input, handleInput, reset } = useInput();
   const { mutate } = useAddMemo();
@@ -36,6 +34,8 @@ const TodayMemo = ({ targetDate }: IProps) => {
             message: '저장하였습니다.',
             vertical: 'bottom',
           });
+          queryClient.invalidateQueries(memoQueryKeys.fetchMemos({}));
+
           reset();
         },
         onError: (error: any) => {
@@ -49,38 +49,6 @@ const TodayMemo = ({ targetDate }: IProps) => {
       },
     );
   };
-
-  const onDragEnd = useCallback(
-    (result: DropResult) => {
-      const { destination, source, draggableId } = result;
-      // 리스트 밖으로 drop되면 destination이 null
-      if (!destination) return;
-      // 출발지와 목적지가 같으면 할게 없다
-      if (destination.droppableId === source.droppableId && destination.index === source.index) return;
-
-      // 출발지의 column 얻기
-      const column = data.columns[source.droppableId];
-
-      const newTaskIds = Array.from(column.taskIds);
-      newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
-
-      const newColumn = {
-        ...column,
-        taskIds: newTaskIds,
-      };
-
-      const newData = {
-        ...data,
-        columns: {
-          ...data.columns,
-          [newColumn.id]: newColumn,
-        },
-      };
-      setData(newData);
-    },
-    [data],
-  );
 
   return (
     <div>
@@ -143,13 +111,7 @@ const TodayMemo = ({ targetDate }: IProps) => {
           </Button>
         </div>
       </Paper>
-      <DragDropContext onDragEnd={onDragEnd}>
-        {data.columnOrder.map((columnId) => {
-          const column = data.columns[columnId];
-          const tasks = column?.taskIds.map((taskId) => data.tasks[taskId]);
-          return <MemoList column={column} tasks={tasks} key={column?.id} />;
-        })}
-      </DragDropContext>
+      <MemoList />
     </div>
   );
 };
