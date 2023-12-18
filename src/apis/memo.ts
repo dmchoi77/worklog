@@ -26,7 +26,7 @@ export const addMemo = ({ content, date }: IAddMemoRequest) => {
 };
 
 export const updateMemo = ({ content, id }: IUpdateMemoRequest) => {
-  return http.put<IUpdateMemoRequest, ICommonResponse>(
+  return http.patch<IUpdateMemoRequest, ICommonResponse>(
     `/memos/${id}`,
     { content, id },
     {
