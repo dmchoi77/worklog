@@ -1,5 +1,13 @@
+import { AxiosResponse } from 'axios';
+
 import { ICommonResponse } from '~/types/apis/common.types';
-import { IAddMemoRequest, IDeleteMemoRequest, IUpdateMemoRequest } from '~/types/apis/memo.types';
+import {
+  IAddMemoRequest,
+  IDeleteMemoRequest,
+  IFetchMemosRequest,
+  IMemo,
+  IUpdateMemoRequest,
+} from '~/types/apis/memo.types';
 import http from '~/utils/http';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -31,4 +39,16 @@ export const deleteMemo = ({ id }: IDeleteMemoRequest) => {
   return http.delete<IDeleteMemoRequest, ICommonResponse>(`/memos/${id}`, {
     baseURL,
   });
+};
+
+export const fetchMemos = async ({ startDate, endDate }: IFetchMemosRequest) => {
+  const response = await http.get<IFetchMemosRequest, AxiosResponse<ICommonResponse<{ content: IMemo[] }>>>('/memos', {
+    baseURL,
+    params: {
+      startDate,
+      endDate,
+    },
+  });
+
+  return response?.data?.data?.content;
 };
