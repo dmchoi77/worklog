@@ -38,7 +38,7 @@ const Container = styled.div<IContainer>`
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
 
-const Memo = ({ content, date, id }: IMemo) => {
+const Memo = ({ content, id, index }: IMemo & { index: number }) => {
   const queryClient = useQueryClient();
 
   const [visibleBtn, setVisibleBtn] = useState(false);
@@ -90,7 +90,7 @@ const Memo = ({ content, date, id }: IMemo) => {
       },
     );
   return (
-    <Draggable draggableId={String(id)} index={id}>
+    <Draggable draggableId={String(index)} index={index}>
       {(provided, snapshot) => (
         <Container
           key={id}
