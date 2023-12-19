@@ -34,7 +34,7 @@ const TodayMemo = ({ targetDate }: IProps) => {
             message: '저장하였습니다.',
             vertical: 'bottom',
           });
-          queryClient.invalidateQueries(memoQueryKeys.fetchMemos({}));
+          queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
 
           reset();
         },

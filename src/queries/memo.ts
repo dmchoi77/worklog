@@ -2,11 +2,11 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 
-import { addMemo, deleteMemo, fetchMemos, updateMemo } from '~/apis/memo';
+import { addMemo, deleteMemo, fetchMemoList, updateMemo } from '~/apis/memo';
 import { IAddMemoRequest, IDeleteMemoRequest, IFetchMemosRequest, IUpdateMemoRequest } from '~/types/apis/memo.types';
 
 export const memoQueryKeys = createQueryKeys('memo', {
-  fetchMemos: (filters: IFetchMemosRequest) => [filters],
+  fetchMemoList: (filters: IFetchMemosRequest) => [filters],
 });
 
 export const useAddMemo = () =>
@@ -26,6 +26,6 @@ export const useDeleteMemo = () =>
 
 export const useFetchMemoList = (filters: IFetchMemosRequest) =>
   useQuery({
-    queryKey: memoQueryKeys.fetchMemos(filters).queryKey,
-    queryFn: () => fetchMemos(filters),
+    queryKey: memoQueryKeys.fetchMemoList(filters).queryKey,
+    queryFn: () => fetchMemoList(filters),
   });

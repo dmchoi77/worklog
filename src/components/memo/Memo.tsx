@@ -59,7 +59,7 @@ const Memo = ({ content, id, index }: IMemo & { index: number }) => {
               message: '저장하였습니다.',
               vertical: 'bottom',
             });
-            queryClient.invalidateQueries(memoQueryKeys.fetchMemos({}));
+            queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
           },
           onError: (error: any) =>
             updateSnackbarState({
@@ -78,7 +78,7 @@ const Memo = ({ content, id, index }: IMemo & { index: number }) => {
     deleteMemo(
       { id: Number(id) },
       {
-        onSuccess: () => queryClient.invalidateQueries(memoQueryKeys.fetchMemos({})),
+        onSuccess: () => queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({})),
         onError: (error: any) => {
           updateSnackbarState({
             open: true,

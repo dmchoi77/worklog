@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export default function MemoList({ targetDate }: IProps) {
-  const { data: memoList } = useFetchMemoList({ endDate: targetDate, startDate: targetDate });
+  const { data: memoList } = useFetchMemoList({ startDate: targetDate, endDate: targetDate });
 
   const onDragEnd = () => {};
 

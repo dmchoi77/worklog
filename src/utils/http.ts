@@ -1,3 +1,5 @@
+import * as https from 'https';
+
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { getRemainExp } from './decodeJWT';
@@ -17,6 +19,9 @@ const headers: Readonly<Record<string, string | boolean>> = {
 const http = axios.create({
   headers,
   withCredentials: true,
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false,
+  }),
 });
 
 const injectToken = (
@@ -25,7 +30,6 @@ const injectToken = (
   const accessToken = getCookie(ACCESS_TOKEN);
 
   if (!!accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
-  else config.headers.Authorization = null;
 
   return config;
 };
@@ -37,6 +41,7 @@ http.interceptors.response.use(
     return response;
   },
   async (error) => {
+    console.log('🚀 ~ file: http.ts:41 ~ error:', error);
     const {
       response: { status },
     } = error;

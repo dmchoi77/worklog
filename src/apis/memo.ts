@@ -41,7 +41,7 @@ export const deleteMemo = ({ id }: IDeleteMemoRequest) => {
   });
 };
 
-export const fetchMemos = async ({ startDate, endDate }: IFetchMemosRequest) => {
+export const fetchMemoList = async ({ startDate, endDate }: IFetchMemosRequest) => {
   const response = await http.get<IFetchMemosRequest, AxiosResponse<ICommonResponse<{ content: IMemo[] }>>>('/memos', {
     baseURL,
     params: {
