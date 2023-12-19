@@ -2,6 +2,8 @@ import { ParsedUrlQuery } from 'querystring';
 
 import dayjs from 'dayjs';
 
+import { resetServerContext } from 'react-beautiful-dnd';
+
 import { GetServerSideProps } from 'next';
 
 import PanelRight from '~/components/panel/PanelRight';
@@ -28,6 +30,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const targetDay = slug?.[2];
 
   const targetDate = dayjs(`${targetYear}-${targetMonth}-${targetDay}`).format('YYYY-MM-DD');
+
+  // fix `data-rbd-draggable-context-id` did not match Server / Client
+  resetServerContext();
 
   return {
     props: { targetDate: targetDate },
