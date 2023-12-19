@@ -1,32 +1,33 @@
-import { useEffect, useState } from 'react';
-
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import { List } from './CommonList';
 import Memo from '../memo/Memo';
 
-import { useFetchMemos } from '~/queries/memo';
+import { useFetchMemoList } from '~/queries/memo';
 
-export default function MemoList() {
-  const { data: memoList } = useFetchMemos({});
+interface IProps {
+  targetDate: string;
+}
+
+export default function MemoList({ targetDate }: IProps) {
+  const { data: memoList } = useFetchMemoList({ endDate: targetDate, startDate: targetDate });
 
   const onDragEnd = () => {};
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      {memoList?.map((memo) => (
-        <Droppable droppableId={'memo'} key={memo.id}>
-          {(provided, snapshot) => (
-            <List
-              // {...provided.droppableProps} ref={provided.innerRef}
-              isDraggingOver={snapshot.isDraggingOver}
-            >
-              <Memo key={memo.id} content={memo.content} id={memo.id} date={memo.date} />
+      <Droppable droppableId={'memo-list'}>
+        {(provided, snapshot) => {
+          return (
+            <List {...provided.droppableProps} ref={provided.innerRef} isDraggingOver={snapshot.isDraggingOver}>
+              {memoList?.map((memo, index) => (
+                <Memo key={memo.id} content={memo.content} id={memo.id} date={memo.date} index={index} />
+              ))}
               {provided.placeholder}
             </List>
-          )}
-        </Droppable>
-      ))}
+          );
+        }}
+      </Droppable>
     </DragDropContext>
   );
 }

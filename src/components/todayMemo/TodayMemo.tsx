@@ -111,7 +111,7 @@ const TodayMemo = ({ targetDate }: IProps) => {
           </Button>
         </div>
       </Paper>
-      <MemoList />
+      <MemoList targetDate={targetDate} />
     </div>
   );
 };

@@ -24,7 +24,7 @@ export const useDeleteMemo = () =>
     mutationFn: ({ id }: IDeleteMemoRequest) => deleteMemo({ id }),
   });
 
-export const useFetchMemos = (filters: IFetchMemosRequest) =>
+export const useFetchMemoList = (filters: IFetchMemosRequest) =>
   useQuery({
     queryKey: memoQueryKeys.fetchMemos(filters).queryKey,
     queryFn: () => fetchMemos(filters),
