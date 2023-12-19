@@ -36,9 +36,3 @@ export default function App({ Component, pageProps }: AppProps) {
     </GlobalPortal.Provider>
   );
 }
-
-App.getInitialProps = async ({ ctx }: any) => {
-  return {
-    props: {},
-  };
-};

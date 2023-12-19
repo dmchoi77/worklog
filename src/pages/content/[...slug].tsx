@@ -1,27 +1,12 @@
+import { GetServerSideProps } from 'next';
+
 import { ParsedUrlQuery } from 'querystring';
 
 import dayjs from 'dayjs';
 
 import { resetServerContext } from 'react-beautiful-dnd';
 
-import { GetServerSideProps } from 'next';
-
 import PanelRight from '~/components/panel/PanelRight';
-
-const Content = ({ targetDate }: IParams) => {
-  return (
-    <div css={{ width: '100%', height: '100%' }}>
-      <PanelRight targetDate={targetDate} />
-    </div>
-  );
-};
-
-export default Content;
-
-interface IParams extends ParsedUrlQuery {
-  slug?: string;
-  targetDate: string;
-}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.params as IParams;
@@ -38,3 +23,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: { targetDate: targetDate },
   };
 };
+
+const Content = ({ targetDate }: IParams) => {
+  return (
+    <div css={{ width: '100%', height: '100%' }}>
+      <PanelRight targetDate={targetDate} />
+    </div>
+  );
+};
+
+export default Content;
+
+interface IParams extends ParsedUrlQuery {
+  slug?: string;
+  targetDate: string;
+}
