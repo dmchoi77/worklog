@@ -25,7 +25,7 @@ const TodayMemo = ({ targetDate }: IProps) => {
 
   const handleAddMemo = () => {
     mutate(
-      { content: input, date: targetDate },
+      { content: input.replace(/(?:\r\n|\r|\n)/g, '<br />'), date: targetDate },
       {
         onSuccess: () => {
           updateSnackbarState({

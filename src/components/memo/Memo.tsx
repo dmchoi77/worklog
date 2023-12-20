@@ -9,6 +9,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import styled from '@emotion/styled';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 
 import useDebounce from '~/hooks/useDebounce';
 import { memoQueryKeys, useDeleteMemo, useUpdateMemo } from '~/queries/memo';
@@ -40,38 +41,38 @@ const Container = styled.div<IContainer>`
 
 const Memo = ({ content, id, index }: IMemo & { index: number }) => {
   const queryClient = useQueryClient();
+  const [input, setInput] = useState(content);
 
   const [visibleBtn, setVisibleBtn] = useState(false);
+
   const { mutate: updateMemo } = useUpdateMemo();
   const { mutate: deleteMemo } = useDeleteMemo();
 
-  const contentRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLInputElement>(null);
 
-  const debounceUpdateMemo = useDebounce(
-    (e) =>
-      updateMemo(
-        { content: e.target.innerHTML, id: Number(id) },
-        {
-          onSuccess: () => {
-            updateSnackbarState({
-              open: true,
-              horizontal: 'center',
-              message: '저장하였습니다.',
-              vertical: 'bottom',
-            });
-            queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
-          },
-          onError: (error: any) =>
-            updateSnackbarState({
-              open: true,
-              horizontal: 'center',
-              message: error.message,
-              vertical: 'bottom',
-            }),
+  const debounceUpdateMemo = useDebounce((e) => {
+    updateMemo(
+      { content: e.target.value, id: Number(id) },
+      {
+        onSuccess: () => {
+          updateSnackbarState({
+            open: true,
+            horizontal: 'center',
+            message: '저장하였습니다.',
+            vertical: 'bottom',
+          });
+          queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
         },
-      ),
-    300,
-  );
+        onError: (error: any) =>
+          updateSnackbarState({
+            open: true,
+            horizontal: 'center',
+            message: error.message,
+            vertical: 'bottom',
+          }),
+      },
+    );
+  }, 800);
   const { updateSnackbarState } = useSnackbarStore();
 
   const handleDelete = () =>
@@ -89,6 +90,12 @@ const Memo = ({ content, id, index }: IMemo & { index: number }) => {
         },
       },
     );
+
+  const handleOnChangeMemo = (e: ContentEditableEvent) => {
+    setInput(e.target.value);
+    debounceUpdateMemo(e);
+  };
+
   return (
     <Draggable draggableId={String(index)} index={index}>
       {(provided, snapshot) => (
@@ -122,20 +129,7 @@ const Memo = ({ content, id, index }: IMemo & { index: number }) => {
               <DeleteIcon css={{ borderRadius: 6, background: '#ffffff' }} onClick={handleDelete} />
             </Box>
           )}
-          <Box
-            contentEditable={true}
-            suppressContentEditableWarning
-            onInput={debounceUpdateMemo}
-            onKeyDown={(e) => {
-              if (e.code === 'Enter' || e.code === 'Escape') {
-                const currentElement = e.target as HTMLElement;
-                currentElement.blur();
-              }
-            }}
-            ref={contentRef}
-          >
-            {content}
-          </Box>
+          <ContentEditable innerRef={contentRef} html={input} disabled={false} onChange={handleOnChangeMemo} />
         </Container>
       )}
     </Draggable>
