@@ -27,8 +27,8 @@ export const addMemo = ({ content, date }: IAddMemoRequest) => {
 
 export const updateMemo = ({ content, id }: IUpdateMemoRequest) => {
   return http.patch<IUpdateMemoRequest, ICommonResponse>(
-    `/memos/${id}`,
-    { content, id },
+    `/memos/${id}/content`,
+    { content },
     {
       baseURL,
     },
