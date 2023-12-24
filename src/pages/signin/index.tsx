@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Dialog from '~/components/dialog/Dialog';
 import useDebounce from '~/hooks/useDebounce';
-import { useCheckDuplicationEmail, useSignIn } from '~/queries/user';
+import { useCheckDuplicationEmail, useLogin, useSignIn } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';
 import {
   LoginContainer as SignInContainer,
@@ -28,6 +28,8 @@ const SignIn = () => {
   const { open, updateDialogState } = useDialogStore();
 
   const { mutate: handleSignIn } = useSignIn();
+  const { mutate: handleLogin } = useLogin();
+
   const { mutate: checkDuplicationEmail, data: isDuplicated } = useCheckDuplicationEmail();
 
   const onChangeEmail = useDebounce(checkDuplicationEmail, 400);
@@ -54,7 +56,19 @@ const SignIn = () => {
             open: true,
             mainText: '회원가입에 성공하였습니다.',
             cancelText: '',
-            handleConfirm: () => router.push('/login'),
+            handleConfirm: () => {
+              handleLogin(
+                { username, password },
+                {
+                  onSuccess: () => {
+                    router.push('/today');
+                  },
+                  onError: (error: any) => {
+                    console.log(error);
+                  },
+                },
+              );
+            },
           }),
         onError: (error: any) => {
           updateDialogState({
