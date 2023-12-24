@@ -1,7 +1,7 @@
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import { List } from './CommonList';
-import Memo from '../memo/Memo';
+import MemoCard from '../card/MemoCard';
 
 import { useFetchMemoList } from '~/queries/memo';
 
@@ -21,7 +21,7 @@ export default function MemoList({ targetDate }: IProps) {
           return (
             <List {...provided.droppableProps} ref={provided.innerRef} isDraggingOver={snapshot.isDraggingOver}>
               {memoList?.map((memo, index) => (
-                <Memo key={memo.id} content={memo.content} id={memo.id} date={memo.date} index={index} />
+                <MemoCard key={memo.id} content={memo.content} id={memo.id} date={memo.date} index={index} />
               ))}
               {provided.placeholder}
             </List>

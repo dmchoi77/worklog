@@ -39,7 +39,7 @@ const Container = styled.div<IContainer>`
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
 
-const Memo = ({ content, id, index }: IMemo & { index: number }) => {
+const MemoCard = ({ content, id, index }: IMemo & { index: number }) => {
   const queryClient = useQueryClient();
   const [input, setInput] = useState(content);
 
@@ -151,4 +151,4 @@ const Memo = ({ content, id, index }: IMemo & { index: number }) => {
   );
 };
 
-export default Memo;
+export default MemoCard;
