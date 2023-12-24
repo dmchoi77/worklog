@@ -1,8 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
-
 import { useQueryClient } from '@tanstack/react-query';
-
-import dayjs from 'dayjs';
 
 import { Button, Paper } from '@mui/material';
 
@@ -83,6 +79,10 @@ const TodayMemo = ({ targetDate }: IProps) => {
             borderRadius: 8,
             border: '1px solid rgb(153 153 153 / 38%)',
           }}
+          // onKeyDown={(e) => {
+          //   if (e.shiftKey && e.key === 'Enter') return;
+          //   if (e.key === 'Enter') return handleAddMemo();
+          // }}
         />
         <div
           css={{

@@ -10,17 +10,21 @@ import FolderIcon from '@mui/icons-material/Folder';
 
 import { IMenuListResponse } from '~/types/api.types';
 
+const defaultListState = {
+  year: false,
+  month: false,
+};
+
 const NestedList = ({ data }: { data: IMenuListResponse }) => {
-  const [openYear, setOpenYear] = useState(false);
-  const [openMonth, setOpenMonth] = useState(false);
+  const [openList, setOpenList] = useState(defaultListState);
 
   const router = useRouter();
-  const handleClickYear = () => {
-    setOpenYear(!openYear);
-  };
 
-  const handleClickMonth = () => {
-    setOpenMonth(!openMonth);
+  const handleClickList = (key: 'year' | 'month') => () => {
+    setOpenList((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
   };
 
   const handleClickDay =
@@ -29,9 +33,10 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
       console.log('handleClickDay', year, month, day);
       router.push(`/content/${year}/${month}/${day}`);
     };
+
   return (
     <React.Fragment>
-      <ListItemButton onClick={handleClickYear}>
+      <ListItemButton onClick={handleClickList('year')}>
         <ListItemIcon
           sx={{
             display: 'flex',
@@ -47,13 +52,13 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
             fontSize: 16,
           }}
         />
-        {openYear ? <ExpandLess /> : <ExpandMore />}
+        {openList.year ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Divider />
-      <Collapse in={openYear} timeout='auto' unmountOnExit>
+      <Collapse in={openList.year} timeout='auto' unmountOnExit>
         {data?.months?.map((month, index) => (
           <List component='div' disablePadding key={index}>
-            <ListItemButton onClick={handleClickMonth}>
+            <ListItemButton onClick={handleClickList('month')}>
               <ListItemIcon
                 sx={{
                   display: 'flex',
@@ -70,27 +75,18 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
                   fontSize: 16,
                 }}
               />
-              {openMonth ? <ExpandLess /> : <ExpandMore />}
+              {openList.month ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
-            <Collapse in={openMonth} timeout='auto' unmountOnExit>
+            <Collapse in={openList.month} timeout='auto' unmountOnExit>
               <List component='div' disablePadding>
                 {month.days.map((day, index) => (
                   <React.Fragment key={index}>
                     <ListItemButton
                       sx={{ pl: 6 }}
                       key={index}
-                      onClick={handleClickDay({
-                        year: data?.year,
-                        month: month.month,
-                        day,
-                      })}
+                      onClick={handleClickDay({ year: data?.year, month: month.month, day })}
                     >
-                      <ListItemIcon
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'flex-end',
-                        }}
-                      >
+                      <ListItemIcon sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <ArticleIcon sx={{ color: '#d1d1d1' }} />
                       </ListItemIcon>
                       <ListItemText
