@@ -15,7 +15,7 @@ const MemoForm = ({ targetDate }: IProps) => {
   const { input, handleInput, reset } = useInput();
   const { mutate } = useAddMemo();
 
-  const { updateSnackbarState } = useSnackbarStore();
+  const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
   const handleAddMemo = () => {
     mutate(
       { content: input.replace(/(?:\r\n|\r|\n)/g, '<br />'), date: targetDate },

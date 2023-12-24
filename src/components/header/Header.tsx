@@ -32,17 +32,20 @@ const Header: React.FC = () => {
           Today
         </span>
       </div>
-      <span
-        css={{
-          fontSize: 14,
-          fontWeight: 400,
-          padding: 20,
-          cursor: 'pointer',
-        }}
-        onClick={() => logout()}
-      >
-        로그아웃
-      </span>
+      <div>
+        <span>환영합니다. ㅇㅇㅇ님</span>
+        <span
+          css={{
+            fontSize: 14,
+            fontWeight: 600,
+            padding: 10,
+            cursor: 'pointer',
+          }}
+          onClick={() => logout()}
+        >
+          로그아웃
+        </span>
+      </div>
     </HeaderContainer>
   );
 };

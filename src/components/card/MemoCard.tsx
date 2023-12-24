@@ -78,13 +78,20 @@ const MemoCard = ({ content, id, index }: IMemo & { index: number }) => {
       },
     );
   }, 800);
-  const { updateSnackbarState } = useSnackbarStore();
+  const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
 
   const handleDelete = () =>
     deleteMemo(
       { id: Number(id) },
       {
-        onSuccess: () => queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({})),
+        onSuccess: (data) => {
+          updateSnackbarState({
+            open: true,
+            horizontal: 'center',
+            message: data?.message,
+            vertical: 'bottom',
+          });
+        },
         onError: (error: any) => {
           updateSnackbarState({
             open: true,
@@ -93,6 +100,7 @@ const MemoCard = ({ content, id, index }: IMemo & { index: number }) => {
             vertical: 'bottom',
           });
         },
+        onSettled: () => queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({})),
       },
     );
 

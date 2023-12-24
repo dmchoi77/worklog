@@ -35,10 +35,11 @@ export const updateMemo = ({ content, id }: IUpdateMemoRequest) => {
   );
 };
 
-export const deleteMemo = ({ id }: IDeleteMemoRequest) => {
-  return http.delete<IDeleteMemoRequest, ICommonResponse>(`/memos/${id}`, {
+export const deleteMemo = async ({ id }: IDeleteMemoRequest) => {
+  const response = await http.delete<IDeleteMemoRequest, AxiosResponse<ICommonResponse>>(`/memos/${id}`, {
     baseURL,
   });
+  return response?.data;
 };
 
 export const fetchMemoList = async ({ startDate, endDate }: IFetchMemosRequest) => {
