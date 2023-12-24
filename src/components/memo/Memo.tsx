@@ -61,15 +61,20 @@ const Memo = ({ content, id, index }: IMemo & { index: number }) => {
             message: '저장하였습니다.',
             vertical: 'bottom',
           });
-          queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
         },
-        onError: (error: any) =>
+        onError: (error: any) => {
           updateSnackbarState({
             open: true,
             horizontal: 'center',
             message: error.message,
             vertical: 'bottom',
-          }),
+          });
+          contentRef?.current?.blur();
+          setInput(content);
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
+        },
       },
     );
   }, 800);
@@ -92,8 +97,8 @@ const Memo = ({ content, id, index }: IMemo & { index: number }) => {
     );
 
   const handleOnChangeMemo = (e: ContentEditableEvent) => {
-    setInput(e.target.value);
     debounceUpdateMemo(e);
+    setInput(e.target.value);
   };
 
   return (
@@ -129,7 +134,17 @@ const Memo = ({ content, id, index }: IMemo & { index: number }) => {
               <DeleteIcon css={{ borderRadius: 6, background: '#ffffff' }} onClick={handleDelete} />
             </Box>
           )}
-          <ContentEditable innerRef={contentRef} html={input} disabled={false} onChange={handleOnChangeMemo} />
+          <ContentEditable
+            innerRef={contentRef}
+            html={input}
+            disabled={false}
+            onChange={handleOnChangeMemo}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                contentRef?.current?.blur();
+              }
+            }}
+          />
         </Container>
       )}
     </Draggable>
