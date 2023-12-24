@@ -8,3 +8,6 @@
   letter-spacing: 0.2px;
 }
 
+textarea, input {
+  outline-color: #303030cd;
+}
