@@ -6,6 +6,7 @@ import {
   IDeleteMemoRequest,
   IFetchMemosRequest,
   IMemo,
+  IUpdateMemoOrderRequest,
   IUpdateMemoRequest,
 } from '~/types/apis/memo.types';
 import http from '~/utils/http';
@@ -29,6 +30,18 @@ export const updateMemo = ({ content, id }: IUpdateMemoRequest) => {
   return http.patch<IUpdateMemoRequest, ICommonResponse>(
     `/memos/${id}/content`,
     { content },
+    {
+      baseURL,
+    },
+  );
+};
+
+export const updateMemoOrder = ({ id, order }: IUpdateMemoOrderRequest) => {
+  return http.patch<IUpdateMemoOrderRequest, ICommonResponse>(
+    `/memos/${id}/order`,
+    {
+      order,
+    },
     {
       baseURL,
     },

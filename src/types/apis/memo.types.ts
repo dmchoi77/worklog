@@ -12,6 +12,11 @@ export interface IUpdateMemoRequest {
   content: string;
 }
 
+export interface IUpdateMemoOrderRequest {
+  id: number;
+  order: number;
+}
+
 export interface IFetchMemosRequest {
   startDate?: string;
   endDate?: string;
@@ -21,4 +26,5 @@ export interface IMemo {
   id: number;
   content: string;
   date: string;
+  displayOrder: number;
 }

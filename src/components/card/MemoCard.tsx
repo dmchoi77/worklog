@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState, memo } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -14,7 +14,6 @@ import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import useDebounce from '~/hooks/useDebounce';
 import { memoQueryKeys, useDeleteMemo, useUpdateMemo } from '~/queries/memo';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { IMemo } from '~/types/apis/memo.types';
 
 interface IContainer {
   isDragging: boolean;
@@ -39,7 +38,13 @@ const Container = styled.div<IContainer>`
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
 
-const MemoCard = ({ content, id, index }: IMemo & { index: number }) => {
+interface IProps {
+  content: string;
+  id: number;
+  index: number;
+}
+
+const MemoCard = ({ content, id, index }: IProps) => {
   const queryClient = useQueryClient();
   const [input, setInput] = useState(content);
 
@@ -110,7 +115,7 @@ const MemoCard = ({ content, id, index }: IMemo & { index: number }) => {
   };
 
   return (
-    <Draggable draggableId={String(index)} index={index}>
+    <Draggable draggableId={String(id)} index={index}>
       {(provided, snapshot) => (
         <Container
           key={id}
