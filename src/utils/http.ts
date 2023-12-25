@@ -61,6 +61,7 @@ http.interceptors.response.use(
           baseURL: process.env.NEXT_PUBLIC_API_URL,
         },
       );
+      if (response.status === 403) return (location.href = 'login');
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data as ILoginResponse;
 
       if (response.status === 200) {
