@@ -15,9 +15,7 @@ import http from '~/utils/http';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { slug } = ctx.params as IParams;
-  const targetYear = slug?.[0];
-  const targetMonth = slug?.[1];
-  const targetDay = slug?.[2];
+  const [targetYear, targetMonth, targetDay] = slug;
 
   const targetDate = dayjs(`${targetYear}-${targetMonth}-${targetDay}`).format('YYYY-MM-DD');
 
@@ -36,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
-const Content = ({ targetDate }: IParams) => {
+const Content = ({ targetDate }: { targetDate: string }) => {
   return (
     <div css={{ width: '100%', height: '100%' }}>
       <PanelRight targetDate={targetDate} />
@@ -47,6 +45,6 @@ const Content = ({ targetDate }: IParams) => {
 export default Content;
 
 interface IParams extends ParsedUrlQuery {
-  slug?: string;
+  slug: string[];
   targetDate: string;
 }
