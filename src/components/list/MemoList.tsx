@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -17,17 +17,26 @@ interface IProps {
 export default function MemoList({ targetDate }: IProps) {
   const queryClient = useQueryClient();
 
-  const { data: memoList } = useFetchMemoList({ startDate: targetDate, endDate: targetDate });
-  const { mutateAsync: updateMemoOrder } = useUpdateMemoOrder();
+  const { data } = useFetchMemoList({ startDate: targetDate, endDate: targetDate });
+  const [memoList, updateMemoList] = useState<IMemo[]>(data ?? []);
+
+  const { mutate: updateMemoOrder } = useUpdateMemoOrder();
 
   const onDragEnd = async (result: DropResult) => {
     const { destination, source, draggableId } = result;
+
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
     const targetMemoId = Number(draggableId);
     const desinationIndex = destination.index;
-    await updateMemoOrder(
+    const orderedList = [...memoList];
+    const [reorderedItem] = orderedList.splice(result.source.index, 1);
+    orderedList.splice(desinationIndex, 0, reorderedItem);
+
+    updateMemoList(orderedList);
+
+    updateMemoOrder(
       { id: targetMemoId, order: desinationIndex },
       {
         onSuccess: () => {
