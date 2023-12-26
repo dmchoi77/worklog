@@ -85,7 +85,7 @@ http.interceptors.response.use(
           return http(originalRequest);
         }
       } catch (error: any) {
-        if ([401, 403].includes(error.response.status)) {
+        if ([401, 403, 404].includes(error.response.status)) {
           removeCookie(ACCESS_TOKEN);
           removeCookie(REFRESH_TOKEN);
           return (location.href = '/login');

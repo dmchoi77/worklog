@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -8,6 +8,7 @@ import { List } from './CommonList';
 import MemoCard from '../card/MemoCard';
 
 import { memoQueryKeys, useFetchMemoList, useUpdateMemoOrder } from '~/queries/memo';
+import { useSnackbarStore } from '~/stores/useSnackbarStore';
 import { IMemo } from '~/types/apis/memo.types';
 
 interface IProps {
@@ -18,9 +19,11 @@ export default function MemoList({ targetDate }: IProps) {
   const queryClient = useQueryClient();
 
   const { data } = useFetchMemoList({ startDate: targetDate, endDate: targetDate });
-  const [memoList, updateMemoList] = useState<IMemo[]>(data ?? []);
+  const [memoList, updateMemoList] = useState<IMemo[]>(data as IMemo[]);
 
   const { mutate: updateMemoOrder } = useUpdateMemoOrder();
+
+  const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
 
   const onDragEnd = async (result: DropResult) => {
     const { destination, source, draggableId } = result;
@@ -31,7 +34,7 @@ export default function MemoList({ targetDate }: IProps) {
     const targetMemoId = Number(draggableId);
     const desinationIndex = destination.index;
     const orderedList = [...memoList];
-    const [reorderedItem] = orderedList.splice(result.source.index, 1);
+    const [reorderedItem] = orderedList.splice(source.index, 1);
     orderedList.splice(desinationIndex, 0, reorderedItem);
 
     updateMemoList(orderedList);
@@ -39,12 +42,25 @@ export default function MemoList({ targetDate }: IProps) {
     updateMemoOrder(
       { id: targetMemoId, order: desinationIndex },
       {
-        onSuccess: () => {
+        onError: () => {
+          updateSnackbarState({
+            open: true,
+            horizontal: 'center',
+            message: '에러가 발생했습니다.',
+            vertical: 'bottom',
+          });
+        },
+
+        onSettled: () => {
           queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
         },
       },
     );
   };
+
+  useEffect(() => {
+    updateMemoList(data as IMemo[]);
+  }, [data]);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
