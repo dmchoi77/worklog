@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import { useQueryClient } from '@tanstack/react-query';
 
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
@@ -18,9 +16,7 @@ interface IProps {
 export default function MemoList({ targetDate }: IProps) {
   const queryClient = useQueryClient();
 
-  const { data } = useFetchMemoList({ startDate: targetDate, endDate: targetDate });
-  const [memoList, updateMemoList] = useState<IMemo[]>(data as IMemo[]);
-
+  const { data: memoList } = useFetchMemoList({ startDate: targetDate, endDate: targetDate });
   const { mutate: updateMemoOrder } = useUpdateMemoOrder();
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
@@ -33,11 +29,14 @@ export default function MemoList({ targetDate }: IProps) {
 
     const targetMemoId = Number(draggableId);
     const desinationIndex = destination.index;
-    const orderedList = [...memoList];
+    const orderedList = [...(memoList as IMemo[])];
     const [reorderedItem] = orderedList.splice(source.index, 1);
     orderedList.splice(desinationIndex, 0, reorderedItem);
 
-    updateMemoList(orderedList);
+    queryClient.setQueryData(
+      memoQueryKeys.fetchMemoList({ startDate: targetDate, endDate: targetDate }).queryKey,
+      orderedList,
+    );
 
     updateMemoOrder(
       { id: targetMemoId, order: desinationIndex },
@@ -57,10 +56,6 @@ export default function MemoList({ targetDate }: IProps) {
       },
     );
   };
-
-  useEffect(() => {
-    updateMemoList(data as IMemo[]);
-  }, [data]);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
