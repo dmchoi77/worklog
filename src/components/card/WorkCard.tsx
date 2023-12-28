@@ -44,7 +44,11 @@ const WorkCard = ({ content, id, category: defaultCategory }: IWork) => {
           isDragging={snapshot.isDragging}
         >
           <div>
-            <SplitButton options={['update', 'refactor', 'chore', 'feat']} selectedOption={updateCategory} />
+            <SplitButton
+              defaultOption={category}
+              options={['update', 'refactor', 'chore', 'feat']}
+              selectedOption={updateCategory}
+            />
             <span css={{ fontSize: 13, padding: 10 }}>{content}</span>
           </div>
           <Checkbox defaultChecked />

@@ -13,10 +13,11 @@ import Popper from '@mui/material/Popper';
 import { WorkCategoryType } from '~/types/apis/work.types';
 
 interface IProps {
+  defaultOption?: WorkCategoryType;
   options: WorkCategoryType[];
   selectedOption: React.Dispatch<React.SetStateAction<WorkCategoryType>>;
 }
-export default function SplitButton({ options, selectedOption }: IProps) {
+export default function SplitButton({ options, selectedOption, defaultOption }: IProps) {
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -61,10 +62,9 @@ export default function SplitButton({ options, selectedOption }: IProps) {
         }}
       >
         <Button onClick={handleClick} sx={{ fontSize: 10 }}>
-          {options?.[selectedIndex]}
+          {defaultOption ?? options?.[selectedIndex]}
         </Button>
         <Button
-          // size='small'
           aria-controls={open ? 'split-button-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-label='select merge strategy'
