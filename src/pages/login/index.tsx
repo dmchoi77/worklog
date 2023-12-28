@@ -9,6 +9,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
 import { RoutePath } from '~/constants/route';
 import { useLogin } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';
+import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { LoginButton, LoginContainer, LoginForm, LoginInput } from '~/styles/login/login.style';
 import { removeCookie } from '~/utils/cookie';
 
@@ -30,6 +31,7 @@ const Login = () => {
 
   const { mutate: handleLogin, status } = useLogin();
   const { open, updateDialogState } = useDialogStore();
+  const updateUserInfoState = useUserInfoState((state) => state.updateUserInfoState);
 
   const isLoading = status === 'pending' || status === 'success';
 
@@ -38,6 +40,7 @@ const Login = () => {
       { username, password },
       {
         onSuccess: () => {
+          updateUserInfoState(username);
           router.push('/today');
         },
         onError: (error: any) => {

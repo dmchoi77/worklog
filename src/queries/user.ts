@@ -15,6 +15,7 @@ import {
   signIn,
 } from '~/apis/user';
 import { ACCESS_TOKEN, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
+import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
 import { removeCookie, setCookie } from '~/utils/cookie';
 import { getRemainExp } from '~/utils/decodeJWT';
@@ -94,11 +95,14 @@ export const useRefreshAccessToken = (refreshToken: string) => {
 
 export const useLogout = () => {
   const router = useRouter();
+  const resetUserInfo = useUserInfoState((state) => state.reset);
+
   return useMutation({
     mutationFn: () => logout(),
     onSettled: () => {
       removeCookie(ACCESS_TOKEN);
       removeCookie(REFRESH_TOKEN);
+      resetUserInfo();
       router.push('/login');
     },
   });

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 
 import { useLogout } from '~/queries/user';
+import { useUserInfoState } from '~/stores/useUserInfoStore';
 
 const HeaderContainer = styled.header`
   background-color: #fffdfa;
@@ -18,6 +19,7 @@ const HeaderContainer = styled.header`
 
 const Header: React.FC = () => {
   const router = useRouter();
+  const username = useUserInfoState((state) => state.username);
 
   const { mutate: logout } = useLogout();
   return (
@@ -33,7 +35,7 @@ const Header: React.FC = () => {
         </span>
       </div>
       <div>
-        <span>환영합니다. ㅇㅇㅇ님</span>
+        <span css={{ margin: 20 }}>환영합니다. {username} 님</span>
         <span
           css={{
             fontSize: 14,

@@ -1,14 +1,36 @@
+import { useEffect } from 'react';
+
 import styled from '@emotion/styled';
 
 import Header from '../header/Header';
 import PanelLeft from '../panel/PanelLeft';
 import CustomSnackbar from '../snackbar/Snackbar';
 
+import { ACCESS_TOKEN } from '~/constants/cookie';
+import { useUserInfoState } from '~/stores/useUserInfoStore';
+import { getCookie } from '~/utils/cookie';
+import { decodeJWT } from '~/utils/decodeJWT';
+
 interface IProps {
   children: JSX.Element | JSX.Element[];
 }
 
 const MasterLayout = ({ children }: IProps) => {
+  const { username, updateUserInfoState } = useUserInfoState((state) => ({
+    username: state.username,
+    updateUserInfoState: state.updateUserInfoState,
+  }));
+
+  useEffect(() => {
+    if (username) return;
+
+    const getAccessToken = getCookie(ACCESS_TOKEN);
+    if (getAccessToken) {
+      const { sub: username } = decodeJWT(getAccessToken);
+      updateUserInfoState(username);
+    }
+  }, []);
+
   return (
     <MasterLayoutContainer>
       <div
