@@ -1,6 +1,6 @@
 import * as https from 'https';
 
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { getRemainExp } from './decodeJWT';
 
@@ -8,6 +8,8 @@ import { ACCESS_TOKEN, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
 import { getCookie, removeCookie, setCookie } from '~/utils/cookie';
+
+const ERROR_STATUS_CODES = [401, 403, 404];
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -85,7 +87,7 @@ http.interceptors.response.use(
           return http(originalRequest);
         }
       } catch (error: any) {
-        if ([401, 403, 404].includes(error.response.status)) {
+        if (ERROR_STATUS_CODES.includes(error.response.status)) {
           removeCookie(ACCESS_TOKEN);
           removeCookie(REFRESH_TOKEN);
           return (location.href = '/login');

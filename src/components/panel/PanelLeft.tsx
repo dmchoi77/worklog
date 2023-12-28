@@ -1,13 +1,13 @@
 import { Divider, List, ListSubheader } from '@mui/material';
 
-import data from '../../../app.json';
 import SearchInput from '../input/SearchInput';
 import NestedList from '../list/NestedList';
 
-import { ICommonAPIResponse, IMenuListResponse } from '~/types/api.types';
+import { useFetchCalendarYears } from '~/queries/calendar';
 
 const PanelLeft = () => {
-  const result: ICommonAPIResponse<IMenuListResponse[]> = data;
+  const { data: years } = useFetchCalendarYears();
+
   return (
     <div
       css={{
@@ -55,9 +55,7 @@ const PanelLeft = () => {
           </ListSubheader>
         }
       >
-        {result.data.map((data, index) => (
-          <NestedList data={data} key={index} />
-        ))}
+        {years?.map((year) => <NestedList year={year} key={year} />)}
       </List>
     </div>
   );

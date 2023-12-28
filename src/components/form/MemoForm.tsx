@@ -1,8 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
 
+import dayjs from 'dayjs';
+
 import { Paper, Button } from '@mui/material';
 
 import useInput from '~/hooks/useInput';
+import { calendarQueryKeys } from '~/queries/calendar';
 import { useAddMemo, memoQueryKeys } from '~/queries/memo';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
 
@@ -28,6 +31,12 @@ const MemoForm = ({ targetDate }: IProps) => {
             vertical: 'bottom',
           });
           queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
+          queryClient.invalidateQueries(
+            calendarQueryKeys.fetchCalendarDays({
+              year: Number(dayjs(targetDate).get('year')),
+              month: Number(dayjs(targetDate).get('month')) + 1,
+            }),
+          );
 
           reset();
         },

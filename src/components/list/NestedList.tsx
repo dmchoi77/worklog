@@ -8,19 +8,32 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import ArticleIcon from '@mui/icons-material/Article';
 import FolderIcon from '@mui/icons-material/Folder';
 
-import { IMenuListResponse } from '~/types/api.types';
+import { useFetchCalendarDays, useFetchCalendarMonth } from '~/queries/calendar';
+import { IFetchCalendarDaysRequest } from '~/types/apis/calendar.types';
 
 const defaultListState = {
   year: false,
   month: false,
 };
 
-const NestedList = ({ data }: { data: IMenuListResponse }) => {
-  const [openList, setOpenList] = useState(defaultListState);
+const defaultFilterState = {
+  year: 0,
+  month: 0,
+};
+type FilterType = IFetchCalendarDaysRequest;
+
+const NestedList = ({ year }: { year: number }) => {
+  const [openList, setOpenList] = useState(() => defaultListState);
+  const [filter, updateFilter] = useState<FilterType>(() => defaultFilterState);
+
+  const { data: months } = useFetchCalendarMonth(year);
+  const { data: days } = useFetchCalendarDays(filter);
 
   const router = useRouter();
 
-  const handleClickList = (key: 'year' | 'month') => () => {
+  const handleClickList = (key: 'year' | 'month', value?: number) => () => {
+    if (key === 'month' && !!value) updateFilter({ year, month: value });
+
     setOpenList((prev) => ({
       ...prev,
       [key]: !prev[key],
@@ -28,47 +41,30 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
   };
 
   const handleClickDay =
-    ({ year, month, day }: { year: string; month: string; day: string }) =>
+    ({ year, month, day }: { year: number; month: number; day: number }) =>
     () => {
-      console.log('handleClickDay', year, month, day);
       router.push(`/content/${year}/${month}/${day}`);
     };
 
   return (
     <React.Fragment>
       <ListItemButton onClick={handleClickList('year')}>
-        <ListItemIcon
-          sx={{
-            display: 'flex',
-          }}
-        >
+        <ListItemIcon sx={{ display: 'flex' }}>
           <FolderIcon sx={{ color: '#d1d1d1' }} />
         </ListItemIcon>
-        <ListItemText
-          primary={`${data?.year}년`}
-          primaryTypographyProps={{
-            textAlign: 'left',
-            pr: 1,
-            fontSize: 16,
-          }}
-        />
+        <ListItemText primary={`${year}년`} primaryTypographyProps={{ textAlign: 'left', pr: 1, fontSize: 16 }} />
         {openList.year ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Divider />
       <Collapse in={openList.year} timeout='auto' unmountOnExit>
-        {data?.months?.map((month, index) => (
-          <List component='div' disablePadding key={index}>
-            <ListItemButton onClick={handleClickList('month')}>
-              <ListItemIcon
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                }}
-              >
+        {months?.map((month) => (
+          <List component='div' disablePadding key={month}>
+            <ListItemButton onClick={handleClickList('month', month)}>
+              <ListItemIcon sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <FolderIcon sx={{ color: '#d1d1d1' }} />
               </ListItemIcon>
               <ListItemText
-                primary={`${month?.month}월`}
+                primary={`${month}월`}
                 primaryTypographyProps={{
                   textAlign: 'left',
                   pl: 3,
@@ -79,13 +75,9 @@ const NestedList = ({ data }: { data: IMenuListResponse }) => {
             </ListItemButton>
             <Collapse in={openList.month} timeout='auto' unmountOnExit>
               <List component='div' disablePadding>
-                {month.days.map((day, index) => (
-                  <React.Fragment key={index}>
-                    <ListItemButton
-                      sx={{ pl: 6 }}
-                      key={index}
-                      onClick={handleClickDay({ year: data?.year, month: month.month, day })}
-                    >
+                {days?.map((day) => (
+                  <React.Fragment key={day}>
+                    <ListItemButton sx={{ pl: 6 }} key={day} onClick={handleClickDay({ year, month, day })}>
                       <ListItemIcon sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <ArticleIcon sx={{ color: '#d1d1d1' }} />
                       </ListItemIcon>
