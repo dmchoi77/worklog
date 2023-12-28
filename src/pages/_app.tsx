@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 import { useState } from 'react';
 
-import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HydrationBoundary, QueryClient, QueryClientProvider, dehydrate } from '@tanstack/react-query';
 
 import { ThemeProvider, createTheme } from '@mui/material';
 
@@ -48,11 +48,11 @@ export default function App({ Component, pageProps }: AppProps) {
               <Component {...pageProps} />
             </NonAuthLayout>
           ) : (
-            <MasterLayout>
-              <HydrationBoundary state={pageProps.dehydratedState}>
+            <HydrationBoundary state={pageProps.dehydratedState}>
+              <MasterLayout>
                 <Component {...pageProps} />
-              </HydrationBoundary>
-            </MasterLayout>
+              </MasterLayout>
+            </HydrationBoundary>
           )}
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

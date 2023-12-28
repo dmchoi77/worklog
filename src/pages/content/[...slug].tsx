@@ -8,8 +8,10 @@ import dayjs from 'dayjs';
 
 import { resetServerContext } from 'react-beautiful-dnd';
 
+import { fetchCalendarYears } from '~/apis/calendar';
 import { fetchMemoList } from '~/apis/memo';
 import PanelRight from '~/components/panel/PanelRight';
+import { calendarQueryKeys } from '~/queries/calendar';
 import { memoQueryKeys } from '~/queries/memo';
 import http from '~/utils/http';
 
@@ -25,6 +27,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   await queryClient.prefetchQuery({
     queryKey: memoQueryKeys.fetchMemoList({ startDate: targetDate, endDate: targetDate }).queryKey,
     queryFn: () => fetchMemoList({ startDate: targetDate, endDate: targetDate }),
+  });
+  await queryClient.prefetchQuery({
+    queryKey: calendarQueryKeys.fetchCalendarYears.queryKey,
+    queryFn: () => fetchCalendarYears(),
   });
   // fix `data-rbd-draggable-context-id` did not match Server / Client
   resetServerContext();

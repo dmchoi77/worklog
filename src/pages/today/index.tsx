@@ -10,8 +10,10 @@ import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
+import { fetchCalendarYears } from '~/apis/calendar';
 import { fetchMemoList } from '~/apis/memo';
 import PanelRight from '~/components/panel/PanelRight';
+import { calendarQueryKeys } from '~/queries/calendar';
 import { memoQueryKeys } from '~/queries/memo';
 import http from '~/utils/http';
 
@@ -29,6 +31,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   await queryClient.prefetchQuery({
     queryKey: memoQueryKeys.fetchMemoList({ startDate: todayDate, endDate: todayDate }).queryKey,
     queryFn: () => fetchMemoList({ startDate: todayDate, endDate: todayDate }),
+  });
+  await queryClient.prefetchQuery({
+    queryKey: calendarQueryKeys.fetchCalendarYears.queryKey,
+    queryFn: () => fetchCalendarYears(),
   });
   // fix `data-rbd-draggable-context-id` did not match Server / Client
   resetServerContext();
