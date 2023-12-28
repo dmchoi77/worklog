@@ -6,6 +6,8 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 import styled from '@emotion/styled';
 
+import WorkForm from '../form/WorkForm';
+
 import SplitButton from '~/components/button/SplitButton';
 import WorkList from '~/components/list/WorkList';
 
@@ -15,7 +17,12 @@ const Container = styled.div`
   padding-top: 15;
   height: 100%;
 `;
-const TodayWork = () => {
+
+interface IProps {
+  targetDate: string;
+}
+
+const TodayWork = ({ targetDate }: IProps) => {
   const [data, setData] = useState<IData>(exampleTasks);
   const onDragEnd = useCallback(
     (result: DropResult) => {
@@ -51,77 +58,8 @@ const TodayWork = () => {
   return (
     <div>
       <h3>WORK</h3>
-      <Paper
-        elevation={1}
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
-          gap: 8,
-          backgroundColor: '#dbdbdb42',
-          padding: 10,
-          marginTop: 20,
-          marginBottom: 20,
-          width: '100%',
-          height: '150px',
-          borderRadius: 10,
-        }}
-      >
-        <textarea
-          // value={input}
-          // onChange={handleInput}
-          autoFocus
-          style={{
-            width: '100%',
-            height: '120px',
-            fontSize: '15px',
-            resize: 'none',
-            padding: 10,
-            borderRadius: 8,
-            border: '1px solid rgb(153 153 153 / 38%)',
-          }}
-        />
-        <div
-          css={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 5,
-            width: '180px',
-          }}
-        >
-          <SplitButton />
-          <Button
-            sx={{
-              height: '30px',
-              '.MuiButtonGroup-firstButton': {
-                width: '60px',
-                textAlign: 'left',
-                justifyContent: 'flex-start',
-                padding: 1,
-              },
-              '.MuiButtonGroup-lastButton': {
-                width: '12px',
-                minWidth: '12px',
-              },
-            }}
-            variant='contained'
-          >
-            저장하기
-          </Button>
-        </div>
-      </Paper>
-
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Container>
-          {data.columnOrder.map((columnId) => {
-            const column = data.columns[columnId];
-            const tasks = column?.taskIds.map((taskId) => data.tasks[taskId]);
-            return <WorkList column={column} tasks={tasks} key={column?.id} />;
-          })}
-        </Container>
-      </DragDropContext>
+      <WorkForm targetDate={targetDate} />
+      <WorkList targetDate={targetDate} />
     </div>
   );
 };

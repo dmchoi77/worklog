@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Checkbox } from '@mui/material';
 
 import { Draggable } from 'react-beautiful-dnd';
@@ -5,6 +7,9 @@ import { Draggable } from 'react-beautiful-dnd';
 import styled from '@emotion/styled';
 
 import SplitButton from '../button/SplitButton';
+
+import { IWork } from '~/apis/work';
+import { WorkCategoryType } from '~/types/apis/work.types';
 
 interface IContainer {
   isDragging: boolean;
@@ -26,17 +31,11 @@ const Container = styled.div<IContainer>`
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 `;
 
-interface IWorkProps {
-  task: {
-    id: string;
-    content: string;
-  };
-  index: number;
-}
+const WorkCard = ({ content, id, category: defaultCategory }: IWork) => {
+  const [category, updateCategory] = useState<WorkCategoryType>(defaultCategory);
 
-const Work = ({ index, task }: IWorkProps) => {
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={String(id)} index={id}>
       {(provided, snapshot) => (
         <Container
           {...provided.draggableProps}
@@ -45,8 +44,8 @@ const Work = ({ index, task }: IWorkProps) => {
           isDragging={snapshot.isDragging}
         >
           <div>
-            <SplitButton options={['update', 'refactor', 'chore', 'feat']} />
-            <span css={{ fontSize: 13, padding: 10 }}>{task.content}</span>
+            <SplitButton options={['update', 'refactor', 'chore', 'feat']} selectedOption={updateCategory} />
+            <span css={{ fontSize: 13, padding: 10 }}>{content}</span>
           </div>
           <Checkbox defaultChecked />
         </Container>
@@ -55,4 +54,4 @@ const Work = ({ index, task }: IWorkProps) => {
   );
 };
 
-export default Work;
+export default WorkCard;

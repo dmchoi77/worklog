@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 import { ICommonResponse } from '~/types/apis/common.types';
 import {
   IAddWorkRequest,
@@ -6,16 +8,29 @@ import {
   IUpdateWorkContentRequest,
   IUpdateWorkOrderRequest,
   IUpdateWorkStateRequest,
+  WorkCategoryType,
+  WorkStateType,
 } from '~/types/apis/work.types';
 import http from '~/utils/http';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export const addWork = (params: IAddWorkRequest) => {
+export interface IWork {
+  id: number;
+  content: string;
+  date: string;
+  category: WorkCategoryType;
+  state: WorkStateType;
+  order: number;
+}
+
+export const addWork = ({ category, content, date }: IAddWorkRequest) => {
   return http.post<IAddWorkRequest, ICommonResponse>(
     '/works',
     {
-      params,
+      category,
+      content,
+      date,
     },
     {
       baseURL,
@@ -79,13 +94,16 @@ export const deleteWork = async (params: number) => {
 };
 
 export const fetchWorkList = async (params: IFetchWorkListRequest) => {
-  const response = await http.get<IFetchWorkListRequest, ICommonResponse>(`/works`, {
-    baseURL,
-    params: {
-      startDate: params.startDate,
-      endDate: params.endDate,
+  const response = await http.get<IFetchWorkListRequest, AxiosResponse<ICommonResponse<{ content: IWork[] }>>>(
+    `/works`,
+    {
+      baseURL,
+      params: {
+        startDate: params.startDate,
+        endDate: params.endDate,
+      },
     },
-  });
+  );
 
-  return response.data;
+  return response.data?.data?.content;
 };

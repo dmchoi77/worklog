@@ -1,4 +1,4 @@
-export type WorkStateType = 'in progress' | 'completed';
+export type WorkStateType = 'in_progress' | 'completed';
 export type WorkCategoryType = 'refactor' | 'update' | 'chore' | 'feat';
 
 export interface IFetchWorkListRequest {

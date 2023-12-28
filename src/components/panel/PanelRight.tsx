@@ -55,7 +55,7 @@ const PanelRight = ({ targetDate }: { targetDate: string }) => {
             borderRight: '1px solid #d5d5d552',
           }}
         >
-          <TodayWork />
+          <TodayWork targetDate={targetDate} />
         </div>
         <div
           css={{
