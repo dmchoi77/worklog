@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import { List } from './CommonList';
@@ -13,6 +11,7 @@ interface IProps {
 
 export default function WorkList({ targetDate }: IProps) {
   const { data: workList } = useFetchWorkList({ startDate: targetDate, endDate: targetDate });
+
   return (
     <DragDropContext onDragEnd={() => {}}>
       <Droppable droppableId='work-list'>

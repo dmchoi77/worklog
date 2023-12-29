@@ -1,4 +1,4 @@
-import React, { useRef, useState, memo } from 'react';
+import { useRef, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -6,37 +6,15 @@ import { Box, Divider } from '@mui/material';
 
 import { Draggable } from 'react-beautiful-dnd';
 
-import styled from '@emotion/styled';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 
+import { Container } from './card.style';
+
 import useDebounce from '~/hooks/useDebounce';
 import { memoQueryKeys, useDeleteMemo, useUpdateMemo } from '~/queries/memo';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-
-interface IContainer {
-  isDragging: boolean;
-}
-
-const Container = styled.div<IContainer>`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 8px;
-  border: 1px solid lightgrey;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 8px;
-  height: auto;
-  background-color: ${(props) => (props.isDragging ? 'lightgreen' : '#ffffff')};
-  box-shadow:
-    0px 2px 7px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-`;
 
 interface IProps {
   content: string;
@@ -118,6 +96,7 @@ const MemoCard = ({ content, id, index }: IProps) => {
     <Draggable draggableId={String(id)} index={index}>
       {(provided, snapshot) => (
         <Container
+          bgColor='lightgreen'
           key={id}
           {...provided.draggableProps}
           {...provided.dragHandleProps}

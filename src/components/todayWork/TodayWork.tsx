@@ -1,22 +1,12 @@
 import { useCallback, useState } from 'react';
 
-import { Button, Divider, Paper, TextField } from '@mui/material';
-
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-
-import styled from '@emotion/styled';
 
 import WorkForm from '../form/WorkForm';
 
-import SplitButton from '~/components/button/SplitButton';
 import WorkList from '~/components/list/WorkList';
 
 import { IData, exampleTasks } from '~/example-data';
-
-const Container = styled.div`
-  padding-top: 15;
-  height: 100%;
-`;
 
 interface IProps {
   targetDate: string;
