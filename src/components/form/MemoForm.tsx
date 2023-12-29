@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 
 import { Paper, Button } from '@mui/material';
 
+import { buttonStyle, paperStyle, textAreaStyle } from './form.style';
+
 import useInput from '~/hooks/useInput';
 import { calendarQueryKeys } from '~/queries/calendar';
 import { useAddMemo, memoQueryKeys } from '~/queries/memo';
@@ -52,35 +54,11 @@ const MemoForm = ({ targetDate }: IProps) => {
     );
   };
   return (
-    <Paper
-      elevation={1}
-      className='input-container'
-      css={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end',
-        gap: 8,
-        backgroundColor: '#dbdbdb42',
-        padding: 10,
-        marginTop: 20,
-        marginBottom: 20,
-        width: '100%',
-        height: '150px',
-        borderRadius: 10,
-      }}
-    >
+    <Paper elevation={1} className='input-container' css={paperStyle}>
       <textarea
         value={input}
         onChange={handleInput}
-        style={{
-          width: '100%',
-          height: '120px',
-          fontSize: '15px',
-          resize: 'none',
-          padding: 10,
-          borderRadius: 8,
-          border: '1px solid rgb(153 153 153 / 38%)',
-        }}
+        style={textAreaStyle}
         // onKeyDown={(e) => {
         //   if (e.shiftKey && e.key === 'Enter') return;
         //   if (e.key === 'Enter') return handleAddMemo();
@@ -92,23 +70,7 @@ const MemoForm = ({ targetDate }: IProps) => {
           gap: 10,
         }}
       >
-        <Button
-          sx={{
-            height: '30px',
-            '.MuiButtonGroup-firstButton': {
-              width: '60px',
-              textAlign: 'left',
-              justifyContent: 'flex-start',
-              padding: 1,
-            },
-            '.MuiButtonGroup-lastButton': {
-              width: '12px',
-              minWidth: '12px',
-            },
-          }}
-          variant='contained'
-          onClick={handleAddMemo}
-        >
+        <Button sx={buttonStyle} variant='contained' onClick={handleAddMemo}>
           저장하기
         </Button>
       </div>
