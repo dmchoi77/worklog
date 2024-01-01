@@ -45,6 +45,10 @@ const PanelRight = ({ targetDate }: { targetDate: string }) => {
         css={{
           display: 'flex',
           flexDirection: 'row',
+
+          '@media (max-width: 640px)': {
+            flexDirection: 'column',
+          },
         }}
       >
         <div

@@ -129,8 +129,6 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
                   }}
                 />
               </div>
-
-              <div></div>
             </div>
 
             <div
@@ -174,8 +172,18 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
                   <Checkbox defaultChecked />
                 </div>
               </div>
-              <div>
-                <Button variant='contained'>업데이트</Button>
+              <div
+                css={{
+                  display: 'flex',
+                  gap: 5,
+                }}
+              >
+                <Button variant='contained' size='small'>
+                  업데이트
+                </Button>
+                <Button variant='outlined' size='small'>
+                  재등록
+                </Button>
               </div>
             </div>
           </div>

@@ -67,7 +67,10 @@ const MemoForm = ({ targetDate }: IProps) => {
       <div
         css={{
           display: 'flex',
+          justifyContent: 'flex-end',
+
           gap: 10,
+          width: '180px',
         }}
       >
         <Button sx={buttonStyle} variant='contained' onClick={handleAddMemo}>

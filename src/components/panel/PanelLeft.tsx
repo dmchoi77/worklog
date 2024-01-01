@@ -13,9 +13,12 @@ const PanelLeft = () => {
       css={{
         backgroundColor: '#303030',
         borderRight: '1px solid #d5d5d552',
-        flex: 0.2,
         minWidth: '200px',
         maxWidth: '200px',
+
+        '@media (max-width: 640px)': {
+          display: 'none',
+        },
       }}
     >
       <div
