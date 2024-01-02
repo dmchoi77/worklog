@@ -32,7 +32,7 @@ const MemoForm = ({ targetDate }: IProps) => {
             message: '저장하였습니다.',
             vertical: 'bottom',
           });
-          queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
+          queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({ date: targetDate }));
           queryClient.invalidateQueries(
             calendarQueryKeys.fetchCalendarDays({
               year: Number(dayjs(targetDate).get('year')),

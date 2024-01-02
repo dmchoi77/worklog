@@ -29,8 +29,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: memoQueryKeys.fetchMemoList({ startDate: todayDate, endDate: todayDate }).queryKey,
-    queryFn: () => fetchMemoList({ startDate: todayDate, endDate: todayDate }),
+    queryKey: memoQueryKeys.fetchMemoList({ date: todayDate }).queryKey,
+    queryFn: () => fetchMemoList({ date: todayDate }),
   });
   await queryClient.prefetchQuery({
     queryKey: calendarQueryKeys.fetchCalendarYears.queryKey,

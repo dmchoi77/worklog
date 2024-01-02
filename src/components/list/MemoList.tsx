@@ -16,7 +16,7 @@ interface IProps {
 export default function MemoList({ targetDate }: IProps) {
   const queryClient = useQueryClient();
 
-  const { data: memoList } = useFetchMemoList({ startDate: targetDate, endDate: targetDate });
+  const { data: memoList } = useFetchMemoList({ date: targetDate });
   const { mutate: updateMemoOrder } = useUpdateMemoOrder();
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
@@ -33,10 +33,7 @@ export default function MemoList({ targetDate }: IProps) {
     const [reorderedItem] = orderedList.splice(source.index, 1);
     orderedList.splice(desinationIndex, 0, reorderedItem);
 
-    queryClient.setQueryData(
-      memoQueryKeys.fetchMemoList({ startDate: targetDate, endDate: targetDate }).queryKey,
-      orderedList,
-    );
+    queryClient.setQueryData(memoQueryKeys.fetchMemoList({ date: targetDate }).queryKey, orderedList);
 
     updateMemoOrder(
       { id: targetMemoId, order: desinationIndex },

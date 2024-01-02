@@ -18,8 +18,9 @@ export interface IUpdateMemoOrderRequest {
 }
 
 export interface IFetchMemosRequest {
-  startDate?: string;
-  endDate?: string;
+  // startDate?: string;
+  // endDate?: string;
+  date?: string;
 }
 
 export interface IMemo {

@@ -94,16 +94,12 @@ export const deleteWork = async (params: number) => {
 };
 
 export const fetchWorkList = async (params: IFetchWorkListRequest) => {
-  const response = await http.get<IFetchWorkListRequest, AxiosResponse<ICommonResponse<{ content: IWork[] }>>>(
-    `/works`,
-    {
-      baseURL,
-      params: {
-        startDate: params.startDate,
-        endDate: params.endDate,
-      },
+  const response = await http.get<IFetchWorkListRequest, AxiosResponse<ICommonResponse<IWork[]>>>(`/works`, {
+    baseURL,
+    params: {
+      date: params.date,
     },
-  );
+  });
 
-  return response.data?.data?.content;
+  return response.data?.data;
 };

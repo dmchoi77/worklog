@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export default function WorkList({ targetDate }: IProps) {
-  const { data: workList } = useFetchWorkList({ startDate: targetDate, endDate: targetDate });
+  const { data: workList } = useFetchWorkList({ date: targetDate });
 
   return (
     <DragDropContext onDragEnd={() => {}}>

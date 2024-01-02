@@ -2,8 +2,9 @@ export type WorkStateType = 'in_progress' | 'completed';
 export type WorkCategoryType = 'refactor' | 'update' | 'chore' | 'feat';
 
 export interface IFetchWorkListRequest {
-  startDate?: string;
-  endDate?: string;
+  // startDate?: string;
+  // endDate?: string;
+  date?: string;
 }
 
 export interface IAddWorkRequest {

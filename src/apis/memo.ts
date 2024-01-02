@@ -55,14 +55,13 @@ export const deleteMemo = async ({ id }: IDeleteMemoRequest) => {
   return response?.data;
 };
 
-export const fetchMemoList = async ({ startDate, endDate }: IFetchMemosRequest) => {
-  const response = await http.get<IFetchMemosRequest, AxiosResponse<ICommonResponse<{ content: IMemo[] }>>>('/memos', {
+export const fetchMemoList = async ({ date }: IFetchMemosRequest) => {
+  const response = await http.get<IFetchMemosRequest, AxiosResponse<ICommonResponse<IMemo[]>>>('/memos', {
     baseURL,
     params: {
-      startDate,
-      endDate,
+      date: date,
     },
   });
 
-  return response?.data?.data?.content;
+  return response?.data?.data;
 };
