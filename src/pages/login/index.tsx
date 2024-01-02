@@ -60,8 +60,9 @@ const Login = () => {
 
   return (
     <LoginContainer>
-      <div css={{ padding: '30px 0' }}>
-        <span css={{ fontSize: 30, fontWeight: 700 }}>Today worklog</span>
+      <div css={{ padding: '30px 0', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <p css={{ fontSize: 14 }}>오늘은 회사에서 어떤 일들이 펼쳐질까</p>
+        <span css={{ fontSize: 34, fontWeight: 700 }}>오늘의 워크로그</span>
       </div>
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <LoginInput type='text' placeholder='아이디' {...register('username', { required: true })} />

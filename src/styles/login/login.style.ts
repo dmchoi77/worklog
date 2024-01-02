@@ -8,6 +8,11 @@ const LoginContainer = styled.div({
   flexDirection: 'column',
   justifyContent: 'center',
   gap: '1rem',
+
+  '@media (max-width: 640px)': {
+    padding: '10%',
+    width: '100%',
+  },
 });
 
 const LoginInput = styled.input({
