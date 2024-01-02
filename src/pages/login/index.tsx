@@ -54,8 +54,8 @@ const Login = () => {
     );
   };
   useEffect(() => {
-    removeCookie(REFRESH_TOKEN);
-    removeCookie(ACCESS_TOKEN);
+    removeCookie(REFRESH_TOKEN, { secure: true });
+    removeCookie(ACCESS_TOKEN, { secure: true });
   }, []);
 
   return (

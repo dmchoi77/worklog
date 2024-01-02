@@ -75,8 +75,8 @@ export const useRefreshAccessToken = (refreshToken: string) => {
     if (!query.data) return;
     const { refreshToken, accessToken } = query.data;
 
-    removeCookie(REFRESH_TOKEN);
-    removeCookie(ACCESS_TOKEN);
+    removeCookie(REFRESH_TOKEN, { secure: true });
+    removeCookie(ACCESS_TOKEN, { secure: true });
 
     setCookie(REFRESH_TOKEN, refreshToken, {
       secure: true,
@@ -100,8 +100,8 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: () => logout(),
     onSettled: () => {
-      removeCookie(ACCESS_TOKEN);
-      removeCookie(REFRESH_TOKEN);
+      removeCookie(ACCESS_TOKEN, { secure: true });
+      removeCookie(REFRESH_TOKEN, { secure: true });
       resetUserInfo();
       router.push('/login');
     },
