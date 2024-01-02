@@ -24,13 +24,27 @@ const WorkForm = ({ targetDate }: IProps) => {
 
   const [category, updateCategory] = useState<WorkCategoryType>('update');
 
-  const { input, handleInput, reset } = useInput();
+  const { input: inputTitle, handleInput: handleInputTitle, reset: resetTitle } = useInput();
+  const { input: inputContent, handleInput: handleInputContent, reset: resetContent } = useInput();
   const { mutate } = useAddWork();
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
   const handleAddWork = () => {
+    if (!inputTitle) {
+      return updateSnackbarState({
+        open: true,
+        horizontal: 'center',
+        message: '업무명을 입력해주세요.',
+        vertical: 'bottom',
+      });
+    }
     mutate(
-      { content: input.replace(/(?:\r\n|\r|\n)/g, '<br />'), date: targetDate, category: category },
+      {
+        title: inputTitle.replace(/(?:\r\n|\r|\n)/g, '<br />'),
+        content: inputContent.replace(/(?:\r\n|\r|\n)/g, '<br />'),
+        date: targetDate,
+        category: category,
+      },
       {
         onSuccess: () => {
           updateSnackbarState({
@@ -47,7 +61,8 @@ const WorkForm = ({ targetDate }: IProps) => {
             }),
           );
 
-          reset();
+          resetTitle();
+          resetContent();
           updateCategory('update');
         },
         onError: (error: any) => {
@@ -62,8 +77,21 @@ const WorkForm = ({ targetDate }: IProps) => {
     );
   };
   return (
-    <Paper elevation={1} css={paperStyle}>
-      <textarea value={input} onChange={handleInput} autoFocus style={textAreaStyle} />
+    <Paper elevation={1} style={{ ...paperStyle, height: '100%' }}>
+      <textarea
+        placeholder='업무'
+        value={inputTitle}
+        onChange={handleInputTitle}
+        autoFocus
+        style={{ ...textAreaStyle, height: 50 }}
+      />
+      <textarea
+        placeholder='상세 내용'
+        value={inputContent}
+        onChange={handleInputContent}
+        autoFocus
+        style={{ ...textAreaStyle, height: 120 }}
+      />
       <div
         css={{
           display: 'flex',

@@ -2,9 +2,7 @@ import { CSSProperties } from 'react';
 
 import { SxProps } from '@mui/material';
 
-import { Interpolation, Theme } from '@emotion/react';
-
-export const paperStyle: Interpolation<Theme> = {
+export const paperStyle: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',

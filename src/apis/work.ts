@@ -24,10 +24,11 @@ export interface IWork {
   order: number;
 }
 
-export const addWork = ({ category, content, date }: IAddWorkRequest) => {
+export const addWork = ({ title, category, content, date }: IAddWorkRequest) => {
   return http.post<IAddWorkRequest, ICommonResponse>(
     '/works',
     {
+      title,
       category,
       content,
       date,

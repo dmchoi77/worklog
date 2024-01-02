@@ -73,7 +73,7 @@ const SignIn = () => {
         onError: (error: any) => {
           updateDialogState({
             open: true,
-            mainText: error?.message,
+            mainText: error?.response?.data?.message,
             cancelText: '',
           });
         },

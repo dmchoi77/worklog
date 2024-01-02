@@ -8,6 +8,7 @@ export interface IFetchWorkListRequest {
 }
 
 export interface IAddWorkRequest {
+  title: string;
   content: string;
   date: string;
   category: WorkCategoryType;

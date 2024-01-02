@@ -54,8 +54,9 @@ const MemoForm = ({ targetDate }: IProps) => {
     );
   };
   return (
-    <Paper elevation={1} className='input-container' css={paperStyle}>
+    <Paper elevation={1} className='input-container' style={paperStyle}>
       <textarea
+        placeholder='내용'
         value={input}
         onChange={handleInput}
         style={textAreaStyle}
