@@ -88,8 +88,8 @@ http.interceptors.response.use(
         }
       } catch (error: any) {
         if (ERROR_STATUS_CODES.includes(error.response.status)) {
-          removeCookie(ACCESS_TOKEN, { secure: true });
-          removeCookie(REFRESH_TOKEN, { secure: true });
+          removeCookie(ACCESS_TOKEN, { path: '/' });
+          removeCookie(REFRESH_TOKEN, { path: '/' });
           return (location.href = '/login');
         }
       }
