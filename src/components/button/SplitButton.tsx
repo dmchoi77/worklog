@@ -10,14 +10,12 @@ import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 
-import { WorkCategoryType } from '~/types/apis/work.types';
-
-interface IProps {
-  defaultOption?: WorkCategoryType;
-  options: WorkCategoryType[];
-  onSelectOption: React.Dispatch<React.SetStateAction<WorkCategoryType>>;
+interface IProps<T> {
+  defaultOption?: T;
+  options: T[];
+  onSelectOption: any;
 }
-export default function SplitButton({ options, onSelectOption, defaultOption }: IProps) {
+export default function SplitButton<T>({ options, onSelectOption, defaultOption }: IProps<T>) {
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -25,20 +23,17 @@ export default function SplitButton({ options, onSelectOption, defaultOption }: 
 
   const handleClick = () => setOpen((prev) => !prev);
 
-  const handleMenuItemClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number) => {
+  const handleClickMenuItem = (index: number) => {
     setSelectedIndex(index);
     setOpen(false);
+
     onSelectOption(options[index]);
-    console.log('click');
   };
 
   const handleToggle = () => setOpen((prev) => !prev);
 
   const handleClose = (event: Event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
-      return;
-    }
-
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) return;
     setOpen(false);
   };
 
@@ -63,7 +58,7 @@ export default function SplitButton({ options, onSelectOption, defaultOption }: 
         }}
       >
         <Button onClick={handleClick} sx={{ fontSize: 10 }}>
-          {defaultOption ?? options?.[selectedIndex]}
+          {(defaultOption as string) ?? options?.[selectedIndex]}
         </Button>
         <Button
           aria-controls={open ? 'split-button-menu' : undefined}
@@ -91,11 +86,11 @@ export default function SplitButton({ options, onSelectOption, defaultOption }: 
                 <MenuList id='split-button-menu' autoFocusItem>
                   {options?.map((option, index) => (
                     <MenuItem
-                      key={option}
+                      key={option as string}
                       selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      onClick={() => handleClickMenuItem(index)}
                     >
-                      {option}
+                      {option as string}
                     </MenuItem>
                   ))}
                 </MenuList>

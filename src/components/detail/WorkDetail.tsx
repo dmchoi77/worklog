@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { Button, Checkbox } from '@mui/material';
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,8 +9,9 @@ import ContentEditable from 'react-contenteditable';
 
 import SplitButton from '../button/SplitButton';
 
-import { useUpdateWork } from '~/queries/work';
-import { IWork } from '~/types/apis/work.types';
+import { useUpdateWork, workQueryKeys } from '~/queries/work';
+import { useSnackbarStore } from '~/stores/useSnackbarStore';
+import { IWork, WorkCategoryType } from '~/types/apis/work.types';
 
 import { GlobalPortal } from '~/GlobalPortal';
 
@@ -16,13 +19,49 @@ interface IProps extends IWork {
   handleClose: () => void;
 }
 const WorkDetail = (props: IProps) => {
-  const { handleClose, category, content, date, id, title, order, state, deadline } = props;
+  const { handleClose, category, date, id, deadline } = props;
+  const [work, setWork] = useState<IWork>(() => props);
+
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLInputElement>(null);
 
-  const [complete, updateComplete] = useState(state.toLocaleLowerCase() === 'completed' ? true : false);
+  const queryClient = useQueryClient();
   const { mutate } = useUpdateWork();
-  const handleOnClickUpdate = () => mutate({ ...props, state: complete ? 'completed' : 'in_progress' });
+
+  const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
+
+  const updateCategory = (value: WorkCategoryType) => {
+    setWork((prev) => ({
+      ...prev,
+      category: value,
+    }));
+  };
+
+  const handleClickUpdate = () => {
+    if (Object.is(props, work)) {
+      handleClose();
+      return updateSnackbarState({
+        open: true,
+        horizontal: 'center',
+        message: '변경 사항이 없습니다.',
+        vertical: 'bottom',
+      });
+    }
+
+    mutate(work, {
+      onSuccess: (data) => {
+        handleClose();
+        queryClient.invalidateQueries(workQueryKeys.fetchWorkList({}));
+        updateSnackbarState({
+          open: true,
+          horizontal: 'center',
+          message: data?.message,
+          vertical: 'bottom',
+        });
+      },
+    });
+  };
+
   return (
     <GlobalPortal.Consumer>
       <div
@@ -97,9 +136,14 @@ const WorkDetail = (props: IProps) => {
                     padding: 5,
                   }}
                   innerRef={titleRef}
-                  html={title}
+                  html={work.title}
                   disabled={false}
-                  onChange={() => {}}
+                  onChange={(e) => {
+                    setWork((prev) => ({
+                      ...prev,
+                      title: e.target.value,
+                    }));
+                  }}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
                       contentRef?.current?.blur();
@@ -127,9 +171,14 @@ const WorkDetail = (props: IProps) => {
                     padding: 10,
                   }}
                   innerRef={contentRef}
-                  html={content}
+                  html={work.content}
                   disabled={false}
-                  onChange={() => {}}
+                  onChange={(e) => {
+                    setWork((prev) => ({
+                      ...prev,
+                      content: e.target.value,
+                    }));
+                  }}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
                       contentRef?.current?.blur();
@@ -163,9 +212,9 @@ const WorkDetail = (props: IProps) => {
               >
                 <span>카테고리: </span>
                 <SplitButton
-                  defaultOption={category}
+                  defaultOption={work.category}
                   options={['update', 'refactor', 'chore', 'feat']}
-                  onSelectOption={() => {}}
+                  onSelectOption={updateCategory}
                 />
               </div>
               <div
@@ -177,7 +226,16 @@ const WorkDetail = (props: IProps) => {
               >
                 <div css={{ display: 'flex', alignItems: 'center' }}>
                   <span>완료여부: </span>
-                  <Checkbox checked={complete} onChange={() => updateComplete((prev) => !prev)} />
+                  <Checkbox
+                    name='state'
+                    checked={work.state.toLocaleLowerCase() === 'completed' ? true : false}
+                    onChange={() => {
+                      setWork((prev) => ({
+                        ...prev,
+                        state: prev.state.toLocaleLowerCase() === 'completed' ? 'in_progress' : 'completed',
+                      }));
+                    }}
+                  />
                 </div>
               </div>
               <div
@@ -186,7 +244,7 @@ const WorkDetail = (props: IProps) => {
                   gap: 5,
                 }}
               >
-                <Button variant='contained' size='small' onClick={handleOnClickUpdate}>
+                <Button variant='contained' size='small' onClick={handleClickUpdate}>
                   업데이트
                 </Button>
                 {/* <Button variant='outlined' size='small'>

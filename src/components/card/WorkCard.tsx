@@ -1,29 +1,54 @@
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Checkbox } from '@mui/material';
 
 import { Draggable } from 'react-beautiful-dnd';
 
-import ContentEditable from 'react-contenteditable';
-
 import { Container } from './card.style';
 import SplitButton from '../button/SplitButton';
 import WorkDetail from '../detail/WorkDetail';
 
+import { useUpdateWork, workQueryKeys } from '~/queries/work';
+import { useSnackbarStore } from '~/stores/useSnackbarStore';
 import { IWork, WorkCategoryType } from '~/types/apis/work.types';
 
 const WorkCard = (props: IWork) => {
-  const { content, id, category: defaultCategory, state } = props;
-  const [input, setInput] = useState(content);
-
+  const { id, title, category, state } = props;
   const [work, setWork] = useState<IWork>(() => props);
+  const [openWorkDetail, updateOpenWorkDetail] = useState(false);
 
-  // const updateCategory = () => {};
-  const [category, updateCategory] = useState<WorkCategoryType>(defaultCategory);
+  const queryClient = useQueryClient();
+  const { mutate } = useUpdateWork();
 
-  const [openWork, updateOpenWork] = useState(false);
+  const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
 
-  const contentRef = useRef<HTMLInputElement>(null);
+  const updateCategory = (value: WorkCategoryType) => {
+    setWork((prev) => ({
+      ...prev,
+      category: value,
+    }));
+  };
+
+  useEffect(
+    function updateWork() {
+      if (Object.is(props, work)) return;
+
+      mutate(work, {
+        onSuccess: (data) => {
+          queryClient.invalidateQueries(workQueryKeys.fetchWorkList({}));
+          updateSnackbarState({
+            open: true,
+            horizontal: 'center',
+            message: data?.message,
+            vertical: 'bottom',
+          });
+        },
+      });
+    },
+    [work],
+  );
 
   return (
     <>
@@ -35,7 +60,7 @@ const WorkCard = (props: IWork) => {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
-            onDoubleClick={() => updateOpenWork(true)}
+            onDoubleClick={() => updateOpenWorkDetail(true)}
           >
             <div css={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div css={{ margin: 4 }}>
@@ -45,32 +70,22 @@ const WorkCard = (props: IWork) => {
                   onSelectOption={updateCategory}
                 />
               </div>
-              <ContentEditable
-                innerRef={contentRef}
-                html={input}
-                disabled={false}
-                onChange={() => {}}
-                onKeyDown={(e) => {
-                  if (e.key === 'Escape') {
-                    contentRef?.current?.blur();
-                  }
-                }}
-              />
+              <span>{title}</span>
             </div>
             <Checkbox
               name='state'
-              checked={work.state.toLocaleLowerCase() === 'completed' ? true : false}
+              checked={state.toLocaleLowerCase() === 'completed' ? true : false}
               onChange={() => {
                 setWork((prev) => ({
                   ...prev,
-                  state: prev.state ? 'in_progress' : 'completed',
+                  state: prev.state.toLocaleLowerCase() === 'completed' ? 'in_progress' : 'completed',
                 }));
               }}
             />
           </Container>
         )}
       </Draggable>
-      {openWork && <WorkDetail handleClose={() => updateOpenWork(false)} {...props} />}
+      {openWorkDetail && <WorkDetail handleClose={() => updateOpenWorkDetail(false)} {...work} />}
     </>
   );
 };

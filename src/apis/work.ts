@@ -78,7 +78,7 @@ export const updateWorkOrder = async ({ order, id }: IUpdateWorkOrderRequest) =>
 };
 
 export const updateWork = async (params: IWork) => {
-  const response = await http.put<IWork, ICommonResponse>(
+  const response = await http.put<IWork, AxiosResponse<ICommonResponse>>(
     `/works/${params.id}`,
     {
       ...params,
@@ -88,7 +88,7 @@ export const updateWork = async (params: IWork) => {
     },
   );
 
-  return response.data;
+  return response?.data;
 };
 
 export const fetchWorkList = async (params: IFetchWorkListRequest) => {
