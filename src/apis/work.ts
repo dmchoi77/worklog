@@ -8,21 +8,11 @@ import {
   IUpdateWorkContentRequest,
   IUpdateWorkOrderRequest,
   IUpdateWorkStateRequest,
-  WorkCategoryType,
-  WorkStateType,
+  IWork,
 } from '~/types/apis/work.types';
 import http from '~/utils/http';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
-
-export interface IWork {
-  id: number;
-  content: string;
-  date: string;
-  category: WorkCategoryType;
-  state: WorkStateType;
-  order: number;
-}
 
 export const addWork = ({ title, category, content, date }: IAddWorkRequest) => {
   return http.post<IAddWorkRequest, ICommonResponse>(
@@ -87,11 +77,18 @@ export const updateWorkOrder = async ({ order, id }: IUpdateWorkOrderRequest) =>
   return response.data;
 };
 
-export const deleteWork = async (params: number) => {
-  const response = await http.delete<number, ICommonResponse>(`/works/${params}`, {
-    baseURL,
-  });
-  return response?.data;
+export const updateWork = async (params: IWork) => {
+  const response = await http.put<IWork, ICommonResponse>(
+    `/works/${params.id}`,
+    {
+      ...params,
+    },
+    {
+      baseURL,
+    },
+  );
+
+  return response.data;
 };
 
 export const fetchWorkList = async (params: IFetchWorkListRequest) => {

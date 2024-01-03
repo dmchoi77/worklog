@@ -10,17 +10,21 @@ import { Container } from './card.style';
 import SplitButton from '../button/SplitButton';
 import WorkDetail from '../detail/WorkDetail';
 
-import { IWork } from '~/apis/work';
-import { WorkCategoryType } from '~/types/apis/work.types';
+import { IWork, WorkCategoryType } from '~/types/apis/work.types';
 
 const WorkCard = (props: IWork) => {
-  const { content, id, category: defaultCategory } = props;
+  const { content, id, category: defaultCategory, state } = props;
   const [input, setInput] = useState(content);
 
+  const [work, setWork] = useState<IWork>(() => props);
+
+  // const updateCategory = () => {};
   const [category, updateCategory] = useState<WorkCategoryType>(defaultCategory);
-  const contentRef = useRef<HTMLInputElement>(null);
 
   const [openWork, updateOpenWork] = useState(false);
+
+  const contentRef = useRef<HTMLInputElement>(null);
+
   return (
     <>
       <Draggable draggableId={String(id)} index={id}>
@@ -31,14 +35,14 @@ const WorkCard = (props: IWork) => {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
-            onDoubleClick={(e) => updateOpenWork(true)}
+            onDoubleClick={() => updateOpenWork(true)}
           >
             <div css={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div css={{ margin: 4 }}>
                 <SplitButton
                   defaultOption={category}
                   options={['update', 'refactor', 'chore', 'feat']}
-                  selectedOption={updateCategory}
+                  onSelectOption={updateCategory}
                 />
               </div>
               <ContentEditable
@@ -53,11 +57,20 @@ const WorkCard = (props: IWork) => {
                 }}
               />
             </div>
-            <Checkbox defaultChecked />
+            <Checkbox
+              name='state'
+              checked={work.state.toLocaleLowerCase() === 'completed' ? true : false}
+              onChange={() => {
+                setWork((prev) => ({
+                  ...prev,
+                  state: prev.state ? 'in_progress' : 'completed',
+                }));
+              }}
+            />
           </Container>
         )}
       </Draggable>
-      {openWork && <WorkDetail handleClose={() => updateOpenWork(false)} {...props} />}{' '}
+      {openWork && <WorkDetail handleClose={() => updateOpenWork(false)} {...props} />}
     </>
   );
 };

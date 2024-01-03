@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { Button, Checkbox } from '@mui/material';
 
@@ -7,16 +7,22 @@ import ContentEditable from 'react-contenteditable';
 
 import SplitButton from '../button/SplitButton';
 
-import { IWork } from '~/apis/work';
+import { useUpdateWork } from '~/queries/work';
+import { IWork } from '~/types/apis/work.types';
 
 import { GlobalPortal } from '~/GlobalPortal';
 
 interface IProps extends IWork {
   handleClose: () => void;
 }
-const WorkDetail = ({ handleClose, category, content, date, id, order, state }: IProps) => {
+const WorkDetail = (props: IProps) => {
+  const { handleClose, category, content, date, id, title, order, state, deadline } = props;
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLInputElement>(null);
+
+  const [complete, updateComplete] = useState(state.toLocaleLowerCase() === 'completed' ? true : false);
+  const { mutate } = useUpdateWork();
+  const handleOnClickUpdate = () => mutate({ ...props, state: complete ? 'completed' : 'in_progress' });
   return (
     <GlobalPortal.Consumer>
       <div
@@ -55,7 +61,7 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
             }}
           >
             <span>
-              ID- {id} / {date}
+              ID: {id} / {date}
             </span>
             <CloseIcon onClick={handleClose} fontSize='medium' style={{ color: '#000', cursor: 'pointer' }} />
           </div>
@@ -81,6 +87,7 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
                     height: '40px',
                     borderRadius: 2,
                     fontSize: 26,
+                    fontWeight: 600,
                     overflowY: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
@@ -90,7 +97,7 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
                     padding: 5,
                   }}
                   innerRef={titleRef}
-                  html={'title'}
+                  html={title}
                   disabled={false}
                   onChange={() => {}}
                   onKeyDown={(e) => {
@@ -112,6 +119,7 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
                   css={{
                     height: '150px',
                     borderRadius: 2,
+
                     overflowY: 'hidden',
                     '&:hover': {
                       background: 'rgb(0 0 0 / 5%)',
@@ -145,7 +153,7 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
               }}
             >
               <span>생성날짜: {date}</span>
-              <span>마감기한: 2024년 4월 1일</span>
+              <span>마감기한: {deadline ?? ''}</span>
               <div
                 css={{
                   display: 'flex',
@@ -157,7 +165,7 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
                 <SplitButton
                   defaultOption={category}
                   options={['update', 'refactor', 'chore', 'feat']}
-                  selectedOption={() => {}}
+                  onSelectOption={() => {}}
                 />
               </div>
               <div
@@ -169,7 +177,7 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
               >
                 <div css={{ display: 'flex', alignItems: 'center' }}>
                   <span>완료여부: </span>
-                  <Checkbox defaultChecked />
+                  <Checkbox checked={complete} onChange={() => updateComplete((prev) => !prev)} />
                 </div>
               </div>
               <div
@@ -178,12 +186,12 @@ const WorkDetail = ({ handleClose, category, content, date, id, order, state }: 
                   gap: 5,
                 }}
               >
-                <Button variant='contained' size='small'>
+                <Button variant='contained' size='small' onClick={handleOnClickUpdate}>
                   업데이트
                 </Button>
-                <Button variant='outlined' size='small'>
+                {/* <Button variant='outlined' size='small'>
                   재등록
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>

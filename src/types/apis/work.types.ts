@@ -33,3 +33,14 @@ export interface IUpdateWorkOrderRequest {
   order: number;
   id: number;
 }
+
+export interface IWork {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+  category: WorkCategoryType;
+  state: WorkStateType;
+  order: number;
+  deadline: string | null;
+}

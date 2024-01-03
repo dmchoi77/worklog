@@ -102,7 +102,7 @@ const WorkForm = ({ targetDate }: IProps) => {
           width: '180px',
         }}
       >
-        <SplitButton options={['update', 'refactor', 'chore', 'feat']} selectedOption={updateCategory} />
+        <SplitButton options={['update', 'refactor', 'chore', 'feat']} onSelectOption={updateCategory} />
         <Button sx={buttonStyle} variant='contained' onClick={handleAddWork}>
           저장하기
         </Button>

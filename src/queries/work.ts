@@ -5,6 +5,7 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 import {
   addWork,
   fetchWorkList,
+  updateWork,
   updateWorkCategory,
   updateWorkContent,
   updateWorkOrder,
@@ -17,6 +18,7 @@ import {
   IUpdateWorkContentRequest,
   IUpdateWorkOrderRequest,
   IUpdateWorkStateRequest,
+  IWork,
 } from '~/types/apis/work.types';
 
 export const workQueryKeys = createQueryKeys('work', {
@@ -53,4 +55,9 @@ export const useUpdateWorkContent = () =>
 export const useUpdateWorkOrder = () =>
   useMutation({
     mutationFn: (params: IUpdateWorkOrderRequest) => updateWorkOrder(params),
+  });
+
+export const useUpdateWork = () =>
+  useMutation({
+    mutationFn: (params: IWork) => updateWork(params),
   });

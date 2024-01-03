@@ -15,9 +15,9 @@ import { WorkCategoryType } from '~/types/apis/work.types';
 interface IProps {
   defaultOption?: WorkCategoryType;
   options: WorkCategoryType[];
-  selectedOption: React.Dispatch<React.SetStateAction<WorkCategoryType>>;
+  onSelectOption: React.Dispatch<React.SetStateAction<WorkCategoryType>>;
 }
-export default function SplitButton({ options, selectedOption, defaultOption }: IProps) {
+export default function SplitButton({ options, onSelectOption, defaultOption }: IProps) {
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -28,7 +28,8 @@ export default function SplitButton({ options, selectedOption, defaultOption }: 
   const handleMenuItemClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number) => {
     setSelectedIndex(index);
     setOpen(false);
-    selectedOption(options[index]);
+    onSelectOption(options[index]);
+    console.log('click');
   };
 
   const handleToggle = () => setOpen((prev) => !prev);
