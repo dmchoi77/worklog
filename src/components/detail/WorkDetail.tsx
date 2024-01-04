@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -9,6 +9,7 @@ import ContentEditable from 'react-contenteditable';
 
 import SplitButton from '../button/SplitButton';
 
+import useWork from '~/hooks/useWork';
 import { useUpdateWork, workQueryKeys } from '~/queries/work';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
 import { IWork } from '~/types/apis/work.types';
@@ -20,22 +21,15 @@ interface IProps extends IWork {
 }
 const WorkDetail = (props: IProps) => {
   const { handleClose } = props;
-  const [work, setWork] = useState<IWork>(props);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLInputElement>(null);
 
   const queryClient = useQueryClient();
   const { mutate } = useUpdateWork();
+  const { work, workSetter } = useWork(props);
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
-
-  const workDetailSetter = (key: keyof IWork) => (value: any) => {
-    setWork((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
 
   const handleClickUpdate = () => {
     if (Object.is(props, work)) {
@@ -61,10 +55,6 @@ const WorkDetail = (props: IProps) => {
       },
     });
   };
-
-  useEffect(() => {
-    setWork(props);
-  }, []);
 
   return (
     <GlobalPortal.Consumer>
@@ -139,11 +129,10 @@ const WorkDetail = (props: IProps) => {
                     },
                     padding: 5,
                   }}
-                  key='title'
                   innerRef={titleRef}
                   html={work.title}
                   disabled={false}
-                  onChange={(e) => workDetailSetter('title')(e.target.value)}
+                  onChange={(e) => workSetter('title')(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
                       contentRef?.current?.blur();
@@ -174,7 +163,7 @@ const WorkDetail = (props: IProps) => {
                   innerRef={contentRef}
                   html={work.content}
                   disabled={false}
-                  onChange={(e) => workDetailSetter('content')(e.target.value)}
+                  onChange={(e) => workSetter('content')(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
                       contentRef?.current?.blur();
@@ -210,7 +199,7 @@ const WorkDetail = (props: IProps) => {
                 <SplitButton
                   defaultOption={work.category}
                   options={['update', 'refactor', 'chore', 'feat']}
-                  onSelectOption={workDetailSetter('category')}
+                  onSelectOption={workSetter('category')}
                 />
               </div>
               <div
@@ -226,9 +215,7 @@ const WorkDetail = (props: IProps) => {
                     name='state'
                     checked={work.state.toLocaleLowerCase() === 'completed' ? true : false}
                     onChange={() => {
-                      workDetailSetter('state')(
-                        work.state.toLocaleLowerCase() === 'completed' ? 'in_progress' : 'completed',
-                      );
+                      workSetter('state')(work.state.toLocaleLowerCase() === 'completed' ? 'in_progress' : 'completed');
                     }}
                   />
                 </div>

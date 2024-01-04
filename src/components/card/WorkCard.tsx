@@ -10,26 +10,22 @@ import { Container } from './card.style';
 import SplitButton from '../button/SplitButton';
 import WorkDetail from '../detail/WorkDetail';
 
+import { WORK_CATEGORY_OPTIONS } from '~/constants/work';
+import useWork from '~/hooks/useWork';
 import { useUpdateWork, workQueryKeys } from '~/queries/work';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
 import { IWork } from '~/types/apis/work.types';
 
 const WorkCard = (props: IWork) => {
   const { id, title, category, state } = props;
-  const [work, setWork] = useState<IWork>(() => props);
+  const { work, workSetter } = useWork(props);
+
   const [openWorkDetail, updateOpenWorkDetail] = useState(false);
 
   const queryClient = useQueryClient();
   const { mutate } = useUpdateWork();
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
-
-  const workDetailSetter = (key: keyof IWork) => (value: any) => {
-    setWork((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
 
   useEffect(
     function updateWork() {
@@ -50,10 +46,6 @@ const WorkCard = (props: IWork) => {
     [work],
   );
 
-  useEffect(() => {
-    setWork(props);
-  }, []);
-
   return (
     <>
       <Draggable draggableId={String(id)} index={id}>
@@ -69,22 +61,17 @@ const WorkCard = (props: IWork) => {
             <div css={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div css={{ margin: 4 }}>
                 <SplitButton
-                  key='category'
                   defaultOption={category}
-                  options={['update', 'refactor', 'chore', 'feat']}
-                  onSelectOption={workDetailSetter('category')}
+                  options={WORK_CATEGORY_OPTIONS}
+                  onSelectOption={workSetter('category')}
                 />
               </div>
               <span>{title}</span>
             </div>
             <Checkbox
-              key='state'
-              checked={state.toLocaleLowerCase() === 'completed' ? true : false}
+              checked={state === 'COMPLETED' ? true : false}
               onChange={() => {
-                setWork((prev) => ({
-                  ...prev,
-                  state: prev.state.toLocaleLowerCase() === 'completed' ? 'in_progress' : 'completed',
-                }));
+                workSetter('state')(work.state === 'COMPLETED' ? 'in_progress' : 'completed');
               }}
             />
           </Container>
