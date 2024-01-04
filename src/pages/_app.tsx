@@ -1,6 +1,7 @@
 import '~/styles/globals.css';
 
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import { usePathname } from 'next/navigation';
 
 import { useState } from 'react';
@@ -41,23 +42,29 @@ export default function App({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <GlobalPortal.Provider>
-      <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
-          {pathname === RoutePath.Login || pathname === RoutePath.SignIn ? (
-            <NonAuthLayout>
-              <Component {...pageProps} />
-            </NonAuthLayout>
-          ) : (
-            <HydrationBoundary state={pageProps.dehydratedState}>
-              <MasterLayout>
+    <>
+      <Head>
+        <title>오늘의 워크로그</title>
+        <meta name='description' content='오늘은 회사에서 어떤 일들이 생길까 오늘의 워크로그' />
+      </Head>
+      <GlobalPortal.Provider>
+        <ThemeProvider theme={theme}>
+          <QueryClientProvider client={queryClient}>
+            {pathname === RoutePath.Login || pathname === RoutePath.SignIn ? (
+              <NonAuthLayout>
                 <Component {...pageProps} />
-              </MasterLayout>
-            </HydrationBoundary>
-          )}
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </ThemeProvider>
-    </GlobalPortal.Provider>
+              </NonAuthLayout>
+            ) : (
+              <HydrationBoundary state={pageProps.dehydratedState}>
+                <MasterLayout>
+                  <Component {...pageProps} />
+                </MasterLayout>
+              </HydrationBoundary>
+            )}
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </ThemeProvider>
+      </GlobalPortal.Provider>
+    </>
   );
 }
