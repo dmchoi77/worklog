@@ -1,5 +1,5 @@
-export type WorkStateType = 'in_progress' | 'completed';
-export type WorkCategoryType = 'refactor' | 'update' | 'chore' | 'feat';
+export type WorkStateType = 'IN_PROGRESS' | 'COMPLETED';
+export type WorkCategoryType = 'REFACTOR' | 'UPDATE' | 'CHORE' | 'FEAT';
 
 export interface IFetchWorkListRequest {
   // startDate?: string;

@@ -9,6 +9,7 @@ import { Button, Paper } from '@mui/material';
 import { buttonStyle, paperStyle, textAreaStyle } from './form.style';
 import SplitButton from '../button/SplitButton';
 
+import { WORK_CATEGORY_OPTIONS } from '~/constants/work';
 import useInput from '~/hooks/useInput';
 import { calendarQueryKeys } from '~/queries/calendar';
 import { useAddWork, workQueryKeys } from '~/queries/work';
@@ -21,7 +22,7 @@ interface IProps {
 const WorkForm = ({ targetDate }: IProps) => {
   const queryClient = useQueryClient();
 
-  const [category, updateCategory] = useState<WorkCategoryType>('update');
+  const [category, updateCategory] = useState<WorkCategoryType>('UPDATE');
 
   const { input: inputTitle, handleInput: handleInputTitle, reset: resetTitle } = useInput();
   const { input: inputContent, handleInput: handleInputContent, reset: resetContent } = useInput();
@@ -62,7 +63,7 @@ const WorkForm = ({ targetDate }: IProps) => {
 
           resetTitle();
           resetContent();
-          updateCategory('update');
+          updateCategory('UPDATE');
         },
         onError: (error: any) => {
           updateSnackbarState({
@@ -101,7 +102,7 @@ const WorkForm = ({ targetDate }: IProps) => {
           width: '180px',
         }}
       >
-        <SplitButton options={['update', 'refactor', 'chore', 'feat']} onSelectOption={updateCategory} />
+        <SplitButton options={WORK_CATEGORY_OPTIONS} onSelectOption={updateCategory} />
         <Button sx={buttonStyle} variant='contained' onClick={handleAddWork}>
           저장하기
         </Button>
