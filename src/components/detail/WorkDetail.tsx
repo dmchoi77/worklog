@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -11,7 +11,7 @@ import SplitButton from '../button/SplitButton';
 
 import { useUpdateWork, workQueryKeys } from '~/queries/work';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { IWork, WorkCategoryType } from '~/types/apis/work.types';
+import { IWork } from '~/types/apis/work.types';
 
 import { GlobalPortal } from '~/GlobalPortal';
 
@@ -19,8 +19,8 @@ interface IProps extends IWork {
   handleClose: () => void;
 }
 const WorkDetail = (props: IProps) => {
-  const { handleClose, category, date, id, deadline } = props;
-  const [work, setWork] = useState<IWork>(() => props);
+  const { handleClose } = props;
+  const [work, setWork] = useState<IWork>(props);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLInputElement>(null);
@@ -30,10 +30,10 @@ const WorkDetail = (props: IProps) => {
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
 
-  const updateCategory = (value: WorkCategoryType) => {
+  const workDetailSetter = (key: keyof IWork) => (value: any) => {
     setWork((prev) => ({
       ...prev,
-      category: value,
+      [key]: value,
     }));
   };
 
@@ -61,6 +61,10 @@ const WorkDetail = (props: IProps) => {
       },
     });
   };
+
+  useEffect(() => {
+    setWork(props);
+  }, []);
 
   return (
     <GlobalPortal.Consumer>
@@ -100,7 +104,7 @@ const WorkDetail = (props: IProps) => {
             }}
           >
             <span>
-              ID: {id} / {date}
+              ID: {work.id} / {work.date}
             </span>
             <CloseIcon onClick={handleClose} fontSize='medium' style={{ color: '#000', cursor: 'pointer' }} />
           </div>
@@ -135,15 +139,11 @@ const WorkDetail = (props: IProps) => {
                     },
                     padding: 5,
                   }}
+                  key='title'
                   innerRef={titleRef}
                   html={work.title}
                   disabled={false}
-                  onChange={(e) => {
-                    setWork((prev) => ({
-                      ...prev,
-                      title: e.target.value,
-                    }));
-                  }}
+                  onChange={(e) => workDetailSetter('title')(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
                       contentRef?.current?.blur();
@@ -170,15 +170,11 @@ const WorkDetail = (props: IProps) => {
                     },
                     padding: 10,
                   }}
+                  key='content'
                   innerRef={contentRef}
                   html={work.content}
                   disabled={false}
-                  onChange={(e) => {
-                    setWork((prev) => ({
-                      ...prev,
-                      content: e.target.value,
-                    }));
-                  }}
+                  onChange={(e) => workDetailSetter('content')(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
                       contentRef?.current?.blur();
@@ -201,8 +197,8 @@ const WorkDetail = (props: IProps) => {
                 padding: 10,
               }}
             >
-              <span>생성날짜: {date}</span>
-              <span>마감기한: {deadline ?? ''}</span>
+              <span>생성날짜: {work.date}</span>
+              <span>마감기한: {work.deadline ?? ''}</span>
               <div
                 css={{
                   display: 'flex',
@@ -214,7 +210,7 @@ const WorkDetail = (props: IProps) => {
                 <SplitButton
                   defaultOption={work.category}
                   options={['update', 'refactor', 'chore', 'feat']}
-                  onSelectOption={updateCategory}
+                  onSelectOption={workDetailSetter('category')}
                 />
               </div>
               <div
@@ -230,10 +226,9 @@ const WorkDetail = (props: IProps) => {
                     name='state'
                     checked={work.state.toLocaleLowerCase() === 'completed' ? true : false}
                     onChange={() => {
-                      setWork((prev) => ({
-                        ...prev,
-                        state: prev.state.toLocaleLowerCase() === 'completed' ? 'in_progress' : 'completed',
-                      }));
+                      workDetailSetter('state')(
+                        work.state.toLocaleLowerCase() === 'completed' ? 'in_progress' : 'completed',
+                      );
                     }}
                   />
                 </div>

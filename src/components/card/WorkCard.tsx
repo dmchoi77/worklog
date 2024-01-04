@@ -12,7 +12,7 @@ import WorkDetail from '../detail/WorkDetail';
 
 import { useUpdateWork, workQueryKeys } from '~/queries/work';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { IWork, WorkCategoryType } from '~/types/apis/work.types';
+import { IWork } from '~/types/apis/work.types';
 
 const WorkCard = (props: IWork) => {
   const { id, title, category, state } = props;
@@ -24,10 +24,10 @@ const WorkCard = (props: IWork) => {
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
 
-  const updateCategory = (value: WorkCategoryType) => {
+  const workDetailSetter = (key: keyof IWork) => (value: any) => {
     setWork((prev) => ({
       ...prev,
-      category: value,
+      [key]: value,
     }));
   };
 
@@ -50,6 +50,10 @@ const WorkCard = (props: IWork) => {
     [work],
   );
 
+  useEffect(() => {
+    setWork(props);
+  }, []);
+
   return (
     <>
       <Draggable draggableId={String(id)} index={id}>
@@ -65,15 +69,16 @@ const WorkCard = (props: IWork) => {
             <div css={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <div css={{ margin: 4 }}>
                 <SplitButton
+                  key='category'
                   defaultOption={category}
                   options={['update', 'refactor', 'chore', 'feat']}
-                  onSelectOption={updateCategory}
+                  onSelectOption={workDetailSetter('category')}
                 />
               </div>
               <span>{title}</span>
             </div>
             <Checkbox
-              name='state'
+              key='state'
               checked={state.toLocaleLowerCase() === 'completed' ? true : false}
               onChange={() => {
                 setWork((prev) => ({
@@ -85,7 +90,7 @@ const WorkCard = (props: IWork) => {
           </Container>
         )}
       </Draggable>
-      {openWorkDetail && <WorkDetail handleClose={() => updateOpenWorkDetail(false)} {...work} />}
+      {openWorkDetail && <WorkDetail handleClose={() => updateOpenWorkDetail(false)} {...props} />}
     </>
   );
 };
