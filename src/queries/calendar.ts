@@ -14,7 +14,7 @@ export const calendarQueryKeys = createQueryKeys('calendar', {
 export const useFetchCalendarYears = () =>
   useQuery({
     queryKey: calendarQueryKeys.fetchCalendarYears.queryKey,
-    queryFn: () => fetchCalendarYears(),
+    queryFn: fetchCalendarYears,
   });
 
 export const useFetchCalendarMonth = (year: number) =>
@@ -27,6 +27,6 @@ export const useFetchCalendarMonth = (year: number) =>
 export const useFetchCalendarDays = (params: IFetchCalendarDaysRequest) =>
   useQuery({
     queryKey: calendarQueryKeys.fetchCalendarDays(params).queryKey,
-    queryFn: () => fetchCalendarDays(params),
+    queryFn: async () => await fetchCalendarDays(params),
     enabled: !!params.month && !!params.year,
   });

@@ -35,7 +35,6 @@ export const useLogin = () => {
       setCookie(ACCESS_TOKEN, accessToken, {
         secure: true,
         path: '/',
-        // maxAge: getRemainExp(accessToken),
       });
       setCookie(REFRESH_TOKEN, refreshToken, {
         secure: true,

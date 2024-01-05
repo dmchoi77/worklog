@@ -4,7 +4,7 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { getRemainExp } from './decodeJWT';
 
-import { ACCESS_TOKEN, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
 import { getCookie, removeCookie, setCookie } from '~/utils/cookie';
@@ -30,7 +30,6 @@ const injectToken = (
   config: InternalAxiosRequestConfig<any>,
 ): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> => {
   const accessToken = getCookie(ACCESS_TOKEN);
-
   if (!!accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
@@ -44,15 +43,15 @@ http.interceptors.response.use(
   },
   async (error) => {
     console.log('🚀 ~ file: http.ts:41 ~ error:', error);
+
     const {
       response: { status },
     } = error;
-
     if (status === 401) {
       const originalRequest = error.config;
-      const refreshToken = getCookie(REFRESH_TOKEN);
-      const accessToken = getCookie(ACCESS_TOKEN);
-      if (accessToken && !refreshToken) return (location.href = 'login');
+      const refreshToken = getCookie(REFRESH_TOKEN) ?? '';
+      if (typeof window === 'undefined') return;
+      if (!refreshToken) return (location.href = 'login');
       try {
         const response = await axios.post<ICommonResponse<ILoginResponse>>(
           '/users/reissue',
@@ -71,7 +70,6 @@ http.interceptors.response.use(
           setCookie(ACCESS_TOKEN, newAccessToken, {
             secure: true,
             path: '/',
-            // maxAge: getRemainExp(newAccessToken),
           });
           setCookie(REFRESH_TOKEN, newRefreshToken, {
             secure: true,
@@ -87,11 +85,11 @@ http.interceptors.response.use(
           return http(originalRequest);
         }
       } catch (error: any) {
-        if (ERROR_STATUS_CODES.includes(error.response.status)) {
-          removeCookie(ACCESS_TOKEN, { path: '/' });
-          removeCookie(REFRESH_TOKEN, { path: '/' });
-          return (location.href = '/login');
-        }
+        // if (ERROR_STATUS_CODES.includes(error.response.status)) {
+        // removeCookie(ACCESS_TOKEN, { path: '/' });
+        // removeCookie(REFRESH_TOKEN, { path: '/' });
+        // return (location.href = '/login');
+        // }
       }
     }
     throw error.response.data;

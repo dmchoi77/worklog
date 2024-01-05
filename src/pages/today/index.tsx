@@ -31,10 +31,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   await queryClient.prefetchQuery({
     queryKey: memoQueryKeys.fetchMemoList({ date: todayDate }).queryKey,
     queryFn: () => fetchMemoList({ date: todayDate }),
+    initialData: [],
   });
   await queryClient.prefetchQuery({
     queryKey: calendarQueryKeys.fetchCalendarYears.queryKey,
     queryFn: () => fetchCalendarYears(),
+    initialData: [],
   });
   // fix `data-rbd-draggable-context-id` did not match Server / Client
   resetServerContext();
