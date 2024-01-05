@@ -7,9 +7,7 @@ import { getRemainExp } from './decodeJWT';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
-import { getCookie, removeCookie, setCookie } from '~/utils/cookie';
-
-const ERROR_STATUS_CODES = [401, 404];
+import { getCookie, setCookie } from '~/utils/cookie';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -37,21 +35,49 @@ const injectToken = (
 
 http.interceptors.request.use(injectToken, (error) => Promise.reject(error));
 
+let isRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
+
 http.interceptors.response.use(
   (response) => {
     return response;
   },
   async (error) => {
-    console.log('🚀 ~ file: http.ts:41 ~ error:', error);
-
+    const originalRequest = error.config;
     const {
       response: { status },
     } = error;
-    if (status === 401) {
-      const originalRequest = error.config;
-      const refreshToken = getCookie(REFRESH_TOKEN) ?? '';
+    if (status === 401 && !originalRequest._retry) {
       if (typeof window === 'undefined') return;
-      if (!refreshToken) return (location.href = 'login');
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            originalRequest.headers['Authorization'] = 'Bearer ' + token;
+            return axios(originalRequest);
+          })
+          .catch((error) => {
+            return Promise.reject(error);
+          });
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      const refreshToken = getCookie(REFRESH_TOKEN);
       try {
         const response = await axios.post<ICommonResponse<ILoginResponse>>(
           '/users/reissue',
@@ -64,28 +90,22 @@ http.interceptors.response.use(
           },
         );
         if (response.status === 403) return (location.href = 'login');
-        const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data as ILoginResponse;
-
         if (response.status === 200) {
-          setCookie(ACCESS_TOKEN, newAccessToken, {
-            secure: true,
-            path: '/',
-          });
-          setCookie(REFRESH_TOKEN, newRefreshToken, {
-            secure: true,
-            path: '/',
-            maxAge: getRemainExp(newRefreshToken),
-          });
+          const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data as ILoginResponse;
+          setCookie(ACCESS_TOKEN, newAccessToken, { secure: true, path: '/' });
+          setCookie(REFRESH_TOKEN, newRefreshToken, { secure: true, path: '/', maxAge: getRemainExp(newRefreshToken) });
+
           originalRequest.headers = { Authorization: `Bearer ${newAccessToken}` };
           http.defaults.headers.common = { Authorization: `Bearer ${newAccessToken}` };
+
+          processQueue(null, newAccessToken);
+
           return http(originalRequest);
         }
       } catch (error: any) {
-        if (ERROR_STATUS_CODES.includes(error.response.status)) {
-          removeCookie(ACCESS_TOKEN, { path: '/' });
-          removeCookie(REFRESH_TOKEN, { path: '/' });
-          return (location.href = '/login');
-        }
+        processQueue(error, null);
+      } finally {
+        isRefreshing = false;
       }
     }
     throw error.response.data;
