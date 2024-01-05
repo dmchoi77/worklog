@@ -14,11 +14,12 @@ import {
   refreshAccessToken,
   signIn,
 } from '~/apis/user';
-import { ACCESS_TOKEN, REFRESH_TOKEN, TEN_HOURS } from '~/constants/cookie';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
 import { removeCookie, setCookie } from '~/utils/cookie';
 import { getRemainExp } from '~/utils/decodeJWT';
+import http from '~/utils/http';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -67,27 +68,30 @@ export const useRefreshAccessToken = (refreshToken: string) => {
   const query = useQuery({
     queryKey: userQueryKeys.refreshAccessToken.queryKey,
     queryFn: () => refreshAccessToken(refreshToken),
-    enabled: !!refreshToken,
   });
 
   useEffect(() => {
-    if (!query.data) return;
-    const { refreshToken, accessToken } = query.data;
+    if (!query.data) {
+      // removeCookie(ACCESS_TOKEN, { path: '/' });
+      // removeCookie(REFRESH_TOKEN, { path: '/' });
+      // http.defaults.headers.Authorization = null;
+      return;
+    }
+    if (query.isSuccess) {
+      const { refreshToken, accessToken } = query.data;
 
-    removeCookie(REFRESH_TOKEN, { path: '/' });
-    removeCookie(ACCESS_TOKEN, { path: '/' });
-
-    setCookie(REFRESH_TOKEN, refreshToken, {
-      secure: true,
-      path: '/',
-      maxAge: getRemainExp(refreshToken),
-    });
-    setCookie(ACCESS_TOKEN, accessToken, {
-      secure: true,
-      path: '/',
-      // maxAge: getRemainExp(accessToken),
-    });
-  }, [query]);
+      setCookie(REFRESH_TOKEN, refreshToken, {
+        secure: true,
+        path: '/',
+        maxAge: getRemainExp(refreshToken),
+      });
+      setCookie(ACCESS_TOKEN, accessToken, {
+        secure: true,
+        path: '/',
+      });
+      http.defaults.headers.Authorization = `Bearer ${accessToken}`;
+    }
+  }, [query.data]);
 
   return query;
 };
@@ -101,6 +105,7 @@ export const useLogout = () => {
     onSettled: () => {
       removeCookie(ACCESS_TOKEN, { path: '/' });
       removeCookie(REFRESH_TOKEN, { path: '/' });
+      http.defaults.headers.Authorization = null;
       resetUserInfo();
       router.push('/login');
     },

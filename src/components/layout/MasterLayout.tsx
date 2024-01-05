@@ -6,7 +6,8 @@ import Header from '../header/Header';
 import PanelLeft from '../panel/PanelLeft';
 import CustomSnackbar from '../snackbar/Snackbar';
 
-import { ACCESS_TOKEN } from '~/constants/cookie';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
+import { useRefreshAccessToken } from '~/queries/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { getCookie } from '~/utils/cookie';
 import { decodeJWT } from '~/utils/decodeJWT';
@@ -20,6 +21,9 @@ const MasterLayout = ({ children }: IProps) => {
     username: state.username,
     updateUserInfoState: state.updateUserInfoState,
   }));
+
+  const refreshToken = getCookie(REFRESH_TOKEN);
+  const { isSuccess } = useRefreshAccessToken(refreshToken);
 
   useEffect(() => {
     if (username) return;
@@ -42,11 +46,15 @@ const MasterLayout = ({ children }: IProps) => {
           height: '100vh',
         }}
       >
-        <PanelLeft />
-        <PanelRightContainer>
-          <Header />
-          {children}
-        </PanelRightContainer>
+        {isSuccess && (
+          <>
+            <PanelLeft />
+            <PanelRightContainer>
+              <Header />
+              {children}
+            </PanelRightContainer>
+          </>
+        )}
       </div>
       <CustomSnackbar />
     </MasterLayoutContainer>

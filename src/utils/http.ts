@@ -9,7 +9,7 @@ import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
 import { getCookie, removeCookie, setCookie } from '~/utils/cookie';
 
-const ERROR_STATUS_CODES = [401, 403, 404];
+const ERROR_STATUS_CODES = [401, 404];
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -76,20 +76,16 @@ http.interceptors.response.use(
             path: '/',
             maxAge: getRemainExp(newRefreshToken),
           });
-          originalRequest.headers = {
-            Authorization: `Bearer ${newAccessToken}`,
-          };
-          http.defaults.headers.common = {
-            Authorization: `Bearer ${newAccessToken}`,
-          };
+          originalRequest.headers = { Authorization: `Bearer ${newAccessToken}` };
+          http.defaults.headers.common = { Authorization: `Bearer ${newAccessToken}` };
           return http(originalRequest);
         }
       } catch (error: any) {
-        // if (ERROR_STATUS_CODES.includes(error.response.status)) {
-        // removeCookie(ACCESS_TOKEN, { path: '/' });
-        // removeCookie(REFRESH_TOKEN, { path: '/' });
-        // return (location.href = '/login');
-        // }
+        if (ERROR_STATUS_CODES.includes(error.response.status)) {
+          removeCookie(ACCESS_TOKEN, { path: '/' });
+          removeCookie(REFRESH_TOKEN, { path: '/' });
+          return (location.href = '/login');
+        }
       }
     }
     throw error.response.data;
