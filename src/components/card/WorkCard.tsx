@@ -16,7 +16,11 @@ import { useUpdateWork, workQueryKeys } from '~/queries/work';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
 import { IWork } from '~/types/apis/work.types';
 
-const WorkCard = (props: IWork) => {
+interface IProps extends IWork {
+  index: number;
+}
+
+const WorkCard = (props: IProps) => {
   const { id, title, category, state } = props;
   const { work, workSetter } = useWork(props);
 
@@ -48,7 +52,7 @@ const WorkCard = (props: IWork) => {
 
   return (
     <>
-      <Draggable draggableId={String(id)} index={id}>
+      <Draggable draggableId={String(id)} index={props.index}>
         {(provided, snapshot) => (
           <Container
             bgColor='lightblue'
