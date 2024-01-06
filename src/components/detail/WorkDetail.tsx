@@ -118,7 +118,7 @@ const WorkDetail = (props: IProps) => {
                 <ContentEditable
                   css={{
                     height: '40px',
-                    borderRadius: 2,
+                    borderRadius: 4,
                     fontSize: 26,
                     fontWeight: 600,
                     overflowY: 'hidden',
@@ -127,7 +127,7 @@ const WorkDetail = (props: IProps) => {
                     '&:hover': {
                       background: 'rgb(0 0 0 / 5%)',
                     },
-                    padding: 5,
+                    padding: 1,
                   }}
                   innerRef={titleRef}
                   html={work.title}
@@ -151,8 +151,8 @@ const WorkDetail = (props: IProps) => {
                 <ContentEditable
                   css={{
                     height: '150px',
-                    borderRadius: 2,
-
+                    borderRadius: 4,
+                    border: '1px solid rgb(0 0 0 / 15%)',
                     overflowY: 'hidden',
                     '&:hover': {
                       background: 'rgb(0 0 0 / 5%)',
@@ -182,7 +182,7 @@ const WorkDetail = (props: IProps) => {
                 flexDirection: 'column',
                 fontSize: 14,
                 border: '1px solid #0000002e',
-                borderRadius: 6,
+                borderRadius: 4,
                 padding: 10,
               }}
             >
