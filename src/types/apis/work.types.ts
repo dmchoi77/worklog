@@ -14,6 +14,10 @@ export interface IAddWorkRequest {
   category: WorkCategoryType;
 }
 
+export interface IDeleteWorkRequest {
+  id: number;
+}
+
 export interface IUpdateWorkCategoryRequest {
   category: WorkCategoryType;
   id: number;

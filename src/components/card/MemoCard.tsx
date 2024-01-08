@@ -63,9 +63,9 @@ const MemoCard = ({ content, id, index }: IProps) => {
   }, 800);
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
 
-  const handleDelete = () =>
+  const handleDeleteMemo = () =>
     deleteMemo(
-      { id: Number(id) },
+      { id: id },
       {
         onSuccess: (data) => {
           updateSnackbarState({
@@ -123,7 +123,7 @@ const MemoCard = ({ content, id, index }: IProps) => {
                 }}
               />
               <Divider css={{ width: 1, background: 'rgba(15, 15, 15, 0.1)' }} />
-              <DeleteIcon css={{ borderRadius: 6, background: '#ffffff' }} onClick={handleDelete} />
+              <DeleteIcon css={{ borderRadius: 6, background: '#ffffff' }} onClick={handleDeleteMemo} />
             </Box>
           )}
           <ContentEditable

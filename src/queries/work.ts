@@ -4,6 +4,7 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 
 import {
   addWork,
+  deleteWork,
   fetchWorkList,
   updateWork,
   updateWorkCategory,
@@ -13,6 +14,7 @@ import {
 } from '~/apis/work';
 import {
   IAddWorkRequest,
+  IDeleteWorkRequest,
   IFetchWorkListRequest,
   IUpdateWorkCategoryRequest,
   IUpdateWorkContentRequest,
@@ -35,6 +37,11 @@ export const useFetchWorkList = (params: IFetchWorkListRequest) => {
 export const useAddWork = () =>
   useMutation({
     mutationFn: (params: IAddWorkRequest) => addWork(params),
+  });
+
+export const useDeleteWork = () =>
+  useMutation({
+    mutationFn: (params: IDeleteWorkRequest) => deleteWork(params),
   });
 
 export const useUpdateWorkCategory = () =>

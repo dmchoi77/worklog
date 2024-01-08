@@ -89,7 +89,6 @@ const WorkForm = ({ targetDate }: IProps) => {
         placeholder='상세 내용'
         value={inputContent}
         onChange={handleInputContent}
-        autoFocus
         style={{ ...textAreaStyle, height: 120 }}
       />
       <div

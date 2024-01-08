@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import { ICommonResponse } from '~/types/apis/common.types';
 import {
   IAddWorkRequest,
+  IDeleteWorkRequest,
   IFetchWorkListRequest,
   IUpdateWorkCategoryRequest,
   IUpdateWorkContentRequest,
@@ -27,6 +28,13 @@ export const addWork = ({ title, category, content, date }: IAddWorkRequest) => 
       baseURL,
     },
   );
+};
+
+export const deleteWork = async ({ id }: IDeleteWorkRequest) => {
+  const response = await http.delete<IDeleteWorkRequest, AxiosResponse<ICommonResponse>>(`/works/${id}`, {
+    baseURL,
+  });
+  return response?.data;
 };
 
 export const updateWorkCategory = async ({ category, id }: IUpdateWorkCategoryRequest) => {
