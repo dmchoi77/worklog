@@ -7,7 +7,7 @@ import { getRemainExp } from './decodeJWT';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
-import { getCookie, setCookie } from '~/utils/cookie';
+import { getCookie, removeCookie, setCookie } from '~/utils/cookie';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -89,7 +89,6 @@ http.interceptors.response.use(
             baseURL: process.env.NEXT_PUBLIC_API_URL,
           },
         );
-        if ([403, 404].includes(response.status)) return (location.href = 'login');
         if (response.status === 200) {
           const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data as ILoginResponse;
           setCookie(ACCESS_TOKEN, newAccessToken, { secure: true, path: '/' });
@@ -103,6 +102,11 @@ http.interceptors.response.use(
           return http(originalRequest);
         }
       } catch (error: any) {
+        if ([403, 404].includes(error.response.status)) {
+          removeCookie(REFRESH_TOKEN, { path: '/' });
+          removeCookie(ACCESS_TOKEN, { path: '/' });
+          return (location.href = 'login');
+        }
         processQueue(error, null);
       } finally {
         isRefreshing = false;

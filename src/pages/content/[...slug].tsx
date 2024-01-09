@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 const Content = ({ targetDate }: { targetDate: string }) => {
   return (
-    <div css={{ width: '100%', height: '100%' }}>
+    <div css={{ width: '100%' }}>
       <PanelRight targetDate={targetDate} />
     </div>
   );
