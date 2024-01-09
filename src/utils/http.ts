@@ -89,7 +89,7 @@ http.interceptors.response.use(
             baseURL: process.env.NEXT_PUBLIC_API_URL,
           },
         );
-        if (response.status === 403) return (location.href = 'login');
+        if ([403, 404].includes(response.status)) return (location.href = 'login');
         if (response.status === 200) {
           const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data as ILoginResponse;
           setCookie(ACCESS_TOKEN, newAccessToken, { secure: true, path: '/' });
