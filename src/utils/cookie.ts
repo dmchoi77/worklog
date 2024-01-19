@@ -1,6 +1,6 @@
 import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
-
+const isProd = process.env.NODE_ENV === 'production';
 export interface CookieSetOptions {
   path?: string;
   expires?: Date;
@@ -12,7 +12,7 @@ export interface CookieSetOptions {
 }
 
 export const setCookie = (name: string, value: string, options?: CookieSetOptions) => {
-  return cookies.set(name, value, { ...options });
+  return cookies.set(name, value, { ...options, httpOnly: isProd ? true : false, secure: true, path: '/' });
 };
 
 export const getCookie = (name: string) => {

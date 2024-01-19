@@ -91,8 +91,8 @@ http.interceptors.response.use(
         );
         if (response.status === 200) {
           const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data as ILoginResponse;
-          setCookie(ACCESS_TOKEN, newAccessToken, { secure: true, path: '/' });
-          setCookie(REFRESH_TOKEN, newRefreshToken, { secure: true, path: '/', maxAge: getRemainExp(newRefreshToken) });
+          setCookie(ACCESS_TOKEN, newAccessToken);
+          setCookie(REFRESH_TOKEN, newRefreshToken, { maxAge: getRemainExp(newRefreshToken) });
 
           originalRequest.headers = { Authorization: `Bearer ${newAccessToken}` };
           http.defaults.headers.common = { Authorization: `Bearer ${newAccessToken}` };

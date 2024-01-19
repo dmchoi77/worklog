@@ -33,13 +33,8 @@ export const useLogin = () => {
     onSuccess: (data) => {
       const { accessToken, refreshToken } = data as ILoginResponse;
 
-      setCookie(ACCESS_TOKEN, accessToken, {
-        secure: true,
-        path: '/',
-      });
+      setCookie(ACCESS_TOKEN, accessToken);
       setCookie(REFRESH_TOKEN, refreshToken, {
-        secure: true,
-        path: '/',
         maxAge: getRemainExp(refreshToken),
       });
     },
@@ -81,14 +76,9 @@ export const useRefreshAccessToken = (refreshToken: string) => {
       const { refreshToken, accessToken } = query.data;
 
       setCookie(REFRESH_TOKEN, refreshToken, {
-        secure: true,
-        path: '/',
         maxAge: getRemainExp(refreshToken),
       });
-      setCookie(ACCESS_TOKEN, accessToken, {
-        secure: true,
-        path: '/',
-      });
+      setCookie(ACCESS_TOKEN, accessToken);
       http.defaults.headers.Authorization = `Bearer ${accessToken}`;
     }
   }, [query.data]);
