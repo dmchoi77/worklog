@@ -12,7 +12,7 @@ export interface CookieSetOptions {
 }
 
 export const setCookie = (name: string, value: string, options?: CookieSetOptions) => {
-  return cookies.set(name, value, { ...options, httpOnly: isProd ? true : false, secure: true, path: '/' });
+  return cookies.set(name, value, { ...options, secure: true, path: '/' });
 };
 
 export const getCookie = (name: string) => {
