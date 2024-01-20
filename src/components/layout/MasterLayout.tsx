@@ -7,9 +7,10 @@ import PanelLeft from '../panel/PanelLeft';
 import CustomSnackbar from '../snackbar/Snackbar';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
+import useServerSentEvent from '~/hooks/useServerSentEvent';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { getCookie } from '~/utils/cookie';
-import { decodeJWT, getRemainExp } from '~/utils/decodeJWT';
+import { decodeJWT } from '~/utils/decodeJWT';
 
 interface IProps {
   children: JSX.Element | JSX.Element[];
@@ -32,6 +33,7 @@ const MasterLayout = ({ children }: IProps) => {
       updateUserInfoState(username);
     }
   }, []);
+  // useServerSentEvent();
 
   return (
     <MasterLayoutContainer>

@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
 
+import { Badge } from '@mui/material';
+
 import styled from '@emotion/styled';
+import { Notifications } from '@mui/icons-material';
 
 import { useLogout } from '~/queries/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-
 const HeaderContainer = styled.header`
   background-color: #fffdfa;
   width: 100%;
@@ -34,19 +36,28 @@ const Header: React.FC = () => {
           Today
         </span>
       </div>
-      <div>
+      <div
+        css={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
         <span css={{ margin: 20 }}>환영합니다. {username} 님</span>
-        <span
-          css={{
-            fontSize: 14,
-            fontWeight: 600,
-            padding: 10,
-            cursor: 'pointer',
-          }}
-          onClick={() => logout()}
-        >
-          로그아웃
-        </span>
+        <Badge badgeContent={1} color='info'>
+          <Notifications color='action' />
+        </Badge>
+        <div css={{ paddingLeft: 20, paddingRight: 20 }}>
+          <span
+            css={{
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+            onClick={() => logout()}
+          >
+            로그아웃
+          </span>
+        </div>
       </div>
     </HeaderContainer>
   );
