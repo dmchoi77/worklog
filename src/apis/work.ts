@@ -15,7 +15,7 @@ import http from '~/utils/http';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export const addWork = ({ title, category, content, date }: IAddWorkRequest) => {
+export const addWork = ({ title, category, content, date, deadline }: IAddWorkRequest) => {
   return http.post<IAddWorkRequest, ICommonResponse>(
     '/works',
     {
@@ -23,6 +23,7 @@ export const addWork = ({ title, category, content, date }: IAddWorkRequest) => 
       category,
       content,
       date,
+      deadline,
     },
     {
       baseURL,

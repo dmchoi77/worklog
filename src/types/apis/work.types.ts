@@ -12,6 +12,7 @@ export interface IAddWorkRequest {
   content: string;
   date: string;
   category: WorkCategoryType;
+  deadline?: string;
 }
 
 export interface IDeleteWorkRequest {

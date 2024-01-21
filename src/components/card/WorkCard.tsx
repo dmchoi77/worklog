@@ -60,7 +60,6 @@ const WorkCard = (props: IProps) => {
 
   useEffect(
     function updateWork() {
-      console.log(Object.is(props, work));
       if (Object.is(props, work)) return;
 
       mutate(work, {

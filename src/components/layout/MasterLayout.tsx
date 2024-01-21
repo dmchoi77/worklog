@@ -6,7 +6,7 @@ import Header from '../header/Header';
 import PanelLeft from '../panel/PanelLeft';
 import CustomSnackbar from '../snackbar/Snackbar';
 
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
+import { ACCESS_TOKEN } from '~/constants/cookie';
 import useServerSentEvent from '~/hooks/useServerSentEvent';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { getCookie } from '~/utils/cookie';
@@ -22,8 +22,6 @@ const MasterLayout = ({ children }: IProps) => {
     updateUserInfoState: state.updateUserInfoState,
   }));
 
-  const refreshToken = getCookie(REFRESH_TOKEN);
-
   useEffect(() => {
     if (username) return;
 
@@ -33,7 +31,8 @@ const MasterLayout = ({ children }: IProps) => {
       updateUserInfoState(username);
     }
   }, []);
-  // useServerSentEvent();
+
+  useServerSentEvent();
 
   return (
     <MasterLayoutContainer>

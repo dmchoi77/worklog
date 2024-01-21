@@ -53,6 +53,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-import", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.29.0"],\
             ["eslint-plugin-prettier", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.0.1"],\
             ["event-source-polyfill", "npm:1.0.31"],\
+            ["eventsource", "npm:2.0.2"],\
             ["jwt-decode", "npm:4.0.0"],\
             ["mermaid", "npm:10.2.4"],\
             ["next", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:13.4.10"],\
@@ -3634,6 +3635,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["eventsource", [\
+        ["npm:2.0.2", {\
+          "packageLocation": "./.yarn/cache/eventsource-npm-2.0.2-e94c48aca3-c0072d9727.zip/node_modules/eventsource/",\
+          "packageDependencies": [\
+            ["eventsource", "npm:2.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["execa", [\
         ["npm:5.1.1", {\
           "packageLocation": "./.yarn/cache/execa-npm-5.1.1-191347acf5-fba9022c8c.zip/node_modules/execa/",\
@@ -5232,6 +5242,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-import", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.29.0"],\
             ["eslint-plugin-prettier", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.0.1"],\
             ["event-source-polyfill", "npm:1.0.31"],\
+            ["eventsource", "npm:2.0.2"],\
             ["jwt-decode", "npm:4.0.0"],\
             ["mermaid", "npm:10.2.4"],\
             ["next", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:13.4.10"],\
