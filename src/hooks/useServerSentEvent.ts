@@ -1,5 +1,6 @@
-import { EventSourcePolyfill } from 'event-source-polyfill';
 import { useEffect } from 'react';
+
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
 import { ACCESS_TOKEN } from '~/constants/cookie';
 import { getCookie } from '~/utils/cookie';
@@ -10,8 +11,8 @@ const useServerSentEvent = () => {
 
   useEffect(() => {
     if (typeof window === 'undefined' || !accessToken) return;
-    // const eventSource = new EventSourcePolyfill(`${baseURL}/connect`, {
-    const eventSource = new EventSource(`http://localhost:3100/sse`, {
+    const eventSource = new EventSourcePolyfill(`${baseURL}/connect`, {
+      // const eventSource = new EventSource(`http://localhost:3100/sse`, {
       // headers: {
       //   Authorization: `Bearer ${accessToken}`,
       // },
