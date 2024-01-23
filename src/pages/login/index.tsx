@@ -3,8 +3,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { triggerNotification } from '~/apis/notification';
 
+import { triggerNotification } from '~/apis/notification';
 import Dialog from '~/components/dialog/Dialog';
 import { REFRESH_TOKEN, ACCESS_TOKEN } from '~/constants/cookie';
 import { RoutePath } from '~/constants/route';

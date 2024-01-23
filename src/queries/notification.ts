@@ -1,5 +1,7 @@
-import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { useMutation, useQuery } from '@tanstack/react-query';
+
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+
 import { checkNotification, triggerNotification } from '~/apis/notification';
 
 const notificationQueryKeys = createQueryKeys('notification', {
