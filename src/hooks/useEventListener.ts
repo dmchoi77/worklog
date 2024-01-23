@@ -6,7 +6,6 @@ const useEventListener = (
   element: Window | undefined = typeof window === 'undefined' ? undefined : window,
 ) => {
   const savedHandler = useRef(handler);
-  if (typeof window === 'undefined') return;
 
   useEffect(() => {
     savedHandler.current = handler;
