@@ -19,6 +19,17 @@ interface IProps {
   targetDate: string;
 }
 
+const getDeadline = () => {
+  // 현재 날짜와 시간을 가져오기
+  let currentDate = dayjs();
+  // 1일을 더하기
+  let nextDay = currentDate.add(1, 'day');
+  // 원하는 포맷으로 변환 (YYYY-MM-DD HH:mm)
+  let formattedDate = nextDay.format('YYYY-MM-DD HH:mm');
+
+  return formattedDate;
+};
+
 const WorkForm = ({ targetDate }: IProps) => {
   const queryClient = useQueryClient();
 
@@ -44,6 +55,7 @@ const WorkForm = ({ targetDate }: IProps) => {
         content: inputContent.replace(/(?:\r\n|\r|\n)/g, '<br />'),
         date: targetDate,
         category: category,
+        deadline: getDeadline(), // 데드라인 임시로 + 1일로 / TODO: 데드라인 설정 UI 개발
       },
       {
         onSuccess: () => {

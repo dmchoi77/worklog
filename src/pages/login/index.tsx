@@ -3,10 +3,12 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { triggerNotification } from '~/apis/notification';
 
 import Dialog from '~/components/dialog/Dialog';
 import { REFRESH_TOKEN, ACCESS_TOKEN } from '~/constants/cookie';
 import { RoutePath } from '~/constants/route';
+import { useCheckNotification } from '~/queries/notification';
 import { useLogin } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
@@ -18,21 +20,15 @@ type Inputs = {
   password: string;
 };
 
-const loginDescription = {
-  error: {
-    username: '아이디를 입력해주세요.',
-    password: '비밀번호를 입력해주세요.',
-  },
-} as const;
-
 const Login = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm<Inputs>();
 
   const { mutate: handleLogin, status } = useLogin();
+  const { data: isTimeToNotice } = useCheckNotification(status === 'success');
+
   const { open, updateDialogState } = useDialogStore();
   const updateUserInfoState = useUserInfoState((state) => state.updateUserInfoState);
-
   const isLoading = status === 'pending' || status === 'success';
 
   const onSubmit: SubmitHandler<Inputs> = ({ username, password }) => {
@@ -40,7 +36,10 @@ const Login = () => {
       { username, password },
       {
         onSuccess: () => {
+          if (isTimeToNotice) triggerNotification();
+
           updateUserInfoState(username);
+
           router.push('/today');
         },
         onError: (error: any) => {
