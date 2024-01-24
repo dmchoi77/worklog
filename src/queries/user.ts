@@ -33,10 +33,10 @@ export const useLogin = () => {
     onSuccess: (data) => {
       const { accessToken, refreshToken } = data as ILoginResponse;
 
-      setCookie(ACCESS_TOKEN, accessToken);
-      setCookie(REFRESH_TOKEN, refreshToken, {
-        maxAge: getRemainExp(refreshToken),
-      });
+      // setCookie(ACCESS_TOKEN, accessToken);
+      // setCookie(REFRESH_TOKEN, refreshToken, {
+      // maxAge: getRemainExp(refreshToken),
+      // });
     },
   });
 };
