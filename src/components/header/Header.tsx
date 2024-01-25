@@ -7,6 +7,10 @@ import { Notifications } from '@mui/icons-material';
 import axios from 'axios';
 
 import { useUserInfoState } from '~/stores/useUserInfoStore';
+
+const apiRouteUrl =
+  process.env.NODE_ENV === 'production' ? 'https://today-worklog.vercel.app' : 'http://localhost:8100';
+
 const HeaderContainer = styled.header`
   background-color: #fffdfa;
   width: 100%;
@@ -24,7 +28,7 @@ const Header: React.FC = () => {
   const username = useUserInfoState((state) => state.username);
 
   const handleLogout = async () => {
-    await axios.get('/api/logout');
+    await axios.get(`${apiRouteUrl}/api/logout`);
     router.push('/login');
   };
   return (

@@ -4,7 +4,8 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
-
+const apiRouteUrl =
+  process.env.NODE_ENV === 'production' ? 'https://today-worklog.vercel.app' : 'http://localhost:8100';
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
   'Content-Type': 'application/json; charset=utf-8',
@@ -21,7 +22,7 @@ const http = axios.create({
 });
 
 const injectToken = async (config: InternalAxiosRequestConfig<any>): Promise<InternalAxiosRequestConfig<any>> => {
-  const response = await axios.get('/api/auth');
+  const response = await axios.get(`${apiRouteUrl}/api/auth`);
   const { accessToken } = response.data;
   if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
@@ -73,7 +74,7 @@ http.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const response = await axios.get('/api/auth');
+      const response = await axios.get(`${apiRouteUrl}/api/auth`);
       const { refreshToken } = response.data;
 
       try {

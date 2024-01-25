@@ -14,6 +14,7 @@ const parsingToken = (cookies: string) => {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   const cookie = req.headers.cookie;
+  console.log('🚀 ~ handler ~ cookie:', cookie);
   if (!cookie) res.redirect(307, '/login');
 
   let token = parsingToken(cookie as string);
