@@ -4,8 +4,8 @@ import { Badge } from '@mui/material';
 
 import styled from '@emotion/styled';
 import { Notifications } from '@mui/icons-material';
+import axios from 'axios';
 
-import { useLogout } from '~/queries/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 const HeaderContainer = styled.header`
   background-color: #fffdfa;
@@ -23,7 +23,10 @@ const Header: React.FC = () => {
   const router = useRouter();
   const username = useUserInfoState((state) => state.username);
 
-  const { mutate: logout } = useLogout();
+  const handleLogout = async () => {
+    await axios.get('/api/logout');
+    router.push('/login');
+  };
   return (
     <HeaderContainer>
       <div>
@@ -53,7 +56,7 @@ const Header: React.FC = () => {
               fontWeight: 600,
               cursor: 'pointer',
             }}
-            onClick={() => logout()}
+            onClick={handleLogout}
           >
             로그아웃
           </span>

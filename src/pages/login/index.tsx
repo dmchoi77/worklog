@@ -1,6 +1,6 @@
-import { useRouter } from 'next/navigation';
+import { GetServerSideProps } from 'next';
 
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -13,7 +13,6 @@ import { useLogin } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { LoginButton, LoginContainer, LoginForm, LoginInput } from '~/styles/login/login.style';
-import { removeCookie } from '~/utils/cookie';
 
 type Inputs = {
   username: string;
@@ -52,11 +51,6 @@ const Login = () => {
       },
     );
   };
-
-  useEffect(() => {
-    removeCookie(REFRESH_TOKEN, { path: '/' });
-    removeCookie(ACCESS_TOKEN, { path: '/' });
-  }, []);
 
   return (
     <LoginContainer>

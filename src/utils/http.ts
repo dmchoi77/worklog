@@ -2,12 +2,8 @@ import * as https from 'https';
 
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
-import { getRemainExp } from './decodeJWT';
-
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
-import { getCookie, removeCookie, setCookie } from '~/utils/cookie';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -24,11 +20,10 @@ const http = axios.create({
   }),
 });
 
-const injectToken = (
-  config: InternalAxiosRequestConfig<any>,
-): InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>> => {
-  const accessToken = getCookie(ACCESS_TOKEN);
-  if (!!accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+const injectToken = async (config: InternalAxiosRequestConfig<any>): Promise<InternalAxiosRequestConfig<any>> => {
+  const response = await axios.get('/api/auth');
+  const { accessToken } = response.data;
+  if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
 };
@@ -55,6 +50,7 @@ http.interceptors.response.use(
     return response;
   },
   async (error) => {
+    console.log('🚀 ~ error:', error);
     const originalRequest = error.config;
     const {
       response: { status },
@@ -77,7 +73,9 @@ http.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const refreshToken = getCookie(REFRESH_TOKEN);
+      const response = await axios.get('/api/auth');
+      const { refreshToken } = response.data;
+
       try {
         const response = await axios.post<ICommonResponse<ILoginResponse>>(
           '/users/reissue',
@@ -91,8 +89,6 @@ http.interceptors.response.use(
         );
         if (response.status === 200) {
           const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data as ILoginResponse;
-          // setCookie(ACCESS_TOKEN, newAccessToken);
-          // setCookie(REFRESH_TOKEN, newRefreshToken, { maxAge: getRemainExp(newRefreshToken) });
 
           originalRequest.headers = { Authorization: `Bearer ${newAccessToken}` };
           http.defaults.headers.common = { Authorization: `Bearer ${newAccessToken}` };
@@ -102,10 +98,10 @@ http.interceptors.response.use(
           return http(originalRequest);
         }
       } catch (error: any) {
+        console.log('🚀 ~ error:', error);
         if ([403, 404].includes(error.response.status)) {
-          removeCookie(REFRESH_TOKEN, { path: '/' });
-          removeCookie(ACCESS_TOKEN, { path: '/' });
-          return (location.href = 'login');
+          axios.get('/api/logout');
+          // return (location.href = 'login');
         }
         processQueue(error, null);
       } finally {

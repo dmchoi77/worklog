@@ -93,8 +93,6 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: () => logout(),
     onSettled: () => {
-      removeCookie(ACCESS_TOKEN, { path: '/' });
-      removeCookie(REFRESH_TOKEN, { path: '/' });
       http.defaults.headers.Authorization = null;
       resetUserInfo();
       router.push('/login');
