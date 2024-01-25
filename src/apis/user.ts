@@ -7,7 +7,7 @@ import http from '~/utils/http';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const login = async ({ username, password }: ILoginRequest) => {
-  const response = await http.post<ICommonResponse<ILoginResponse>>(
+  const response = await axios.post<ICommonResponse<ILoginResponse>>(
     '/users/login',
     {
       username,
