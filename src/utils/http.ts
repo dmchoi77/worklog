@@ -2,10 +2,10 @@ import * as https from 'https';
 
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
-import { ICommonResponse } from '~/types/apis/common.types';
-import { ILoginResponse } from '~/types/apis/user.types';
-const apiRouteUrl =
-  process.env.NODE_ENV === 'production' ? 'https://today-worklog.vercel.app' : 'http://localhost:8100';
+import { getCookie } from './cookie';
+import { ACCESS_TOKEN } from '~/constants/cookie';
+import { logout, refreshAccessToken } from '~/apis/user';
+
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
   'Content-Type': 'application/json; charset=utf-8',
@@ -22,8 +22,7 @@ const http = axios.create({
 });
 
 const injectToken = async (config: InternalAxiosRequestConfig<any>): Promise<InternalAxiosRequestConfig<any>> => {
-  const response = await axios.get(`${apiRouteUrl}/api/auth`);
-  const { accessToken } = response.data;
+  const accessToken = getCookie(ACCESS_TOKEN);
   if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
@@ -51,7 +50,6 @@ http.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log('🚀 ~ error:', error);
     const originalRequest = error.config;
     const {
       response: { status },
@@ -74,22 +72,10 @@ http.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const response = await axios.get(`${apiRouteUrl}/api/auth`);
-      const { refreshToken } = response.data;
-
       try {
-        const response = await axios.post<ICommonResponse<ILoginResponse>>(
-          '/users/reissue',
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-            },
-            baseURL: process.env.NEXT_PUBLIC_API_URL,
-          },
-        );
+        const response = await refreshAccessToken();
         if (response.status === 200) {
-          const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data as ILoginResponse;
+          const { accessToken: newAccessToken } = response.data;
 
           originalRequest.headers = { Authorization: `Bearer ${newAccessToken}` };
           http.defaults.headers.common = { Authorization: `Bearer ${newAccessToken}` };
@@ -99,9 +85,8 @@ http.interceptors.response.use(
           return http(originalRequest);
         }
       } catch (error: any) {
-        console.log('🚀 ~ error:', error);
         if ([403, 404].includes(error.response.status)) {
-          axios.get('/api/logout');
+          logout();
           // return (location.href = 'login');
         }
         processQueue(error, null);

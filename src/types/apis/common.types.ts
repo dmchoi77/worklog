@@ -1,7 +1,7 @@
 export interface ICommonResponse<T = undefined> {
   status: number;
   count?: number;
-  data?: T;
+  data: T;
   code?: string;
   message?: string;
 }

@@ -30,14 +30,6 @@ const userQueryKeys = createQueryKeys('user', {
 export const useLogin = () => {
   return useMutation({
     mutationFn: ({ username, password }: ILoginRequest) => login({ username, password }),
-    onSuccess: (data) => {
-      const { accessToken, refreshToken } = data as ILoginResponse;
-
-      // setCookie(ACCESS_TOKEN, accessToken);
-      // setCookie(REFRESH_TOKEN, refreshToken, {
-      // maxAge: getRemainExp(refreshToken),
-      // });
-    },
   });
 };
 
@@ -59,32 +51,32 @@ export const useCheckDuplicationUsername = (username: string) =>
     queryFn: () => checkDuplicationUsername({ username }),
   });
 
-export const useRefreshAccessToken = (refreshToken: string) => {
-  const query = useQuery({
-    queryKey: userQueryKeys.refreshAccessToken.queryKey,
-    queryFn: () => refreshAccessToken(refreshToken),
-  });
+// export const useRefreshAccessToken = (refreshToken: string) => {
+//   const query = useQuery({
+//     queryKey: userQueryKeys.refreshAccessToken.queryKey,
+//     queryFn: () => refreshAccessToken(refreshToken),
+//   });
 
-  useEffect(() => {
-    if (!query.data) {
-      // removeCookie(ACCESS_TOKEN, { path: '/' });
-      // removeCookie(REFRESH_TOKEN, { path: '/' });
-      // http.defaults.headers.Authorization = null;
-      return;
-    }
-    if (query.isSuccess) {
-      const { refreshToken, accessToken } = query.data;
+//   useEffect(() => {
+//     if (!query.data) {
+//       // removeCookie(ACCESS_TOKEN, { path: '/' });
+//       // removeCookie(REFRESH_TOKEN, { path: '/' });
+//       // http.defaults.headers.Authorization = null;
+//       return;
+//     }
+//     if (query.isSuccess) {
+//       const { refreshToken, accessToken } = query.data;
 
-      setCookie(REFRESH_TOKEN, refreshToken, {
-        maxAge: getRemainExp(refreshToken),
-      });
-      setCookie(ACCESS_TOKEN, accessToken);
-      http.defaults.headers.Authorization = `Bearer ${accessToken}`;
-    }
-  }, [query.data]);
+//       setCookie(REFRESH_TOKEN, refreshToken, {
+//         maxAge: getRemainExp(refreshToken),
+//       });
+//       setCookie(ACCESS_TOKEN, accessToken);
+//       http.defaults.headers.Authorization = `Bearer ${accessToken}`;
+//     }
+//   }, [query.data]);
 
-  return query;
-};
+//   return query;
+// };
 
 export const useLogout = () => {
   const router = useRouter();

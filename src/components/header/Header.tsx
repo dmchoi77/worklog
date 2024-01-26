@@ -4,12 +4,10 @@ import { Badge } from '@mui/material';
 
 import styled from '@emotion/styled';
 import { Notifications } from '@mui/icons-material';
-import axios from 'axios';
 
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-
-const apiRouteUrl =
-  process.env.NODE_ENV === 'production' ? 'https://today-worklog.vercel.app' : 'http://localhost:8100';
+import { useLogout } from '~/queries/user';
+process.env.NODE_ENV === 'production' ? 'https://today-worklog.vercel.app' : 'http://localhost:8100';
 
 const HeaderContainer = styled.header`
   background-color: #fffdfa;
@@ -27,10 +25,8 @@ const Header: React.FC = () => {
   const router = useRouter();
   const username = useUserInfoState((state) => state.username);
 
-  const handleLogout = async () => {
-    await axios.get(`${apiRouteUrl}/api/logout`);
-    router.push('/login');
-  };
+  const { mutate: handleLogout } = useLogout();
+
   return (
     <HeaderContainer>
       <div>
@@ -60,7 +56,7 @@ const Header: React.FC = () => {
               fontWeight: 600,
               cursor: 'pointer',
             }}
-            onClick={handleLogout}
+            onClick={() => handleLogout()}
           >
             로그아웃
           </span>

@@ -1,9 +1,28 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { logout } from '~/apis/user';
+import http from '~/utils/http';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
-  logout();
-  res.setHeader('Set-Cookie', ['refresh_token=; Path=/; Max-Age=0', 'access_token=; Path=/; Max-Age=0']);
-  return res.status(200).json({ message: 'Successfully logged out' });
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
+const redirectUrl =
+  process.env.NODE_ENV === 'production' ? 'https://today-worklog.vercel.app/login' : 'http://localhost:8100/login';
+
+export default function handler(req: NextApiRequest, res: NextApiResponse<any>) {
+  if (req.method === 'POST') {
+    res.setHeader('Set-Cookie', ['refresh_token=; Path=/; Max-Age=0', 'access_token=; Path=/; Max-Age=0']);
+  }
+
+  const accessToken = req.cookies['access_token'];
+
+  http.post(
+    '/users/logout',
+    {},
+    {
+      baseURL,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
+
+  return res.redirect(redirectUrl).json({ message: '로그아웃 처리되었습니다.' });
 }

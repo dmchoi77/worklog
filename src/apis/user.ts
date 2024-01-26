@@ -6,19 +6,19 @@ import http from '~/utils/http';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export const login = async ({ username, password }: ILoginRequest) => {
-  const response = await axios.post<ICommonResponse<ILoginResponse>>(
-    '/users/login',
-    {
-      username,
-      password,
-    },
-    {
-      baseURL,
-    },
-  );
+export const login = ({ username, password }: ILoginRequest) => {
+  return axios.post<ICommonResponse<ILoginResponse>>('/api/login', {
+    username,
+    password,
+  });
+};
 
-  return response.data.data;
+export const refreshAccessToken = (): Promise<ICommonResponse<ILoginResponse>> => {
+  return axios.post<ILoginResponse>('/api/reissue');
+};
+
+export const logout = () => {
+  return axios.post<ICommonResponse>('/api/logout');
 };
 
 export const signIn = ({ username, email, password, passwordCheck }: ISignInRequest) => {
@@ -60,32 +60,5 @@ export const checkDuplicationUsername = async ({ username }: { username: string 
       username,
     },
   });
-  return response.data.data;
-};
-
-export const refreshAccessToken = async (refreshToken: string) => {
-  const response = await axios.post<ICommonResponse<ILoginResponse>>(
-    '/users/reissue',
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
-      },
-      baseURL,
-    },
-  );
-
-  return response.data.data;
-};
-
-export const logout = async () => {
-  const response = await http.post<ICommonResponse>(
-    '/users/logout',
-    {},
-    {
-      baseURL,
-    },
-  );
-
   return response.data.data;
 };
