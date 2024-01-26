@@ -6,11 +6,16 @@ import http from '~/utils/http';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export const login = ({ username, password }: ILoginRequest) => {
-  return axios.post<ICommonResponse<ILoginResponse>>('/api/login', {
-    username,
-    password,
-  });
+export const login = async ({ username, password }: ILoginRequest) => {
+  try {
+    const response = await axios.post<ICommonResponse<ILoginResponse>>('/api/login', {
+      username,
+      password,
+    });
+    return response.data;
+  } catch (e: any) {
+    throw e.response.data;
+  }
 };
 
 export const refreshAccessToken = (): Promise<ICommonResponse<ILoginResponse>> => {

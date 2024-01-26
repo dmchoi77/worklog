@@ -1,12 +1,9 @@
-import { GetServerSideProps } from 'next';
-
 import { useRouter } from 'next/navigation';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { triggerNotification } from '~/apis/notification';
 import Dialog from '~/components/dialog/Dialog';
-import { REFRESH_TOKEN, ACCESS_TOKEN } from '~/constants/cookie';
 import { RoutePath } from '~/constants/route';
 import { useCheckNotification } from '~/queries/notification';
 import { useLogin } from '~/queries/user';
@@ -44,7 +41,7 @@ const Login = () => {
         onError: (error: any) => {
           updateDialogState({
             open: true,
-            mainText: error?.message,
+            mainText: error.message,
             cancelText: '',
           });
         },
