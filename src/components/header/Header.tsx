@@ -5,8 +5,8 @@ import { Badge } from '@mui/material';
 import styled from '@emotion/styled';
 import { Notifications } from '@mui/icons-material';
 
-import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { useLogout } from '~/queries/user';
+import { useUserInfoState } from '~/stores/useUserInfoStore';
 process.env.NODE_ENV === 'production' ? 'https://today-worklog.vercel.app' : 'http://localhost:8100';
 
 const HeaderContainer = styled.header`

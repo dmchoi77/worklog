@@ -3,8 +3,9 @@ import * as https from 'https';
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { getCookie } from './cookie';
-import { ACCESS_TOKEN } from '~/constants/cookie';
+
 import { logout, refreshAccessToken } from '~/apis/user';
+import { ACCESS_TOKEN } from '~/constants/cookie';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
