@@ -86,7 +86,7 @@ http.interceptors.response.use(
           return http(originalRequest);
         }
       } catch (error: any) {
-        if ([403, 404].includes(error.status)) {
+        if ([401, 403, 404].includes(error.status)) {
           logout();
           return (location.href = 'login');
         }
