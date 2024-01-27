@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import { ICommonResponse } from '~/types/apis/common.types';
 import { ILoginResponse } from '~/types/apis/user.types';
+import { getRemainExp } from '~/utils/decodeJWT';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
@@ -27,12 +28,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       );
 
       const { accessToken, refreshToken: newRefreshToken } = response.data.data;
+      const exp = getRemainExp(newRefreshToken);
+
       res.setHeader('set-Cookie', [
         `access_token=${accessToken}; path=/; samesite=Lax; secure=true;`,
-        `refresh_token=${newRefreshToken}; path=/; samesite=Lax; httponly; secure=true;`,
+        `refresh_token=${newRefreshToken}; path=/; samesite=Lax; httponly; secure=true; max-age=${exp}`,
       ]);
 
-      return res.status(200).json(response.data.data);
+      return res.status(200).json(response.data);
     }
   } catch (error: any) {
     return res.status(error.response.data.status).json(error.response.data);
