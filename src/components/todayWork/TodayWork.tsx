@@ -6,45 +6,43 @@ import WorkForm from '../form/WorkForm';
 
 import WorkList from '~/components/list/WorkList';
 
-import { IData, exampleTasks } from '~/example-data';
-
 interface IProps {
   targetDate: string;
 }
 
 const TodayWork = ({ targetDate }: IProps) => {
-  const [data, setData] = useState<IData>(exampleTasks);
-  const onDragEnd = useCallback(
-    (result: DropResult) => {
-      const { destination, source, draggableId } = result;
-      // 리스트 밖으로 drop되면 destination이 null
-      if (!destination) return;
-      // 출발지와 목적지가 같으면 할게 없다
-      if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+  // const [data, setData] = useState<IData>(exampleTasks);
+  // const onDragEnd = useCallback(
+  //   (result: DropResult) => {
+  //     const { destination, source, draggableId } = result;
+  //     // 리스트 밖으로 drop되면 destination이 null
+  //     if (!destination) return;
+  //     // 출발지와 목적지가 같으면 할게 없다
+  //     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
-      // 출발지의 column 얻기
-      const column = data.columns[source.droppableId];
+  //     // 출발지의 column 얻기
+  //     const column = data.columns[source.droppableId];
 
-      const newTaskIds = Array.from(column.taskIds);
-      newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
+  //     const newTaskIds = Array.from(column.taskIds);
+  //     newTaskIds.splice(source.index, 1);
+  //     newTaskIds.splice(destination.index, 0, draggableId);
 
-      const newColumn = {
-        ...column,
-        taskIds: newTaskIds,
-      };
+  //     const newColumn = {
+  //       ...column,
+  //       taskIds: newTaskIds,
+  //     };
 
-      const newData = {
-        ...data,
-        columns: {
-          ...data.columns,
-          [newColumn.id]: newColumn,
-        },
-      };
-      setData(newData);
-    },
-    [data],
-  );
+  //     const newData = {
+  //       ...data,
+  //       columns: {
+  //         ...data.columns,
+  //         [newColumn.id]: newColumn,
+  //       },
+  //     };
+  //     setData(newData);
+  //   },
+  //   [data],
+  // );
   return (
     <div>
       <h3>WORK</h3>
