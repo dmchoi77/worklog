@@ -3,8 +3,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import http from '~/utils/http';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
-const redirectUrl =
-  process.env.NODE_ENV === 'production' ? 'https://today-worklog.vercel.app/login' : 'http://localhost:8100/login';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   if (req.method === 'POST') {
@@ -23,6 +21,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       },
     );
 
-    return res.redirect(redirectUrl).json({ message: '로그아웃 처리되었습니다.' });
+    return res.status(200).json({ message: '로그아웃 처리되었습니다.' });
   }
 }
