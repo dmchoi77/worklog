@@ -12,13 +12,18 @@ export const login = async ({ username, password }: ILoginRequest) => {
       password,
     });
     return response.data;
-  } catch (e: any) {
-    throw e.response.data;
+  } catch (error: any) {
+    throw error.response.data;
   }
 };
 
-export const refreshAccessToken = (): Promise<ICommonResponse<ILoginResponse>> => {
-  return axios.post<ILoginResponse>('/api/reissue');
+export const reissue = async () => {
+  try {
+    const response = await axios.post<ICommonResponse<ILoginResponse>>('/api/reissue');
+    return response.data;
+  } catch (error: any) {
+    throw error.response.data;
+  }
 };
 
 export const logout = () => {

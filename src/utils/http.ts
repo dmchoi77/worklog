@@ -4,7 +4,7 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { getCookie } from './cookie';
 
-import { logout, refreshAccessToken } from '~/apis/user';
+import { logout, reissue } from '~/apis/user';
 import { ACCESS_TOKEN } from '~/constants/cookie';
 
 const headers: Readonly<Record<string, string | boolean>> = {
@@ -74,7 +74,7 @@ http.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const response = await refreshAccessToken();
+        const response = await reissue();
         if (response.status === 200) {
           const { accessToken: newAccessToken } = response.data;
 
@@ -86,9 +86,9 @@ http.interceptors.response.use(
           return http(originalRequest);
         }
       } catch (error: any) {
-        if ([403, 404].includes(error.response.status)) {
+        if ([401, 403, 404].includes(error.status)) {
           logout();
-          // return (location.href = 'login');
+          return (location.href = 'login');
         }
         processQueue(error, null);
       } finally {

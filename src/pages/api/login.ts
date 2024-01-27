@@ -29,11 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       return res.status(200).json(response.data.data);
     }
-  } catch (e: any) {
-    return res.status(e.status).json({
-      message: e.message,
-      status: e.status,
-      code: e.code,
-    });
+  } catch (error: any) {
+    return res.status(error.status).json(error);
   }
 }
