@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
       res.setHeader('set-Cookie', [
         `access_token=${accessToken}; path=/; samesite=Lax; secure=true;`,
-        `refresh_token=${refreshToken}; path=/; samesite=Lax; httponly; secure=true; max-age=${exp}`,
+        `refresh_token=${refreshToken}; path=/; samesite=Lax; httponly; secure=true;`,
       ]);
 
       return res.status(200).json(response.data.data);

@@ -87,7 +87,7 @@ http.interceptors.response.use(
         }
       } catch (error: any) {
         if ([401, 403, 404].includes(error.status)) {
-          logout();
+          await logout();
           return (location.href = 'login');
         }
         processQueue(error, null);
