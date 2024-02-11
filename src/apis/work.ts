@@ -5,6 +5,7 @@ import {
   IAddWorkRequest,
   IDeleteWorkRequest,
   IFetchWorkListRequest,
+  ISearchWorkList,
   IUpdateWorkCategoryRequest,
   IUpdateWorkContentRequest,
   IUpdateWorkOrderRequest,
@@ -109,4 +110,15 @@ export const fetchWorkList = async (params: IFetchWorkListRequest) => {
   });
 
   return response.data?.data;
+};
+
+export const searchWorkList = async (key: string): Promise<ISearchWorkList> => {
+  const response = await http.get<string, AxiosResponse<ICommonResponse<ISearchWorkList>>>('/works/search', {
+    params: {
+      key,
+    },
+    baseURL,
+  });
+
+  return response.data.data;
 };

@@ -6,6 +6,7 @@ import {
   IDeleteMemoRequest,
   IFetchMemosRequest,
   IMemo,
+  ISearchMemoList,
   IUpdateMemoOrderRequest,
   IUpdateMemoRequest,
 } from '~/types/apis/memo.types';
@@ -64,4 +65,15 @@ export const fetchMemoList = async ({ date }: IFetchMemosRequest) => {
   });
 
   return response?.data?.data;
+};
+
+export const searchMemoList = async (key: string): Promise<ISearchMemoList> => {
+  const response = await http.get<string, AxiosResponse<ICommonResponse<ISearchMemoList>>>('/memos/search', {
+    params: {
+      key,
+    },
+    baseURL,
+  });
+
+  return response.data.data;
 };

@@ -1,3 +1,5 @@
+import { ISearcList } from './common.types';
+
 export interface IAddMemoRequest {
   content: string;
   date: string;
@@ -29,3 +31,5 @@ export interface IMemo {
   date: string;
   displayOrder: number;
 }
+
+export interface ISearchMemoList extends ISearcList<IMemo> {}

@@ -6,6 +6,7 @@ import {
   addWork,
   deleteWork,
   fetchWorkList,
+  searchWorkList,
   updateWork,
   updateWorkCategory,
   updateWorkContent,
@@ -25,6 +26,7 @@ import {
 
 export const workQueryKeys = createQueryKeys('work', {
   fetchWorkList: (filters: IFetchWorkListRequest) => [filters],
+  searchWorkList: (filters: string) => [filters],
 });
 
 export const useFetchWorkList = (params: IFetchWorkListRequest) => {
@@ -67,4 +69,17 @@ export const useUpdateWorkOrder = () =>
 export const useUpdateWork = () =>
   useMutation({
     mutationFn: (params: IWork) => updateWork(params),
+  });
+
+export const useSearchWorkList = (key: string) =>
+  useQuery({
+    queryKey: workQueryKeys.searchWorkList(key).queryKey,
+    queryFn: () => searchWorkList(key),
+    enabled: !!key,
+    initialData: {
+      content: [],
+      pageNumber: 0,
+      pageSize: 0,
+      lastPage: 0,
+    },
   });

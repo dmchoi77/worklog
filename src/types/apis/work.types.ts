@@ -1,3 +1,5 @@
+import { ISearcList } from './common.types';
+
 export type WorkStateType = 'IN_PROGRESS' | 'COMPLETED';
 export type WorkCategoryType = 'REFACTOR' | 'UPDATE' | 'CHORE' | 'FEAT';
 
@@ -49,3 +51,5 @@ export interface IWork {
   order: number;
   deadline: string | null;
 }
+
+export interface ISearchWorkList extends ISearcList<IWork> {}
