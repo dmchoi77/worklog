@@ -45,11 +45,11 @@ const Header: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <span css={{ margin: 20 }}>환영합니다. {username} 님</span>
-        <Badge badgeContent={1} color='info'>
+        <span css={{ margin: 10 }}>환영합니다. {username} 님</span>
+        {/* <Badge badgeContent={1} color='info'>
           <Notifications color='action' />
-        </Badge>
-        <div css={{ paddingLeft: 20, paddingRight: 20 }}>
+        </Badge> */}
+        <div css={{ paddingLeft: 10, paddingRight: 20 }}>
           <span
             css={{
               fontSize: 14,
