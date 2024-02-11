@@ -26,8 +26,10 @@ export const reissue = async () => {
   }
 };
 
-export const logout = () => {
-  return axios.post<ICommonResponse>('/api/logout');
+export const logout = async () => {
+  await axios.post<ICommonResponse>('/api/logout');
+
+  window.location.href = '/login';
 };
 
 export const signIn = ({ username, email, password, passwordCheck }: ISignInRequest) => {
