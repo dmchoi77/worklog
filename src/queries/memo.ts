@@ -46,10 +46,12 @@ export const useSearchMemoList = (key: string) =>
   useQuery({
     queryKey: memoQueryKeys.searchMemoList(key).queryKey,
     queryFn: () => searchMemoList(key),
+    enabled: !!key,
     initialData: {
       content: [],
       pageNumber: 0,
       pageSize: 0,
       lastPage: 0,
     },
+    staleTime: 0,
   });

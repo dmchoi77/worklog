@@ -82,4 +82,5 @@ export const useSearchWorkList = (key: string) =>
       pageSize: 0,
       lastPage: 0,
     },
+    staleTime: 0,
   });
