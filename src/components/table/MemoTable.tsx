@@ -2,12 +2,14 @@ import { useRouter } from 'next/navigation';
 
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
-import { IMemo } from '~/types/apis/memo.types';
+import { useSearchMemoList } from '~/queries/memo';
 
 interface IProps {
-  memoList: Array<IMemo>;
+  searchKey: string;
 }
-const MemoTable = ({ memoList }: IProps) => {
+const MemoTable = ({ searchKey }: IProps) => {
+  const { data: memoList, isLoading: isLoadingSearchMemoList } = useSearchMemoList(searchKey);
+
   const router = useRouter();
 
   const handleClickRow = (date: string) => {
@@ -22,9 +24,9 @@ const MemoTable = ({ memoList }: IProps) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {memoList.length > 0 ? (
+        {memoList.content.length > 0 ? (
           <>
-            {memoList?.map((memo) => (
+            {memoList.content.map((memo) => (
               <TableRow key={memo.id} onClick={() => handleClickRow(memo.date)}>
                 <TableCell align='center'>{memo.date}</TableCell>
                 <TableCell align='center'>{memo.content}</TableCell>

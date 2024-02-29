@@ -1,34 +1,58 @@
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Table, TableHead, TableRow, TableCell, TableBody, Skeleton, Stack } from '@mui/material';
 
-import { IWork } from '~/types/apis/work.types';
+import { useSearchWorkList } from '~/queries/work';
 
 interface IProps {
-  workList: Array<IWork>;
+  searchKey: string;
 }
-const WorkTable = ({ workList }: IProps) => {
+const WorkTable = ({ searchKey }: IProps) => {
+  const { data: workList, isLoading: isLoadingSearchWorkList } = useSearchWorkList(searchKey);
+
   return (
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell align='left'>날짜</TableCell>
-          <TableCell align='left'>마감일자</TableCell>
-          <TableCell align='left'>제목</TableCell>
-          <TableCell align='left'>내용</TableCell>
-          <TableCell align='left'>카테고리</TableCell>
-          <TableCell align='left'>상태</TableCell>
+          <TableCell colSpan={1} align='left'>
+            날짜
+          </TableCell>
+          <TableCell colSpan={1} align='left'>
+            마감일자
+          </TableCell>
+          <TableCell colSpan={3} align='left'>
+            제목
+          </TableCell>
+          <TableCell colSpan={1} align='left'>
+            내용
+          </TableCell>
+          <TableCell colSpan={1} align='left'>
+            카테고리
+          </TableCell>
+          <TableCell colSpan={1} align='left'>
+            상태
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {workList.length > 0 ? (
+        {workList.content.length > 0 ? (
           <>
-            {workList?.map((work) => (
+            {workList.content.map((work) => (
               <TableRow key={work.id}>
-                <TableCell>{work.date}</TableCell>
-                <TableCell align='left'>{work.deadline}</TableCell>
-                <TableCell align='left'>{work.title}</TableCell>
-                <TableCell align='left'>{work.content}</TableCell>
-                <TableCell align='left'>{work.category}</TableCell>
-                <TableCell align='left'>{work.state}</TableCell>
+                <TableCell colSpan={1}>{work.date}</TableCell>
+                <TableCell colSpan={1} align='left'>
+                  {work.deadline}
+                </TableCell>
+                <TableCell colSpan={3} align='left'>
+                  {work.title}
+                </TableCell>
+                <TableCell colSpan={1} align='left'>
+                  {work.content}
+                </TableCell>
+                <TableCell colSpan={1} align='left'>
+                  {work.category}
+                </TableCell>
+                <TableCell colSpan={1} align='left'>
+                  {work.state}
+                </TableCell>
               </TableRow>
             ))}
           </>
@@ -50,3 +74,13 @@ const WorkTable = ({ workList }: IProps) => {
 };
 
 export default WorkTable;
+
+// const SkeletonUI = () => {
+//   return (
+//     <Stack spacing={-1} padding={1}>
+//       {new Array(8).fill('').map((item, index) => (
+//         <Skeleton key={index} variant='text' animation='wave' width='100%' height={50} />
+//       ))}
+//     </Stack>
+//   );
+// };
