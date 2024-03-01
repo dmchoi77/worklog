@@ -21,7 +21,6 @@ const Login = () => {
   const { register, handleSubmit } = useForm<Inputs>();
 
   const { mutate: handleLogin, status } = useLogin();
-  const { data: isTimeToNotice } = useCheckNotification(status === 'success');
 
   const { open, updateDialogState } = useDialogStore();
   const updateUserInfoState = useUserInfoState((state) => state.updateUserInfoState);
@@ -32,8 +31,6 @@ const Login = () => {
       { username, password },
       {
         onSuccess: () => {
-          if (isTimeToNotice) triggerNotification();
-
           updateUserInfoState(username);
 
           router.push('/today');

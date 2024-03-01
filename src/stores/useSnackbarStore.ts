@@ -5,6 +5,7 @@ import { create } from 'zustand';
 interface State extends SnackbarOrigin {
   open: boolean;
   message: string;
+  autoHideDuration: number;
 }
 
 type Action = {
@@ -17,6 +18,7 @@ export const snackbarDefaultState: State = {
   vertical: 'top',
   horizontal: 'center',
   message: '',
+  autoHideDuration: 2000,
 };
 
 export const useSnackbarStore = create<State & Action>()((set) => ({

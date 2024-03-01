@@ -3,7 +3,7 @@ import { Snackbar } from '@mui/material';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
 
 const CustomSnackbar = () => {
-  const { horizontal, message, open, vertical, reset } = useSnackbarStore();
+  const { horizontal, message, open, vertical, reset, autoHideDuration } = useSnackbarStore();
 
   return (
     <div>
@@ -13,7 +13,7 @@ const CustomSnackbar = () => {
         onClose={() => reset()}
         message={message}
         key={vertical + horizontal}
-        autoHideDuration={2000}
+        autoHideDuration={autoHideDuration}
         transitionDuration={1000}
       />
     </div>

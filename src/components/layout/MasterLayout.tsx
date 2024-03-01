@@ -32,7 +32,7 @@ const MasterLayout = ({ children }: IProps) => {
     }
   }, []);
 
-  // useServerSentEvent();
+  useServerSentEvent();
 
   return (
     <MasterLayoutContainer>
