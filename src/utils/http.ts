@@ -85,9 +85,8 @@ http.interceptors.response.use(
           return http(originalRequest);
         }
       } catch (error: any) {
-        console.log('🚀 ~ error:', error);
         if ([401, 403, 404].includes(error.status)) {
-          // return logout();
+          return logout();
         }
         processQueue(error, null);
       } finally {
