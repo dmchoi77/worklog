@@ -90,7 +90,7 @@ const WorkForm = ({ targetDate }: IProps) => {
   };
   return (
     <Paper elevation={1} style={{ ...paperStyle, height: '100%' }}>
-      <textarea
+      <input
         placeholder='업무'
         value={inputTitle}
         onChange={handleInputTitle}

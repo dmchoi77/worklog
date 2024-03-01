@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 
+import { title } from 'process';
+
 import { useQueryClient } from '@tanstack/react-query';
 
 import { Button, Checkbox } from '@mui/material';
@@ -116,8 +118,9 @@ const WorkDetail = (props: IProps) => {
                   gap: 8,
                 }}
               >
-                <ContentEditable
+                <input
                   css={{
+                    border: 'none',
                     height: '40px',
                     borderRadius: 4,
                     fontSize: 26,
@@ -131,9 +134,7 @@ const WorkDetail = (props: IProps) => {
                     padding: 1,
                     outlineColor: '#303030cd',
                   }}
-                  innerRef={titleRef}
-                  html={work.title}
-                  disabled={false}
+                  value={work.title}
                   onChange={(e) => workSetter('title')(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
