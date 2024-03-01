@@ -7,7 +7,7 @@ const nextConfig = {
   swcMinify: true,
   poweredByHeader: false,
   compiler: {
-    // removeConsole: isProd ? true : false,
+    removeConsole: isProd ? true : false,
   },
 };
 
