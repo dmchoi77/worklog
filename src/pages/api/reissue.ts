@@ -9,9 +9,11 @@ import { ILoginResponse } from '~/types/apis/user.types';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
+  console.log('🚀 ~ handler ~ req:', req);
   try {
     if (req.method === 'POST') {
       const refreshToken = req.cookies['refresh_token'];
+      console.log('🚀 ~ handler ~ refreshToken:', refreshToken);
       const response = await axios.post<ICommonResponse<ILoginResponse>>(
         '/users/reissue',
         {},
