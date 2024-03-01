@@ -105,6 +105,7 @@ const WorkDetail = (props: IProps) => {
                 flexDirection: 'column',
                 flex: 0.7,
                 gap: 20,
+                justifyContent: 'space-between',
                 overflowY: 'hidden',
               }}
             >
@@ -128,6 +129,7 @@ const WorkDetail = (props: IProps) => {
                       background: 'rgb(0 0 0 / 5%)',
                     },
                     padding: 1,
+                    outlineColor: '#303030cd',
                   }}
                   innerRef={titleRef}
                   html={work.title}
@@ -158,6 +160,7 @@ const WorkDetail = (props: IProps) => {
                       background: 'rgb(0 0 0 / 5%)',
                     },
                     padding: 10,
+                    outlineColor: '#303030cd',
                   }}
                   key='content'
                   innerRef={contentRef}
@@ -186,16 +189,16 @@ const WorkDetail = (props: IProps) => {
                 padding: 10,
               }}
             >
-              <span>생성날짜: {work.date}</span>
-              <span>마감기한: {work.deadline ?? ''}</span>
-              <div
-                css={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                }}
-              >
-                <span>카테고리: </span>
+              <div css={{ display: 'flex', gap: 15 }}>
+                <span css={{ fontWeight: 600 }}>생성날짜</span>
+                <span>{work.date}</span>
+              </div>
+              <div css={{ display: 'flex', gap: 15 }}>
+                <span css={{ fontWeight: 600 }}>마감기한</span>
+                <span>{work.deadline ?? ''}</span>
+              </div>
+              <div css={{ display: 'flex', alignItems: 'center', gap: 15 }}>
+                <span css={{ fontWeight: 600 }}>카테고리</span>
                 <SplitButton
                   defaultOption={work.category}
                   options={['update', 'refactor', 'chore', 'feat']}
@@ -206,11 +209,11 @@ const WorkDetail = (props: IProps) => {
                 css={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 8,
+                  gap: 15,
                 }}
               >
                 <div css={{ display: 'flex', alignItems: 'center' }}>
-                  <span>완료여부: </span>
+                  <span css={{ fontWeight: 600 }}>완료여부: </span>
                   <Checkbox
                     name='state'
                     checked={work.state.toLocaleLowerCase() === 'completed' ? true : false}
@@ -220,12 +223,7 @@ const WorkDetail = (props: IProps) => {
                   />
                 </div>
               </div>
-              <div
-                css={{
-                  display: 'flex',
-                  gap: 5,
-                }}
-              >
+              <div css={{ display: 'flex', gap: 5, justifyContent: 'flex-end' }}>
                 <Button variant='contained' size='small' onClick={handleClickUpdate}>
                   업데이트
                 </Button>
