@@ -15,48 +15,47 @@
 
 ------
 ## 프로젝트 설명 
-### 프로젝트 목적
-평소에 회사에서 매일 개인적으로 업무 일지를 작성하며 이슈나 메모 등을 정리해 폴더 및 파일로 관리하고 있었다. 그런데 매일 날짜에 맞는 폴더와 파일들을 생성해야 하는 것이 번거롭고 업무 일지를 생성하는 것을 깜빡하는 날이 있는 등 불편한 점들이 있어 이를 웹으로 만들어 편하게 사용하고자 하여 시작하게 됨
+* ### 프로젝트 목적
+  평소에 회사에서 매일 개인적으로 업무 일지를 작성하며 이슈나 메모 등을 정리해 폴더 및 파일로 관리하고 있었다. 그런데 매일 날짜에 맞는 폴더와 파일들을 생성해야 하는 것이 번거롭고 업무 일지를 생성하는 것을 깜빡하는 날이 있는 등 불편한 점들이 있어 이를 웹으로 만들어 편하게 사용하고자 하여 시작하게 됨
 
-### 웹사이트 주소
-https://today.worklog.shop (테스트 계정 ID: 3, PW: 3)
-### API 명세서 
-[구글 스프레드 시트](https://docs.google.com/spreadsheets/d/1ELjduGpp7mbwTTfVWQHOoaWxEAEbjf6rfnRuwG0GM5Y/edit#gid=0)
+* ### 웹사이트 주소
+  https://today.worklog.shop (테스트 계정 ID: 3, PW: 3)
+* ### API 명세서 
+  [구글 스프레드 시트](https://docs.google.com/spreadsheets/d/1ELjduGpp7mbwTTfVWQHOoaWxEAEbjf6rfnRuwG0GM5Y/edit#gid=0)
 
-### 개발 인원
-Backend <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="28" height="28"> [kwonghyun](https://github.com/kwonghyun/worklog_backend) / Frontend<img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="28" height="28">[dmchoi77](https://github.com/dmchoi77/worklog)
+* ### 담당
+  Backend <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="28" height="28"> [kwonghyun](https://github.com/kwonghyun/worklog_backend) / Frontend<img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="28" height="28">[dmchoi77](https://github.com/dmchoi77/worklog)
 
-### 개발 기간
-2023.11 ~ 진행중
+* ### 개발 기간
+  2023.11 ~ 진행중
 
-### 기술 스택
-
-- #### Backend
-  - Java, Spring Boot, JPA, MySQL, Nginx, Redis
-- #### Frontend
-  - Next.js, TypeScript, React- Query, Zustand, Vercel
+* ### 기술 스택
+  - #### Backend
+    - Java, Spring Boot, JPA, MySQL, Nginx, Redis
+  - #### Frontend
+    - Next.js, TypeScript, React- Query, Zustand, Vercel
 
 
 ------
 
 ## 주요 기능
 
-### 회원
+* ### 회원
   - 인증 - 로그인 및 회원가입을 할 수 있습니다.
   - 인가 - 로그인 된 사용자에 한해 서비스를 이용할 수 있습니다.
   - 토큰 재발급 
     - 액세스 토큰 만료 시 axios interceptor와 리프레시 토큰을 이용해 재발급 합니다.
-### 업무(Work)
+* ### 업무(Work)
   - 사용자는 해당 일의 업무를 생성/조회/수정/삭제 할 수 있습니다.
   - 업무에는 제목, 내용, 업무유형, 진행상태를 포함합니다. 
   - 날짜 별로 업무가 표시되는 순서를 저장 및 변경할 수 있습니다.
   - 제목, 내용을 검색할 수 있습니다.
-### 메모(Memo)
+* ### 메모(Memo)
   - 사용자는 해당 일의 메모를 생성/조회/수정/삭제 할 수 있습니다.
   - 메모에는 내용만 기록할 수 있습니다.
   - 날짜 별로 메모가 표시되는 순서를 저장 및 변경할 수 있습니다.
   - 내용을 검색할 수 있습니다.
-### 날짜
+* ### 날짜
   - 로그인 성공 후 today 페이지로 이동하며, 오늘의 업무 일지를 작성하는 것을 기본으로 합니다.
   - 업무 또는 메모가 존재하는 날짜에 한하여 왼쪽 네비게이터에 날짜 리스트가 노출 되며, 해당 날짜의 업무 일지로 이동할 수 있습니다. 
 <!-- #### 업무 마감 임박 알림(프론트 미구현)
