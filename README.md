@@ -80,7 +80,26 @@
       http.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
       ...
       }
-    - 만약 getServerSideProps에서 API 호출 시 토큰이 만료되었다면 API 호출을 클라이언트로 위임하고 재발급 또한 클라이언트에서 처리하도록 함
+    - 만약 getServerSideProps에서 API 호출 시 토큰이 만료되었다면 API 호출을 클라이언트로 위임하고 재발급 또한 클라이언트에서 처리하도록 함.
+    - 커스텀 axios 모듈에서 401(액세스 토큰 만료) 에러가 발생했을 때 window의 타입이 undefined이면 서버에서의 호출로 간주해 재발급 로직을 타지 않음
+    - ```typescript
+      // http.ts
+      http.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      async (error) => {
+        const originalRequest = error.config;
+        const {
+          response: { status },
+        } = error;
+        if (status === 401 && !originalRequest._retry) {
+          if (typeof window === 'undefined') return;
+          ...
+        }
+        // 토큰 재발급 로직 (reissue)
+      },
+    );
   - 고민
     - 서버사이드 렌더링을 하는 페이지 마다 매번 이렇게 헤더에 토큰을 직접 세팅해주는게 너무 번거롭다는 생각이 들었음. 더 좋은 방법이 있을지 더 공부해 보기로 함
 
