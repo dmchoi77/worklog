@@ -1,22 +1,28 @@
 import { useRouter } from 'next/navigation';
 
+import dayjs from 'dayjs';
+
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
 import { StyledTableCell } from './table.style';
 
+import { RoutePath } from '~/constants/route';
 import { useSearchMemoList } from '~/queries/memo';
 
 interface IProps {
   searchKey: string;
 }
+
 const MemoTable = ({ searchKey }: IProps) => {
   const { data: memoList, isLoading: isLoadingSearchMemoList } = useSearchMemoList(searchKey);
 
   const router = useRouter();
 
   const handleClickRow = (date: string) => {
-    console.log(date);
+    const formattedDate = dayjs(date).format('YYYY/MM/DD');
+    router.push(`${RoutePath.Content}/${formattedDate}`);
   };
+
   return (
     <Table>
       <TableHead>
@@ -33,7 +39,7 @@ const MemoTable = ({ searchKey }: IProps) => {
         {memoList.content.length > 0 ? (
           <>
             {memoList.content.map((memo) => (
-              <TableRow key={memo.id} onClick={() => handleClickRow(memo.date)}>
+              <TableRow key={memo.id} onClick={() => handleClickRow(memo.date)} sx={{ cursor: 'pointer' }}>
                 <StyledTableCell align='left'>{memo.date}</StyledTableCell>
                 <StyledTableCell align='left'>{memo.content}</StyledTableCell>
               </TableRow>

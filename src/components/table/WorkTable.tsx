@@ -1,7 +1,12 @@
+import { useRouter } from 'next/router';
+
+import dayjs from 'dayjs';
+
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
 import { StyledTableCell } from './table.style';
 
+import { RoutePath } from '~/constants/route';
 import { useSearchWorkList } from '~/queries/work';
 
 interface IProps {
@@ -11,6 +16,12 @@ interface IProps {
 const WorkTable = ({ searchKey }: IProps) => {
   const { data: workList, isLoading: isLoadingSearchWorkList } = useSearchWorkList(searchKey);
 
+  const router = useRouter();
+
+  const handleClickRow = (date: string) => {
+    const formattedDate = dayjs(date).format('YYYY/MM/DD');
+    router.push(`${RoutePath.Content}/${formattedDate}`);
+  };
   return (
     <Table>
       <TableHead>
@@ -39,7 +50,7 @@ const WorkTable = ({ searchKey }: IProps) => {
         {workList.content.length > 0 ? (
           <>
             {workList.content.map((work) => (
-              <TableRow key={work.id}>
+              <TableRow key={work.id} onClick={() => handleClickRow(work.date)} sx={{ cursor: 'pointer' }}>
                 <StyledTableCell colSpan={1}>{work.date}</StyledTableCell>
                 <StyledTableCell colSpan={1} align='left'>
                   {work.deadline}
