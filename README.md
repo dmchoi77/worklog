@@ -71,14 +71,16 @@
     - 로그인 시 커스텀 axios 모듈을 사용해 Authorization에 토큰 세팅
     - getServerSideProps에서 API 호출 시 같은 커스텀 axios 모듈을 사용했는데 헤더에 토큰이 없다고 호출 실패
   - 원인
-    - 클라이언트와 서버의 axios 인스턴스를 공유할거라 예상했으니 각각의 인스턴스가 생성 되는 것이었음
+    - 클라이언트와 서버의 axios 인스턴스를 공유할거라 예상했으나 각각의 인스턴스가 생성 되는 것이 문제였음
   - 해결 방법
-    - getServerSideProps에서 axios를 사용할 경우 사전에 토큰을 직접 세팅하도록 함
+    - 클라이언트와 서버의 axios 인스턴스를 각각 관리하게 되면 토큰 재발급 시 서로 다른 토큰을 가져가게 되며 관리 포인트 또한 늘어날 것으로 생각하였음
+    - getServerSideProps에서 axios를 사용할 경우 현재 쿠키에 저장한 토큰을 직접 세팅하도록 하여 클라이언트와 서버가 동일한 토큰을 사용하도록 함
     - ```typescript
       export const getServerSideProps: GetServerSideProps = async (ctx) => {
       http.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
       ...
       }
+    - 만약 getServerSideProps에서 API 호출 시 토큰이 만료되었다면 API 호출을 클라이언트로 위임하고 재발급 또한 클라이언트에서 처리하도록 함
   - 고민
     - 서버사이드 렌더링을 하는 페이지 마다 매번 이렇게 헤더에 토큰을 직접 세팅해주는게 너무 번거롭다는 생각이 들었음. 더 좋은 방법이 있을지 더 공부해 보기로 함
 
