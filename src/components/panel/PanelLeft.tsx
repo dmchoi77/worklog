@@ -1,7 +1,7 @@
 import { Divider, List, ListSubheader } from '@mui/material';
 
 import SearchInput from '../input/SearchInput';
-import NestedList from '../list/NestedList';
+import YearList from '../list/YearList';
 
 import { useFetchCalendarYears } from '~/queries/calendar';
 
@@ -58,7 +58,7 @@ const PanelLeft = () => {
           </ListSubheader>
         }
       >
-        {years?.map((year) => <NestedList year={year} key={year} />)}
+        {years?.map((year) => <YearList year={year} key={year} />)}
       </List>
     </div>
   );
