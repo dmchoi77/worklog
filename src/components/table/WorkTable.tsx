@@ -1,10 +1,13 @@
-import { Table, TableHead, TableRow, TableCell, TableBody, Skeleton, Stack } from '@mui/material';
+import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+
+import { StyledTableCell } from './table.style';
 
 import { useSearchWorkList } from '~/queries/work';
 
 interface IProps {
   searchKey: string;
 }
+
 const WorkTable = ({ searchKey }: IProps) => {
   const { data: workList, isLoading: isLoadingSearchWorkList } = useSearchWorkList(searchKey);
 
@@ -12,24 +15,24 @@ const WorkTable = ({ searchKey }: IProps) => {
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell colSpan={1} align='left'>
+          <StyledTableCell colSpan={1} align='left'>
             날짜
-          </TableCell>
-          <TableCell colSpan={1} align='left'>
+          </StyledTableCell>
+          <StyledTableCell colSpan={1} align='left'>
             마감일자
-          </TableCell>
-          <TableCell colSpan={3} align='left'>
+          </StyledTableCell>
+          <StyledTableCell colSpan={3} align='left'>
             제목
-          </TableCell>
-          <TableCell colSpan={1} align='left'>
+          </StyledTableCell>
+          <StyledTableCell colSpan={1} align='left'>
             내용
-          </TableCell>
-          <TableCell colSpan={1} align='left'>
+          </StyledTableCell>
+          <StyledTableCell colSpan={1} align='left'>
             카테고리
-          </TableCell>
-          <TableCell colSpan={1} align='left'>
+          </StyledTableCell>
+          <StyledTableCell colSpan={1} align='left' title='상태'>
             상태
-          </TableCell>
+          </StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -37,22 +40,22 @@ const WorkTable = ({ searchKey }: IProps) => {
           <>
             {workList.content.map((work) => (
               <TableRow key={work.id}>
-                <TableCell colSpan={1}>{work.date}</TableCell>
-                <TableCell colSpan={1} align='left'>
+                <StyledTableCell colSpan={1}>{work.date}</StyledTableCell>
+                <StyledTableCell colSpan={1} align='left'>
                   {work.deadline}
-                </TableCell>
-                <TableCell colSpan={3} align='left'>
+                </StyledTableCell>
+                <StyledTableCell colSpan={3} align='left'>
                   {work.title}
-                </TableCell>
-                <TableCell colSpan={1} align='left'>
+                </StyledTableCell>
+                <StyledTableCell colSpan={1} align='left'>
                   {work.content}
-                </TableCell>
-                <TableCell colSpan={1} align='left'>
+                </StyledTableCell>
+                <StyledTableCell colSpan={1} align='left'>
                   {work.category}
-                </TableCell>
-                <TableCell colSpan={1} align='left'>
-                  {work.state}
-                </TableCell>
+                </StyledTableCell>
+                <StyledTableCell colSpan={1} align='left'>
+                  {work.state === 'COMPLETED' ? '완료' : '진행 중'}
+                </StyledTableCell>
               </TableRow>
             ))}
           </>
@@ -63,9 +66,9 @@ const WorkTable = ({ searchKey }: IProps) => {
               textAlign: 'center',
             }}
           >
-            <TableCell align='center' colSpan={10}>
+            <StyledTableCell align='center' colSpan={10}>
               조회된 데이터가 없습니다.
-            </TableCell>
+            </StyledTableCell>
           </TableRow>
         )}
       </TableBody>

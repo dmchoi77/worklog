@@ -2,6 +2,8 @@ import { useRouter } from 'next/navigation';
 
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
+import { StyledTableCell } from './table.style';
+
 import { useSearchMemoList } from '~/queries/memo';
 
 interface IProps {
@@ -19,8 +21,12 @@ const MemoTable = ({ searchKey }: IProps) => {
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell align='center'>날짜</TableCell>
-          <TableCell align='center'>내용</TableCell>
+          <StyledTableCell sx={{ width: '20%' }} align='left'>
+            날짜
+          </StyledTableCell>
+          <StyledTableCell sx={{ width: '80%' }} align='left'>
+            내용
+          </StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -28,8 +34,8 @@ const MemoTable = ({ searchKey }: IProps) => {
           <>
             {memoList.content.map((memo) => (
               <TableRow key={memo.id} onClick={() => handleClickRow(memo.date)}>
-                <TableCell align='center'>{memo.date}</TableCell>
-                <TableCell align='center'>{memo.content}</TableCell>
+                <StyledTableCell align='left'>{memo.date}</StyledTableCell>
+                <StyledTableCell align='left'>{memo.content}</StyledTableCell>
               </TableRow>
             ))}
           </>
@@ -40,9 +46,9 @@ const MemoTable = ({ searchKey }: IProps) => {
               textAlign: 'center',
             }}
           >
-            <TableCell align='center' colSpan={10}>
+            <StyledTableCell align='center' colSpan={10}>
               조회된 데이터가 없습니다.
-            </TableCell>
+            </StyledTableCell>
           </TableRow>
         )}
       </TableBody>
