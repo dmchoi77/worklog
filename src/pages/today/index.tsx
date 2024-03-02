@@ -12,9 +12,11 @@ import utc from 'dayjs/plugin/utc';
 
 import { fetchCalendarYears } from '~/apis/calendar';
 import { fetchMemoList } from '~/apis/memo';
+import { fetchWorkList } from '~/apis/work';
 import PanelRight from '~/components/panel/PanelRight';
 import { calendarQueryKeys } from '~/queries/calendar';
 import { memoQueryKeys } from '~/queries/memo';
+import { workQueryKeys } from '~/queries/work';
 import http from '~/utils/http';
 
 extend(utc);
@@ -28,16 +30,24 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   http.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: memoQueryKeys.fetchMemoList({ date: todayDate }).queryKey,
-    queryFn: () => fetchMemoList({ date: todayDate }),
-    initialData: [],
-  });
-  await queryClient.prefetchQuery({
-    queryKey: calendarQueryKeys.fetchCalendarYears.queryKey,
-    queryFn: () => fetchCalendarYears(),
-    initialData: [],
-  });
+
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: memoQueryKeys.fetchMemoList({ date: todayDate }).queryKey,
+      queryFn: () => fetchMemoList({ date: todayDate }),
+      initialData: [],
+    }),
+    queryClient.prefetchQuery({
+      queryKey: workQueryKeys.fetchWorkList({ date: todayDate }).queryKey,
+      queryFn: () => fetchWorkList({ date: todayDate }),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: calendarQueryKeys.fetchCalendarYears.queryKey,
+      queryFn: () => fetchCalendarYears(),
+      initialData: [],
+    }),
+  ]);
+
   // fix `data-rbd-draggable-context-id` did not match Server / Client
   resetServerContext();
   return {
