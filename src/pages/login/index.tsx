@@ -38,7 +38,7 @@ const Login = () => {
         onError: (error: any) => {
           updateDialogState({
             open: true,
-            mainText: error.message,
+            mainText: error.message || '서버 점검 중입니다.',
             cancelText: '',
           });
         },

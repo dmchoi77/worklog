@@ -73,7 +73,7 @@ const SignIn = () => {
         onError: (error: any) => {
           updateDialogState({
             open: true,
-            mainText: error?.response?.data?.message,
+            mainText: error?.response?.data?.message || '서버 점검 중입니다.',
             cancelText: '',
           });
         },
