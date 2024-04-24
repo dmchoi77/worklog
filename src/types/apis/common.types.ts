@@ -6,7 +6,7 @@ export interface ICommonResponse<T = undefined> {
   message?: string;
 }
 
-export interface ISearcList<T> {
+export interface ISearchList<T> {
   content: T[];
   pageNumber: number;
   pageSize: number;

@@ -1,4 +1,4 @@
-import { ISearcList } from './common.types';
+import { ISearchList } from './common.types';
 
 export interface IAddMemoRequest {
   content: string;
@@ -32,4 +32,4 @@ export interface IMemo {
   displayOrder: number;
 }
 
-export interface ISearchMemoList extends ISearcList<IMemo> {}
+export interface ISearchMemoList extends ISearchList<IMemo> {}
