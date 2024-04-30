@@ -60,8 +60,7 @@ const WorkCard = (props: IProps) => {
 
   useEffect(
     function updateWork() {
-      if (Object.is(props, work)) return;
-
+      if (Object.entries(props).toString() === Object.entries(work).toString()) return;
       mutate(work, {
         onSuccess: (data) => {
           queryClient.invalidateQueries(workQueryKeys.fetchWorkList({}));

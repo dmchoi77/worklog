@@ -34,7 +34,7 @@ const WorkDetail = (props: IProps) => {
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
 
   const handleClickUpdate = () => {
-    if (Object.is(props, work)) {
+    if (Object.entries(props).toString() === Object.entries(work).toString()) {
       handleClose();
       return updateSnackbarState({
         open: true,
