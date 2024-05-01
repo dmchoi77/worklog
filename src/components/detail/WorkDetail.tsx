@@ -11,6 +11,7 @@ import ContentEditable from 'react-contenteditable';
 
 import SplitButton from '../button/SplitButton';
 
+import useMobile from '~/hooks/useMobile';
 import useWork from '~/hooks/useWork';
 import { useUpdateWork, workQueryKeys } from '~/queries/work';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
@@ -30,6 +31,8 @@ const WorkDetail = (props: IProps) => {
   const queryClient = useQueryClient();
   const { mutate } = useUpdateWork();
   const { work, workSetter } = useWork(props);
+
+  const mobile = useMobile();
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
 
@@ -75,7 +78,7 @@ const WorkDetail = (props: IProps) => {
       >
         <div
           css={{
-            width: 800,
+            width: mobile ? '80%' : 800,
             background: '#fff',
             margin: '0 auto',
             borderRadius: 10,
@@ -100,7 +103,15 @@ const WorkDetail = (props: IProps) => {
             </span>
             <CloseIcon onClick={handleClose} fontSize='medium' style={{ color: '#000', cursor: 'pointer' }} />
           </div>
-          <div css={{ display: 'flex', padding: 16, paddingTop: 0, gap: 10 }}>
+          <div
+            css={{
+              display: 'flex',
+              padding: 16,
+              paddingTop: 0,
+              gap: 10,
+              flexDirection: mobile ? 'column' : 'row',
+            }}
+          >
             <div
               css={{
                 display: 'flex',
@@ -182,7 +193,7 @@ const WorkDetail = (props: IProps) => {
                 display: 'flex',
                 flex: 0.3,
                 justifyContent: 'space-between',
-                gap: 18,
+                gap: mobile ? 5 : 18,
                 flexDirection: 'column',
                 fontSize: 14,
                 border: '1px solid #0000002e',
