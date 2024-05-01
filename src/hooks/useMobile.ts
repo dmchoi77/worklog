@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 const useMobile = () => {
-  const [mobile, setMobile] = useState(false);
-
   const isMobile = useMediaQuery({ maxWidth: 640 });
+  const [mobile, setMobile] = useState(isMobile);
 
   useEffect(() => {
     if (isMobile) setMobile(true);
