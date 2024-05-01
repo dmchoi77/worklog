@@ -5,9 +5,7 @@ import TodayWork from '../todayWork/TodayWork';
 
 import { ICommonProps } from '~/types/components/component.types';
 
-const PanelRight = ({ targetDate, userAgent }: ICommonProps) => {
-  const isMobile = userAgent === 'mobile';
-
+const PanelRightMobile = ({ targetDate, userAgent }: ICommonProps) => {
   return (
     <div
       css={{
@@ -21,6 +19,7 @@ const PanelRight = ({ targetDate, userAgent }: ICommonProps) => {
         flexDirection: 'column',
       }}
     >
+      {/* <Header /> */}
       <div
         className='today-container'
         css={{
@@ -42,12 +41,7 @@ const PanelRight = ({ targetDate, userAgent }: ICommonProps) => {
         </div>
       </div>
 
-      <div
-        css={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-        }}
-      >
+      <div css={{ display: 'flex', flexDirection: 'column' }}>
         <div
           className='today-task-container'
           css={{
@@ -72,4 +66,4 @@ const PanelRight = ({ targetDate, userAgent }: ICommonProps) => {
   );
 };
 
-export default PanelRight;
+export default PanelRightMobile;

@@ -5,15 +5,12 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import MemoForm from '../form/MemoForm';
 import MemoList from '../list/MemoList';
 
-import useMobile from '~/hooks/useMobile';
+import { ICommonProps } from '~/types/components/component.types';
 
-interface IProps {
-  targetDate: string;
-}
-const TodayMemo = ({ targetDate }: IProps) => {
+const TodayMemo = ({ targetDate, userAgent }: ICommonProps) => {
   const [openForm, setOpenForm] = useState(false);
 
-  const mobile = useMobile();
+  const isMobile = userAgent === 'mobile';
 
   const toggleForm = () => {
     setOpenForm((prev) => !prev);
@@ -23,9 +20,9 @@ const TodayMemo = ({ targetDate }: IProps) => {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h3>MEMO</h3>
-        {mobile ? openForm ? <ExpandLess onClick={toggleForm} /> : <ExpandMore onClick={toggleForm} /> : null}
+        {isMobile ? openForm ? <ExpandLess onClick={toggleForm} /> : <ExpandMore onClick={toggleForm} /> : null}
       </div>
-      {mobile ? openForm && <MemoForm targetDate={targetDate} /> : <MemoForm targetDate={targetDate} />}
+      {isMobile ? openForm && <MemoForm targetDate={targetDate} /> : <MemoForm targetDate={targetDate} />}
       <MemoList targetDate={targetDate} />
     </div>
   );

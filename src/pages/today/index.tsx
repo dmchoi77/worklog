@@ -13,6 +13,7 @@ import utc from 'dayjs/plugin/utc';
 import { fetchCalendarYears } from '~/apis/calendar';
 import { fetchMemoList } from '~/apis/memo';
 import { fetchWorkList } from '~/apis/work';
+import PanelRightMobile from '~/components/mobile/PanelRightMobile';
 import PanelRight from '~/components/panel/PanelRight';
 import { calendarQueryKeys } from '~/queries/calendar';
 import { memoQueryKeys } from '~/queries/memo';
@@ -29,7 +30,7 @@ const todayDate = dayjs().tz().format('YYYY-MM-DD');
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   http.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
 
-  const agent = ctx.query.agent;
+  const userAgent = ctx.query.agent;
 
   const queryClient = new QueryClient();
   await Promise.all([
@@ -54,19 +55,20 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      agent,
+      userAgent,
     },
   };
 };
 
 interface IProps {
-  agent: string;
+  userAgent: 'desktop' | 'mobile';
 }
 
-const Today = ({ agent }: IProps) => {
+const Today = ({ userAgent }: IProps) => {
   return (
     <div css={{ width: '100%' }}>
-      <PanelRight targetDate={todayDate} />
+      {userAgent === 'mobile' && <PanelRightMobile targetDate={todayDate} userAgent={userAgent} />}
+      {userAgent === 'desktop' && <PanelRight targetDate={todayDate} userAgent={userAgent} />}
     </div>
   );
 };

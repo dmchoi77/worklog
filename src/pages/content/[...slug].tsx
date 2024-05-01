@@ -15,6 +15,7 @@ import PanelRight from '~/components/panel/PanelRight';
 import { calendarQueryKeys } from '~/queries/calendar';
 import { memoQueryKeys } from '~/queries/memo';
 import { workQueryKeys } from '~/queries/work';
+import { ICommonProps } from '~/types/components/component.types';
 import http from '~/utils/http';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -22,6 +23,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const [targetYear, targetMonth, targetDay] = slug;
 
   const targetDate = dayjs(`${targetYear}-${targetMonth}-${targetDay}`).format('YYYY-MM-DD');
+
+  const userAgent = ctx.query.agent;
 
   http.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
 
@@ -47,14 +50,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   resetServerContext();
 
   return {
-    props: { targetDate: targetDate, dehydratedState: dehydrate(queryClient) },
+    props: { targetDate: targetDate, dehydratedState: dehydrate(queryClient), userAgent },
   };
 };
 
-const Content = ({ targetDate }: { targetDate: string }) => {
+const Content = ({ targetDate, userAgent }: ICommonProps) => {
   return (
     <div css={{ width: '100%' }}>
-      <PanelRight targetDate={targetDate} />
+      <PanelRight targetDate={targetDate} userAgent={userAgent} />
     </div>
   );
 };

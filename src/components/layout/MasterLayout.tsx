@@ -11,14 +11,16 @@ import { ACCESS_TOKEN } from '~/constants/cookie';
 import useMobile from '~/hooks/useMobile';
 import useServerSentEvent from '~/hooks/useServerSentEvent';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
+import { UserAgent } from '~/types/components/component.types';
 import { getCookie } from '~/utils/cookie';
 import { decodeJWT } from '~/utils/decodeJWT';
 
 interface IProps {
   children: JSX.Element | JSX.Element[];
+  userAgent: UserAgent;
 }
 
-const MasterLayout = ({ children }: IProps) => {
+const MasterLayout = ({ children, userAgent }: IProps) => {
   const { username, updateUserInfoState } = useUserInfoState((state) => ({
     username: state.username,
     updateUserInfoState: state.updateUserInfoState,
@@ -36,7 +38,7 @@ const MasterLayout = ({ children }: IProps) => {
 
   // useServerSentEvent();
 
-  const mobile = useMobile();
+  const isMobile = userAgent === 'mobile';
   return (
     <MasterLayoutContainer>
       <div
@@ -50,7 +52,7 @@ const MasterLayout = ({ children }: IProps) => {
       >
         <PanelLeft />
         <PanelRightContainer>
-          {mobile ? <MobileAppBar /> : <Header />}
+          {isMobile ? <MobileAppBar /> : <Header />}
           {children}
         </PanelRightContainer>
       </div>

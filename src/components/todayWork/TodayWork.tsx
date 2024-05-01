@@ -5,16 +5,12 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import WorkForm from '../form/WorkForm';
 
 import WorkList from '~/components/list/WorkList';
-import useMobile from '~/hooks/useMobile';
+import { ICommonProps } from '~/types/components/component.types';
 
-interface IProps {
-  targetDate: string;
-}
-
-const TodayWork = ({ targetDate }: IProps) => {
+const TodayWork = ({ targetDate, userAgent }: ICommonProps) => {
   const [openForm, setOpenForm] = useState(false);
 
-  const mobile = useMobile();
+  const isMobile = userAgent === 'mobile';
 
   const toggleForm = () => {
     setOpenForm((prev) => !prev);
@@ -24,9 +20,9 @@ const TodayWork = ({ targetDate }: IProps) => {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h3>WORK</h3>
-        {mobile ? openForm ? <ExpandLess onClick={toggleForm} /> : <ExpandMore onClick={toggleForm} /> : null}
+        {isMobile ? openForm ? <ExpandLess onClick={toggleForm} /> : <ExpandMore onClick={toggleForm} /> : null}
       </div>
-      {mobile ? openForm && <WorkForm targetDate={targetDate} /> : <WorkForm targetDate={targetDate} />}
+      {isMobile ? openForm && <WorkForm targetDate={targetDate} /> : <WorkForm targetDate={targetDate} />}
       <WorkList targetDate={targetDate} />
     </div>
   );

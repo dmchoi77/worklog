@@ -8,7 +8,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
 export async function middleware(request: NextRequest) {
   const { ua } = userAgent(request);
   const { isMobileOnly, isDesktop } = getSelectorsByUserAgent(ua);
-  const agent = isMobileOnly ? 'phone' : isDesktop ? 'desktop' : 'unknown';
+  const agent = isMobileOnly ? 'mobile' : isDesktop ? 'desktop' : 'unknown';
   const { nextUrl: url } = request;
   url.searchParams.set('agent', agent);
 

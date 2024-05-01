@@ -19,6 +19,7 @@ import { RoutePath } from '~/constants/route';
 import { GlobalPortal } from '~/GlobalPortal';
 
 export default function App({ Component, pageProps }: AppProps) {
+  console.log('🚀 ~ App ~ pageProps:', pageProps);
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -56,7 +57,7 @@ export default function App({ Component, pageProps }: AppProps) {
               </NonAuthLayout>
             ) : (
               <HydrationBoundary state={pageProps.dehydratedState}>
-                <MasterLayout>
+                <MasterLayout userAgent={pageProps.userAgent}>
                   <Component {...pageProps} />
                 </MasterLayout>
               </HydrationBoundary>
