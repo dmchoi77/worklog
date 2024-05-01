@@ -29,8 +29,9 @@ const todayDate = dayjs().tz().format('YYYY-MM-DD');
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   http.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
 
-  const queryClient = new QueryClient();
+  const agent = ctx.query.agent;
 
+  const queryClient = new QueryClient();
   await Promise.all([
     queryClient.prefetchQuery({
       queryKey: memoQueryKeys.fetchMemoList({ date: todayDate }).queryKey,
@@ -53,11 +54,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      agent,
     },
   };
 };
 
-const Today = () => {
+interface IProps {
+  agent: string;
+}
+
+const Today = ({ agent }: IProps) => {
   return (
     <div css={{ width: '100%' }}>
       <PanelRight targetDate={todayDate} />

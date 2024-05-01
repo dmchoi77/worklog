@@ -34,6 +34,7 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-contenteditable": "^3.3.7",
     "react-cookie": "^6.1.1",
+    "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "react-responsive": "^10.0.0",
