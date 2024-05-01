@@ -1,52 +1,32 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 import WorkForm from '../form/WorkForm';
 
 import WorkList from '~/components/list/WorkList';
+import useMobile from '~/hooks/useMobile';
 
 interface IProps {
   targetDate: string;
 }
 
 const TodayWork = ({ targetDate }: IProps) => {
-  // const [data, setData] = useState<IData>(exampleTasks);
-  // const onDragEnd = useCallback(
-  //   (result: DropResult) => {
-  //     const { destination, source, draggableId } = result;
-  //     // 리스트 밖으로 drop되면 destination이 null
-  //     if (!destination) return;
-  //     // 출발지와 목적지가 같으면 할게 없다
-  //     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+  const [openForm, setOpenForm] = useState(false);
 
-  //     // 출발지의 column 얻기
-  //     const column = data.columns[source.droppableId];
+  const mobile = useMobile();
 
-  //     const newTaskIds = Array.from(column.taskIds);
-  //     newTaskIds.splice(source.index, 1);
-  //     newTaskIds.splice(destination.index, 0, draggableId);
+  const toggleForm = () => {
+    setOpenForm((prev) => !prev);
+  };
 
-  //     const newColumn = {
-  //       ...column,
-  //       taskIds: newTaskIds,
-  //     };
-
-  //     const newData = {
-  //       ...data,
-  //       columns: {
-  //         ...data.columns,
-  //         [newColumn.id]: newColumn,
-  //       },
-  //     };
-  //     setData(newData);
-  //   },
-  //   [data],
-  // );
   return (
     <div>
-      <h3>WORK</h3>
-      <WorkForm targetDate={targetDate} />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h3>WORK</h3>
+        {mobile ? openForm ? <ExpandLess onClick={toggleForm} /> : <ExpandMore onClick={toggleForm} /> : null}
+      </div>
+      {mobile ? openForm && <WorkForm targetDate={targetDate} /> : <WorkForm targetDate={targetDate} />}
       <WorkList targetDate={targetDate} />
     </div>
   );

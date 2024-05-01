@@ -5,7 +5,11 @@ import Header from '../header/Header';
 import TodayMemo from '../todayMemo/TodayMemo';
 import TodayWork from '../todayWork/TodayWork';
 
+import useMobile from '~/hooks/useMobile';
+
 const PanelRight = ({ targetDate }: { targetDate: string }) => {
+  const mobile = useMobile();
+
   return (
     <div
       css={{
@@ -13,7 +17,7 @@ const PanelRight = ({ targetDate }: { targetDate: string }) => {
         flex: 1,
         width: '100%',
         overflowY: 'scroll',
-
+        padding: 0,
         height: 'calc(100vh - 50px)',
         display: 'flex',
         flexDirection: 'column',
@@ -44,11 +48,7 @@ const PanelRight = ({ targetDate }: { targetDate: string }) => {
       <div
         css={{
           display: 'flex',
-          flexDirection: 'row',
-
-          '@media (max-width: 640px)': {
-            flexDirection: 'column',
-          },
+          flexDirection: mobile ? 'column' : 'row',
         }}
       >
         <div

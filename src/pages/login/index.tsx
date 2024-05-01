@@ -45,7 +45,6 @@ const Login = () => {
       },
     );
   };
-
   return (
     <LoginContainer>
       <div css={{ padding: '30px 0', textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 8 }}>
