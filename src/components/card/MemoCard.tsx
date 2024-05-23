@@ -24,14 +24,14 @@ interface IProps {
 
 const MemoCard = ({ content, id, index }: IProps) => {
   const queryClient = useQueryClient();
-  const [input, setInput] = useState(content);
+
+  const inputRef = useRef(content);
+  const contentRef = useRef<HTMLInputElement>(null);
 
   const [visibleBtn, setVisibleBtn] = useState(false);
 
   const { mutate: updateMemo } = useUpdateMemo();
   const { mutate: deleteMemo } = useDeleteMemo();
-
-  const contentRef = useRef<HTMLInputElement>(null);
 
   const debounceUpdateMemo = useDebounce((e) => {
     updateMemo(
@@ -53,7 +53,7 @@ const MemoCard = ({ content, id, index }: IProps) => {
             vertical: 'bottom',
           });
           contentRef?.current?.blur();
-          setInput(content);
+          inputRef.current = content;
         },
         onSettled: () => {
           queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({}));
@@ -89,7 +89,7 @@ const MemoCard = ({ content, id, index }: IProps) => {
 
   const handleOnChangeMemo = (e: ContentEditableEvent) => {
     debounceUpdateMemo(e);
-    setInput(e.target.value);
+    inputRef.current = e.target.value;
   };
 
   return (
@@ -128,7 +128,7 @@ const MemoCard = ({ content, id, index }: IProps) => {
           )}
           <ContentEditable
             innerRef={contentRef}
-            html={input}
+            html={inputRef.current}
             disabled={false}
             onChange={handleOnChangeMemo}
             onKeyDown={(e) => {
