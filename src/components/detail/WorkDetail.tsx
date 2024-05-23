@@ -75,6 +75,9 @@ const WorkDetail = (props: IProps) => {
           width: '100%',
           height: '100%',
         }}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) handleClose();
+        }}
       >
         <div
           css={{
