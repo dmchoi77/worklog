@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 
 import { Divider } from '@mui/material';
 
-import { SearchTableContainer, SearchTableTitle } from './search.style';
+import { SearchTableContainer, SearchTableTitle } from '../../styles/search/search.style';
 
 import MemoTable from '~/components/table/MemoTable';
 import WorkTable from '~/components/table/WorkTable';
