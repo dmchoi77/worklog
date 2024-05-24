@@ -2,6 +2,8 @@ import { GetServerSideProps } from 'next';
 
 import { Divider } from '@mui/material';
 
+import { SearchTableContainer, SearchTableTitle } from '../../styles/search/search.style';
+
 import MemoTable from '~/components/table/MemoTable';
 import WorkTable from '~/components/table/WorkTable';
 
@@ -36,31 +38,25 @@ const Search = ({ searchKey }: IProps) => {
             display: 'flex',
             flexDirection: 'column',
             padding: 14,
-            gap: 15,
+            gap: 14,
           }}
         >
-          <div className='today-task-container' css={{}}>
+          <div className='today-task-container'>
             <div css={{ fontWeight: 600 }}>통합 검색</div>
           </div>
-          <div
-            css={{
-              background: '#fff',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 20,
-            }}
-          >
-            <div>
-              <p css={{ padding: 12, fontWeight: 500 }}>Work</p>
+          <div>
+            <SearchTableTitle>Work</SearchTableTitle>
+            <SearchTableContainer>
               <Divider />
               <WorkTable searchKey={searchKey} />
-            </div>
-
-            <div>
-              <p css={{ padding: 12, fontWeight: 500 }}>Memo</p>
+            </SearchTableContainer>
+          </div>
+          <div>
+            <SearchTableTitle>Memo</SearchTableTitle>
+            <SearchTableContainer>
               <Divider />
               <MemoTable searchKey={searchKey} />
-            </div>
+            </SearchTableContainer>
           </div>
         </div>
       </div>
