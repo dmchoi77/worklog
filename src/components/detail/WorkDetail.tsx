@@ -1,7 +1,5 @@
 import { useRef } from 'react';
 
-import { title } from 'process';
-
 import { useQueryClient } from '@tanstack/react-query';
 
 import { Button, Checkbox } from '@mui/material';
@@ -92,7 +90,7 @@ const WorkDetail = (props: IProps) => {
             css={{
               padding: 14,
               position: 'relative',
-              // background: '#303030',
+              background: '#303030cd',
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
               height: 50,
@@ -101,16 +99,13 @@ const WorkDetail = (props: IProps) => {
               justifyContent: 'space-between',
             }}
           >
-            <span>
-              ID: {work.id} / {work.date}
-            </span>
-            <CloseIcon onClick={handleClose} fontSize='medium' style={{ color: '#000', cursor: 'pointer' }} />
+            <span css={{ fontWeight: 400, fontSize: 18, color: '#fff' }}>업무 상세</span>
+            <CloseIcon onClick={handleClose} fontSize='medium' style={{ color: '#fff', cursor: 'pointer' }} />
           </div>
           <div
             css={{
               display: 'flex',
               padding: 16,
-              paddingTop: 0,
               gap: 10,
               flexDirection: mobile ? 'column' : 'row',
             }}
@@ -125,13 +120,7 @@ const WorkDetail = (props: IProps) => {
                 overflowY: 'hidden',
               }}
             >
-              <div
-                css={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 8,
-                }}
-              >
+              <div css={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <input
                   css={{
                     border: 'none',
@@ -157,13 +146,7 @@ const WorkDetail = (props: IProps) => {
                   }}
                 />
               </div>
-              <div
-                css={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 8,
-                }}
-              >
+              <div css={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <span css={{ fontWeight: 500 }}>상세 내용</span>
                 <ContentEditable
                   css={{
@@ -220,15 +203,9 @@ const WorkDetail = (props: IProps) => {
                   onSelectOption={workSetter('category')}
                 />
               </div>
-              <div
-                css={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 15,
-                }}
-              >
+              <div css={{ display: 'flex', alignItems: 'center', gap: 15 }}>
                 <div css={{ display: 'flex', alignItems: 'center' }}>
-                  <span css={{ fontWeight: 600 }}>완료여부: </span>
+                  <span css={{ fontWeight: 600 }}>완료여부</span>
                   <Checkbox
                     name='state'
                     checked={work.state.toLocaleLowerCase() === 'completed' ? true : false}
@@ -239,7 +216,7 @@ const WorkDetail = (props: IProps) => {
                 </div>
               </div>
               <div css={{ display: 'flex', gap: 5, justifyContent: 'flex-end' }}>
-                <Button variant='contained' size='small' onClick={handleClickUpdate}>
+                <Button variant='contained' size='small' onClick={handleClickUpdate} css={{ width: '100%' }}>
                   업데이트
                 </Button>
                 {/* <Button variant='outlined' size='small'>
