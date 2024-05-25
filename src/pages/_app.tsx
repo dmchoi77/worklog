@@ -19,7 +19,6 @@ import { RoutePath } from '~/constants/route';
 import { GlobalPortal } from '~/GlobalPortal';
 
 export default function App({ Component, pageProps }: AppProps) {
-  console.log('🚀 ~ App ~ pageProps:', pageProps);
   const [queryClient] = useState(
     () =>
       new QueryClient({

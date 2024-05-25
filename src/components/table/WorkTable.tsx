@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import dayjs from 'dayjs';
 
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Table, TableHead, TableRow, TableBody } from '@mui/material';
 
 import { StyledTableCell } from './table.style';
 
