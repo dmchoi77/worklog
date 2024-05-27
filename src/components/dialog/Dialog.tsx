@@ -80,7 +80,6 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
                   updateDialogState({ open: !open });
                   handleConfirm?.();
                 }}
-                style={{}}
               />
             </div>
           </div>
