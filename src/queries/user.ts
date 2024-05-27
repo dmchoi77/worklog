@@ -2,16 +2,16 @@ import { useRouter } from 'next/router';
 
 import { useEffect } from 'react';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { UseQueryResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { AxiosError, AxiosResponse } from 'axios';
 
-import { checkDuplicationEmail, checkDuplicationUsername, login, logout, reissue, signIn } from '~/apis/user';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
+import { checkDuplicationEmail, checkDuplicationUsername, login, logout, signIn } from '~/apis/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-import { ILoginRequest, ILoginResponse, ISignInRequest } from '~/types/apis/user.types';
-import { removeCookie, setCookie } from '~/utils/cookie';
-import { getRemainExp } from '~/utils/decodeJWT';
+import { ICommonAPIResponse } from '~/types/api.types';
+import { ICommonResponse } from '~/types/apis/common.types';
+import { ILoginRequest, ISignInRequest, IValidateEmailRequest } from '~/types/apis/user.types';
 import http from '~/utils/http';
 
 const userQueryKeys = createQueryKeys('user', {
@@ -33,10 +33,22 @@ export const useSignIn = () => {
   });
 };
 
-export const useCheckDuplicationEmail = () =>
-  useMutation({
-    mutationFn: (email: string) => checkDuplicationEmail({ email }),
+export const useCheckDuplicationEmail = (email: string) => {
+  const queryClient = useQueryClient();
+  const query = useQuery<ICommonResponse, AxiosError>({
+    queryKey: userQueryKeys.checkDuplicationEmail.queryKey,
+    queryFn: () => checkDuplicationEmail({ email }),
+    enabled: false,
   });
+
+  useEffect(() => {
+    if (query.error) {
+      queryClient.setQueryData(userQueryKeys.checkDuplicationEmail.queryKey, query.error?.response?.data);
+    }
+  }, [query.error]);
+
+  return query;
+};
 
 export const useCheckDuplicationUsername = (username: string) =>
   useQuery({

@@ -14,3 +14,7 @@ export interface ILoginResponse {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface IValidateEmailRequest {
+  email: string;
+}
