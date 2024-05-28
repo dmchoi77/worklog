@@ -2,22 +2,22 @@ import { useRouter } from 'next/router';
 
 import { useEffect } from 'react';
 
-import { UseQueryResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 
-import { checkDuplicationEmail, checkDuplicationUsername, login, logout, signIn } from '~/apis/user';
+import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { ICommonAPIResponse } from '~/types/api.types';
 import { ICommonResponse } from '~/types/apis/common.types';
-import { ILoginRequest, ISignInRequest, IValidateEmailRequest } from '~/types/apis/user.types';
+import { ILoginRequest, ISignInRequest } from '~/types/apis/user.types';
 import http from '~/utils/http';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
-  checkDuplicationEmail: ['checkDuplicationEmail'],
-  checkDuplicationUsername: ['checkDuplicationUsername'],
+  checkEmail: ['checkEmail'],
+  checkUsername: ['checkUsername'],
 });
 
 export const useLogin = () => {
@@ -33,28 +33,38 @@ export const useSignIn = () => {
   });
 };
 
-export const useCheckDuplicationEmail = (email: string) => {
+export const useCheckEmail = (email: string) => {
   const queryClient = useQueryClient();
   const query = useQuery<ICommonResponse, AxiosError>({
-    queryKey: userQueryKeys.checkDuplicationEmail.queryKey,
-    queryFn: () => checkDuplicationEmail({ email }),
+    queryKey: userQueryKeys.checkEmail.queryKey,
+    queryFn: () => checkEmail({ email }),
     enabled: false,
   });
 
   useEffect(() => {
     if (query.error) {
-      queryClient.setQueryData(userQueryKeys.checkDuplicationEmail.queryKey, query.error?.response?.data);
+      queryClient.setQueryData(userQueryKeys.checkEmail.queryKey, query.error?.response?.data);
     }
   }, [query.error]);
 
   return query;
 };
 
-export const useCheckDuplicationUsername = (username: string) =>
-  useQuery({
-    queryKey: userQueryKeys.checkDuplicationUsername.queryKey,
-    queryFn: () => checkDuplicationUsername({ username }),
+export const useCheckUsername = (username: string) => {
+  const queryClient = useQueryClient();
+  const query = useQuery<ICommonResponse, AxiosError>({
+    queryKey: userQueryKeys.checkUsername.queryKey,
+    queryFn: () => checkUsername({ username }),
+    enabled: false,
   });
+  useEffect(() => {
+    if (query.error) {
+      queryClient.setQueryData(userQueryKeys.checkUsername.queryKey, query.error?.response?.data);
+    }
+  }, [query.error]);
+
+  return query;
+};
 
 // export const useRefreshAccessToken = (refreshToken: string) => {
 //   const query = useQuery({

@@ -15,6 +15,10 @@ export interface ILoginResponse {
   refreshToken: string;
 }
 
-export interface IValidateEmailRequest {
+export interface ICheckEmailRequest {
   email: string;
+}
+
+export interface ICheckUsernameRequest {
+  username: string;
 }
