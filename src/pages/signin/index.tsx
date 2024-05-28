@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Dialog from '~/components/dialog/Dialog';
+import { RoutePath } from '~/constants/route';
 import { useCheckEmail, useCheckUsername, useLogin, useSignIn } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';
 import {
@@ -107,7 +108,18 @@ const SignIn = () => {
 
         <SignInInput type='password' placeholder='비밀번호' {...register('password', { required: true })} />
         <SignInInput type='password' placeholder='비밀번호 확인' {...register('passwordCheck', { required: true })} />
-        <SignInButton type='submit' value='회원가입' />
+        <SignInButton type='submit'>회원가입</SignInButton>
+        <span
+          onClick={() => router.push(RoutePath.Login)}
+          css={{
+            color: '#5e6776',
+            fontSize: 16,
+            textAlign: 'center',
+            cursor: 'pointer',
+          }}
+        >
+          뒤로 가기
+        </span>
       </SignInForm>
       {open && <Dialog />}
     </SignInContainer>

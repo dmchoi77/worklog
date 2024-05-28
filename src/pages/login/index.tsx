@@ -56,12 +56,9 @@ const Login = () => {
         {/* {errors.id && <span>{loginDescription.error.username}</span>} */}
         <LoginInput type='password' placeholder='비밀번호' {...register('password', { required: true })} />
         {/* {errors.password && <span>{loginDescription.error.password}</span>} */}
-        <LoginButton
-          type='submit'
-          value={isLoading ? '로그인 중' : '로그인'}
-          isLoading={isLoading}
-          disabled={isLoading}
-        />
+        <LoginButton type='submit' isLoading={isLoading} disabled={isLoading}>
+          {isLoading ? '로그인 중' : '로그인'}
+        </LoginButton>
         <span
           onClick={() => router.push(RoutePath.SignIn)}
           css={{

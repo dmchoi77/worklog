@@ -29,14 +29,15 @@ const LoginForm = styled.form({
   flexDirection: 'column',
 });
 
-const LoginButton = styled.input<{ isLoading?: boolean }>`
+const LoginButton = styled.button<{ isLoading?: boolean }>`
   height: 50px;
   border-radius: 10px;
   color: #ffffff;
+
   background-color: ${(props) => (props.isLoading ? '#999' : '#2f2f2f')};
   border: 1px solid #cfcfcf;
   font-size: 16px;
-  fontweight: 600;
+  font-weight: 600;
   padding: 5px;
   cursor: pointer;
 `;
