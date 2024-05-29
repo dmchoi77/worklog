@@ -1,3 +1,5 @@
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { useEffect, useState } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
@@ -25,6 +27,9 @@ interface IProps extends IWork {
 const WorkCard = (props: IProps) => {
   const { id, title, category, state } = props;
   const { work, workSetter } = useWork(props);
+
+  const searchParams = useSearchParams();
+  const selectedId = searchParams.get('selected');
 
   const [openWorkDetail, updateOpenWorkDetail] = useState(false);
 
@@ -75,6 +80,12 @@ const WorkCard = (props: IProps) => {
     },
     [work],
   );
+
+  useEffect(function openWorkDetailFromSearch() {
+    if (selectedId && Number(selectedId) === props.id) {
+      updateOpenWorkDetail(true);
+    }
+  }, []);
 
   return (
     <>

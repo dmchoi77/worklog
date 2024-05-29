@@ -27,10 +27,13 @@ const MemoTable = ({ searchKey }: IProps) => {
     <Table>
       <TableHead>
         <TableRow sx={{ height: '32px', fontSize: '10px' }}>
-          <StyledTableCell sx={{ width: '20%', padding: '5px', fontSize: '12px' }} align='center'>
+          <StyledTableCell sx={{ width: '5%' }} align='center'>
+            번호
+          </StyledTableCell>
+          <StyledTableCell sx={{ width: '15%' }} align='center'>
             날짜
           </StyledTableCell>
-          <StyledTableCell sx={{ width: '80%', padding: '5px', fontSize: '12px' }} align='center'>
+          <StyledTableCell sx={{ width: '80%' }} align='center'>
             내용
           </StyledTableCell>
         </TableRow>
@@ -38,12 +41,11 @@ const MemoTable = ({ searchKey }: IProps) => {
       <TableBody>
         {memoList.content.length > 0 ? (
           <>
-            {memoList.content.map((memo) => (
+            {memoList.content.map((memo, index) => (
               <TableRow key={memo.id} onClick={() => handleClickRow(memo.date)} sx={{ cursor: 'pointer' }}>
+                <StyledTableCell align='center'>{index + 1}</StyledTableCell>
                 <StyledTableCell align='center'>{memo.date}</StyledTableCell>
-                <StyledTableCell align='center' sx={{ padding: '5px' }}>
-                  {memo.content}
-                </StyledTableCell>
+                <StyledTableCell align='center'>{memo.content}</StyledTableCell>
               </TableRow>
             ))}
           </>

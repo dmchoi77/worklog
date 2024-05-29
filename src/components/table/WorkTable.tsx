@@ -11,6 +11,7 @@ import Button from '../button/Button';
 
 import { RoutePath } from '~/constants/route';
 import { useSearchWorkList } from '~/queries/work';
+import { IWork } from '~/types/apis/work.types';
 
 interface IProps {
   searchKey: string;
@@ -26,9 +27,12 @@ const WorkTable = ({ searchKey }: IProps) => {
 
   const router = useRouter();
 
-  const handleClickRow = (date: string) => () => {
-    const formattedDate = dayjs(date).format('YYYY/MM/DD');
-    router.push(`${RoutePath.Content}/${formattedDate}`);
+  const handleClickRow = (work: IWork) => () => {
+    const formattedDate = dayjs(work.date).format('YYYY/MM/DD');
+    router.push({
+      pathname: `${RoutePath.Content}/${formattedDate}`,
+      query: { selected: work.id },
+    });
   };
 
   const tableRowRef = useRef<HTMLTableRowElement[]>([]);
@@ -106,64 +110,22 @@ const WorkTable = ({ searchKey }: IProps) => {
           {/* <StyledTableCell colSpan={1} align='left'>
             선택
           </StyledTableCell> */}
-          <StyledTableCell
-            // colSpan={1}
-            align='center'
-            sx={{
-              padding: '5px',
-              fontSize: '12px',
-            }}
-          >
+          <StyledTableCell colSpan={1} align='center'>
+            번호
+          </StyledTableCell>
+          <StyledTableCell colSpan={1} align='center'>
             날짜
           </StyledTableCell>
-          <StyledTableCell
-            colSpan={1}
-            align='center'
-            sx={{
-              padding: '5px',
-              fontSize: '12px',
-            }}
-          >
+          <StyledTableCell colSpan={1} align='center'>
             마감일자
           </StyledTableCell>
-          <StyledTableCell
-            colSpan={3}
-            align='center'
-            sx={{
-              padding: '5px',
-              fontSize: '12px',
-            }}
-          >
+          <StyledTableCell colSpan={3} align='center'>
             제목
           </StyledTableCell>
-          <StyledTableCell
-            colSpan={1}
-            align='center'
-            sx={{
-              padding: '5px',
-              fontSize: '12px',
-            }}
-          >
-            내용
-          </StyledTableCell>
-          <StyledTableCell
-            colSpan={1}
-            align='center'
-            sx={{
-              padding: '5px',
-              fontSize: '12px',
-            }}
-          >
+          <StyledTableCell colSpan={1} align='center'>
             카테고리
           </StyledTableCell>
-          <StyledTableCell
-            colSpan={1}
-            align='center'
-            sx={{
-              padding: '5px',
-              fontSize: '12px',
-            }}
-          >
+          <StyledTableCell colSpan={1} align='center'>
             상태
           </StyledTableCell>
         </TableRow>
@@ -183,7 +145,7 @@ const WorkTable = ({ searchKey }: IProps) => {
                   userSelect: 'none',
                   background: work.state === 'COMPLETED' ? 'lightblue' : 'pink',
                 }}
-                onClick={handleClickRow(work.date)}
+                onClick={handleClickRow(work)}
                 // onMouseDown={handleMouseDown(index)}
                 // onMouseEnter={handleMouseEnter(index)}
                 // onMouseUp={handleRowMouseUp(index)}
@@ -191,6 +153,9 @@ const WorkTable = ({ searchKey }: IProps) => {
                 {/* <StyledTableCell colSpan={1}>
                   <Checkbox checked={selectedRows.has(index)} />
                 </StyledTableCell> */}
+                <StyledTableCell colSpan={1} align='center'>
+                  {index + 1}
+                </StyledTableCell>
                 <StyledTableCell colSpan={1} align='center'>
                   {work.date}
                 </StyledTableCell>
@@ -200,24 +165,9 @@ const WorkTable = ({ searchKey }: IProps) => {
                 <StyledTableCell colSpan={3} align='center'>
                   {work.title}
                 </StyledTableCell>
-                <StyledTableCell
-                  colSpan={1}
-                  align='center'
-                  sx={{
-                    maxWidth: '500px',
-                    whiteSpace: 'nowrap',
-                    wordBreak: 'break-word',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                >
-                  {work.content}
-                </StyledTableCell>
                 <StyledTableCell colSpan={1} align='center'>
                   <span
                     style={{
-                      borderRadius: '10px',
-                      padding: '5px',
                       fontSize: '10px',
                     }}
                   >
