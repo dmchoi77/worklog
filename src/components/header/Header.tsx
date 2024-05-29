@@ -4,10 +4,10 @@ import { Badge } from '@mui/material';
 
 import styled from '@emotion/styled';
 import { Notifications } from '@mui/icons-material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { useLogout } from '~/queries/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-process.env.NODE_ENV === 'production' ? 'https://today-worklog.vercel.app' : 'http://localhost:8100';
 
 const HeaderContainer = styled.header`
   background-color: #fffdfa;
@@ -39,25 +39,14 @@ const Header: React.FC = () => {
           Today
         </span>
       </div>
-      <div
-        css={{
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <span css={{ margin: 10 }}>환영합니다. {username} 님</span>
+      <div css={{ display: 'flex', alignItems: 'center' }}>
+        <AccountCircleIcon />
+        <span css={{ margin: 5 }}>{username} 님</span>
         {/* <Badge badgeContent={1} color='info'>
           <Notifications color='action' />
         </Badge> */}
         <div css={{ paddingLeft: 10, paddingRight: 20 }}>
-          <span
-            css={{
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: 'pointer',
-            }}
-            onClick={() => handleLogout()}
-          >
+          <span css={{ fontSize: 14, fontWeight: 600, cursor: 'pointer' }} onClick={() => handleLogout()}>
             로그아웃
           </span>
         </div>
