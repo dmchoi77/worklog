@@ -136,6 +136,7 @@ const MemoCard = ({ content, id, index }: IProps) => {
                 contentRef?.current?.blur();
               }
             }}
+            style={{ overflowWrap: 'anywhere' }}
           />
         </Container>
       )}

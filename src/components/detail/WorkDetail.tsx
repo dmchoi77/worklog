@@ -138,7 +138,10 @@ const WorkDetail = (props: IProps) => {
                     outlineColor: '#303030cd',
                   }}
                   value={work.title}
-                  onChange={(e) => workSetter('title')(e.target.value)}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    workSetter('title')(e.target.value);
+                  }}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
                       contentRef?.current?.blur();
@@ -164,7 +167,11 @@ const WorkDetail = (props: IProps) => {
                   innerRef={contentRef}
                   html={work.content}
                   disabled={false}
-                  onChange={(e) => workSetter('content')(e.target.value)}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+
+                    workSetter('content')(e.target.value);
+                  }}
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') {
                       contentRef?.current?.blur();

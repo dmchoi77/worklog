@@ -96,7 +96,7 @@ const WorkCard = (props: IProps) => {
                   onSelectOption={workSetter('category')}
                 />
               </div>
-              <span>{title}</span>
+              <span style={{ overflowWrap: 'anywhere' }}>{title}</span>
             </div>
             <div css={{ display: 'flex', alignItems: 'center' }}>
               <Checkbox

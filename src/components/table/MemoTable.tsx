@@ -26,11 +26,11 @@ const MemoTable = ({ searchKey }: IProps) => {
   return (
     <Table>
       <TableHead>
-        <TableRow>
-          <StyledTableCell sx={{ width: '20%' }} align='left'>
+        <TableRow sx={{ height: '32px', fontSize: '10px' }}>
+          <StyledTableCell sx={{ width: '20%', padding: '5px', fontSize: '12px' }} align='center'>
             날짜
           </StyledTableCell>
-          <StyledTableCell sx={{ width: '80%' }} align='left'>
+          <StyledTableCell sx={{ width: '80%', padding: '5px', fontSize: '12px' }} align='center'>
             내용
           </StyledTableCell>
         </TableRow>
@@ -40,8 +40,10 @@ const MemoTable = ({ searchKey }: IProps) => {
           <>
             {memoList.content.map((memo) => (
               <TableRow key={memo.id} onClick={() => handleClickRow(memo.date)} sx={{ cursor: 'pointer' }}>
-                <StyledTableCell align='left'>{memo.date}</StyledTableCell>
-                <StyledTableCell align='left'>{memo.content}</StyledTableCell>
+                <StyledTableCell align='center'>{memo.date}</StyledTableCell>
+                <StyledTableCell align='center' sx={{ padding: '5px' }}>
+                  {memo.content}
+                </StyledTableCell>
               </TableRow>
             ))}
           </>
