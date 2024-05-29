@@ -82,7 +82,8 @@ const WorkCard = (props: IProps) => {
   );
 
   useEffect(function openWorkDetailFromSearch() {
-    if (selectedId && Number(selectedId) === props.id) {
+    const isTargetId = Number(selectedId) === id;
+    if (selectedId && isTargetId) {
       updateOpenWorkDetail(true);
     }
   }, []);
