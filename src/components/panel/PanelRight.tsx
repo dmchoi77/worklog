@@ -14,7 +14,6 @@ const PanelRight = ({ targetDate, userAgent }: ICommonProps) => {
         backgroundColor: 'rgb(242, 242, 242)',
         flex: 1,
         width: '100%',
-        overflowY: 'scroll',
         padding: 0,
         height: 'calc(100vh - 50px)',
         display: 'flex',
