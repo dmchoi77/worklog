@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
+import ContentEditable from 'react-contenteditable';
+
 import { StyledTableCell } from './table.style';
 
 import { RoutePath } from '~/constants/route';
@@ -45,7 +47,14 @@ const MemoTable = ({ searchKey }: IProps) => {
               <TableRow key={memo.id} onClick={() => handleClickRow(memo.date)} sx={{ cursor: 'pointer' }}>
                 <StyledTableCell align='center'>{index + 1}</StyledTableCell>
                 <StyledTableCell align='center'>{memo.date}</StyledTableCell>
-                <StyledTableCell align='center'>{memo.content}</StyledTableCell>
+                <StyledTableCell align='center'>
+                  <ContentEditable
+                    html={memo.content}
+                    disabled={true}
+                    onChange={() => {}}
+                    style={{ overflowWrap: 'anywhere' }}
+                  />
+                </StyledTableCell>
               </TableRow>
             ))}
           </>
