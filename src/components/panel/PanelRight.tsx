@@ -44,6 +44,7 @@ const PanelRight = ({ targetDate, userAgent }: ICommonProps) => {
 
       <div
         css={{
+          height: 'calc(100% - 80px)',
           display: 'flex',
           flexDirection: isMobile ? 'column' : 'row',
         }}

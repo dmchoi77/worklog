@@ -89,7 +89,7 @@ const WorkForm = ({ targetDate }: IProps) => {
     );
   };
   return (
-    <Paper elevation={1} style={{ ...paperStyle, height: '100%' }}>
+    <Paper elevation={1} style={{ ...paperStyle, height: 'auto' }}>
       <input
         placeholder='업무'
         value={inputTitle}
