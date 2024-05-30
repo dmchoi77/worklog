@@ -4,7 +4,6 @@ export const SearchTableContainer = styled.div`
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  gap: 20;
 `;
 
 export const SearchTableTitle = styled.p`
