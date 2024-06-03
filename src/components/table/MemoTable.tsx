@@ -52,7 +52,14 @@ const MemoTable = ({ searchKey }: IProps) => {
                     html={memo.content}
                     disabled={true}
                     onChange={() => {}}
-                    style={{ overflowWrap: 'anywhere' }}
+                    style={{
+                      overflowWrap: 'anywhere',
+                      height: '24px',
+                      whiteSpace: 'nowrap',
+                      wordBreak: 'break-word',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
                   />
                 </StyledTableCell>
               </TableRow>
