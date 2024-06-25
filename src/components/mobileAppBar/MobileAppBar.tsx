@@ -8,8 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import YearList from '../list/YearList';
 
-import { useFetchCalendarYears } from '~/queries/calendar';
-import { useLogout } from '~/queries/user';
+import { useFetchCalendarYears, useLogout } from '~/queries';
 
 const MobileAppBar = () => {
   const [openDrawer, setOpenDrawer] = useState(false);

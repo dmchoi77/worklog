@@ -1,7 +1,8 @@
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 
-import { ICommonResponse } from '~/types/apis/common.types';
-import {
+import http from '~/utils/http';
+
+import type {
   IAddMemoRequest,
   IDeleteMemoRequest,
   IFetchMemosRequest,
@@ -9,8 +10,8 @@ import {
   ISearchMemoList,
   IUpdateMemoOrderRequest,
   IUpdateMemoRequest,
-} from '~/types/apis/memo.types';
-import http from '~/utils/http';
+  ICommonResponse,
+} from '~/types';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 

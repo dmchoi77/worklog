@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 
-import { fetchCalendarDays, fetchCalendarMonth, fetchCalendarYears } from '~/apis/calendar';
-import { IFetchCalendarDaysRequest } from '~/types/apis/calendar.types';
+import { fetchCalendarDays, fetchCalendarMonth, fetchCalendarYears } from '~/apis';
+import type { IFetchCalendarDaysRequest } from '~/types';
 
 export const calendarQueryKeys = createQueryKeys('calendar', {
   fetchCalendarYears: ['fetchCalendarYears'],

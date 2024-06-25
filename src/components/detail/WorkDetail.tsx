@@ -11,11 +11,11 @@ import SplitButton from '../button/SplitButton';
 
 import useMobile from '~/hooks/useMobile';
 import useWork from '~/hooks/useWork';
-import { useUpdateWork, workQueryKeys } from '~/queries/work';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { IWork } from '~/types/apis/work.types';
 
 import { GlobalPortal } from '~/GlobalPortal';
+import { useUpdateWork, workQueryKeys } from '~/queries';
+import type { IWork } from '~/types';
 
 interface IProps extends IWork {
   handleClose: () => void;

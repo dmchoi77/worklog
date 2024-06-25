@@ -4,8 +4,8 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { getCookie } from './cookie';
 
-import { logout, reissue } from '~/apis/user';
-import { ACCESS_TOKEN } from '~/constants/cookie';
+import { logout, reissue } from '~/apis';
+import { ACCESS_TOKEN } from '~/constants';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',

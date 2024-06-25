@@ -5,9 +5,10 @@ import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { List } from './CommonList';
 import MemoCard from '../card/MemoCard';
 
-import { memoQueryKeys, useFetchMemoList, useUpdateMemoOrder } from '~/queries/memo';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { IMemo } from '~/types/apis/memo.types';
+
+import { memoQueryKeys, useFetchMemoList, useUpdateMemoOrder } from '~/queries';
+import type { IMemo } from '~/types';
 
 interface IProps {
   targetDate: string;

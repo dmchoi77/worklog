@@ -5,14 +5,14 @@ import { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { AxiosError } from 'axios';
+
+import type { AxiosError } from 'axios';
 
 import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-import { ICommonAPIResponse } from '~/types/api.types';
-import { ICommonResponse } from '~/types/apis/common.types';
-import { ILoginRequest, ISignInRequest } from '~/types/apis/user.types';
 import http from '~/utils/http';
+
+import type { ICommonResponse, ILoginRequest, ISignInRequest } from '~/types';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],

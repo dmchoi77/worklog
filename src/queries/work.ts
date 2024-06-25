@@ -12,8 +12,8 @@ import {
   updateWorkContent,
   updateWorkOrder,
   updateWorkState,
-} from '~/apis/work';
-import {
+} from '~/apis';
+import type {
   IAddWorkRequest,
   IDeleteWorkRequest,
   IFetchWorkListRequest,
@@ -22,7 +22,7 @@ import {
   IUpdateWorkOrderRequest,
   IUpdateWorkStateRequest,
   IWork,
-} from '~/types/apis/work.types';
+} from '~/types';
 
 export const workQueryKeys = createQueryKeys('work', {
   fetchWorkList: (filters: IFetchWorkListRequest) => [filters],

@@ -14,8 +14,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import MasterLayout from '~/components/layout/MasterLayout';
 import NonAuthLayout from '~/components/layout/NonAuthLayout';
-import { RoutePath } from '~/constants/route';
 
+import { RoutePath } from '~/constants';
 import { GlobalPortal } from '~/GlobalPortal';
 
 export default function App({ Component, pageProps }: AppProps) {

@@ -1,7 +1,7 @@
 import { ISearchList } from './common.types';
 
-export type WorkStateType = 'IN_PROGRESS' | 'COMPLETED';
-export type WorkCategoryType = 'REFACTOR' | 'UPDATE' | 'CHORE' | 'FEAT';
+export type WorkState = 'IN_PROGRESS' | 'COMPLETED';
+export type WorkCategory = 'REFACTOR' | 'UPDATE' | 'CHORE' | 'FEAT';
 
 export interface IFetchWorkListRequest {
   // startDate?: string;
@@ -13,7 +13,7 @@ export interface IAddWorkRequest {
   title: string;
   content: string;
   date: string;
-  category: WorkCategoryType;
+  category: WorkCategory;
   deadline?: string;
 }
 
@@ -22,12 +22,12 @@ export interface IDeleteWorkRequest {
 }
 
 export interface IUpdateWorkCategoryRequest {
-  category: WorkCategoryType;
+  category: WorkCategory;
   id: number;
 }
 
 export interface IUpdateWorkStateRequest {
-  state: WorkStateType;
+  state: WorkState;
   id: number;
 }
 
@@ -46,8 +46,8 @@ export interface IWork {
   title: string;
   content: string;
   date: string;
-  category: WorkCategoryType;
-  state: WorkStateType;
+  category: WorkCategory;
+  state: WorkState;
   order: number;
   deadline: string | null;
 }

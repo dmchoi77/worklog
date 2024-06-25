@@ -6,7 +6,8 @@ import WorkForm from '../form/WorkForm';
 import TodayInnerLayout from '../layout/TodayInnerLayout';
 
 import WorkList from '~/components/list/WorkList';
-import { ICommonProps } from '~/types/components/component.types';
+
+import type { ICommonProps } from '~/types';
 
 const TodayWork = ({ targetDate, userAgent }: ICommonProps) => {
   const [openForm, setOpenForm] = useState(false);

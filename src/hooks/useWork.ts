@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { IWork } from '~/types/apis/work.types';
+import type { IWork } from '~/types';
 
 const useWork = (props: IWork) => {
   const [work, setWork] = useState<IWork>(props);

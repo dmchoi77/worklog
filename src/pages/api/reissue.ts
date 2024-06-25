@@ -1,11 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 import * as https from 'https';
 
 import axios from 'axios';
 
-import { ICommonResponse } from '~/types/apis/common.types';
-import { ILoginResponse } from '~/types/apis/user.types';
+import type { ICommonResponse, ILoginResponse } from '~/types';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {

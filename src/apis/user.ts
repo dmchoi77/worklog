@@ -1,13 +1,15 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-import { ICommonResponse } from '~/types/apis/common.types';
-import {
+import type { AxiosResponse } from 'axios';
+
+import type {
   ILoginRequest,
   ILoginResponse,
   ISignInRequest,
   ICheckEmailRequest,
   ICheckUsernameRequest,
-} from '~/types/apis/user.types';
+  ICommonResponse,
+} from '~/types';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 

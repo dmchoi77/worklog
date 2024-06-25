@@ -14,11 +14,12 @@ import { Container } from './card.style';
 import SplitButton from '../button/SplitButton';
 import WorkDetail from '../detail/WorkDetail';
 
-import { WORK_CATEGORY_OPTIONS } from '~/constants/work';
 import useWork from '~/hooks/useWork';
-import { useDeleteWork, useUpdateWork, workQueryKeys } from '~/queries/work';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { IWork } from '~/types/apis/work.types';
+
+import { WorkCategoryOptions } from '~/constants';
+import { useDeleteWork, useUpdateWork, workQueryKeys } from '~/queries';
+import type { IWork } from '~/types';
 
 interface IProps extends IWork {
   index: number;
@@ -104,7 +105,7 @@ const WorkCard = (props: IProps) => {
               <div css={{ margin: 4 }}>
                 <SplitButton
                   defaultOption={category}
-                  options={WORK_CATEGORY_OPTIONS}
+                  options={WorkCategoryOptions}
                   onSelectOption={workSetter('category')}
                 />
               </div>

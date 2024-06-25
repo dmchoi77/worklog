@@ -7,7 +7,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 
 import DayList from './DayList';
 
-import { useFetchCalendarDays } from '~/queries/calendar';
+import { useFetchCalendarDays } from '~/queries';
 
 interface IMonthList {
   year: number;

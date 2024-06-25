@@ -6,7 +6,7 @@ import MemoForm from '../form/MemoForm';
 import TodayInnerLayout from '../layout/TodayInnerLayout';
 import MemoList from '../list/MemoList';
 
-import { ICommonProps } from '~/types/components/component.types';
+import type { ICommonProps } from '~/types';
 
 const TodayMemo = ({ targetDate, userAgent }: ICommonProps) => {
   const [openForm, setOpenForm] = useState(false);

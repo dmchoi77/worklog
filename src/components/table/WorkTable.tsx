@@ -1,17 +1,17 @@
 import { useRouter } from 'next/router';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import dayjs from 'dayjs';
 
-import { Table, TableHead, TableRow, TableBody, Checkbox } from '@mui/material';
+import { Table, TableHead, TableRow, TableBody } from '@mui/material';
 
 import { StyledTableCell } from './table.style';
-import Button from '../button/Button';
 
-import { RoutePath } from '~/constants/route';
 import { useSearchWorkList } from '~/queries/work';
-import { IWork } from '~/types/apis/work.types';
+
+import { RoutePath } from '~/constants';
+import { IWork } from '~/types';
 
 interface IProps {
   searchKey: string;

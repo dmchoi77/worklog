@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 import { getSelectorsByUserAgent } from 'react-device-detect';
 
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/cookie';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants';
 
 export async function middleware(request: NextRequest) {
   const { ua } = userAgent(request);
