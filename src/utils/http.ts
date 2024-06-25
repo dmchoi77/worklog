@@ -5,7 +5,7 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import { getCookie } from './cookie';
 
 import { logout, reissue } from '~/apis';
-import { ACCESS_TOKEN } from '~/constants';
+import { AccessToken } from '~/constants';
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -23,7 +23,7 @@ const http = axios.create({
 });
 
 const injectToken = async (config: InternalAxiosRequestConfig<any>): Promise<InternalAxiosRequestConfig<any>> => {
-  const accessToken = getCookie(ACCESS_TOKEN);
+  const accessToken = getCookie(AccessToken);
   if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;

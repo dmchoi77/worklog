@@ -11,7 +11,7 @@ import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { getCookie } from '~/utils/cookie';
 import { decodeJWT } from '~/utils/decodeJWT';
 
-import { ACCESS_TOKEN } from '~/constants';
+import { AccessToken } from '~/constants';
 import type { UserAgent } from '~/types';
 
 interface MasterLayoutProps {
@@ -26,7 +26,7 @@ const MasterLayout = ({ children, userAgent }: PropsWithChildren<MasterLayoutPro
   useEffect(() => {
     if (username) return;
 
-    const getAccessToken = getCookie(ACCESS_TOKEN);
+    const getAccessToken = getCookie(AccessToken);
     if (getAccessToken) {
       const { sub: username } = decodeJWT(getAccessToken);
       updateUserInfoState(username);

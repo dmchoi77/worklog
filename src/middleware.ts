@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 import { getSelectorsByUserAgent } from 'react-device-detect';
 
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants';
+import { AccessToken, RefreshToken } from '~/constants';
 
 export async function middleware(request: NextRequest) {
   const { ua } = userAgent(request);
@@ -12,8 +12,8 @@ export async function middleware(request: NextRequest) {
   const { nextUrl: url } = request;
   url.searchParams.set('agent', agent);
 
-  const accessToken = request.cookies.get(ACCESS_TOKEN)?.value;
-  const refreshToken = request.cookies.get(REFRESH_TOKEN)?.value;
+  const accessToken = request.cookies.get(AccessToken)?.value;
+  const refreshToken = request.cookies.get(RefreshToken)?.value;
   const isAuth = accessToken && refreshToken;
 
   if (request.nextUrl.pathname === '/login' && isAuth) {
