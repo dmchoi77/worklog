@@ -6,8 +6,9 @@ import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 
 import { StyledTableCell } from './table.style';
 
-import { RoutePath } from '~/constants/route';
 import { useSearchMemoList } from '~/queries/memo';
+
+import { RoutePath } from '~/constants';
 
 interface IProps {
   searchKey: string;

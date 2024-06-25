@@ -8,15 +8,14 @@ import dayjs from 'dayjs';
 
 import { resetServerContext } from 'react-beautiful-dnd';
 
-import { fetchCalendarYears } from '~/apis/calendar';
-import { fetchMemoList } from '~/apis/memo';
-import { fetchWorkList } from '~/apis/work';
 import PanelRight from '~/components/panel/PanelRight';
 import { calendarQueryKeys } from '~/queries/calendar';
 import { memoQueryKeys } from '~/queries/memo';
 import { workQueryKeys } from '~/queries/work';
-import { ICommonProps } from '~/types/components/component.types';
 import http from '~/utils/http';
+
+import { fetchCalendarYears, fetchWorkList, fetchMemoList } from '~/apis';
+import type { ICommonProps } from '~/types';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { slug } = ctx.params as IParams;

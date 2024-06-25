@@ -1,3 +1,3 @@
-import { WorkCategoryType } from '~/types/apis/work.types';
+import type { WorkCategory } from '~/types';
 
-export const WORK_CATEGORY_OPTIONS: Array<WorkCategoryType> = ['CHORE', 'FEAT', 'REFACTOR', 'UPDATE'];
+export const WorkCategoryOptions: Array<WorkCategory> = ['CHORE', 'FEAT', 'REFACTOR', 'UPDATE'];

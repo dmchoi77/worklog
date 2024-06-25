@@ -1,7 +1,8 @@
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 
-import { ICommonResponse } from '~/types/apis/common.types';
-import {
+import http from '~/utils/http';
+
+import type {
   IAddWorkRequest,
   IDeleteWorkRequest,
   IFetchWorkListRequest,
@@ -11,8 +12,8 @@ import {
   IUpdateWorkOrderRequest,
   IUpdateWorkStateRequest,
   IWork,
-} from '~/types/apis/work.types';
-import http from '~/utils/http';
+  ICommonResponse,
+} from '~/types';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 

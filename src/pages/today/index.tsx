@@ -10,15 +10,12 @@ import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-import { fetchCalendarYears } from '~/apis/calendar';
-import { fetchMemoList } from '~/apis/memo';
-import { fetchWorkList } from '~/apis/work';
 import PanelRightMobile from '~/components/mobile/PanelRightMobile';
 import PanelRight from '~/components/panel/PanelRight';
-import { calendarQueryKeys } from '~/queries/calendar';
-import { memoQueryKeys } from '~/queries/memo';
-import { workQueryKeys } from '~/queries/work';
 import http from '~/utils/http';
+
+import { fetchCalendarYears, fetchMemoList, fetchWorkList } from '~/apis';
+import { calendarQueryKeys, memoQueryKeys, workQueryKeys } from '~/queries';
 
 extend(utc);
 extend(timezone);

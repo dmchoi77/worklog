@@ -1,3 +1,5 @@
+import { PropsWithChildren } from 'react';
+
 import styled from '@emotion/styled';
 
 const Layout = styled.div({
@@ -9,9 +11,7 @@ const Layout = styled.div({
   alignItems: 'center',
 });
 
-type Props = { children: React.ReactNode };
-
-const NonAuthLayout = ({ children }: Props) => {
+const NonAuthLayout = ({ children }: PropsWithChildren) => {
   return <Layout>{children}</Layout>;
 };
 

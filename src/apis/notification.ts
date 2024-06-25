@@ -1,5 +1,6 @@
-import { ICommonResponse } from '~/types/apis/common.types';
 import http from '~/utils/http';
+
+import type { ICommonResponse } from '~/types';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 // const connectServerSentEvent = ()=> {  }

@@ -2,9 +2,7 @@ import { ChangeEventHandler } from 'react';
 
 import { Interpolation, Theme } from '@emotion/react';
 
-import style from 'styled-jsx/style';
-
-interface IProps {
+interface SelecBoxProps {
   options: {
     label: string;
     code: string;
@@ -13,7 +11,7 @@ interface IProps {
   onChange: ChangeEventHandler<HTMLSelectElement>;
   placeholder?: string;
 }
-const SelectBox: React.FC<IProps> = ({ options, style, onChange, placeholder }) => {
+const SelectBox = ({ options, style, onChange, placeholder }: SelecBoxProps) => {
   return (
     <select
       onChange={onChange}

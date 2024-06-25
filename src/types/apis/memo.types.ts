@@ -1,4 +1,4 @@
-import { ISearchList } from './common.types';
+import type { ISearchList } from './common.types';
 
 export interface IAddMemoRequest {
   content: string;

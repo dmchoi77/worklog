@@ -2,14 +2,13 @@ import { useRouter } from 'next/navigation';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { triggerNotification } from '~/apis/notification';
 import Dialog from '~/components/dialog/Dialog';
-import { RoutePath } from '~/constants/route';
-import { useCheckNotification } from '~/queries/notification';
 import { useLogin } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { LoginButton, LoginContainer, LoginForm, LoginInput } from '~/styles/login/login.style';
+
+import { RoutePath } from '~/constants';
 
 type Inputs = {
   username: string;

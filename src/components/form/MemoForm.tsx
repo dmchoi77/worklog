@@ -7,9 +7,9 @@ import { Paper, Button } from '@mui/material';
 import { buttonStyle, paperStyle, textAreaStyle } from './form.style';
 
 import useInput from '~/hooks/useInput';
-import { calendarQueryKeys } from '~/queries/calendar';
-import { useAddMemo, memoQueryKeys } from '~/queries/memo';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
+
+import { calendarQueryKeys, useAddMemo, memoQueryKeys } from '~/queries';
 
 interface IProps {
   targetDate: string;

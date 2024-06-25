@@ -7,7 +7,8 @@ import WorkCard from '../card/WorkCard';
 
 import { useFetchWorkList, useUpdateWorkOrder, workQueryKeys } from '~/queries/work';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { IWork } from '~/types/apis/work.types';
+
+import type { IWork } from '~/types';
 
 interface IProps {
   targetDate: string;

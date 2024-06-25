@@ -1,6 +1,7 @@
-import { IFetchCalendarDaysRequest, IFetchCalendarCommonResponse } from '~/types/apis/calendar.types';
-import { ICommonResponse } from '~/types/apis/common.types';
 import http from '~/utils/http';
+
+import type { IFetchCalendarDaysRequest, IFetchCalendarCommonResponse, ICommonResponse } from '~/types';
+
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchCalendarYears = async () => {

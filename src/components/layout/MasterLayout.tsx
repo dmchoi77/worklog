@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -7,20 +7,17 @@ import MobileAppBar from '../mobileAppBar/MobileAppBar';
 import PanelLeft from '../panel/PanelLeft';
 import CustomSnackbar from '../snackbar/Snackbar';
 
-import { ACCESS_TOKEN } from '~/constants/cookie';
-import useMobile from '~/hooks/useMobile';
-import useServerSentEvent from '~/hooks/useServerSentEvent';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-import { UserAgent } from '~/types/components/component.types';
 import { getCookie } from '~/utils/cookie';
 import { decodeJWT } from '~/utils/decodeJWT';
 
-interface IProps {
-  children: JSX.Element | JSX.Element[];
+import { ACCESS_TOKEN } from '~/constants';
+import type { UserAgent } from '~/types';
+
+interface MasterLayoutProps {
   userAgent: UserAgent;
 }
-
-const MasterLayout = ({ children, userAgent }: IProps) => {
+const MasterLayout = ({ children, userAgent }: PropsWithChildren<MasterLayoutProps>) => {
   const { username, updateUserInfoState } = useUserInfoState((state) => ({
     username: state.username,
     updateUserInfoState: state.updateUserInfoState,

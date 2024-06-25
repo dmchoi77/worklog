@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import TodayMemo from '../todayMemo/TodayMemo';
 import TodayWork from '../todayWork/TodayWork';
 
-import { ICommonProps } from '~/types/components/component.types';
+import type { ICommonProps } from '~/types';
 
 const PanelRight = ({ targetDate, userAgent }: ICommonProps) => {
   const isMobile = userAgent === 'mobile';

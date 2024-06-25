@@ -13,8 +13,9 @@ import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import { Container } from './card.style';
 
 import useDebounce from '~/hooks/useDebounce';
-import { memoQueryKeys, useDeleteMemo, useUpdateMemo } from '~/queries/memo';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
+
+import { memoQueryKeys, useDeleteMemo, useUpdateMemo } from '~/queries';
 
 interface IProps {
   content: string;

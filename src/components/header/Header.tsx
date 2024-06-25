@@ -6,8 +6,9 @@ import styled from '@emotion/styled';
 import { Notifications } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import { useLogout } from '~/queries/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
+
+import { useLogout } from '~/queries';
 
 const HeaderContainer = styled.header`
   background-color: #fffdfa;
