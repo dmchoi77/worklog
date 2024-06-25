@@ -18,8 +18,8 @@ import { fetchCalendarYears, fetchWorkList, fetchMemoList } from '~/apis';
 import type { ICommonProps } from '~/types';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { slug } = ctx.params as IParams;
-  const [targetYear, targetMonth, targetDay] = slug;
+  const { id } = ctx.params as IParams;
+  const [targetYear, targetMonth, targetDay] = id;
 
   const targetDate = dayjs(`${targetYear}-${targetMonth}-${targetDay}`).format('YYYY-MM-DD');
 
@@ -64,6 +64,6 @@ const Content = ({ targetDate, userAgent }: ICommonProps) => {
 export default Content;
 
 interface IParams extends ParsedUrlQuery {
-  slug: string[];
+  id: string[];
   targetDate: string;
 }
