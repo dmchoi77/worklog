@@ -12,7 +12,7 @@ import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import http from '~/utils/http';
 
-import type { ICommonResponse, ILoginRequest, ISignInRequest } from '~/types';
+import type { ICommonResponse, LoginPayload, SignInPayload } from '~/types';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -22,13 +22,13 @@ const userQueryKeys = createQueryKeys('user', {
 
 export const useLogin = () => {
   return useMutation({
-    mutationFn: ({ username, password }: ILoginRequest) => login({ username, password }),
+    mutationFn: ({ username, password }: LoginPayload) => login({ username, password }),
   });
 };
 
 export const useSignIn = () => {
   return useMutation({
-    mutationFn: ({ username, email, password, passwordCheck }: ISignInRequest) =>
+    mutationFn: ({ username, email, password, passwordCheck }: SignInPayload) =>
       signIn({ username, email, password, passwordCheck }),
   });
 };

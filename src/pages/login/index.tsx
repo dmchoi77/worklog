@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useController, useForm } from 'react-hook-form';
 
 import Dialog from '~/components/dialog/Dialog';
 import { useLogin } from '~/queries/user';
@@ -9,23 +9,20 @@ import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { LoginButton, LoginContainer, LoginForm, LoginInput } from '~/styles/login/login.style';
 
 import { RoutePath } from '~/constants';
-
-type Inputs = {
-  username: string;
-  password: string;
-};
+import type { LoginInputForm } from '~/types';
 
 const Login = () => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<LoginInputForm>();
 
   const { mutate: handleLogin, status } = useLogin();
 
   const { open, updateDialogState } = useDialogStore();
   const updateUserInfoState = useUserInfoState((state) => state.updateUserInfoState);
+
   const isLoading = status === 'pending' || status === 'success';
 
-  const onSubmit: SubmitHandler<Inputs> = ({ username, password }) => {
+  const onSubmit: SubmitHandler<LoginInputForm> = ({ username, password }) => {
     handleLogin(
       { username, password },
       {
@@ -37,7 +34,7 @@ const Login = () => {
         onError: (error: any) => {
           updateDialogState({
             open: true,
-            mainText: error.message || '서버 점검 중입니다.',
+            mainText: error.errorMessage || '서버 점검 중입니다.',
             cancelText: '',
           });
         },
@@ -52,9 +49,7 @@ const Login = () => {
       </div>
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <LoginInput type='text' placeholder='아이디' {...register('username', { required: true })} />
-        {/* {errors.id && <span>{loginDescription.error.username}</span>} */}
         <LoginInput type='password' placeholder='비밀번호' {...register('password', { required: true })} />
-        {/* {errors.password && <span>{loginDescription.error.password}</span>} */}
         <LoginButton type='submit' isLoading={isLoading} disabled={isLoading}>
           {isLoading ? '로그인 중' : '로그인'}
         </LoginButton>

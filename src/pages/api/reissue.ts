@@ -4,14 +4,14 @@ import * as https from 'https';
 
 import axios from 'axios';
 
-import type { ICommonResponse, ILoginResponse } from '~/types';
+import type { ICommonResponse, LoginResponse } from '~/types';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   try {
     if (req.method === 'POST') {
       const refreshToken = req.cookies['refresh_token'];
-      const response = await axios.post<ICommonResponse<ILoginResponse>>(
+      const response = await axios.post<ICommonResponse<LoginResponse>>(
         '/users/reissue',
         {},
         {
