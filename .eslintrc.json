@@ -21,7 +21,7 @@
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
     "import/order": [
-      "error",
+      "warn",
       {
         "groups": [
           "builtin",
