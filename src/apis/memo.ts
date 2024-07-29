@@ -1,6 +1,5 @@
 import type { AxiosResponse } from 'axios';
-
-import http from '~/utils/http';
+import { httpWithAuth } from '~/utils/http';
 
 import type {
   IAddMemoRequest,
@@ -13,68 +12,44 @@ import type {
   ICommonResponse,
 } from '~/types';
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
-
 export const addMemo = ({ content, date }: IAddMemoRequest) => {
-  return http.post<IAddMemoRequest, ICommonResponse>(
-    '/memos',
-    {
-      content,
-      date,
-    },
-    {
-      baseURL,
-    },
-  );
+  return httpWithAuth.post<IAddMemoRequest, ICommonResponse>('/memos', {
+    content,
+    date,
+  });
 };
 
 export const updateMemo = ({ content, id }: IUpdateMemoRequest) => {
-  return http.patch<IUpdateMemoRequest, ICommonResponse>(
-    `/memos/${id}/content`,
-    { content },
-    {
-      baseURL,
-    },
-  );
+  return httpWithAuth.patch<IUpdateMemoRequest, ICommonResponse>(`/memos/${id}/content`, { content });
 };
 
 export const updateMemoOrder = ({ id, order }: IUpdateMemoOrderRequest) => {
-  return http.patch<IUpdateMemoOrderRequest, ICommonResponse>(
-    `/memos/${id}/order`,
-    {
-      order,
-    },
-    {
-      baseURL,
-    },
-  );
+  return httpWithAuth.patch<IUpdateMemoOrderRequest, ICommonResponse>(`/memos/${id}/order`, {
+    order,
+  });
 };
 
 export const deleteMemo = async ({ id }: IDeleteMemoRequest) => {
-  const response = await http.delete<IDeleteMemoRequest, AxiosResponse<ICommonResponse>>(`/memos/${id}`, {
-    baseURL,
-  });
-  return response?.data;
+  const { data } = await httpWithAuth.delete<IDeleteMemoRequest, AxiosResponse<ICommonResponse>>(`/memos/${id}`);
+  return data;
 };
 
 export const fetchMemoList = async ({ date }: IFetchMemosRequest) => {
-  const response = await http.get<IFetchMemosRequest, AxiosResponse<ICommonResponse<IMemo[]>>>('/memos', {
-    baseURL,
+  const { data } = await httpWithAuth.get<IFetchMemosRequest, AxiosResponse<ICommonResponse<IMemo[]>>>('/memos', {
     params: {
       date: date,
     },
   });
 
-  return response?.data?.data;
+  return data?.data;
 };
 
 export const searchMemoList = async (key: string): Promise<ISearchMemoList> => {
-  const response = await http.get<string, AxiosResponse<ICommonResponse<ISearchMemoList>>>('/memos/search', {
+  const { data } = await httpWithAuth.get<string, AxiosResponse<ICommonResponse<ISearchMemoList>>>('/memos/search', {
     params: {
       key,
     },
-    baseURL,
   });
 
-  return response.data.data;
+  return data.data;
 };

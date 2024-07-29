@@ -10,9 +10,9 @@ import type { AxiosError } from 'axios';
 
 import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-import http from '~/utils/http';
 
 import type { ICommonResponse, LoginPayload, SignInPayload } from '~/types';
+import { httpWithAuth } from '~/utils/http';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -20,18 +20,16 @@ const userQueryKeys = createQueryKeys('user', {
   checkUsername: ['checkUsername'],
 });
 
-export const useLogin = () => {
-  return useMutation({
+export const useLogin = () =>
+  useMutation({
     mutationFn: ({ username, password }: LoginPayload) => login({ username, password }),
   });
-};
 
-export const useSignIn = () => {
-  return useMutation({
+export const useSignIn = () =>
+  useMutation({
     mutationFn: ({ username, email, password, passwordCheck }: SignInPayload) =>
       signIn({ username, email, password, passwordCheck }),
   });
-};
 
 export const useCheckEmail = (email: string) => {
   const queryClient = useQueryClient();
@@ -66,33 +64,6 @@ export const useCheckUsername = (username: string) => {
   return query;
 };
 
-// export const useRefreshAccessToken = (refreshToken: string) => {
-//   const query = useQuery({
-//     queryKey: userQueryKeys.refreshAccessToken.queryKey,
-//     queryFn: () => refreshAccessToken(refreshToken),
-//   });
-
-//   useEffect(() => {
-//     if (!query.data) {
-//       // removeCookie(ACCESS_TOKEN, { path: '/' });
-//       // removeCookie(REFRESH_TOKEN, { path: '/' });
-//       // http.defaults.headers.Authorization = null;
-//       return;
-//     }
-//     if (query.isSuccess) {
-//       const { refreshToken, accessToken } = query.data;
-
-//       setCookie(REFRESH_TOKEN, refreshToken, {
-//         maxAge: getRemainExp(refreshToken),
-//       });
-//       setCookie(ACCESS_TOKEN, accessToken);
-//       http.defaults.headers.Authorization = `Bearer ${accessToken}`;
-//     }
-//   }, [query.data]);
-
-//   return query;
-// };
-
 export const useLogout = () => {
   const router = useRouter();
   const resetUserInfo = useUserInfoState((state) => state.reset);
@@ -100,7 +71,7 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: () => logout(),
     onSettled: () => {
-      http.defaults.headers.Authorization = null;
+      httpWithAuth.defaults.headers.Authorization = null;
       resetUserInfo();
       router.push('/login');
     },

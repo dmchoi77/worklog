@@ -10,6 +10,7 @@ import { LoginButton, LoginContainer, LoginForm, LoginInput } from '~/styles/log
 
 import { RoutePath } from '~/constants';
 import type { LoginInputForm } from '~/types';
+import { commonResponseErrorHandler } from '~/utils/http';
 
 const Login = () => {
   const router = useRouter();
@@ -32,9 +33,10 @@ const Login = () => {
           router.push('/today');
         },
         onError: (error: any) => {
+          const errorResponse = commonResponseErrorHandler(error);
           updateDialogState({
             open: true,
-            mainText: error.errorMessage || '서버 점검 중입니다.',
+            mainText: errorResponse?.message || '서버 점검 중입니다.',
             cancelText: '',
           });
         },

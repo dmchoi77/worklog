@@ -14,24 +14,16 @@ import type {
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const login = async ({ username, password }: LoginPayload) => {
-  try {
-    const response = await axios.post<ICommonResponse<LoginResponse>>('/api/login', {
-      username,
-      password,
-    });
-    return response.data;
-  } catch (error: any) {
-    throw error.response.data;
-  }
+  const { data } = await axios.post<ICommonResponse<LoginResponse>>('/api/login', {
+    username,
+    password,
+  });
+  return data;
 };
 
 export const reissue = async () => {
-  try {
-    const response = await axios.post<ICommonResponse<LoginResponse>>('/api/reissue');
-    return response.data;
-  } catch (error: any) {
-    throw error.response.data;
-  }
+  const { data } = await axios.post<ICommonResponse<LoginResponse>>('/api/reissue');
+  return data;
 };
 
 export const logout = async () => {
@@ -59,23 +51,23 @@ export const signIn = ({ username, email, password, passwordCheck }: SignInPaylo
  * 이메일 중복확인
  */
 export const checkEmail = async ({ email }: CheckEmailPayload) => {
-  const response = await axios.get<CheckEmailPayload, AxiosResponse<ICommonResponse>>('/users/email/check', {
+  const { data } = await axios.get<CheckEmailPayload, AxiosResponse<ICommonResponse>>('/users/email/check', {
     baseURL,
     params: { email },
   });
 
-  return response.data;
+  return data;
 };
 
 /**
  * 아이디 중복확인
  */
 export const checkUsername = async ({ username }: { username: string }) => {
-  const response = await axios.get<CheckUsernamePayload, AxiosResponse<ICommonResponse>>('/users/username/check', {
+  const { data } = await axios.get<CheckUsernamePayload, AxiosResponse<ICommonResponse>>('/users/username/check', {
     baseURL,
     params: {
       username,
     },
   });
-  return response.data;
+  return data;
 };

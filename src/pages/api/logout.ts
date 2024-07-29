@@ -1,8 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-
-import http from '~/utils/http';
-
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+import { httpWithAuth } from '~/utils/http';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   if (req.method === 'POST') {
@@ -10,11 +7,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const accessToken = req.cookies['access_token'];
 
-    await http.post(
+    await httpWithAuth.post(
       '/users/logout',
       {},
       {
-        baseURL,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

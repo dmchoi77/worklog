@@ -1,37 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { getRemainExp } from '~/utils/decodeJWT';
-import http from '~/utils/http';
-
-import type { ICommonResponse, ILoginResponse } from '~/types';
-
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+import type { ICommonResponse, LoginResponse } from '~/types';
+import { httpWithoutAuth, commonResponseErrorHandler } from '~/utils/http';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   try {
     if (req.method === 'POST') {
-      const response = await http.post<ICommonResponse<ILoginResponse>>(
-        '/users/login',
-        {
-          username: req.body.username,
-          password: req.body.password,
-        },
-        {
-          baseURL,
-        },
-      );
+      const { data } = await httpWithoutAuth.post<ICommonResponse<LoginResponse>>('/users/login', {
+        username: req.body.username,
+        password: req.body.password,
+      });
 
-      const { accessToken, refreshToken } = response.data.data;
-      const exp = getRemainExp(refreshToken);
+      const { accessToken, refreshToken } = data.data;
 
       res.setHeader('set-Cookie', [
         `access_token=${accessToken}; path=/; samesite=Lax; secure=true;`,
         `refresh_token=${refreshToken}; path=/; samesite=Lax; httponly; secure=true;`,
       ]);
 
-      return res.status(200).json(response.data.data);
+      return res.status(200).json(data.data);
     }
   } catch (error: any) {
-    return res.status(error.status).json(error);
+    const errorReponse = commonResponseErrorHandler(error);
+    return res.status(errorReponse?.status || 500).json(errorReponse);
   }
 }
