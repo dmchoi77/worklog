@@ -12,10 +12,10 @@ import utc from 'dayjs/plugin/utc';
 
 import PanelRightMobile from '~/components/mobile/PanelRightMobile';
 import PanelRight from '~/components/panel/PanelRight';
-import http from '~/utils/http';
 
 import { fetchCalendarYears, fetchMemoList, fetchWorkList } from '~/apis';
 import { calendarQueryKeys, memoQueryKeys, workQueryKeys } from '~/queries';
+import { httpWithAuth } from '~/utils/http';
 
 extend(utc);
 extend(timezone);
@@ -25,7 +25,7 @@ dayjs.tz.setDefault('Asia/Seoul');
 const todayDate = dayjs().tz().format('YYYY-MM-DD');
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  http.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
+  httpWithAuth.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
 
   const userAgent = ctx.query.agent;
 

@@ -3,35 +3,27 @@ import axios from 'axios';
 import type { AxiosResponse } from 'axios';
 
 import type {
-  ILoginRequest,
-  ILoginResponse,
-  ISignInRequest,
-  ICheckEmailRequest,
-  ICheckUsernameRequest,
+  LoginPayload,
+  LoginResponse,
+  SignInPayload,
+  CheckEmailPayload,
+  CheckUsernamePayload,
   ICommonResponse,
 } from '~/types';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export const login = async ({ username, password }: ILoginRequest) => {
-  try {
-    const response = await axios.post<ICommonResponse<ILoginResponse>>('/api/login', {
-      username,
-      password,
-    });
-    return response.data;
-  } catch (error: any) {
-    throw error.response.data;
-  }
+export const login = async ({ username, password }: LoginPayload) => {
+  const { data } = await axios.post<ICommonResponse<LoginResponse>>('/api/login', {
+    username,
+    password,
+  });
+  return data;
 };
 
 export const reissue = async () => {
-  try {
-    const response = await axios.post<ICommonResponse<ILoginResponse>>('/api/reissue');
-    return response.data;
-  } catch (error: any) {
-    throw error.response.data;
-  }
+  const { data } = await axios.post<ICommonResponse<LoginResponse>>('/api/reissue');
+  return data;
 };
 
 export const logout = async () => {
@@ -40,8 +32,8 @@ export const logout = async () => {
   window.location.href = '/login';
 };
 
-export const signIn = ({ username, email, password, passwordCheck }: ISignInRequest) => {
-  return axios.post<ISignInRequest, ICommonResponse>(
+export const signIn = ({ username, email, password, passwordCheck }: SignInPayload) => {
+  return axios.post<SignInPayload, ICommonResponse>(
     '/users',
     {
       username,
@@ -58,24 +50,24 @@ export const signIn = ({ username, email, password, passwordCheck }: ISignInRequ
 /**
  * 이메일 중복확인
  */
-export const checkEmail = async ({ email }: ICheckEmailRequest) => {
-  const response = await axios.get<ICheckEmailRequest, AxiosResponse<ICommonResponse>>('/users/email/check', {
+export const checkEmail = async ({ email }: CheckEmailPayload) => {
+  const { data } = await axios.get<CheckEmailPayload, AxiosResponse<ICommonResponse>>('/users/email/check', {
     baseURL,
     params: { email },
   });
 
-  return response.data;
+  return data;
 };
 
 /**
  * 아이디 중복확인
  */
 export const checkUsername = async ({ username }: { username: string }) => {
-  const response = await axios.get<ICheckUsernameRequest, AxiosResponse<ICommonResponse>>('/users/username/check', {
+  const { data } = await axios.get<CheckUsernamePayload, AxiosResponse<ICommonResponse>>('/users/username/check', {
     baseURL,
     params: {
       username,
     },
   });
-  return response.data;
+  return data;
 };

@@ -1,24 +1,24 @@
-export interface ILoginRequest {
+export interface LoginPayload {
   username: string;
   password: string;
 }
 
-export interface ISignInRequest {
+export interface SignInPayload {
   username: string;
   email: string;
   password: string;
   passwordCheck: string;
 }
 
-export interface ILoginResponse {
-  accessToken: string;
-  refreshToken: string;
-}
-
-export interface ICheckEmailRequest {
+export interface CheckEmailPayload {
   email: string;
 }
 
-export interface ICheckUsernameRequest {
+export interface CheckUsernamePayload {
   username: string;
+}
+
+export interface LoginResponse {
+  accessToken: string;
+  refreshToken: string;
 }

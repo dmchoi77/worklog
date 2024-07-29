@@ -12,10 +12,10 @@ import PanelRight from '~/components/panel/PanelRight';
 import { calendarQueryKeys } from '~/queries/calendar';
 import { memoQueryKeys } from '~/queries/memo';
 import { workQueryKeys } from '~/queries/work';
-import http from '~/utils/http';
 
 import { fetchCalendarYears, fetchWorkList, fetchMemoList } from '~/apis';
 import type { ICommonProps } from '~/types';
+import { httpWithAuth } from '~/utils/http';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.params as IParams;
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const userAgent = ctx.query.agent;
 
-  http.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
+  httpWithAuth.defaults.headers.Authorization = `Bearer ${ctx.req.cookies.access_token}`;
 
   const queryClient = new QueryClient();
 
