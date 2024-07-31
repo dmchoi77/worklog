@@ -9,7 +9,9 @@
     "lint:fix": "eslint --fix './src/**/*.{ts,tsx}'",
     "prettier:fix": "prettier --write './src/**/*.{ts,tsx}'",
     "generate-svg": "npx @svgr/cli --out-dir ./src/components/svgs --typescript --no-svgo -- ./src/assets/svgs",
-    "ts-check": "tsc --noEmit -p ./tsconfig.json"
+    "ts-check": "tsc --noEmit -p ./tsconfig.json",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -25,11 +27,11 @@
     "axios": "^1.6.1",
     "dayjs": "^1.11.9",
     "eslint": "8.45.0",
-    "eslint-config-next": "13.4.10",
+    "eslint-config-next": "14.2.5",
     "event-source-polyfill": "^1.0.31",
     "jwt-decode": "^4.0.0",
     "mermaid": "^10.2.4",
-    "next": "13.4.10",
+    "next": "14.2.5",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-contenteditable": "^3.3.7",
@@ -39,11 +41,21 @@
     "react-hook-form": "^7.45.4",
     "react-responsive": "^10.0.0",
     "recoil": "^0.7.7",
+    "storybook": "^8.2.6",
     "typescript": "5.1.6",
     "yup": "^1.4.0",
     "zustand": "^4.4.6"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.6.1",
+    "@storybook/addon-essentials": "^8.2.6",
+    "@storybook/addon-interactions": "^8.2.6",
+    "@storybook/addon-links": "^8.2.6",
+    "@storybook/addon-onboarding": "^8.2.6",
+    "@storybook/blocks": "^8.2.6",
+    "@storybook/nextjs": "^8.2.6",
+    "@storybook/react": "^8.2.6",
+    "@storybook/test": "^8.2.6",
     "@tanstack/react-query-devtools": "^5.12.2",
     "@types/event-source-polyfill": "^1",
     "@types/eventsource": "^1.1.15",
@@ -55,7 +67,9 @@
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "prettier": "^3.2.5"
+    "eslint-plugin-storybook": "^0.8.0",
+    "prettier": "^3.2.5",
+    "webpack": "^5.93.0"
   },
   "packageManager": "yarn@3.6.1"
 }

@@ -50,3 +50,4 @@ next-env.d.ts
 
 # issue 메모용
 ISSUE.md
+*storybook.log
