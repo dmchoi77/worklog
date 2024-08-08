@@ -1,20 +1,21 @@
-interface IProps {
-  text: string;
+interface ButtonProps {
+  children: React.ReactNode;
   isDisabled?: boolean;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  style?: React.CSSProperties;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  fullWidth?: boolean;
+  isLoading?: boolean;
 }
 
-const Button: React.FC<IProps> = ({ text, onClick, isDisabled = false, style }) => {
+const Button = ({ children, onClick, isDisabled = false, fullWidth, isLoading }: ButtonProps) => {
   return (
     <button
       css={{
-        width: '100%',
-        padding: '10px',
+        width: fullWidth ? '100%' : 'auto',
+        padding: '6px 16px',
         border: 'none',
         borderRadius: '5px',
         color: '#ffffff',
-        fontSize: 18,
+        fontSize: 14,
         fontWeight: '600',
         cursor: 'pointer',
 
@@ -24,12 +25,11 @@ const Button: React.FC<IProps> = ({ text, onClick, isDisabled = false, style }) 
         ':disabled': {
           background: 'grey',
         },
-        ...style,
       }}
-      disabled={isDisabled}
+      disabled={isDisabled || isLoading}
       onClick={onClick}
     >
-      {text}
+      {children}
     </button>
   );
 };

@@ -2,15 +2,16 @@ import { useRouter } from 'next/navigation';
 
 import { SubmitHandler, useController, useForm } from 'react-hook-form';
 
+import Button from '~/components/button/Button';
 import Dialog from '~/components/dialog/Dialog';
 import { useLogin } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-import { LoginButton, LoginContainer, LoginForm, LoginInput } from '~/styles/login/login.style';
+import { LoginContainer, LoginForm, LoginInput } from '~/styles/login/login.style';
+import { commonResponseErrorHandler } from '~/utils/http';
 
 import { RoutePath } from '~/constants';
 import type { LoginInputForm } from '~/types';
-import { commonResponseErrorHandler } from '~/utils/http';
 
 const Login = () => {
   const router = useRouter();
@@ -52,9 +53,7 @@ const Login = () => {
       <LoginForm onSubmit={handleSubmit(onSubmit)}>
         <LoginInput type='text' placeholder='아이디' {...register('username', { required: true })} />
         <LoginInput type='password' placeholder='비밀번호' {...register('password', { required: true })} />
-        <LoginButton type='submit' isLoading={isLoading} disabled={isLoading}>
-          {isLoading ? '로그인 중' : '로그인'}
-        </LoginButton>
+        <Button isLoading={isLoading}>로그인</Button>
         <span
           onClick={() => router.push(RoutePath.SignIn)}
           css={{

@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from '@storybook/react';
-import Login from '../pages/login';
+import Login from '../../pages/login';
 import NonAuthLayout from '~/components/layout/NonAuthLayout';
 import { loginHandler } from '~/tests/handlers/auth';
 
