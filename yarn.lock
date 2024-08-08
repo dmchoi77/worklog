@@ -3766,7 +3766,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
+"@types/react@npm:*, @types/react@npm:18.3.3, @types/react@npm:^16.8.0 || ^17.0.0 || ^18.0.0":
   version: 18.3.3
   resolution: "@types/react@npm:18.3.3"
   dependencies:
@@ -3776,28 +3776,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.15":
-  version: 18.2.15
-  resolution: "@types/react@npm:18.2.15"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10/282f3f86f94983ef1af1d66cb552b78131cf3650d29c3080e08a4de8f81489e5b6111c635ad59acf6984ce72281dfcf95004514985b84b5af35898d10414e84f
-  languageName: node
-  linkType: hard
-
 "@types/resolve@npm:^1.20.2":
   version: 1.20.6
   resolution: "@types/resolve@npm:1.20.6"
   checksum: 10/dc35f5517606b6687cd971c0281ac58bdee2c50c051b030f04647d3991688be2259c304ee97e5b5d4b9936072c36767eb5933b54611a407d6557972bb6fea4f6
-  languageName: node
-  linkType: hard
-
-"@types/scheduler@npm:*":
-  version: 0.23.0
-  resolution: "@types/scheduler@npm:0.23.0"
-  checksum: 10/874d753aa65c17760dfc460a91e6df24009bde37bfd427a031577b30262f7770c1b8f71a21366c7dbc76111967384cf4090a31d65315155180ef14bd7acccb32
   languageName: node
   linkType: hard
 
@@ -10222,7 +10204,7 @@ __metadata:
     "@types/eventsource": "npm:^1.1.15"
     "@types/mermaid": "npm:^9.2.0"
     "@types/node": "npm:20.4.2"
-    "@types/react": "npm:18.2.15"
+    "@types/react": "npm:18.3.3"
     "@types/react-beautiful-dnd": "npm:^13"
     "@types/react-dom": "npm:18.2.7"
     "@typescript-eslint/eslint-plugin": "npm:^6.14.0"

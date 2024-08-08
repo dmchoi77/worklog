@@ -1,4 +1,5 @@
 import { HttpResponse } from 'msw';
+
 import { httpPostHandler } from './utils';
 
 export const loginHandler = httpPostHandler('/api/login')(({ params }) => {
