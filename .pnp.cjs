@@ -66,6 +66,7 @@ const RAW_RUNTIME_STATE =
           ["jwt-decode", "npm:4.0.0"],\
           ["mermaid", "npm:10.9.1"],\
           ["msw", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.3.5"],\
+          ["msw-storybook-addon", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.0.3"],\
           ["next", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:14.2.5"],\
           ["prettier", "npm:3.3.3"],\
           ["react", "npm:18.2.0"],\
@@ -13692,6 +13693,29 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["msw-storybook-addon", [\
+      ["npm:2.0.3", {\
+        "packageLocation": "./.yarn/cache/msw-storybook-addon-npm-2.0.3-8a9ce08c2a-a2d400d74d.zip/node_modules/msw-storybook-addon/",\
+        "packageDependencies": [\
+          ["msw-storybook-addon", "npm:2.0.3"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.0.3", {\
+        "packageLocation": "./.yarn/__virtual__/msw-storybook-addon-virtual-90ef0c9d09/0/cache/msw-storybook-addon-npm-2.0.3-8a9ce08c2a-a2d400d74d.zip/node_modules/msw-storybook-addon/",\
+        "packageDependencies": [\
+          ["msw-storybook-addon", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.0.3"],\
+          ["@types/msw", null],\
+          ["is-node-process", "npm:1.2.0"],\
+          ["msw", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.3.5"]\
+        ],\
+        "packagePeers": [\
+          "@types/msw",\
+          "msw"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["mute-stream", [\
       ["npm:1.0.0", {\
         "packageLocation": "./.yarn/cache/mute-stream-npm-1.0.0-b6e846d471-36fc968b0e.zip/node_modules/mute-stream/",\
@@ -13745,6 +13769,7 @@ const RAW_RUNTIME_STATE =
           ["jwt-decode", "npm:4.0.0"],\
           ["mermaid", "npm:10.9.1"],\
           ["msw", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.3.5"],\
+          ["msw-storybook-addon", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.0.3"],\
           ["next", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:14.2.5"],\
           ["prettier", "npm:3.3.3"],\
           ["react", "npm:18.2.0"],\

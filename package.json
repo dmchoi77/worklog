@@ -32,6 +32,7 @@
     "jwt-decode": "^4.0.0",
     "mermaid": "^10.2.4",
     "msw": "^2.3.4",
+    "msw-storybook-addon": "^2.0.3",
     "next": "14.2.5",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
@@ -72,5 +73,10 @@
     "prettier": "^3.2.5",
     "webpack": "^5.93.0"
   },
-  "packageManager": "yarn@4.4.0"
+  "packageManager": "yarn@4.4.0",
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
 }

@@ -1,10 +1,8 @@
-import { HttpResponse } from 'msw';
+import { HttpResponse, http } from 'msw';
 
-import { httpPostHandler } from './utils';
-
-export const loginHandler = httpPostHandler('/api/login')(({ params }) => {
-  console.log(params);
-  new HttpResponse('test', {
-    status: 200,
+export const loginHandler = http.post('/api/login', () => {
+  return HttpResponse.json({
+    accessToken: '1',
+    refreshToken: '1',
   });
 });
