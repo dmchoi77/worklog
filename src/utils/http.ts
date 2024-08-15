@@ -1,8 +1,11 @@
+import * as https from 'https';
+
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+
+import { getCookie } from './cookie';
+
 import { reissue, logout } from '~/apis';
 import { AccessToken } from '~/constants';
-import { getCookie } from './cookie';
-import * as https from 'https';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
