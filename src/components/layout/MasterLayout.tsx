@@ -1,7 +1,5 @@
 import { PropsWithChildren, useEffect } from 'react';
 
-import styled from '@emotion/styled';
-
 import Header from '../header/Header';
 import MobileAppBar from '../mobileAppBar/MobileAppBar';
 import PanelLeft from '../panel/PanelLeft';
@@ -17,7 +15,7 @@ import type { UserAgent } from '~/types';
 interface MasterLayoutProps {
   userAgent: UserAgent;
 }
-const MasterLayout = ({ children, userAgent }: PropsWithChildren<MasterLayoutProps>) => {
+export const MasterLayout = ({ children, userAgent }: PropsWithChildren<MasterLayoutProps>) => {
   const { username, updateUserInfoState } = useUserInfoState((state) => ({
     username: state.username,
     updateUserInfoState: state.updateUserInfoState,
@@ -37,7 +35,7 @@ const MasterLayout = ({ children, userAgent }: PropsWithChildren<MasterLayoutPro
 
   const isMobile = userAgent === 'mobile';
   return (
-    <MasterLayoutContainer>
+    <div className='w-full max-w-full h-auto flex flex-col justify-start items-center m-0 p-0'>
       <div
         className='panel-container'
         css={{
@@ -48,32 +46,12 @@ const MasterLayout = ({ children, userAgent }: PropsWithChildren<MasterLayoutPro
         }}
       >
         <PanelLeft />
-        <PanelRightContainer>
+        <div className='flex flex-col w-full'>
           {isMobile ? <MobileAppBar /> : <Header />}
           {children}
-        </PanelRightContainer>
+        </div>
       </div>
       <CustomSnackbar />
-    </MasterLayoutContainer>
+    </div>
   );
 };
-
-export default MasterLayout;
-
-const MasterLayoutContainer = styled.div`
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-`;
-
-const PanelRightContainer = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-`;

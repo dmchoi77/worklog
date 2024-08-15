@@ -1,4 +1,4 @@
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   isDisabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -6,32 +6,13 @@ interface ButtonProps {
   isLoading?: boolean;
 }
 
-const Button = ({ children, onClick, isDisabled = false, fullWidth, isLoading }: ButtonProps) => {
-  return (
-    <button
-      css={{
-        width: fullWidth ? '100%' : 'auto',
-        padding: '6px 16px',
-        border: 'none',
-        borderRadius: '5px',
-        color: '#ffffff',
-        fontSize: 14,
-        fontWeight: '600',
-        cursor: 'pointer',
-
-        ':enabled': {
-          background: '#303030',
-        },
-        ':disabled': {
-          background: 'grey',
-        },
-      }}
-      disabled={isDisabled || isLoading}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-};
-
-export default Button;
+export const Button = ({ children, onClick, isDisabled = false, fullWidth, isLoading, ...rest }: ButtonProps) => (
+  <button
+    className={`${fullWidth ? 'w-full' : 'auto'} h-[50px] px-4 y-2 py-2 rounded-md text-white font-semibold cursor-pointer enabled:bg-gray-800 disabled:bg-gray-400`}
+    disabled={isDisabled || isLoading}
+    onClick={onClick}
+    {...rest}
+  >
+    {children}
+  </button>
+);

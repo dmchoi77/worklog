@@ -15,7 +15,7 @@ interface IProps<T> {
   options: T[];
   onSelectOption: any;
 }
-export default function SplitButton<T>({ options, onSelectOption, defaultOption }: IProps<T>) {
+export const SplitButton = <T,>({ options, onSelectOption, defaultOption }: IProps<T>) => {
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -101,4 +101,4 @@ export default function SplitButton<T>({ options, onSelectOption, defaultOption 
       </Popper>
     </React.Fragment>
   );
-}
+};

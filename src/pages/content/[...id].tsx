@@ -12,15 +12,20 @@ import PanelRight from '~/components/panel/PanelRight';
 import { calendarQueryKeys } from '~/queries/calendar';
 import { memoQueryKeys } from '~/queries/memo';
 import { workQueryKeys } from '~/queries/work';
+import { httpWithAuth } from '~/utils/http';
 
 import { fetchCalendarYears, fetchWorkList, fetchMemoList } from '~/apis';
 import type { ICommonProps } from '~/types';
-import { httpWithAuth } from '~/utils/http';
+
+interface IParams extends ParsedUrlQuery {
+  id: string[];
+  targetDate: string;
+}
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.params as IParams;
-  const [targetYear, targetMonth, targetDay] = id;
 
+  const [targetYear, targetMonth, targetDay] = id;
   const targetDate = dayjs(`${targetYear}-${targetMonth}-${targetDay}`).format('YYYY-MM-DD');
 
   const userAgent = ctx.query.agent;
@@ -53,17 +58,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
-const Content = ({ targetDate, userAgent }: ICommonProps) => {
-  return (
-    <div css={{ width: '100%' }}>
-      <PanelRight targetDate={targetDate} userAgent={userAgent} />
-    </div>
-  );
-};
+const Content = ({ targetDate, userAgent }: ICommonProps) => (
+  <div css={{ width: '100%' }}>
+    <PanelRight targetDate={targetDate} userAgent={userAgent} />
+  </div>
+);
 
 export default Content;
-
-interface IParams extends ParsedUrlQuery {
-  id: string[];
-  targetDate: string;
-}

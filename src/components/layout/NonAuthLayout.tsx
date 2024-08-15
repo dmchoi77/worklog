@@ -1,18 +1,5 @@
 import { PropsWithChildren } from 'react';
 
-import styled from '@emotion/styled';
-
-const Layout = styled.div({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  height: '100vh',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
-
-const NonAuthLayout = ({ children }: PropsWithChildren) => {
-  return <Layout>{children}</Layout>;
-};
-
-export default NonAuthLayout;
+export const NonAuthLayout = ({ children }: PropsWithChildren) => (
+  <div className='flex flex-col w-full h-[100vh] justify-center items-center'>{children}</div>
+);

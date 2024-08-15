@@ -1,1 +1,1 @@
-export * from './useLoginController';
+export { useLoginController } from './useLoginController';

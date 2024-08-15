@@ -28,18 +28,16 @@ interface PortalConsumerProps {
   children: ReactNode;
 }
 
-const PortalConsumer = ({ children }: PortalConsumerProps) => {
-  return (
-    <PortalContext.Consumer>
-      {(portalContainerRef) => {
-        if (portalContainerRef === null) {
-          return null;
-        }
-        return createPortal(children, portalContainerRef);
-      }}
-    </PortalContext.Consumer>
-  );
-};
+const PortalConsumer = ({ children }: PortalConsumerProps) => (
+  <PortalContext.Consumer>
+    {(portalContainerRef) => {
+      if (portalContainerRef === null) {
+        return null;
+      }
+      return createPortal(children, portalContainerRef);
+    }}
+  </PortalContext.Consumer>
+);
 
 export const GlobalPortal = {
   Provider: PortalProvider,
