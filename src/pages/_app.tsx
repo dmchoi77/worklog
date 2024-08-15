@@ -17,6 +17,7 @@ import NonAuthLayout from '~/components/layout/NonAuthLayout';
 
 import { RoutePath } from '~/constants';
 import { GlobalPortal } from '~/GlobalPortal';
+import '../globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
