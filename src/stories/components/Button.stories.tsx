@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 
-import Button from '~/components/button/Button';
+import { Button } from '~/components/button/Button';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -11,13 +11,20 @@ const meta: Meta<typeof Button> = {
   args: {
     isDisabled: false,
     fullWidth: false,
-    children: 'Button',
+    children: '버튼',
   },
   argTypes: {
     children: {
       type: { name: 'string' },
     },
   },
+  decorators: [
+    (Story) => (
+      <div className='flex justify-center items-center h-screen'>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
