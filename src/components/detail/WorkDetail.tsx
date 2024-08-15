@@ -7,7 +7,7 @@ import { Button, Checkbox } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ContentEditable from 'react-contenteditable';
 
-import SplitButton from '../button/SplitButton';
+import { SplitButton } from '../button/SplitButton';
 
 import useMobile from '~/hooks/useMobile';
 import useWork from '~/hooks/useWork';

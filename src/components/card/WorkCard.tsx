@@ -11,7 +11,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Container } from './card.style';
-import SplitButton from '../button/SplitButton';
+import { SplitButton } from '../button/SplitButton';
 import WorkDetail from '../detail/WorkDetail';
 
 import useWork from '~/hooks/useWork';

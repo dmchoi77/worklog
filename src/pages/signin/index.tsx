@@ -4,16 +4,12 @@ import { useEffect } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import { Button } from '~/components/button/Button';
 import Dialog from '~/components/dialog/Dialog';
+import { Input } from '~/components/input/Input';
 import { RoutePath } from '~/constants/route';
 import { useCheckEmail, useCheckUsername, useLogin, useSignIn } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';
-import {
-  LoginContainer as SignInContainer,
-  LoginButton as SignInButton,
-  LoginForm as SignInForm,
-  LoginInput as SignInInput,
-} from '~/styles/login/login.style';
 
 type Inputs = {
   email: string;
@@ -95,34 +91,29 @@ const SignIn = () => {
   }, [username]);
 
   return (
-    <SignInContainer>
+    <div className='w-[400px] h-[600px] flex flex-col gap-[1rem] items-center justify-center'>
       <div css={{ padding: '5px 0' }}>
         <span css={{ fontSize: 18, fontWeight: 700 }}>회원가입</span>
       </div>
-      <SignInForm onSubmit={handleSubmit(onSubmit)}>
-        <SignInInput type='text' placeholder='아이디' {...register('username', { required: true })} />
+      <form className='flex flex-col w-full gap-[10px]' onSubmit={handleSubmit(onSubmit)}>
+        <Input type='text' placeholder='아이디' {...register('username', { required: true })} />
         <ValidateDescription field={username} status={checkUsername?.status} message={checkUsername?.message} />
 
-        <SignInInput type='email' placeholder='이메일' {...register('email', { required: true })} />
+        <Input type='email' placeholder='이메일' {...register('email', { required: true })} />
         <ValidateDescription field={email} status={checkEmail?.status} message={checkEmail?.message} />
 
-        <SignInInput type='password' placeholder='비밀번호' {...register('password', { required: true })} />
-        <SignInInput type='password' placeholder='비밀번호 확인' {...register('passwordCheck', { required: true })} />
-        <SignInButton type='submit'>회원가입</SignInButton>
+        <Input type='password' placeholder='비밀번호' {...register('password', { required: true })} />
+        <Input type='password' placeholder='비밀번호 확인' {...register('passwordCheck', { required: true })} />
+        <Button type='submit'>회원가입</Button>
         <span
+          className='text-[16px] text-[#5e6776] text-center cursor-pointer'
           onClick={() => router.push(RoutePath.Login)}
-          css={{
-            color: '#5e6776',
-            fontSize: 16,
-            textAlign: 'center',
-            cursor: 'pointer',
-          }}
         >
           뒤로 가기
         </span>
-      </SignInForm>
+      </form>
       {open && <Dialog />}
-    </SignInContainer>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { Button, Paper } from '@mui/material';
 
 import { buttonStyle, paperStyle, textAreaStyle } from './form.style';
-import SplitButton from '../button/SplitButton';
+import { SplitButton } from '../button/SplitButton';
 
 import useInput from '~/hooks/useInput';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
