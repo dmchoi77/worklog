@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 import WorkForm from '../form/WorkForm';
-import TodayInnerLayout from '../layout/TodayInnerLayout';
+import { TodayInnerLayout } from '../layout/TodayInnerLayout';
 
 import WorkList from '~/components/list/WorkList';
 

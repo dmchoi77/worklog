@@ -1,4 +1,4 @@
-import MasterLayout from '~/components/layout/MasterLayout';
+import { MasterLayout } from '~/components/layout/MasterLayout';
 import PanelLeft from '~/components/panel/PanelLeft';
 import PanelRight from '~/components/panel/PanelRight';
 

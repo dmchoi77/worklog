@@ -12,8 +12,7 @@ import { ThemeProvider, createTheme } from '@mui/material';
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import MasterLayout from '~/components/layout/MasterLayout';
-import NonAuthLayout from '~/components/layout/NonAuthLayout';
+import { MasterLayout, NonAuthLayout } from '~/components/layout';
 
 import { RoutePath } from '~/constants';
 import { GlobalPortal } from '~/GlobalPortal';

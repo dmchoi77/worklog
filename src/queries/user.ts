@@ -10,9 +10,9 @@ import type { AxiosError } from 'axios';
 
 import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/user';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
+import { httpWithAuth } from '~/utils/http';
 
 import type { ICommonResponse, LoginPayload, SignInPayload } from '~/types';
-import { httpWithAuth } from '~/utils/http';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -65,6 +65,7 @@ export const useCheckUsername = (username: string) => {
 };
 
 export const useLogout = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const resetUserInfo = useUserInfoState((state) => state.reset);
 
@@ -73,6 +74,7 @@ export const useLogout = () => {
     onSettled: () => {
       httpWithAuth.defaults.headers.Authorization = null;
       resetUserInfo();
+      queryClient.resetQueries();
       router.push('/login');
     },
   });
