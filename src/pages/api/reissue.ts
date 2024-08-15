@@ -5,6 +5,7 @@ import * as https from 'https';
 import axios from 'axios';
 
 import type { ICommonResponse, LoginResponse } from '~/types';
+
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {

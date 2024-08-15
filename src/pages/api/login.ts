@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import type { ICommonResponse, LoginResponse } from '~/types';
 import { httpWithoutAuth, commonResponseErrorHandler } from '~/utils/http';
+
+import type { ICommonResponse, LoginResponse } from '~/types';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   try {
