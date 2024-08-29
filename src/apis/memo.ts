@@ -1,4 +1,5 @@
 import type { AxiosResponse } from 'axios';
+
 import { httpWithAuth } from '~/utils/http';
 
 import type {
@@ -41,7 +42,7 @@ export const fetchMemoList = async ({ date }: IFetchMemosRequest) => {
     },
   });
 
-  return data?.data;
+  return data.data;
 };
 
 export const searchMemoList = async (key: string): Promise<ISearchMemoList> => {
