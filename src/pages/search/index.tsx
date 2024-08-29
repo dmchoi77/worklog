@@ -2,8 +2,6 @@ import { GetServerSideProps } from 'next';
 
 import { Divider } from '@mui/material';
 
-import { SearchTableContainer, SearchTableTitle } from '../../styles/search/search.style';
-
 import MemoTable from '~/components/table/MemoTable';
 import WorkTable from '~/components/table/WorkTable';
 
@@ -18,50 +16,30 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
-const Search = ({ searchKey }: IProps) => {
-  return (
-    <div css={{ width: '100%' }}>
-      <div
-        css={{
-          backgroundColor: 'rgb(242, 242, 242)',
-          flex: 1,
-          width: '100%',
-          overflowY: 'scroll',
-
-          height: 'calc(100vh - 50px)',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <div
-          css={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: 14,
-            gap: 14,
-          }}
-        >
-          <div className='today-task-container'>
-            <div css={{ fontWeight: 600 }}>통합 검색</div>
+const Search = ({ searchKey }: IProps) => (
+  <div className='w-full'>
+    <div className='bg-[rgb(242, 242, 242)] flex-1 w-full overflow-y-scroll h-[calc(100vh-50px)] flex flex-col'>
+      <div className='flex flex-col p-[14px] gap-[14px]'>
+        <div className='today-task-container'>
+          <div className='font-[600]'>통합 검색</div>
+        </div>
+        <div>
+          <p className='p-[6px] font-[500]'>Work</p>
+          <div className='bg-white flex flex-col'>
+            <Divider />
+            <WorkTable searchKey={searchKey} />
           </div>
-          <div>
-            <SearchTableTitle>Work</SearchTableTitle>
-            <SearchTableContainer>
-              <Divider />
-              <WorkTable searchKey={searchKey} />
-            </SearchTableContainer>
-          </div>
-          <div>
-            <SearchTableTitle>Memo</SearchTableTitle>
-            <SearchTableContainer>
-              <Divider />
-              <MemoTable searchKey={searchKey} />
-            </SearchTableContainer>
+        </div>
+        <div>
+          <p className='p-[6px] font-[500]'>Memo</p>
+          <div className='bg-white flex flex-col'>
+            <Divider />
+            <MemoTable searchKey={searchKey} />
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default Search;
