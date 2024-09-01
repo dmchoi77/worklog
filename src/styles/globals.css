@@ -10,4 +10,5 @@
 
 textarea, input {
   outline-color: #3030309d;
+  border-radius: 4px;
 }

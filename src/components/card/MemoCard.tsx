@@ -107,27 +107,19 @@ const MemoCard = ({ content, id, index }: IProps) => {
           onMouseOut={() => setVisibleBtn(false)}
         >
           {visibleBtn && (
-            <Box
-              css={{
-                display: 'flex',
-                position: 'absolute',
-                marginRight: 8,
-                right: 0,
-                borderRadius: 4,
-                boxShadow: 'rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px',
-              }}
-            >
+            <Box className='flex absolute mr-8 right-0 rounded-md shadow-md'>
               <EditNoteIcon
-                css={{ borderRadius: 6, background: '#ffffff' }}
+                className='rounded-md bg-white'
                 onClick={() => {
                   contentRef?.current?.focus();
                 }}
               />
-              <Divider css={{ width: 1, background: 'rgba(15, 15, 15, 0.1)' }} />
-              <DeleteIcon css={{ borderRadius: 6, background: '#ffffff' }} onClick={handleDeleteMemo} />
+              <Divider className='w-1 bg-gray-300' />
+              <DeleteIcon className='rounded-md bg-white' onClick={handleDeleteMemo} />
             </Box>
           )}
           <ContentEditable
+            className='whitespace-break-spaces break-all'
             innerRef={contentRef}
             html={inputRef.current}
             disabled={false}
@@ -137,7 +129,6 @@ const MemoCard = ({ content, id, index }: IProps) => {
                 contentRef?.current?.blur();
               }
             }}
-            style={{ overflowWrap: 'anywhere' }}
           />
         </Container>
       )}

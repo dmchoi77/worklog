@@ -9,7 +9,7 @@ export const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 12,
   },
   padding: '10px',
-  whiteSpace: 'nowrap',
+  whiteSpace: 'pre-line',
   wordBreak: 'break-word',
   overflow: 'hidden',
   textOverflow: 'ellipsis',

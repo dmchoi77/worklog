@@ -122,24 +122,9 @@ const WorkDetail = (props: IProps) => {
             >
               <div css={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <input
-                  css={{
-                    border: 'none',
-                    height: '40px',
-                    borderRadius: 4,
-                    fontSize: 26,
-                    fontWeight: 600,
-                    overflowY: 'hidden',
-                    display: 'flex',
-                    alignItems: 'center',
-                    '&:hover': {
-                      background: 'rgb(0 0 0 / 5%)',
-                    },
-                    padding: 1,
-                    outlineColor: '#303030cd',
-                  }}
+                  className='border-none h-[40px] rounded-[4px] text-[26px] m-1 font-semibold overflow-y-hidden flex items-center hover:bg-gray-200 outline-[#303030cd]'
                   value={work.title}
                   onChange={(e) => {
-                    console.log(e.target.value);
                     workSetter('title')(e.target.value);
                   }}
                   onKeyDown={(e) => {
@@ -152,24 +137,12 @@ const WorkDetail = (props: IProps) => {
               <div css={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <span css={{ fontWeight: 500 }}>상세 내용</span>
                 <ContentEditable
-                  css={{
-                    height: '150px',
-                    borderRadius: 4,
-                    border: '1px solid rgb(0 0 0 / 15%)',
-                    overflowY: 'hidden',
-                    '&:hover': {
-                      background: 'rgb(0 0 0 / 5%)',
-                    },
-                    padding: 10,
-                    outlineColor: '#303030cd',
-                  }}
+                  className='whitespace-break-spaces break-all h-[150px] border rounded-[4px]  border-gray-300 overflow-y-hidden p-[10px] outline-[#303030cd] hover:bg-gray-200'
                   key='content'
                   innerRef={contentRef}
                   html={work.content}
                   disabled={false}
                   onChange={(e) => {
-                    console.log(e.target.value);
-
                     workSetter('content')(e.target.value);
                   }}
                   onKeyDown={(e) => {
