@@ -2,9 +2,7 @@ import { useRouter } from 'next/navigation';
 
 import dayjs from 'dayjs';
 
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-
-import ContentEditable from 'react-contenteditable';
+import { Table, TableHead, TableRow, TableBody } from '@mui/material';
 
 import { StyledTableCell } from './table.style';
 
@@ -26,6 +24,8 @@ const MemoTable = ({ searchKey }: IProps) => {
     router.push(`${RoutePath.Content}/${formattedDate}`);
   };
 
+  const isEmptyData = !memoList.content.length;
+
   return (
     <Table>
       <TableHead>
@@ -42,31 +42,7 @@ const MemoTable = ({ searchKey }: IProps) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {memoList.content.length > 0 ? (
-          <>
-            {memoList.content.map((memo, index) => (
-              <TableRow key={memo.id} onClick={() => handleClickRow(memo.date)} sx={{ cursor: 'pointer' }}>
-                <StyledTableCell align='center'>{index + 1}</StyledTableCell>
-                <StyledTableCell align='center'>{memo.date}</StyledTableCell>
-                <StyledTableCell align='center'>
-                  <ContentEditable
-                    html={memo.content}
-                    disabled={true}
-                    onChange={() => {}}
-                    style={{
-                      overflowWrap: 'anywhere',
-                      height: '24px',
-                      whiteSpace: 'nowrap',
-                      wordBreak: 'break-word',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}
-                  />
-                </StyledTableCell>
-              </TableRow>
-            ))}
-          </>
-        ) : (
+        {isEmptyData ? (
           <TableRow
             css={{
               width: '100%',
@@ -77,6 +53,16 @@ const MemoTable = ({ searchKey }: IProps) => {
               조회된 데이터가 없습니다.
             </StyledTableCell>
           </TableRow>
+        ) : (
+          <>
+            {memoList.content.map((memo, index) => (
+              <TableRow key={memo.id} onClick={() => handleClickRow(memo.date)} sx={{ cursor: 'pointer' }}>
+                <StyledTableCell align='center'>{index + 1}</StyledTableCell>
+                <StyledTableCell align='center'>{memo.date}</StyledTableCell>
+                <StyledTableCell align='center'>{memo.content}</StyledTableCell>
+              </TableRow>
+            ))}
+          </>
         )}
       </TableBody>
     </Table>
