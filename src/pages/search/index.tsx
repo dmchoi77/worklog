@@ -2,8 +2,8 @@ import { GetServerSideProps } from 'next';
 
 import { Divider } from '@mui/material';
 
-import MemoTable from '~/components/table/MemoTable';
-import WorkTable from '~/components/table/WorkTable';
+import MemoTable from '~/components/organisms/table/MemoTable';
+import WorkTable from '~/components/organisms/table/WorkTable';
 
 interface IProps {
   searchKey: string;

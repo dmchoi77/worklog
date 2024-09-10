@@ -11,8 +11,8 @@ import { Draggable } from 'react-beautiful-dnd';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Container } from './card.style';
+import WorkDetail from '../../templates/detail/WorkDetail';
 import { SplitButton } from '../button/SplitButton';
-import WorkDetail from '../detail/WorkDetail';
 
 import useWork from '~/hooks/useWork';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';

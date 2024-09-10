@@ -1,9 +1,9 @@
 import { PropsWithChildren, useEffect } from 'react';
 
-import Header from '../header/Header';
-import MobileAppBar from '../mobileAppBar/MobileAppBar';
-import PanelLeft from '../panel/PanelLeft';
-import CustomSnackbar from '../snackbar/Snackbar';
+import Header from '../../organisms/header/Header';
+import MobileAppBar from '../../organisms/mobileAppBar/MobileAppBar';
+import PanelLeft from '../../organisms/panel/PanelLeft';
+import CustomSnackbar from '../../molecules/snackbar/Snackbar';
 
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { getCookie } from '~/utils/cookie';

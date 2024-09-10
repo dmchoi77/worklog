@@ -2,13 +2,14 @@ import { useState } from 'react';
 
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
-import MemoForm from '../form/MemoForm';
-import { TodayInnerLayout } from '../layout/TodayInnerLayout';
-import MemoList from '../list/MemoList';
+import { TodayInnerLayout } from '../../templates/layout/TodayInnerLayout';
+import WorkForm from '../../molecules/form/WorkForm';
+
+import WorkList from '~/components/molecules/list/WorkList';
 
 import type { ICommonProps } from '~/types';
 
-const TodayMemo = ({ targetDate, userAgent }: ICommonProps) => {
+const TodayWork = ({ targetDate, userAgent }: ICommonProps) => {
   const [openForm, setOpenForm] = useState(false);
 
   const isMobile = userAgent === 'mobile';
@@ -20,13 +21,13 @@ const TodayMemo = ({ targetDate, userAgent }: ICommonProps) => {
   return (
     <TodayInnerLayout>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h3>MEMO</h3>
+        <h3>WORK</h3>
         {isMobile ? openForm ? <ExpandLess onClick={toggleForm} /> : <ExpandMore onClick={toggleForm} /> : null}
       </div>
-      {isMobile ? openForm && <MemoForm targetDate={targetDate} /> : <MemoForm targetDate={targetDate} />}
-      <MemoList targetDate={targetDate} />
+      {isMobile ? openForm && <WorkForm targetDate={targetDate} /> : <WorkForm targetDate={targetDate} />}
+      <WorkList targetDate={targetDate} />
     </TodayInnerLayout>
   );
 };
 
-export default TodayMemo;
+export default TodayWork;

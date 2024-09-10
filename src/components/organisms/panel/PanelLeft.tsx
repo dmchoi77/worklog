@@ -1,7 +1,7 @@
 import { Divider, List, ListSubheader } from '@mui/material';
 
-import SearchInput from '../input/SearchInput';
-import YearList from '../list/YearList';
+import SearchInput from '../../molecules/input/SearchInput';
+import YearList from '../../molecules/list/YearList';
 
 import { useFetchCalendarYears } from '~/queries/calendar';
 

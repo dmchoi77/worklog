@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { Button } from '~/components/button/Button';
-import Dialog from '~/components/dialog/Dialog';
-import { Input } from '~/components/input/Input';
+import { Button } from '~/components/molecules/button/Button';
+import Dialog from '~/components/molecules/dialog/Dialog';
+import { Input } from '~/components/molecules/input/Input';
 import { RoutePath } from '~/constants/route';
 import { useCheckEmail, useCheckUsername, useLogin, useSignIn } from '~/queries/user';
 import { useDialogStore } from '~/stores/useDialogStore';

@@ -10,12 +10,12 @@ import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-import PanelRightMobile from '~/components/mobile/PanelRightMobile';
-import PanelRight from '~/components/panel/PanelRight';
+import PanelRightMobile from '~/components/organisms/mobile/PanelRightMobile';
+import PanelRight from '~/components/organisms/panel/PanelRight';
+import { httpWithAuth } from '~/utils/http';
 
 import { fetchCalendarYears, fetchMemoList, fetchWorkList } from '~/apis';
 import { calendarQueryKeys, memoQueryKeys, workQueryKeys } from '~/queries';
-import { httpWithAuth } from '~/utils/http';
 
 extend(utc);
 extend(timezone);

@@ -1,6 +1,6 @@
-import { MasterLayout } from '~/components/layout/MasterLayout';
-import PanelLeft from '~/components/panel/PanelLeft';
-import PanelRight from '~/components/panel/PanelRight';
+import { MasterLayout } from '~/components/templates/layout/MasterLayout';
+import PanelLeft from '~/components/organisms/panel/PanelLeft';
+import PanelRight from '~/components/organisms/panel/PanelRight';
 
 const DashBoard = () => {
   return (
