@@ -2,7 +2,7 @@ import { PropsWithChildren, useEffect } from 'react';
 
 import Header from '../../organisms/header/Header';
 import MobileAppBar from '../../organisms/mobileAppBar/MobileAppBar';
-import PanelLeft from '../../organisms/panel/PanelLeft';
+import PanelLeft from '../panel/PanelLeft';
 import CustomSnackbar from '../../molecules/snackbar/Snackbar';
 
 import { useUserInfoState } from '~/stores/useUserInfoStore';

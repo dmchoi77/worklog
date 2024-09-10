@@ -1,32 +1,17 @@
-import { useState } from 'react';
-
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-
-import MemoForm from '../../molecules/form/MemoForm';
-import { TodayInnerLayout } from '../../templates/layout/TodayInnerLayout';
-import MemoList from '../../molecules/list/MemoList';
+import MemoForm from '~/components/molecules/form/MemoForm';
+import MemoList from '~/components/molecules/list/MemoList';
+import { TodayInnerLayout } from '~/components/templates/layout/TodayInnerLayout';
 
 import type { ICommonProps } from '~/types';
 
-const TodayMemo = ({ targetDate, userAgent }: ICommonProps) => {
-  const [openForm, setOpenForm] = useState(false);
-
-  const isMobile = userAgent === 'mobile';
-
-  const toggleForm = () => {
-    setOpenForm((prev) => !prev);
-  };
-
-  return (
-    <TodayInnerLayout>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h3>MEMO</h3>
-        {isMobile ? openForm ? <ExpandLess onClick={toggleForm} /> : <ExpandMore onClick={toggleForm} /> : null}
-      </div>
-      {isMobile ? openForm && <MemoForm targetDate={targetDate} /> : <MemoForm targetDate={targetDate} />}
-      <MemoList targetDate={targetDate} />
-    </TodayInnerLayout>
-  );
-};
+const TodayMemo = ({ targetDate }: ICommonProps) => (
+  <TodayInnerLayout>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <h3 className='font-[600]'>MEMO</h3>
+    </div>
+    <MemoForm targetDate={targetDate} />
+    <MemoList targetDate={targetDate} />
+  </TodayInnerLayout>
+);
 
 export default TodayMemo;
