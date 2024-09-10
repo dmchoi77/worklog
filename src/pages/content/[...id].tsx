@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 
 import { resetServerContext } from 'react-beautiful-dnd';
 
-import PanelRight from '~/components/panel/PanelRight';
+import PanelRight from '~/components/templates/panel/PanelRight';
 import { calendarQueryKeys } from '~/queries/calendar';
 import { memoQueryKeys } from '~/queries/memo';
 import { workQueryKeys } from '~/queries/work';

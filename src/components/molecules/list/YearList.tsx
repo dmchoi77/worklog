@@ -21,7 +21,7 @@ const YearList = ({ year }: { year: number }) => {
           <FolderIcon sx={{ color: '#d1d1d1' }} />
         </ListItemIcon>
         <ListItemText primary={`${year}년`} primaryTypographyProps={{ textAlign: 'left', pr: 1, fontSize: 16 }} />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        <Expand open={open} />
       </ListItemButton>
       <Divider />
       <Collapse in={open} timeout='auto' unmountOnExit>
@@ -32,3 +32,5 @@ const YearList = ({ year }: { year: number }) => {
 };
 
 export default YearList;
+
+const Expand = ({ open }: { open: boolean }) => <>{open ? <ExpandLess /> : <ExpandMore />}</>;

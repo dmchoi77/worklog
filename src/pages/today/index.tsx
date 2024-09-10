@@ -10,12 +10,11 @@ import 'dayjs/locale/ko';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
-import PanelRightMobile from '~/components/mobile/PanelRightMobile';
-import PanelRight from '~/components/panel/PanelRight';
+import PanelRight from '~/components/templates/panel/PanelRight';
+import { httpWithAuth } from '~/utils/http';
 
 import { fetchCalendarYears, fetchMemoList, fetchWorkList } from '~/apis';
 import { calendarQueryKeys, memoQueryKeys, workQueryKeys } from '~/queries';
-import { httpWithAuth } from '~/utils/http';
 
 extend(utc);
 extend(timezone);
@@ -61,13 +60,10 @@ interface IProps {
   userAgent: 'desktop' | 'mobile';
 }
 
-const Today = ({ userAgent }: IProps) => {
-  return (
-    <div css={{ width: '100%' }}>
-      {userAgent === 'mobile' && <PanelRightMobile targetDate={todayDate} userAgent={userAgent} />}
-      {userAgent === 'desktop' && <PanelRight targetDate={todayDate} userAgent={userAgent} />}
-    </div>
-  );
-};
+const Today = ({ userAgent }: IProps) => (
+  <div css={{ width: '100%' }}>
+    <PanelRight targetDate={todayDate} userAgent={userAgent} />
+  </div>
+);
 
 export default Today;

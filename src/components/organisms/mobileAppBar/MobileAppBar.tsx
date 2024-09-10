@@ -6,7 +6,7 @@ import { Box, AppBar, Toolbar, IconButton, Typography, Button, List, Drawer, Lis
 
 import MenuIcon from '@mui/icons-material/Menu';
 
-import YearList from '../list/YearList';
+import YearList from '../../molecules/list/YearList';
 
 import { useFetchCalendarYears, useLogout } from '~/queries';
 
