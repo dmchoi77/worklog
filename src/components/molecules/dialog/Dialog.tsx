@@ -1,5 +1,7 @@
 import { forwardRef } from 'react';
 
+import CloseIcon from '@mui/icons-material/Close';
+
 import { Button } from '../button/Button';
 
 import { useDialogStore } from '~/stores/useDialogStore';
@@ -13,64 +15,23 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
     <GlobalPortal.Consumer>
       <div
         ref={ref}
-        css={{
-          width: '100%',
-          height: '100%',
-          padding: '20px',
-          position: 'absolute',
-          top: 0,
-          backgroundColor: '#0000007a',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+        className='w-full h-full p-[20px] absolute top-0 bg-black bg-opacity-70 flex justify-center items-center'
       >
-        <div
-          css={{
-            width: '400px',
-            backgroundColor: '#ffffff',
-            boxSizing: 'border-box',
-            borderRadius: '15px',
-          }}
-        >
-          <div
-            css={{
-              height: '50px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              backgroundColor: '#3b3b3b',
-              borderTopLeftRadius: '15px',
-              borderTopRightRadius: '15px',
-              padding: '0 15px',
-            }}
-          >
-            <span css={{ fontWeight: 800, color: '#fff', fontSize: 20 }}>{title}</span>
-            <div
-              onClick={() => updateDialogState({ open: !open })}
-              css={{ cursor: 'pointer', fontWeight: 600, color: '#fff' }}
-            >
-              X
-            </div>
+        <div className='w-[400px] bg-white box-border rounded-[15px]'>
+          <div className='h-[50px] flex justify-between items-center bg-[#3b3b3b] rounded-t-[12px] p-[0_15px]'>
+            <span css={{ fontWeight: 400, color: '#fff', fontSize: 18 }}>{title}</span>
+            <button onClick={() => updateDialogState({ open: false })} className='font-[600] text-white'>
+              <CloseIcon />
+            </button>
           </div>
-          <div
-            css={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              minHeight: '100px',
-              height: '100%',
-              padding: 10,
-              paddingTop: 0,
-            }}
-          >
-            <div css={{ padding: '10px 0' }}>
+          <div className='flex flex-col justify-between h-[100px] p-[10px] pt-0'>
+            <p className='p-[10px_0px]'>
               {Array.isArray(mainText) ? <div>{mainText?.map((text) => <ul key={text}>{text}</ul>)}</div> : mainText}
-            </div>
-            <div css={{ display: 'flex', gap: '10px' }}>
+            </p>
+            <div className='flex gap-[10px]'>
               {cancelText && <Button onClick={() => updateDialogState({ open: !open })}>{confirmText}</Button>}
               <Button
-                fullWidth={true}
+                fullWidth
                 onClick={() => {
                   updateDialogState({ open: !open });
                   handleConfirm?.();

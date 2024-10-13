@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useEffect, useState } from 'react';
 
-import { Box, AppBar, Toolbar, IconButton, Typography, Button, List, Drawer, ListSubheader } from '@mui/material';
+import { Box, AppBar, Toolbar, IconButton, Button, List, Drawer, ListSubheader } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -68,23 +69,13 @@ const MobileAppBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography component='span' sx={{ flexGrow: 1, cursor: 'pointer' }} onClick={() => router.push('/today')}>
-            Today
-          </Typography>
+          <Link href='/today'>Today</Link>
           <Button color='inherit' onClick={() => handleLogout()}>
             로그아웃
           </Button>
         </Toolbar>
       </AppBar>
-      <Drawer
-        open={openDrawer}
-        onClose={toggleDrawer(false)}
-        PaperProps={{
-          sx: {
-            background: '#303030',
-          },
-        }}
-      >
+      <Drawer open={openDrawer} onClose={toggleDrawer(false)} PaperProps={{ sx: { background: '#303030' } }}>
         {DrawerList}
       </Drawer>
     </Box>

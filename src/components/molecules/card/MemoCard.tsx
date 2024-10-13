@@ -107,7 +107,7 @@ const MemoCard = ({ content, id, index }: IProps) => {
           onMouseOut={() => setVisibleBtn(false)}
         >
           {visibleBtn && (
-            <Box className='flex absolute mr-8 right-0 rounded-md shadow-md'>
+            <Box className='flex absolute mr-3 right-0 rounded-md shadow-md'>
               <EditNoteIcon
                 className='rounded-md bg-white'
                 onClick={() => {

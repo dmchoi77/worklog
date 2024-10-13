@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -48,12 +49,9 @@ const LoginForm = () => {
       <Input type='text' placeholder='아이디' {...register('username', { required: true })} />
       <Input type='password' placeholder='비밀번호' {...register('password', { required: true })} />
       <Button isLoading={isPending}>로그인</Button>
-      <span
-        className='text-[16px] text-[#5e6776] text-center cursor-pointer'
-        onClick={() => router.push(RoutePath.SignIn)}
-      >
-        회원가입
-      </span>
+      <Link className='mx-auto' href={RoutePath.SignIn}>
+        <span className='text-[16px] text-[#5e6776] text-center cursor-pointer'>회원가입</span>
+      </Link>
     </form>
   );
 };

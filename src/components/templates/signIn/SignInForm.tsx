@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import router from 'next/router';
 
 import { Fragment, useEffect } from 'react';
@@ -99,12 +100,9 @@ const SignInForm = () => {
       <Input type='password' placeholder='비밀번호' {...register('password', { required: true })} />
       <Input type='password' placeholder='비밀번호 확인' {...register('passwordCheck', { required: true })} />
       <Button type='submit'>회원가입</Button>
-      <span
-        className='text-[16px] text-[#5e6776] text-center cursor-pointer'
-        onClick={() => router.push(RoutePath.Login)}
-      >
-        뒤로 가기
-      </span>
+      <Link className='mx-auto' href={RoutePath.Login}>
+        <span className='text-[16px] text-[#5e6776] text-center cursor-pointer'>뒤로 가기</span>
+      </Link>
     </form>
   );
 };
