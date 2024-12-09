@@ -16,10 +16,10 @@ const userQueryKeys = createQueryKeys('user', {
 });
 
 export const useLogin = () => {
+  const router = useRouter();
+
   const updateUserInfoState = useUserInfoState((state) => state.updateUserInfoState);
   const updateDialogState = useDialogStore((state) => state.updateDialogState);
-
-  const router = useRouter();
 
   return useMutation({
     mutationFn: ({ username, password }: LoginPayload) => login({ username, password }),
@@ -38,11 +38,33 @@ export const useLogin = () => {
   });
 };
 
-export const useSignIn = () =>
-  useMutation({
+export const useSignIn = () => {
+  const router = useRouter();
+
+  const updateDialogState = useDialogStore((state) => state.updateDialogState);
+
+  return useMutation({
     mutationFn: ({ username, email, password, passwordCheck }: SignInPayload) =>
       signIn({ username, email, password, passwordCheck }),
+    onSuccess: () => {
+      updateDialogState({
+        open: true,
+        mainText: '회원가입에 성공하였습니다.',
+        cancelText: '',
+        handleConfirm: () => {
+          router.push('/login');
+        },
+      });
+    },
+    onError: (error: any) => {
+      updateDialogState({
+        open: true,
+        mainText: error?.response?.data?.message || '서버 점검 중입니다.',
+        cancelText: '',
+      });
+    },
   });
+};
 
 export const useCheckEmail = (email: string) => {
   const queryClient = useQueryClient();
