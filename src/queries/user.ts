@@ -1,17 +1,12 @@
 import { useRouter } from 'next/router';
-
 import { useEffect } from 'react';
-
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-
 import type { AxiosError } from 'axios';
-
 import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/user';
+import { useDialogStore } from '~/stores/useDialogStore';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-import { httpWithAuth } from '~/utils/http';
-
+import { commonResponseErrorHandler, httpWithAuth } from '~/utils/http';
 import type { ICommonResponse, LoginPayload, SignInPayload } from '~/types';
 
 const userQueryKeys = createQueryKeys('user', {
@@ -20,16 +15,56 @@ const userQueryKeys = createQueryKeys('user', {
   checkUsername: ['checkUsername'],
 });
 
-export const useLogin = () =>
-  useMutation({
-    mutationFn: ({ username, password }: LoginPayload) => login({ username, password }),
-  });
+export const useLogin = () => {
+  const router = useRouter();
 
-export const useSignIn = () =>
-  useMutation({
+  const updateUserInfoState = useUserInfoState((state) => state.updateUserInfoState);
+  const updateDialogState = useDialogStore((state) => state.updateDialogState);
+
+  return useMutation({
+    mutationFn: ({ username, password }: LoginPayload) => login({ username, password }),
+    onSuccess: (_, variable) => {
+      updateUserInfoState(variable.username);
+      router.push('/today');
+    },
+    onError: (error: any) => {
+      const errorResponse = commonResponseErrorHandler(error);
+      updateDialogState({
+        open: true,
+        mainText: errorResponse?.message || '서버 점검 중입니다.',
+        cancelText: '',
+      });
+    },
+  });
+};
+
+export const useSignIn = () => {
+  const router = useRouter();
+
+  const updateDialogState = useDialogStore((state) => state.updateDialogState);
+
+  return useMutation({
     mutationFn: ({ username, email, password, passwordCheck }: SignInPayload) =>
       signIn({ username, email, password, passwordCheck }),
+    onSuccess: () => {
+      updateDialogState({
+        open: true,
+        mainText: '회원가입에 성공하였습니다.',
+        cancelText: '',
+        handleConfirm: () => {
+          router.push('/login');
+        },
+      });
+    },
+    onError: (error: any) => {
+      updateDialogState({
+        open: true,
+        mainText: error?.response?.data?.message || '서버 점검 중입니다.',
+        cancelText: '',
+      });
+    },
   });
+};
 
 export const useCheckEmail = (email: string) => {
   const queryClient = useQueryClient();
@@ -71,10 +106,10 @@ export const useLogout = () => {
 
   return useMutation({
     mutationFn: () => logout(),
-    onSettled: () => {
+    onSuccess: () => {
       httpWithAuth.defaults.headers.Authorization = null;
       resetUserInfo();
-      queryClient.resetQueries();
+      queryClient.removeQueries();
       router.push('/login');
     },
   });

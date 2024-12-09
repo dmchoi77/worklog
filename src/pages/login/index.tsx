@@ -7,7 +7,7 @@ const LoginPage = () => {
   const { open } = useDialogStore();
 
   return (
-    <div className='w-[400px] h-[600px] flex flex-col gap-[1rem] items-center justify-center'>
+    <div className='w-[400px] h-[600px] flex flex-col gap-y-[10px] items-center justify-center'>
       <LoginTitle />
       <LoginForm />
       {open && <Dialog />}

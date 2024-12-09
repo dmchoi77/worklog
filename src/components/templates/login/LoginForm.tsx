@@ -1,14 +1,7 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-
 import { useForm, SubmitHandler } from 'react-hook-form';
-
 import { Button } from '~/components/molecules/button/Button';
 import { Input } from '~/components/molecules/input/Input';
-import { useDialogStore } from '~/stores/useDialogStore';
-import { useUserInfoState } from '~/stores/useUserInfoStore';
-import { commonResponseErrorHandler } from '~/utils/http';
-
 import { RoutePath } from '~/constants';
 import { useLogin } from '~/queries';
 import { LoginInputForm } from '~/types';
@@ -16,32 +9,10 @@ import { LoginInputForm } from '~/types';
 const LoginForm = () => {
   const { register, handleSubmit } = useForm<LoginInputForm>();
 
-  const router = useRouter();
-
-  const updateUserInfoState = useUserInfoState((state) => state.updateUserInfoState);
-  const updateDialogState = useDialogStore((state) => state.updateDialogState);
-
   const { mutate: handleLogin, isPending } = useLogin();
 
   const onSubmit: SubmitHandler<LoginInputForm> = ({ username, password }) => {
-    handleLogin(
-      { username, password },
-      {
-        onSuccess: () => {
-          updateUserInfoState(username);
-
-          router.push('/today');
-        },
-        onError: (error: any) => {
-          const errorResponse = commonResponseErrorHandler(error);
-          updateDialogState({
-            open: true,
-            mainText: errorResponse?.message || '서버 점검 중입니다.',
-            cancelText: '',
-          });
-        },
-      },
-    );
+    handleLogin({ username, password });
   };
 
   return (

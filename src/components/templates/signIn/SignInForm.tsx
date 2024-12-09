@@ -1,14 +1,9 @@
 import Link from 'next/link';
-import router from 'next/router';
-
 import { Fragment, useEffect } from 'react';
-
 import { SubmitHandler, useForm } from 'react-hook-form';
-
 import { Button } from '~/components/molecules/button/Button';
 import { Input } from '~/components/molecules/input/Input';
 import { useDialogStore } from '~/stores/useDialogStore';
-
 import { RoutePath } from '~/constants';
 import { useCheckUsername, useCheckEmail, useLogin, useSignIn } from '~/queries';
 
@@ -28,7 +23,6 @@ const SignInForm = () => {
   const { data: checkEmail, refetch: refetchCheckEmail } = useCheckEmail(email);
 
   const { mutate: handleSignIn } = useSignIn();
-  const { mutate: handleLogin } = useLogin();
 
   const updateDialogState = useDialogStore((state) => state.updateDialogState);
 
@@ -41,42 +35,7 @@ const SignInForm = () => {
       });
     }
 
-    handleSignIn(
-      {
-        username,
-        email,
-        password,
-        passwordCheck,
-      },
-      {
-        onSuccess: () =>
-          updateDialogState({
-            open: true,
-            mainText: '회원가입에 성공하였습니다.',
-            cancelText: '',
-            handleConfirm: () => {
-              handleLogin(
-                { username, password },
-                {
-                  onSuccess: () => {
-                    router.push('/today');
-                  },
-                  onError: (error: any) => {
-                    console.log(error);
-                  },
-                },
-              );
-            },
-          }),
-        onError: (error: any) => {
-          updateDialogState({
-            open: true,
-            mainText: error?.response?.data?.message || '서버 점검 중입니다.',
-            cancelText: '',
-          });
-        },
-      },
-    );
+    handleSignIn({ username, email, password, passwordCheck });
   };
 
   useEffect(() => {
