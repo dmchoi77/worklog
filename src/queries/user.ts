@@ -71,10 +71,10 @@ export const useLogout = () => {
 
   return useMutation({
     mutationFn: () => logout(),
-    onSettled: () => {
+    onSuccess: () => {
       httpWithAuth.defaults.headers.Authorization = null;
       resetUserInfo();
-      queryClient.resetQueries();
+      queryClient.removeQueries();
       router.push('/login');
     },
   });
