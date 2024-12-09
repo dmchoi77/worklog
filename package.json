@@ -34,7 +34,7 @@
     "msw": "^2.3.4",
     "msw-storybook-addon": "^2.0.3",
     "next": "14.2.5",
-    "react": "18.2.0",
+    "react": "19.0.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-contenteditable": "^3.3.7",
     "react-cookie": "^6.1.1",
