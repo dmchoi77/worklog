@@ -1,17 +1,12 @@
 import { useRouter } from 'next/router';
-
 import { useEffect } from 'react';
-
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-
 import type { AxiosError } from 'axios';
-
 import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/user';
+import { useDialogStore } from '~/stores/useDialogStore';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
-import { httpWithAuth } from '~/utils/http';
-
+import { commonResponseErrorHandler, httpWithAuth } from '~/utils/http';
 import type { ICommonResponse, LoginPayload, SignInPayload } from '~/types';
 
 const userQueryKeys = createQueryKeys('user', {
@@ -20,10 +15,28 @@ const userQueryKeys = createQueryKeys('user', {
   checkUsername: ['checkUsername'],
 });
 
-export const useLogin = () =>
-  useMutation({
+export const useLogin = () => {
+  const updateUserInfoState = useUserInfoState((state) => state.updateUserInfoState);
+  const updateDialogState = useDialogStore((state) => state.updateDialogState);
+
+  const router = useRouter();
+
+  return useMutation({
     mutationFn: ({ username, password }: LoginPayload) => login({ username, password }),
+    onSuccess: (_, variable) => {
+      updateUserInfoState(variable.username);
+      router.push('/today');
+    },
+    onError: (error: any) => {
+      const errorResponse = commonResponseErrorHandler(error);
+      updateDialogState({
+        open: true,
+        mainText: errorResponse?.message || '서버 점검 중입니다.',
+        cancelText: '',
+      });
+    },
   });
+};
 
 export const useSignIn = () =>
   useMutation({
