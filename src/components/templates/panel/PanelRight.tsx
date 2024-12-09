@@ -21,18 +21,12 @@ const PanelRight = ({ targetDate, userAgent }: ICommonProps) => {
         flexDirection: 'column',
       }}
     >
-      <div className='today-container' css={{ display: 'flex', height: '80px', alignItems: 'center' }}>
-        <div css={{ fontSize: 20, fontWeight: 600, padding: 20 }}>
-          {`${date.get('year')}년 ${date.get('month') + 1}월 ${date.get('date')}일의 워크로그`}
-        </div>
+      <div className='flex h-[80px] items-center p-[20px]'>
+        <span className='text-[20px] font-semibold '>{`${date.get('year')}년 ${date.get('month') + 1}월 ${date.get('date')}일의 워크로그`}</span>
       </div>
-      <div css={{ height: 'calc(100% - 80px)', display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
-        <div className='today-task-container' css={{ flex: 0.5, padding: 20, borderRight: '1px solid #d5d5d552' }}>
-          <TodayWork targetDate={targetDate} userAgent={userAgent} />
-        </div>
-        <div css={{ flex: 0.5, padding: 20, height: '100%' }}>
-          <TodayMemo targetDate={targetDate} userAgent={userAgent} />
-        </div>
+      <div className='flex gap-x-[30px] h-[calc(100% - 80px)] p-[20px] '>
+        <TodayWork targetDate={targetDate} userAgent={userAgent} />
+        <TodayMemo targetDate={targetDate} userAgent={userAgent} />
       </div>
     </div>
   );

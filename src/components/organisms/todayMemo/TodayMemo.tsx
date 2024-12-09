@@ -6,9 +6,7 @@ import type { ICommonProps } from '~/types';
 
 const TodayMemo = ({ targetDate }: ICommonProps) => (
   <TodayInnerLayout>
-    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <h3 className='font-[600]'>MEMO</h3>
-    </div>
+    <h3 className='font-[600]'>MEMO</h3>
     <MemoForm targetDate={targetDate} />
     <MemoList targetDate={targetDate} />
   </TodayInnerLayout>

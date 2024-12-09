@@ -60,10 +60,6 @@ interface IProps {
   userAgent: 'desktop' | 'mobile';
 }
 
-const Today = ({ userAgent }: IProps) => (
-  <div css={{ width: '100%' }}>
-    <PanelRight targetDate={todayDate} userAgent={userAgent} />
-  </div>
-);
+const Today = ({ userAgent }: IProps) => <PanelRight targetDate={todayDate} userAgent={userAgent} />;
 
 export default Today;
