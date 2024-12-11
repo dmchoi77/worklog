@@ -31,6 +31,7 @@
     "event-source-polyfill": "^1.0.31",
     "jwt-decode": "^4.0.0",
     "mermaid": "^10.2.4",
+    "motion": "^11.13.5",
     "msw": "^2.3.4",
     "msw-storybook-addon": "^2.0.3",
     "next": "14.2.5",

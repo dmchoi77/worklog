@@ -7894,6 +7894,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"framer-motion@npm:^11.13.5":
+  version: 11.13.5
+  resolution: "framer-motion@npm:11.13.5"
+  dependencies:
+    motion-dom: "npm:^11.13.0"
+    motion-utils: "npm:^11.13.0"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10/a47fb5932caff88638579da8539b88ccaeb615c30137fa239eab94df3bad5c0fea811a5153379d5e9d46dc0c0c6d006674badf8f681b9c067de947786e3c5dac
+  languageName: node
+  linkType: hard
+
 "fresh@npm:0.5.2":
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
@@ -10201,6 +10223,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"motion-dom@npm:^11.13.0":
+  version: 11.13.0
+  resolution: "motion-dom@npm:11.13.0"
+  checksum: 10/9c58f60cc693cb40f956477b831bd3a66f7f70887929324b0196c471c79eda896e7e85849d3b5a389617505654343522393e897c84ffd33cae9ade3b3c9f57c8
+  languageName: node
+  linkType: hard
+
+"motion-utils@npm:^11.13.0":
+  version: 11.13.0
+  resolution: "motion-utils@npm:11.13.0"
+  checksum: 10/f0141d6b1ac8efd48208bfcfd64c3bf8e952322954c1d63726b1f067e2828d01c9ca5ad1c4751461886f12c16e68d49ad0a8a38f997772f24dbd45bf6dc56238
+  languageName: node
+  linkType: hard
+
+"motion@npm:^11.13.5":
+  version: 11.13.5
+  resolution: "motion@npm:11.13.5"
+  dependencies:
+    framer-motion: "npm:^11.13.5"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10/bbf0a794d96111c00f76acd744aa614515e4c9395c6486b045c672a989ffb246ff05aed90734421b90ab379cb1692ba220c5df96f957a98f48057a3ac942c0e3
+  languageName: node
+  linkType: hard
+
 "mri@npm:^1.1.0":
   version: 1.2.0
   resolution: "mri@npm:1.2.0"
@@ -10322,6 +10379,7 @@ __metadata:
     event-source-polyfill: "npm:^1.0.31"
     jwt-decode: "npm:^4.0.0"
     mermaid: "npm:^10.2.4"
+    motion: "npm:^11.13.5"
     msw: "npm:^2.3.4"
     msw-storybook-addon: "npm:^2.0.3"
     next: "npm:14.2.5"

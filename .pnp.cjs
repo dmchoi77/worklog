@@ -66,6 +66,7 @@ const RAW_RUNTIME_STATE =
           ["event-source-polyfill", "npm:1.0.31"],\
           ["jwt-decode", "npm:4.0.0"],\
           ["mermaid", "npm:10.9.1"],\
+          ["motion", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.13.5"],\
           ["msw", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.3.5"],\
           ["msw-storybook-addon", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.0.3"],\
           ["next", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:14.2.5"],\
@@ -11110,6 +11111,39 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["framer-motion", [\
+      ["npm:11.13.5", {\
+        "packageLocation": "./.yarn/cache/framer-motion-npm-11.13.5-b20ffd36df-a47fb5932c.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "npm:11.13.5"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:784ef73ef9f5c56fae3ee98afd6240055104095cb667eaf45c0c8f0f35380e73726159f0dd7815cbe588839fbc2fc25b0a6d5c8aec4590351a88b84eeaf0c4d6#npm:11.13.5", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-d1d72e2bc3/0/cache/framer-motion-npm-11.13.5-b20ffd36df-a47fb5932c.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "virtual:784ef73ef9f5c56fae3ee98afd6240055104095cb667eaf45c0c8f0f35380e73726159f0dd7815cbe588839fbc2fc25b0a6d5c8aec4590351a88b84eeaf0c4d6#npm:11.13.5"],\
+          ["@emotion/is-prop-valid", null],\
+          ["@types/emotion__is-prop-valid", null],\
+          ["@types/react", "npm:18.3.3"],\
+          ["@types/react-dom", "npm:18.2.7"],\
+          ["motion-dom", "npm:11.13.0"],\
+          ["motion-utils", "npm:11.13.0"],\
+          ["react", "npm:19.0.0"],\
+          ["react-dom", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:19.0.0"],\
+          ["tslib", "npm:2.6.3"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/is-prop-valid",\
+          "@types/emotion__is-prop-valid",\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["fresh", [\
       ["npm:0.5.2", {\
         "packageLocation": "./.yarn/cache/fresh-npm-0.5.2-ad2bb4c0a2-64c88e489b.zip/node_modules/fresh/",\
@@ -13739,6 +13773,56 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["motion", [\
+      ["npm:11.13.5", {\
+        "packageLocation": "./.yarn/cache/motion-npm-11.13.5-2b46ebea01-bbf0a794d9.zip/node_modules/motion/",\
+        "packageDependencies": [\
+          ["motion", "npm:11.13.5"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.13.5", {\
+        "packageLocation": "./.yarn/__virtual__/motion-virtual-784ef73ef9/0/cache/motion-npm-11.13.5-2b46ebea01-bbf0a794d9.zip/node_modules/motion/",\
+        "packageDependencies": [\
+          ["motion", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.13.5"],\
+          ["@emotion/is-prop-valid", null],\
+          ["@types/emotion__is-prop-valid", null],\
+          ["@types/react", "npm:18.3.3"],\
+          ["@types/react-dom", "npm:18.2.7"],\
+          ["framer-motion", "virtual:784ef73ef9f5c56fae3ee98afd6240055104095cb667eaf45c0c8f0f35380e73726159f0dd7815cbe588839fbc2fc25b0a6d5c8aec4590351a88b84eeaf0c4d6#npm:11.13.5"],\
+          ["react", "npm:19.0.0"],\
+          ["react-dom", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:19.0.0"],\
+          ["tslib", "npm:2.6.3"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/is-prop-valid",\
+          "@types/emotion__is-prop-valid",\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["motion-dom", [\
+      ["npm:11.13.0", {\
+        "packageLocation": "./.yarn/cache/motion-dom-npm-11.13.0-e3fe435cfb-9c58f60cc6.zip/node_modules/motion-dom/",\
+        "packageDependencies": [\
+          ["motion-dom", "npm:11.13.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["motion-utils", [\
+      ["npm:11.13.0", {\
+        "packageLocation": "./.yarn/cache/motion-utils-npm-11.13.0-544fee3ad3-f0141d6b1a.zip/node_modules/motion-utils/",\
+        "packageDependencies": [\
+          ["motion-utils", "npm:11.13.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["mri", [\
       ["npm:1.2.0", {\
         "packageLocation": "./.yarn/cache/mri-npm-1.2.0-8ecee0357d-6775a1d222.zip/node_modules/mri/",\
@@ -13886,6 +13970,7 @@ const RAW_RUNTIME_STATE =
           ["event-source-polyfill", "npm:1.0.31"],\
           ["jwt-decode", "npm:4.0.0"],\
           ["mermaid", "npm:10.9.1"],\
+          ["motion", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.13.5"],\
           ["msw", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.3.5"],\
           ["msw-storybook-addon", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.0.3"],\
           ["next", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:14.2.5"],\
