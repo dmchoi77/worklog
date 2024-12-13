@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { Theme } from '@radix-ui/themes';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -15,7 +16,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <GlobalPortal.Provider>
       <QueryClientProvider client={queryClient}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <Theme>{children}</Theme>
+          </ThemeProvider>
         </AppRouterCacheProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
