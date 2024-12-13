@@ -1,14 +1,10 @@
+'use client';
 import { useQueryClient } from '@tanstack/react-query';
-
 import dayjs from 'dayjs';
-
 import { Paper, Button } from '@mui/material';
-
 import { buttonStyle, paperStyle, textAreaStyle } from './form.style';
-
 import useInput from '~/hooks/useInput';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-
 import { calendarQueryKeys, useAddMemo, memoQueryKeys } from '~/queries';
 
 interface IProps {
@@ -65,15 +61,7 @@ const MemoForm = ({ targetDate }: IProps) => {
         //   if (e.key === 'Enter') return handleAddMemo();
         // }}
       />
-      <div
-        css={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-
-          gap: 10,
-          width: '180px',
-        }}
-      >
+      <div className='flex justify-end gap-x-[10px] w-[180px]'>
         <Button sx={buttonStyle} variant='contained' onClick={handleAddMemo}>
           저장하기
         </Button>

@@ -1,3 +1,4 @@
+'use client';
 import { useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Box, Divider } from '@mui/material';
@@ -88,7 +89,6 @@ const MemoCard = ({ content, id }: IProps) => {
     <Container
       bgColor='lightgreen'
       key={id}
-      isDragging={false}
       onMouseOver={() => setVisibleBtn(true)}
       onMouseOut={() => setVisibleBtn(false)}
     >
@@ -105,6 +105,7 @@ const MemoCard = ({ content, id }: IProps) => {
         </Box>
       )}
       <ContentEditable
+        tagName='span'
         className='whitespace-break-spaces break-all'
         innerRef={contentRef}
         html={inputRef.current}

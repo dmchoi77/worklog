@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router';
+'use client';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createQueryKeys } from '@lukemorales/query-key-factory';
@@ -102,13 +103,11 @@ export const useCheckUsername = (username: string) => {
 export const useLogout = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const resetUserInfo = useUserInfoState((state) => state.reset);
 
   return useMutation({
     mutationFn: () => logout(),
     onSuccess: () => {
       httpWithAuth.defaults.headers.Authorization = null;
-      resetUserInfo();
       queryClient.removeQueries();
       router.push('/login');
     },

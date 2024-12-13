@@ -1,9 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
-
-import LoginPage from '../../pages/login';
-
-import { NonAuthLayout } from '~/components/templates/layout/NonAuthLayout';
-
+import LoginPage from '~/app/(auth)/login/page';
+import { AuthLayout } from '~/components/templates/layout/AuthLayout';
 import { loginHandler } from '~/tests/handlers/auth';
 
 const meta: Meta<typeof LoginPage> = {
@@ -11,9 +8,9 @@ const meta: Meta<typeof LoginPage> = {
   component: LoginPage,
   decorators: [
     (Story) => (
-      <NonAuthLayout>
+      <AuthLayout>
         <Story />
-      </NonAuthLayout>
+      </AuthLayout>
     ),
   ],
   parameters: {

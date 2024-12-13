@@ -29,10 +29,11 @@ export const workQueryKeys = createQueryKeys('work', {
   searchWorkList: (filters: string) => [filters],
 });
 
-export const useFetchWorkList = (params: IFetchWorkListRequest) => {
+export const useFetchWorkList = (params: IFetchWorkListRequest, initialData?: IWork[]) => {
   return useQuery({
     queryKey: workQueryKeys.fetchWorkList(params).queryKey,
     queryFn: () => fetchWorkList(params),
+    initialData,
   });
 };
 
