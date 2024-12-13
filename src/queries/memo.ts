@@ -7,6 +7,7 @@ import type {
   IAddMemoRequest,
   IDeleteMemoRequest,
   IFetchMemosRequest,
+  IMemo,
   IUpdateMemoOrderRequest,
   IUpdateMemoRequest,
 } from '~/types';
@@ -36,10 +37,11 @@ export const useDeleteMemo = () =>
     mutationFn: ({ id }: IDeleteMemoRequest) => deleteMemo({ id }),
   });
 
-export const useFetchMemoList = (filters: IFetchMemosRequest) =>
+export const useFetchMemoList = (filters: IFetchMemosRequest, initialData?: IMemo[]) =>
   useQuery({
     queryKey: memoQueryKeys.fetchMemoList(filters).queryKey,
     queryFn: () => fetchMemoList(filters),
+    initialData,
   });
 
 export const useSearchMemoList = (key: string) =>

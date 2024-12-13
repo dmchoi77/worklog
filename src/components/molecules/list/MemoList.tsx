@@ -7,10 +7,11 @@ import type { IMemo } from '~/types';
 
 interface IProps {
   targetDate: string;
+  initialData: IMemo[];
 }
 
-export default function MemoList({ targetDate }: IProps) {
-  const { data: memoList = [] } = useFetchMemoList({ date: targetDate });
+export default function MemoList({ targetDate, initialData }: IProps) {
+  const { data: memoList = [] } = useFetchMemoList({ date: targetDate }, initialData);
   const [item, setItem] = useState<IMemo[]>([]);
 
   const reorderCallback = (newOrder: IMemo[]) => {
