@@ -12,7 +12,7 @@ export default function WorkList({ targetDate, initialData }: IProps) {
   const { data: workList = [] } = useFetchWorkList({ date: targetDate }, initialData);
 
   return (
-    <div>
+    <div className='overflow-auto'>
       {workList.map((work, index) => (
         <WorkCard key={work?.id} {...work} index={index} />
       ))}

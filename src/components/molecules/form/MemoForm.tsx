@@ -39,6 +39,7 @@ const MemoForm = ({ targetDate }: IProps) => {
           reset();
         },
         onError: (error: any) => {
+          console.log('🚀 ~ handleAddMemo ~ error:', error);
           updateSnackbarState({
             open: true,
             horizontal: 'center',

@@ -19,12 +19,14 @@ export default function MemoList({ targetDate, initialData }: IProps) {
   };
 
   return (
-    <Reorder.Group axis='y' values={item} onReorder={reorderCallback}>
-      {memoList.map((memo) => (
-        <Reorder.Item key={memo.id} value={memo}>
-          <MemoCard content={memo.content} id={memo.id} />
-        </Reorder.Item>
-      ))}
-    </Reorder.Group>
+    <div className='overflow-auto'>
+      <Reorder.Group axis='y' values={item} onReorder={reorderCallback}>
+        {memoList.map((memo) => (
+          <Reorder.Item key={memo.id} value={memo}>
+            <MemoCard content={memo.content} id={memo.id} />
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
+    </div>
   );
 }
