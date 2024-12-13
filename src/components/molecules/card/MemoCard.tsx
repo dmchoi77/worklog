@@ -105,6 +105,7 @@ const MemoCard = ({ content, id }: IProps) => {
         </Box>
       )}
       <ContentEditable
+        tagName='span'
         className='whitespace-break-spaces break-all'
         innerRef={contentRef}
         html={inputRef.current}

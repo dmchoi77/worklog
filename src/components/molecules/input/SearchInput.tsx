@@ -19,6 +19,7 @@ const SearchInput = () => {
   return (
     <Paper>
       <Input
+        disabled
         value={key}
         placeholder='검색'
         leftIcon={<SearchIcon />}

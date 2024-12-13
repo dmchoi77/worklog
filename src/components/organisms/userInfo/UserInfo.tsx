@@ -1,5 +1,5 @@
 'use client';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Avatar } from '@radix-ui/themes';
 import { useEffect } from 'react';
 import { AccessToken } from '~/constants';
 import { useLogout } from '~/queries/user';
@@ -27,10 +27,9 @@ export const UserInfo = () => {
 
   return (
     <div className='flex items-center gap-x-[8px]'>
-      <AccountCircleIcon />
-      <span>{username} 님</span>
+      <Avatar size='1' variant='solid' color='blue' radius='full' fallback={username} />
       <button onClick={() => handleLogout()}>
-        <span>로그아웃</span>
+        <span className='text-[14px] font-[500]'>로그아웃</span>
       </button>
     </div>
   );
