@@ -1,5 +1,5 @@
+'use client';
 import { Snackbar } from '@mui/material';
-
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
 
 const CustomSnackbar = () => {

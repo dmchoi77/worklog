@@ -1,11 +1,8 @@
-import { useRouter } from 'next/router';
-
+'use client';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
 import { Paper } from '@mui/material';
-
 import SearchIcon from '@mui/icons-material/Search';
-
 import { Input } from './Input';
 
 const SearchInput = () => {

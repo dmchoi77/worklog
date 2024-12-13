@@ -1,17 +1,12 @@
+'use client';
 import { useState } from 'react';
-
 import { useQueryClient } from '@tanstack/react-query';
-
 import dayjs from 'dayjs';
-
 import { Button, Paper } from '@mui/material';
-
 import { buttonStyle, paperStyle, textAreaStyle } from './form.style';
 import { SplitButton } from '../button/SplitButton';
-
 import useInput from '~/hooks/useInput';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-
 import { WorkCategoryOptions } from '~/constants';
 import { useAddWork, workQueryKeys, calendarQueryKeys } from '~/queries';
 import type { WorkCategory } from '~/types';
@@ -104,16 +99,7 @@ const WorkForm = ({ targetDate }: IProps) => {
         onChange={handleInputContent}
         style={{ ...textAreaStyle, height: 120 }}
       />
-      <div
-        css={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          gap: 5,
-          width: '180px',
-        }}
-      >
+      <div className='flex justify-between items-center gap-x-[5px] w-[180px]'>
         <SplitButton options={WorkCategoryOptions} onSelectOption={updateCategory} defaultOption={category} />
         <Button sx={buttonStyle} variant='contained' onClick={handleAddWork}>
           저장하기

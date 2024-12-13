@@ -1,12 +1,9 @@
+'use client';
 import React, { useState } from 'react';
-
 import { ListItemButton, ListItemText, Collapse, ListItemIcon, Divider } from '@mui/material';
-
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import FolderIcon from '@mui/icons-material/Folder';
-
 import MonthList from './MonthList';
-
 import { useFetchCalendarMonth } from '~/queries/calendar';
 
 const YearList = ({ year }: { year: number }) => {

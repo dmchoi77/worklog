@@ -1,7 +1,5 @@
-import { useRouter } from 'next/router';
-
+import { useRouter } from 'next/navigation';
 import { List, ListItemButton, ListItemText, ListItemIcon, Divider } from '@mui/material';
-
 import ArticleIcon from '@mui/icons-material/Article';
 
 interface IDayList {

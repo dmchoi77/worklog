@@ -1,13 +1,9 @@
+'use client';
 import { useRouter } from 'next/navigation';
-
 import dayjs from 'dayjs';
-
 import { Table, TableHead, TableRow, TableBody } from '@mui/material';
-
 import { StyledTableCell } from './table.style';
-
 import { useSearchMemoList } from '~/queries/memo';
-
 import { RoutePath } from '~/constants';
 
 interface IProps {
@@ -43,12 +39,7 @@ const MemoTable = ({ searchKey }: IProps) => {
       </TableHead>
       <TableBody>
         {isEmptyData ? (
-          <TableRow
-            css={{
-              width: '100%',
-              textAlign: 'center',
-            }}
-          >
+          <TableRow className='w-full text-center'>
             <StyledTableCell align='center' colSpan={10}>
               조회된 데이터가 없습니다.
             </StyledTableCell>

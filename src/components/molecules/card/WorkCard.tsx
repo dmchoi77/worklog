@@ -1,22 +1,14 @@
-import { useRouter, useSearchParams } from 'next/navigation';
-
+'use client';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
 import { useQueryClient } from '@tanstack/react-query';
-
 import { Checkbox } from '@mui/material';
-
-import { Draggable } from 'react-beautiful-dnd';
-
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import { Container } from './card.style';
 import WorkDetail from '../../templates/detail/WorkDetail';
 import { SplitButton } from '../button/SplitButton';
-
 import useWork from '~/hooks/useWork';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-
 import { WorkCategoryOptions } from '~/constants';
 import { useDeleteWork, useUpdateWork, workQueryKeys } from '~/queries';
 import type { IWork } from '~/types';
@@ -91,38 +83,27 @@ const WorkCard = (props: IProps) => {
 
   return (
     <>
-      <Draggable draggableId={String(id)} index={props.index}>
-        {(provided, snapshot) => (
-          <Container
-            bgColor='lightblue'
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            isDragging={snapshot.isDragging}
-            onDoubleClick={() => updateOpenWorkDetail(true)}
-          >
-            <div css={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div css={{ margin: 4 }}>
-                <SplitButton
-                  defaultOption={category}
-                  options={WorkCategoryOptions}
-                  onSelectOption={workSetter('category')}
-                />
-              </div>
-              <span style={{ overflowWrap: 'anywhere' }}>{title}</span>
-            </div>
-            <div css={{ display: 'flex', alignItems: 'center' }}>
-              <Checkbox
-                checked={state === 'COMPLETED' ? true : false}
-                onChange={() => {
-                  workSetter('state')(work.state === 'COMPLETED' ? 'IN_PROGRESS' : 'COMPLETED');
-                }}
-              />
-              <DeleteIcon css={{ borderRadius: 6, background: '#ffffff' }} onClick={handleDeleteWork} />
-            </div>
-          </Container>
-        )}
-      </Draggable>
+      <Container bgColor='lightblue' onDoubleClick={() => updateOpenWorkDetail(true)}>
+        <div className='flex items-center gap-x-[8px] text-ellipsis overflow-hidden'>
+          <div className='m-[4px]'>
+            <SplitButton
+              defaultOption={category}
+              options={WorkCategoryOptions}
+              onSelectOption={workSetter('category')}
+            />
+          </div>
+          <span>{title}</span>
+        </div>
+        <div className='flex items-center'>
+          <Checkbox
+            checked={state === 'COMPLETED' ? true : false}
+            onChange={() => {
+              workSetter('state')(work.state === 'COMPLETED' ? 'IN_PROGRESS' : 'COMPLETED');
+            }}
+          />
+          <DeleteIcon className='rounded-[6px] bg-[#ffffff]' onClick={handleDeleteWork} />
+        </div>
+      </Container>
       {openWorkDetail && <WorkDetail handleClose={() => updateOpenWorkDetail(false)} {...props} />}
     </>
   );
