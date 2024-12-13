@@ -1,29 +1,21 @@
+'use client';
 import { useRef, useState } from 'react';
-
 import { useQueryClient } from '@tanstack/react-query';
-
 import { Box, Divider } from '@mui/material';
-
-import { Draggable } from 'react-beautiful-dnd';
-
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
-
 import { Container } from './card.style';
-
 import useDebounce from '~/hooks/useDebounce';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-
 import { memoQueryKeys, useDeleteMemo, useUpdateMemo } from '~/queries';
 
 interface IProps {
   content: string;
   id: number;
-  index: number;
 }
 
-const MemoCard = ({ content, id, index }: IProps) => {
+const MemoCard = ({ content, id }: IProps) => {
   const queryClient = useQueryClient();
 
   const inputRef = useRef(content);
@@ -94,45 +86,37 @@ const MemoCard = ({ content, id, index }: IProps) => {
   };
 
   return (
-    <Draggable draggableId={String(id)} index={index}>
-      {(provided, snapshot) => (
-        <Container
-          bgColor='lightgreen'
-          key={id}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          isDragging={snapshot.isDragging}
-          onMouseOver={() => setVisibleBtn(true)}
-          onMouseOut={() => setVisibleBtn(false)}
-        >
-          {visibleBtn && (
-            <Box className='flex absolute mr-3 right-0 rounded-md shadow-md'>
-              <EditNoteIcon
-                className='rounded-md bg-white'
-                onClick={() => {
-                  contentRef?.current?.focus();
-                }}
-              />
-              <Divider className='w-1 bg-gray-300' />
-              <DeleteIcon className='rounded-md bg-white' onClick={handleDeleteMemo} />
-            </Box>
-          )}
-          <ContentEditable
-            className='whitespace-break-spaces break-all'
-            innerRef={contentRef}
-            html={inputRef.current}
-            disabled={false}
-            onChange={handleOnChangeMemo}
-            onKeyDown={(e) => {
-              if (e.key === 'Escape') {
-                contentRef?.current?.blur();
-              }
+    <Container
+      bgColor='lightgreen'
+      key={id}
+      onMouseOver={() => setVisibleBtn(true)}
+      onMouseOut={() => setVisibleBtn(false)}
+    >
+      {visibleBtn && (
+        <Box className='flex absolute mr-3 right-0 rounded-md shadow-md'>
+          <EditNoteIcon
+            className='rounded-md bg-white'
+            onClick={() => {
+              contentRef?.current?.focus();
             }}
           />
-        </Container>
+          <Divider className='w-1 bg-gray-300' />
+          <DeleteIcon className='rounded-md bg-white' onClick={handleDeleteMemo} />
+        </Box>
       )}
-    </Draggable>
+      <ContentEditable
+        className='whitespace-break-spaces break-all'
+        innerRef={contentRef}
+        html={inputRef.current}
+        disabled={false}
+        onChange={handleOnChangeMemo}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            contentRef?.current?.blur();
+          }
+        }}
+      />
+    </Container>
   );
 };
 

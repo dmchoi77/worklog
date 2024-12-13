@@ -1,3 +1,3 @@
-export { MasterLayout } from './MasterLayout';
-export { NonAuthLayout } from './NonAuthLayout';
+export { DashboardLayout } from './DashboardLayout';
+export { AuthLayout } from './AuthLayout';
 export { TodayInnerLayout } from './TodayInnerLayout';

@@ -1,11 +1,7 @@
 import { forwardRef } from 'react';
-
 import CloseIcon from '@mui/icons-material/Close';
-
 import { Button } from '../button/Button';
-
 import { useDialogStore } from '~/stores/useDialogStore';
-
 import { GlobalPortal } from '~/GlobalPortal';
 
 const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
@@ -19,7 +15,7 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
       >
         <div className='w-[400px] bg-white box-border rounded-[15px]'>
           <div className='h-[50px] flex justify-between items-center bg-[#3b3b3b] rounded-t-[12px] p-[0_15px]'>
-            <span css={{ fontWeight: 400, color: '#fff', fontSize: 18 }}>{title}</span>
+            <span className='text-white font-[400] text-[18px]'>{title}</span>
             <button onClick={() => updateDialogState({ open: false })} className='font-[600] text-white'>
               <CloseIcon />
             </button>

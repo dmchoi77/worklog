@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { Fragment, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -75,5 +76,7 @@ interface ValidatgeDescriptionProps {
 }
 
 const ValidateDescription = ({ field, status, message }: ValidatgeDescriptionProps) => (
-  <Fragment>{field && <span css={{ fontSize: 12, color: status === 200 ? 'green' : 'red' }}>{message}</span>}</Fragment>
+  <Fragment>
+    {field && <span style={{ fontSize: 12, color: status === 200 ? 'green' : 'red' }}>{message}</span>}
+  </Fragment>
 );

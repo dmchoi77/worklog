@@ -62,82 +62,36 @@ const WorkDetail = (props: IProps) => {
   return (
     <GlobalPortal.Consumer>
       <div
-        className='popup-container'
-        css={{
-          display: 'flex',
-          alignItems: 'center',
-          zIndex: 100,
-          top: 0,
-          position: 'absolute',
-          background: '#0000007a',
-          width: '100%',
-          height: '100%',
-        }}
+        className='flex items-center z-[100] absolute top-0 bg-[#0000007a] w-full h-full'
         onClick={(e) => {
-          if (e.target === e.currentTarget) handleClose();
+          e.target === e.currentTarget && handleClose();
         }}
       >
-        <div
-          css={{
-            width: mobile ? '80%' : 800,
-            background: '#fff',
-            margin: '0 auto',
-            borderRadius: 10,
-            boxShadow: '3px 5px 17px 0px #555555',
-          }}
-        >
-          <div
-            css={{
-              padding: 14,
-              position: 'relative',
-              background: '#303030cd',
-              borderTopLeftRadius: 10,
-              borderTopRightRadius: 10,
-              height: 50,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <span css={{ fontWeight: 400, fontSize: 18, color: '#fff' }}>업무 상세</span>
-            <CloseIcon onClick={handleClose} fontSize='medium' style={{ color: '#fff', cursor: 'pointer' }} />
+        <div className='w-[800px] bg-white m-auto rounded-[10px] shadow-[3px 5px 17px 0px #555555]'>
+          <div className='flex items-center justify-between p-[14px] bg-[#303030cd] rounded-t-[10px] h-[50px]'>
+            <span className='font-[500] text-[18px] text-white'>업무 상세</span>
+            <button onClick={handleClose}>
+              <CloseIcon onClick={handleClose} style={{ color: 'white' }} />
+            </button>
           </div>
-          <div
-            css={{
-              display: 'flex',
-              padding: 16,
-              gap: 10,
-              flexDirection: mobile ? 'column' : 'row',
-            }}
-          >
-            <div
-              css={{
-                display: 'flex',
-                flexDirection: 'column',
-                flex: 0.7,
-                gap: 20,
-                justifyContent: 'space-between',
-                overflowY: 'hidden',
-              }}
-            >
-              <div css={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <input
-                  className='border-none h-[40px] rounded-[4px] text-[26px] m-1 font-semibold overflow-y-hidden flex items-center hover:bg-gray-200 outline-[#303030cd]'
-                  value={work.title}
-                  onChange={(e) => {
-                    workSetter('title')(e.target.value);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Escape') {
-                      contentRef?.current?.blur();
-                    }
-                  }}
-                />
-              </div>
-              <div css={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <span css={{ fontWeight: 500 }}>상세 내용</span>
+          <div className='flex p-[16px] gap-[10px]'>
+            <div className='flex flex-col gap-y-[20px] flex-[0.7] justify-between overflow-y-hidden'>
+              <input
+                className='border-none h-[40px] rounded-[4px] text-[26px] m-1 font-semibold overflow-y-hidden flex items-center hover:bg-gray-200 outline-[#303030cd]'
+                value={work.title}
+                onChange={(e) => {
+                  workSetter('title')(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    contentRef?.current?.blur();
+                  }
+                }}
+              />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <span style={{ fontWeight: 500 }}>상세 내용</span>
                 <ContentEditable
-                  className='whitespace-break-spaces break-all h-[150px] border rounded-[4px]  border-gray-300 overflow-y-hidden p-[10px] outline-[#303030cd] hover:bg-gray-200'
+                  className='whitespace-break-spaces break-all h-[150px] border rounded-[4px] border-gray-300 overflow-y-hidden p-[10px] outline-[#303030cd] hover:bg-gray-200'
                   key='content'
                   innerRef={contentRef}
                   html={work.content}
@@ -155,7 +109,7 @@ const WorkDetail = (props: IProps) => {
             </div>
 
             <div
-              css={{
+              style={{
                 display: 'flex',
                 flex: 0.3,
                 justifyContent: 'space-between',
@@ -167,42 +121,35 @@ const WorkDetail = (props: IProps) => {
                 padding: 10,
               }}
             >
-              <div css={{ display: 'flex', gap: 15 }}>
-                <span css={{ fontWeight: 600 }}>생성날짜</span>
+              <div style={{ display: 'flex', gap: 15 }}>
+                <span className='font-[600]'>생성날짜</span>
                 <span>{work.date}</span>
               </div>
-              <div css={{ display: 'flex', gap: 15 }}>
-                <span css={{ fontWeight: 600 }}>마감기한</span>
+              <div style={{ display: 'flex', gap: 15 }}>
+                <span className='font-[600]'>마감기한</span>
                 <span>{work.deadline ?? ''}</span>
               </div>
-              <div css={{ display: 'flex', alignItems: 'center', gap: 15 }}>
-                <span css={{ fontWeight: 600 }}>카테고리</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
+                <span className='font-[600]'>카테고리</span>
                 <SplitButton
                   defaultOption={work.category}
                   options={['update', 'refactor', 'chore', 'feat']}
                   onSelectOption={workSetter('category')}
                 />
               </div>
-              <div css={{ display: 'flex', alignItems: 'center', gap: 15 }}>
-                <div css={{ display: 'flex', alignItems: 'center' }}>
-                  <span css={{ fontWeight: 600 }}>완료여부</span>
-                  <Checkbox
-                    name='state'
-                    checked={work.state.toLocaleLowerCase() === 'completed' ? true : false}
-                    onChange={() => {
-                      workSetter('state')(work.state.toLocaleLowerCase() === 'completed' ? 'in_progress' : 'completed');
-                    }}
-                  />
-                </div>
+              <div className='flex items-center gap-x-[15px]'>
+                <span className='font-[600]'>완료여부</span>
+                <Checkbox
+                  name='state'
+                  checked={work.state.toLocaleLowerCase() === 'completed' ? true : false}
+                  onChange={() => {
+                    workSetter('state')(work.state.toLocaleLowerCase() === 'completed' ? 'in_progress' : 'completed');
+                  }}
+                />
               </div>
-              <div css={{ display: 'flex', gap: 5, justifyContent: 'flex-end' }}>
-                <Button variant='contained' size='small' onClick={handleClickUpdate} css={{ width: '100%' }}>
-                  업데이트
-                </Button>
-                {/* <Button variant='outlined' size='small'>
-                  재등록
-                </Button> */}
-              </div>
+              <Button variant='contained' size='small' onClick={handleClickUpdate} className='w-full'>
+                업데이트
+              </Button>
             </div>
           </div>
         </div>
