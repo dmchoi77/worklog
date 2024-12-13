@@ -1,13 +1,15 @@
 'use client';
 import WorkCard from '../card/WorkCard';
 import { useFetchWorkList } from '~/queries/work';
+import { IWork } from '~/types';
 
 interface IProps {
   targetDate: string;
+  initialData: IWork[];
 }
 
-export default function WorkList({ targetDate }: IProps) {
-  const { data: workList = [] } = useFetchWorkList({ date: targetDate });
+export default function WorkList({ targetDate, initialData }: IProps) {
+  const { data: workList = [] } = useFetchWorkList({ date: targetDate }, initialData);
 
   return (
     <div>
