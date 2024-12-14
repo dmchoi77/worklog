@@ -20,7 +20,7 @@ const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
               <CloseIcon />
             </button>
           </div>
-          <div className='flex flex-col justify-between h-[100px] p-[10px] pt-0'>
+          <div className='flex flex-col justify-between h-full p-[0_10px_10px_10px]'>
             <p className='p-[10px_0px]'>
               {Array.isArray(mainText) ? <div>{mainText?.map((text) => <ul key={text}>{text}</ul>)}</div> : mainText}
             </p>
