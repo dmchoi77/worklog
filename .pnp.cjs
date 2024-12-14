@@ -48,6 +48,7 @@ const RAW_RUNTIME_STATE =
           ["@tanstack/react-query-devtools", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.51.21"],\
           ["@types/event-source-polyfill", "npm:1.0.5"],\
           ["@types/eventsource", "npm:1.1.15"],\
+          ["@types/lodash", "npm:4.17.13"],\
           ["@types/mermaid", "npm:9.2.0"],\
           ["@types/node", "npm:20.4.2"],\
           ["@types/react", "npm:18.3.3"],\
@@ -68,6 +69,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-storybook", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:0.8.0"],\
           ["event-source-polyfill", "npm:1.0.31"],\
           ["jwt-decode", "npm:4.0.0"],\
+          ["lodash", "npm:4.17.21"],\
           ["mermaid", "npm:10.9.1"],\
           ["motion", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.13.5"],\
           ["msw", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.3.5"],\
@@ -7347,6 +7349,13 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/lodash", [\
+      ["npm:4.17.13", {\
+        "packageLocation": "./.yarn/cache/@types-lodash-npm-4.17.13-ec44e3530a-ddb34e2081.zip/node_modules/@types/lodash/",\
+        "packageDependencies": [\
+          ["@types/lodash", "npm:4.17.13"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["npm:4.17.7", {\
         "packageLocation": "./.yarn/cache/@types-lodash-npm-4.17.7-2077805efb-b8177f19cf.zip/node_modules/@types/lodash/",\
         "packageDependencies": [\
@@ -15580,6 +15589,7 @@ const RAW_RUNTIME_STATE =
           ["@tanstack/react-query-devtools", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:5.51.21"],\
           ["@types/event-source-polyfill", "npm:1.0.5"],\
           ["@types/eventsource", "npm:1.1.15"],\
+          ["@types/lodash", "npm:4.17.13"],\
           ["@types/mermaid", "npm:9.2.0"],\
           ["@types/node", "npm:20.4.2"],\
           ["@types/react", "npm:18.3.3"],\
@@ -15600,6 +15610,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-storybook", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:0.8.0"],\
           ["event-source-polyfill", "npm:1.0.31"],\
           ["jwt-decode", "npm:4.0.0"],\
+          ["lodash", "npm:4.17.21"],\
           ["mermaid", "npm:10.9.1"],\
           ["motion", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:11.13.5"],\
           ["msw", "virtual:4169a6e6f4691bd0957faf6b608fe20f68aa4fc170c9df419b3263030576a16c9a731837049bdc9cac3d9a3fa832433b3fb73cced3742c7db5cba88caa870b3b#npm:2.3.5"],\

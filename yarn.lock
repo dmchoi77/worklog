@@ -4769,6 +4769,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4":
+  version: 4.17.13
+  resolution: "@types/lodash@npm:4.17.13"
+  checksum: 10/ddb34e20810c71be2d9445bcc4b64ec25b83976738454de709854b79c7f655b03704b76235445699956d65012987720e0e429a35489de65495cdb5420202d905
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.167":
   version: 4.17.7
   resolution: "@types/lodash@npm:4.17.7"
@@ -11550,6 +11557,7 @@ __metadata:
     "@tanstack/react-query-devtools": "npm:^5.12.2"
     "@types/event-source-polyfill": "npm:^1"
     "@types/eventsource": "npm:^1.1.15"
+    "@types/lodash": "npm:^4"
     "@types/mermaid": "npm:^9.2.0"
     "@types/node": "npm:20.4.2"
     "@types/react": "npm:18.3.3"
@@ -11570,6 +11578,7 @@ __metadata:
     eslint-plugin-storybook: "npm:^0.8.0"
     event-source-polyfill: "npm:^1.0.31"
     jwt-decode: "npm:^4.0.0"
+    lodash: "npm:^4.17.21"
     mermaid: "npm:^10.2.4"
     motion: "npm:^11.13.5"
     msw: "npm:^2.3.4"
