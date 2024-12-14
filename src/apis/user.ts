@@ -1,7 +1,4 @@
 import axios from 'axios';
-
-import type { AxiosResponse } from 'axios';
-
 import type {
   LoginPayload,
   LoginResponse,
@@ -32,7 +29,7 @@ export const logout = async () => {
 };
 
 export const signIn = ({ username, email, password, passwordCheck }: SignInPayload) => {
-  return axios.post<SignInPayload, ICommonResponse>(
+  return axios.post<ICommonResponse>(
     '/users',
     {
       username,
@@ -50,7 +47,7 @@ export const signIn = ({ username, email, password, passwordCheck }: SignInPaylo
  * 이메일 중복확인
  */
 export const checkEmail = async ({ email }: CheckEmailPayload) => {
-  const { data } = await axios.get<CheckEmailPayload, AxiosResponse<ICommonResponse>>('/users/email/check', {
+  const { data } = await axios.get<ICommonResponse>('/users/email/check', {
     baseURL,
     params: { email },
   });
@@ -61,8 +58,8 @@ export const checkEmail = async ({ email }: CheckEmailPayload) => {
 /**
  * 아이디 중복확인
  */
-export const checkUsername = async ({ username }: { username: string }) => {
-  const { data } = await axios.get<CheckUsernamePayload, AxiosResponse<ICommonResponse>>('/users/username/check', {
+export const checkUsername = async ({ username }: CheckUsernamePayload) => {
+  const { data } = await axios.get<ICommonResponse>('/users/username/check', {
     baseURL,
     params: {
       username,

@@ -1,5 +1,3 @@
-import type { AxiosResponse } from 'axios';
-
 import type {
   IAddWorkRequest,
   IDeleteWorkRequest,
@@ -14,10 +12,8 @@ import type {
 } from '~/types';
 import { httpWithAuth } from '~/utils/http';
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
-
 export const addWork = ({ title, category, content, date, deadline }: IAddWorkRequest) => {
-  return httpWithAuth.post<IAddWorkRequest, ICommonResponse>('/works', {
+  return httpWithAuth.post<ICommonResponse>('/works', {
     title,
     category,
     content,
@@ -27,44 +23,44 @@ export const addWork = ({ title, category, content, date, deadline }: IAddWorkRe
 };
 
 export const deleteWork = async ({ id }: IDeleteWorkRequest) => {
-  const response = await httpWithAuth.delete<IDeleteWorkRequest, AxiosResponse<ICommonResponse>>(`/works/${id}`);
+  const response = await httpWithAuth.delete<ICommonResponse>(`/works/${id}`);
   return response?.data;
 };
 
 export const updateWorkCategory = async ({ category, id }: IUpdateWorkCategoryRequest) => {
-  const response = await httpWithAuth.patch<IUpdateWorkCategoryRequest, ICommonResponse>(`/works/${id}/category`, {
+  const response = await httpWithAuth.patch<ICommonResponse>(`/works/${id}/category`, {
     category,
   });
   return response.data;
 };
 
 export const updateWorkState = async ({ state, id }: IUpdateWorkStateRequest) => {
-  const response = await httpWithAuth.patch<IUpdateWorkStateRequest, ICommonResponse>(`/works/${id}/state`, {
+  const response = await httpWithAuth.patch<ICommonResponse>(`/works/${id}/state`, {
     state,
   });
   return response.data;
 };
 
 export const updateWorkContent = async ({ content, id }: IUpdateWorkContentRequest) => {
-  const response = await httpWithAuth.patch<IUpdateWorkContentRequest, ICommonResponse>(`/works/${id}/content`, {
+  const response = await httpWithAuth.patch<ICommonResponse>(`/works/${id}/content`, {
     content,
   });
   return response.data;
 };
 
 export const updateWorkOrder = async ({ order, id }: IUpdateWorkOrderRequest) => {
-  const response = await httpWithAuth.patch<IUpdateWorkOrderRequest, ICommonResponse>(`/works/${id}/order`, { order });
+  const response = await httpWithAuth.patch<ICommonResponse>(`/works/${id}/order`, { order });
   return response.data;
 };
 
 export const updateWork = async (params: IWork) => {
-  const response = await httpWithAuth.put<IWork, AxiosResponse<ICommonResponse>>(`/works/${params.id}`, params);
+  const response = await httpWithAuth.put<ICommonResponse>(`/works/${params.id}`, params);
 
   return response?.data;
 };
 
 export const fetchWorkList = async (params: IFetchWorkListRequest) => {
-  const response = await httpWithAuth.get<IFetchWorkListRequest, AxiosResponse<ICommonResponse<IWork[]>>>(`/works`, {
+  const response = await httpWithAuth.get<ICommonResponse<IWork[]>>(`/works`, {
     params: {
       date: params.date,
     },
@@ -74,7 +70,7 @@ export const fetchWorkList = async (params: IFetchWorkListRequest) => {
 };
 
 export const searchWorkList = async (key: string): Promise<ISearchWorkList> => {
-  const response = await httpWithAuth.get<string, AxiosResponse<ICommonResponse<ISearchWorkList>>>('/works/search', {
+  const response = await httpWithAuth.get<ICommonResponse<ISearchWorkList>>('/works/search', {
     params: {
       key,
     },
