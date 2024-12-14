@@ -26,7 +26,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const newHeaders = new Headers();
     newHeaders.set('set-cookie', `access_token=${accessToken}; path=/; samesite=Lax; secure=true;`);
     newHeaders.append('set-cookie', `refresh_token=${newRefreshToken}; path=/; samesite=Lax; httponly; secure=true;`);
-    return NextResponse.json({ ...response.data.data }, { status: response.status, headers: newHeaders });
+
+    return NextResponse.json({ ...response.data }, { headers: newHeaders });
   } catch (error: any) {
     return NextResponse.json({ ...error }, { status: error.status });
   }
