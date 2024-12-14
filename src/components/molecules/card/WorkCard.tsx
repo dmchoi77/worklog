@@ -13,11 +13,7 @@ import { WorkCategoryOptions } from '~/constants';
 import { useDeleteWork, useUpdateWork, workQueryKeys } from '~/queries';
 import type { IWork } from '~/types';
 
-interface IProps extends IWork {
-  index: number;
-}
-
-const WorkCard = (props: IProps) => {
+const WorkCard = (props: IWork) => {
   const { id, title, category, state } = props;
   const { work, workSetter } = useWork(props);
 
@@ -92,7 +88,9 @@ const WorkCard = (props: IProps) => {
               onSelectOption={workSetter('category')}
             />
           </div>
-          <span>{title}</span>
+          <div className='overflow-auto'>
+            <span>{title}</span>
+          </div>
         </div>
         <div className='flex items-center'>
           <Checkbox
