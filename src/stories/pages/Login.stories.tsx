@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import LoginPage from '~/app/(auth)/login/page';
 import { AuthLayout } from '~/components/templates/layout/AuthLayout';
-import { loginHandler } from '~/tests/handlers/auth';
+import { loginFailHandler, loginHandler } from '~/tests/handlers/auth';
 
 const meta: Meta<typeof LoginPage> = {
   title: 'Pages/Login',
@@ -13,13 +13,20 @@ const meta: Meta<typeof LoginPage> = {
       </AuthLayout>
     ),
   ],
-  parameters: {
-    msw: {
-      handlers: [loginHandler],
-    },
-  },
 };
 
 export default meta;
 
-export const Default: StoryFn<typeof LoginPage> = () => <LoginPage />;
+export const Success: StoryFn<typeof LoginPage> = () => <LoginPage />;
+Success.parameters = {
+  msw: {
+    handlers: [loginHandler],
+  },
+};
+
+export const Fail: StoryFn<typeof LoginPage> = () => <LoginPage />;
+Fail.parameters = {
+  msw: {
+    handlers: [loginFailHandler],
+  },
+};
