@@ -3,12 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 
 import { fetchCalendarDays, fetchCalendarMonth, fetchCalendarYears } from '~/apis';
-import type { IFetchCalendarDaysRequest } from '~/types';
+import type { FetchCalendarDaysRequest } from '~/types';
 
 export const calendarQueryKeys = createQueryKeys('calendar', {
   fetchCalendarYears: ['fetchCalendarYears'],
   fetchCalendarMonth: (filter: number) => [filter],
-  fetchCalendarDays: (filter: IFetchCalendarDaysRequest) => [filter],
+  fetchCalendarDays: (filter: FetchCalendarDaysRequest) => [filter],
 });
 
 export const useFetchCalendarYears = () =>
@@ -24,7 +24,7 @@ export const useFetchCalendarMonth = (year: number) =>
     enabled: !!year,
   });
 
-export const useFetchCalendarDays = (params: IFetchCalendarDaysRequest) =>
+export const useFetchCalendarDays = (params: FetchCalendarDaysRequest) =>
   useQuery({
     queryKey: calendarQueryKeys.fetchCalendarDays(params).queryKey,
     queryFn: () => fetchCalendarDays(params),

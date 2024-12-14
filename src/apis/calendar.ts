@@ -1,11 +1,16 @@
 import { httpWithAuth } from '~/utils/http';
 
-import type { IFetchCalendarDaysRequest, IFetchCalendarCommonResponse, ICommonResponse } from '~/types';
+import type {
+  CalendarYearsResponse,
+  CalendarMonthsResponse,
+  CalendarDaysResponse,
+  FetchCalendarDaysRequest,
+} from '~/types';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchCalendarYears = async () => {
-  const { data } = await httpWithAuth.get<ICommonResponse<IFetchCalendarCommonResponse>>('/calendar/years', {
+  const { data } = await httpWithAuth.get<CalendarYearsResponse>('/calendar/years', {
     baseURL,
   });
 
@@ -13,7 +18,7 @@ export const fetchCalendarYears = async () => {
 };
 
 export const fetchCalendarMonth = async (year: number) => {
-  const { data } = await httpWithAuth.get<ICommonResponse<IFetchCalendarCommonResponse>>('/calendar/months', {
+  const { data } = await httpWithAuth.get<CalendarMonthsResponse>('/calendar/months', {
     baseURL,
     params: {
       year,
@@ -23,8 +28,8 @@ export const fetchCalendarMonth = async (year: number) => {
   return data.data?.months;
 };
 
-export const fetchCalendarDays = async ({ month, year }: IFetchCalendarDaysRequest) => {
-  const { data } = await httpWithAuth.get<ICommonResponse<IFetchCalendarCommonResponse>>('/calendar/days', {
+export const fetchCalendarDays = async ({ month, year }: FetchCalendarDaysRequest) => {
+  const { data } = await httpWithAuth.get<CalendarDaysResponse>('/calendar/days', {
     baseURL,
     params: {
       year,
