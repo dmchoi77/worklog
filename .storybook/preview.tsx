@@ -3,6 +3,8 @@ import React from 'react';
 import './globals.css';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import Providers from '../src/app/Providers';
+import '@radix-ui/themes/styles.css';
+
 initialize();
 
 const preview: Preview = {

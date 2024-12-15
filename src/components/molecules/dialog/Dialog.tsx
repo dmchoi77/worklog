@@ -4,7 +4,14 @@ import { Button } from '../button/Button';
 import { useDialogStore } from '~/stores/useDialogStore';
 import { GlobalPortal } from '~/GlobalPortal';
 
-const Dialog = forwardRef<HTMLDivElement>((_, ref) => {
+interface DialogProps {
+  cnacelText?: string;
+  confirmText?: string;
+  mainText?: string | string[];
+  title?: string;
+}
+
+const Dialog = forwardRef<HTMLDivElement, DialogProps>((_, ref) => {
   const { cancelText, confirmText, mainText, open, title, updateDialogState, handleConfirm } = useDialogStore();
 
   return (
