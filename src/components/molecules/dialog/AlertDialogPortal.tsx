@@ -1,7 +1,14 @@
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 import { useAlertDialogStore } from '~/stores/useAlertDialogStore';
 
 export const AlertDialogPortal = () => {
-  const { dialogStack } = useAlertDialogStore();
+  const { dialogStack, resetDialog } = useAlertDialogStore();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    resetDialog();
+  }, [pathname]);
 
   return (
     <>

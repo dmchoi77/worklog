@@ -8,6 +8,7 @@ interface AlertDialogState {
 interface AlertDialogAction {
   openDialog: (item: ReactNode) => void;
   closeDialog: () => void;
+  resetDialog: () => void;
 }
 
 export const alertDialogDefaultState: AlertDialogState = {
@@ -18,4 +19,5 @@ export const useAlertDialogStore = create<AlertDialogState & AlertDialogAction>(
   ...alertDialogDefaultState,
   openDialog: (item) => set({ dialogStack: [...get().dialogStack, item] }),
   closeDialog: () => set({ dialogStack: [...get().dialogStack].slice(0, -1) }),
+  resetDialog: () => set(alertDialogDefaultState),
 }));
