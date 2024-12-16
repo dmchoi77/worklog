@@ -1,15 +1,10 @@
 import { Meta, StoryFn } from '@storybook/react';
-
 import { Button } from '~/components/molecules/button/Button';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/molecules/Button',
   component: Button,
-  parameters: {
-    msw: {},
-  },
   args: {
-    isDisabled: false,
     fullWidth: false,
     children: '버튼',
   },

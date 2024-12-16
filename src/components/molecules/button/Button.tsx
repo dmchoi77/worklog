@@ -1,6 +1,5 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  isDisabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   fullWidth?: boolean;
   isLoading?: boolean;
