@@ -5,12 +5,12 @@ import { useAlertDialogStore } from '~/stores/useAlertDialogStore';
 interface AlertDialogProps {
   title: string;
   description: string;
-  cancelText: string;
+  cancelText?: string;
   actionText: string;
   onConfirm?: () => void;
 }
 export const AlertDialog = ({
-  actionText,
+  actionText = 'Confirm',
   cancelText,
   description,
   title,
@@ -24,26 +24,26 @@ export const AlertDialog = ({
   return (
     <RadixAlertDialog.Root open>
       <RadixAlertDialog.Portal>
-        <RadixAlertDialog.Overlay className='fixed inset-0 bg-blackA6 data-[state=open]:animate-overlayShow' />
-        <RadixAlertDialog.Content className='fixed left-1/2 top-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none data-[state=open]:animate-contentShow'>
-          <RadixAlertDialog.Title className='m-0 text-[17px] font-medium text-mauve12'>{title}</RadixAlertDialog.Title>
-          <RadixAlertDialog.Description className='mb-5 mt-[15px] text-[15px] leading-normal text-mauve11'>
+        <RadixAlertDialog.Overlay className='fixed inset-0 data-[state=open]:animate-overlayShow bg-slate-900 opacity-50' />
+        <RadixAlertDialog.Content className='fixed left-1/2 top-1/2 max-h-[85vh] w-[100vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none data-[state=open]:animate-contentShow'>
+          <RadixAlertDialog.Title className='m-0 text-[18px] font-medium p-[20px]'>{title}</RadixAlertDialog.Title>
+          <RadixAlertDialog.Description className='p-[20px] text-[15px] leading-normal'>
             {description}
           </RadixAlertDialog.Description>
-          <div className='flex justify-end gap-[25px]'>
+          <div className='flex'>
             {cancelText && (
               <RadixAlertDialog.Cancel asChild>
-                <button className='inline-flex h-[35px] items-center justify-center rounded bg-mauve4 px-[15px] font-medium leading-none text-mauve11 outline-none hover:bg-mauve5 focus:shadow-[0_0_0_2px] focus:shadow-mauve7'>
-                  {cancelText}
+                <button className='flex flex-1 items-center justify-start p-[20px] bg-[#393939] h-[60px] focus:shadow-[0_0_0_2px]'>
+                  <span className='font-medium text-white text-left'>{cancelText}</span>
                 </button>
               </RadixAlertDialog.Cancel>
             )}
             <RadixAlertDialog.Action asChild>
               <button
                 onClick={handleConfirm}
-                className='inline-flex h-[35px] items-center justify-center rounded bg-red4 px-[15px] font-medium leading-none text-red11 outline-none hover:bg-red5 focus:shadow-[0_0_0_2px] focus:shadow-red7'
+                className='flex flex-1 items-center justify-start p-[20px] bg-blue-700 h-[60px] focus:shadow-[0_0_0_2px]'
               >
-                {actionText}
+                <span className='font-medium text-white text-left'>{actionText}</span>
               </button>
             </RadixAlertDialog.Action>
           </div>

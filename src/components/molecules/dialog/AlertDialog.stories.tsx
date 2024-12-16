@@ -6,7 +6,12 @@ import { useAlertDialogStore } from '~/stores/useAlertDialogStore';
 const meta: Meta<typeof AlertDialog> = {
   title: 'Components/molecules/AlerDialog',
   component: AlertDialog,
-  args: {},
+  args: {
+    actionText: '확인',
+    cancelText: '취소',
+    description: '설명',
+    title: '제목',
+  },
 
   decorators: [
     (Story) => (
@@ -21,22 +26,11 @@ const meta: Meta<typeof AlertDialog> = {
 export default meta;
 
 export const Default: StoryFn<typeof AlertDialog> = (args) => {
-  const { openDialog, closeDialog } = useAlertDialogStore();
-
-  const handleConfirm = () =>
-    openDialog(
-      <AlertDialog
-        actionText='확인'
-        cancelText='취소'
-        description='설명'
-        title='제목'
-        onConfirm={() => closeDialog()}
-      />,
-    );
+  const { closeDialog } = useAlertDialogStore();
 
   return (
     <div>
-      <button onClick={handleConfirm}>Open Dialog</button>
+      <AlertDialog {...args} onConfirm={() => closeDialog()} />
     </div>
   );
 };
