@@ -4,7 +4,7 @@ import { AlertDialogPortal } from './AlertDialogPortal';
 import { useAlertDialogStore } from '~/stores/useAlertDialogStore';
 
 const meta: Meta<typeof AlertDialog> = {
-  title: 'Components/molecules/AlerDialog',
+  title: 'Components/molecules/AlertDialog',
   component: AlertDialog,
   args: {
     actionText: '확인',
