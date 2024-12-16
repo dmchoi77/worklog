@@ -1989,6 +1989,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hookform/resolvers@npm:^3.9.1":
+  version: 3.9.1
+  resolution: "@hookform/resolvers@npm:3.9.1"
+  peerDependencies:
+    react-hook-form: ^7.0.0
+  checksum: 10/4e7a24f79ead48db5c869c17b5f47412a7d628939f743bdc1248ea3a291b1a9dd777cd02f84326e91d258283a6351566f13bca5cb30f996e5a9db7ee490b5cc5
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.10":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -2779,7 +2788,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-alert-dialog@npm:^1.1.2":
+"@radix-ui/react-alert-dialog@npm:^1.1.2, @radix-ui/react-alert-dialog@npm:^1.1.3":
   version: 1.1.3
   resolution: "@radix-ui/react-alert-dialog@npm:1.1.3"
   dependencies:
@@ -4766,6 +4775,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 10/4e5aed58cabb2bbf6f725da13421aa50a49abb6bc17bfab6c31b8774b073fa7b50d557c61f961a09a85f6056151190f8ac95f13f5b48136ba5841f7d4484ec56
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4":
+  version: 4.17.13
+  resolution: "@types/lodash@npm:4.17.13"
+  checksum: 10/ddb34e20810c71be2d9445bcc4b64ec25b83976738454de709854b79c7f655b03704b76235445699956d65012987720e0e429a35489de65495cdb5420202d905
   languageName: node
   linkType: hard
 
@@ -11533,10 +11549,12 @@ __metadata:
     "@emotion/cache": "npm:^11.14.0"
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.0"
+    "@hookform/resolvers": "npm:^3.9.1"
     "@lukemorales/query-key-factory": "npm:^1.3.2"
     "@mui/icons-material": "npm:^6.2.0"
     "@mui/material": "npm:^6.2.0"
     "@mui/material-nextjs": "npm:^6.2.0"
+    "@radix-ui/react-alert-dialog": "npm:^1.1.3"
     "@radix-ui/themes": "npm:^3.1.6"
     "@storybook/addon-essentials": "npm:^8.2.6"
     "@storybook/addon-interactions": "npm:^8.2.6"
@@ -11550,6 +11568,7 @@ __metadata:
     "@tanstack/react-query-devtools": "npm:^5.12.2"
     "@types/event-source-polyfill": "npm:^1"
     "@types/eventsource": "npm:^1.1.15"
+    "@types/lodash": "npm:^4"
     "@types/mermaid": "npm:^9.2.0"
     "@types/node": "npm:20.4.2"
     "@types/react": "npm:18.3.3"
@@ -11570,6 +11589,7 @@ __metadata:
     eslint-plugin-storybook: "npm:^0.8.0"
     event-source-polyfill: "npm:^1.0.31"
     jwt-decode: "npm:^4.0.0"
+    lodash: "npm:^4.17.21"
     mermaid: "npm:^10.2.4"
     motion: "npm:^11.13.5"
     msw: "npm:^2.3.4"

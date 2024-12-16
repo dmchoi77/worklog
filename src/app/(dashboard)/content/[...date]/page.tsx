@@ -10,7 +10,7 @@ const ContentPage = ({ params: { date } }: ContentPageProps) => {
   const targetDate = dayjs(date.join('-')).format('YYYY-MM-DD');
 
   return (
-    <div className='w-full'>
+    <div className='w-full h-full'>
       <PanelRight targetDate={targetDate} />
     </div>
   );

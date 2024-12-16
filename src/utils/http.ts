@@ -72,8 +72,7 @@ const responseErrorHandler = async (error: AxiosError) => {
     } finally {
       isRefreshing = false;
     }
-  }
-  logout();
+  } else throw error.response ? error.response.data : 'Unknown error';
 };
 
 const enqueueRequest = async (originalRequest: any) => {

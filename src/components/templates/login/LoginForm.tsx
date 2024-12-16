@@ -20,7 +20,7 @@ const LoginForm = () => {
       <Input type='text' placeholder='아이디' {...register('username', { required: true })} />
       <Input type='password' placeholder='비밀번호' {...register('password', { required: true })} />
       <Button isLoading={isPending}>로그인</Button>
-      <Link className='mx-auto' href={RoutePath.SignIn}>
+      <Link className='mx-auto' href={RoutePath.Registration}>
         <span className='text-[16px] text-[#5e6776] text-center cursor-pointer'>회원가입</span>
       </Link>
     </form>

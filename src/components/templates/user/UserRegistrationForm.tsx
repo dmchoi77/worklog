@@ -1,12 +1,13 @@
 'use client';
 import Link from 'next/link';
 import { Fragment, useEffect } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { Button } from '~/components/molecules/button/Button';
 import { Input } from '~/components/molecules/input/Input';
+import { UserRegisterationForm } from '~/constants/user';
 import { useDialogStore } from '~/stores/useDialogStore';
 import { RoutePath } from '~/constants';
-import { useCheckUsername, useCheckEmail, useLogin, useSignIn } from '~/queries';
+import { useCheckUsername, useCheckEmail, useSignIn } from '~/queries';
 
 interface InputProps {
   email: string;
@@ -15,8 +16,8 @@ interface InputProps {
   passwordCheck: string;
 }
 
-const SignInForm = () => {
-  const { register, handleSubmit, watch } = useForm<InputProps>();
+const UserRegistrationForm = () => {
+  const { register, handleSubmit, watch } = useFormContext<UserRegisterationForm>();
   const username = watch('username');
   const email = watch('email');
 
@@ -67,7 +68,7 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default UserRegistrationForm;
 
 interface ValidatgeDescriptionProps {
   field: string;

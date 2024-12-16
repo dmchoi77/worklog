@@ -1,10 +1,10 @@
-export interface IFetchCalendarCommonResponse {
-  years?: number[];
-  months?: number[];
-  days?: number[];
-}
+import { ICommonResponse } from './common.types';
 
-export interface IFetchCalendarDaysRequest {
+export interface FetchCalendarDaysRequest {
   year: number;
   month: number;
 }
+
+export type CalendarYearsResponse = ICommonResponse<{ years: number[] }>;
+export type CalendarMonthsResponse = ICommonResponse<{ months: number[] }>;
+export type CalendarDaysResponse = ICommonResponse<{ days: number[] }>;
