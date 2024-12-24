@@ -43,7 +43,7 @@ export default function WorkList({ targetDate, initialData }: IProps) {
   }, 200);
 
   return (
-    <Reorder.Group values={workList} onReorder={reorderCallback}>
+    <Reorder.Group values={workList} onReorder={reorderCallback} className='overflow-y-auto'>
       {workList.map((work) => (
         <Reorder.Item key={work?.id} value={work}>
           <WorkCard key={work?.id} {...work} />
