@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import PanelRight from '~/components/templates/panel/PanelRight';
+import DashboardRight from '~/components/templates/dashboard/DashboardRight';
 
 interface ContentPageProps {
   params: {
@@ -11,7 +11,7 @@ const ContentPage = ({ params: { date } }: ContentPageProps) => {
 
   return (
     <div className='w-full h-full'>
-      <PanelRight targetDate={targetDate} />
+      <DashboardRight targetDate={targetDate} />
     </div>
   );
 };

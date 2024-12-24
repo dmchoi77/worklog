@@ -3,7 +3,7 @@ import TodayMemo from '~/components/organisms/todayMemo/TodayMemo';
 import TodayWork from '~/components/organisms/todayWork/TodayWork';
 import type { ICommonProps } from '~/types';
 
-const PanelRight = ({ targetDate }: ICommonProps) => {
+const DashboardRight = ({ targetDate }: ICommonProps) => {
   const date = dayjs(targetDate);
 
   return (
@@ -11,7 +11,7 @@ const PanelRight = ({ targetDate }: ICommonProps) => {
       <div className='flex h-[80px] items-center p-[20px]'>
         <span className='text-[20px] font-semibold '>{`${date.get('year')}년 ${date.get('month') + 1}월 ${date.get('date')}일의 워크로그`}</span>
       </div>
-      <div className='flex gap-x-[30px] h-[calc(100% - 80px)] p-[20px]'>
+      <div className='flex gap-x-[30px] h-[calc(100vh-130px)] p-[20px]'>
         <div className='w-1/2'>
           <TodayWork targetDate={targetDate} />
         </div>
@@ -23,4 +23,4 @@ const PanelRight = ({ targetDate }: ICommonProps) => {
   );
 };
 
-export default PanelRight;
+export default DashboardRight;

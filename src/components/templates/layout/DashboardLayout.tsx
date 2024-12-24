@@ -1,14 +1,16 @@
 import { PropsWithChildren } from 'react';
+import DashboardLeft from '../dashboard/DashboardLeft';
 import CustomSnackbar from '~/components/molecules/snackbar/Snackbar';
 import Header from '~/components/organisms/header/Header';
-import PanelLeft from '../panel/PanelLeft';
 
 export const DashboardLayout = ({ children }: PropsWithChildren) => (
   <div className='w-full flex flex-col justify-start items-center m-0 p-0'>
     <div className='flex w-full h-screen'>
-      <PanelLeft />
+      <DashboardLeft />
       <div className='flex flex-col w-full'>
-        <Header />
+        <div>
+          <Header />
+        </div>
         {children}
       </div>
     </div>

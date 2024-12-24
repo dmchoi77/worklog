@@ -3,7 +3,7 @@ import { List, ListSubheader } from '@mui/material';
 import YearList from '~/components/molecules/list/YearList';
 import { useFetchCalendarYears } from '~/queries/calendar';
 
-export const PanelLeftList = () => {
+export const DashboardLeftList = () => {
   const { data: years } = useFetchCalendarYears();
 
   return (

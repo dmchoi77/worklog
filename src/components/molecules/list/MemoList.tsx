@@ -43,7 +43,7 @@ export default function MemoList({ targetDate, initialData }: IProps) {
   }, 200);
 
   return (
-    <Reorder.Group values={memoList} onReorder={reorderCallback} layoutScroll>
+    <Reorder.Group values={memoList} onReorder={reorderCallback} layoutScroll className='overflow-y-auto'>
       {memoList.map((memo) => (
         <Reorder.Item key={memo.id} value={memo}>
           <MemoCard content={memo.content} id={memo.id} />
