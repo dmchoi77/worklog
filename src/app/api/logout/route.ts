@@ -22,6 +22,6 @@ export async function POST() {
     );
     return NextResponse.json({ message: '로그아웃 되었습니다.' }, { status: 200, headers: newHeaders });
   } catch (error: any) {
-    return NextResponse.json({ ...error }, { status: error.status });
+    return NextResponse.json({ ...error.response.data }, { status: error.response.status });
   }
 }
