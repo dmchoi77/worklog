@@ -29,6 +29,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json({ ...response.data }, { headers: newHeaders });
   } catch (error: any) {
-    return NextResponse.json({ ...error }, { status: error.status });
+    return NextResponse.json({ ...error.response.data }, { status: error.response.status });
   }
 }

@@ -1,9 +1,6 @@
 import * as https from 'https';
-
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
-
 import { getCookie } from './cookie';
-
 import { reissue, logout } from '~/apis';
 import { AccessToken } from '~/constants';
 
@@ -56,9 +53,7 @@ const responseErrorHandler = async (error: AxiosError) => {
   if (!response) throw error;
   const { status } = response;
   if (status === 401 && !originalRequest._retry) {
-    if (typeof window === 'undefined') return;
     if (isRefreshing) return enqueueRequest(originalRequest);
-
     originalRequest._retry = true;
     isRefreshing = true;
 
@@ -90,21 +85,26 @@ const enqueueRequest = async (originalRequest: any) => {
 const refreshAccessToken = async () => {
   try {
     const response = await reissue();
-    if (response.status === 200) return response.data.accessToken;
-
-    throw new Error('Failed to refresh access token');
+    return response.data.accessToken;
   } catch (error) {
-    throw new Error('Failed to refresh access token');
+    if (axios.isAxiosError(error) && error.response) {
+      throw error.response.data;
+    } else {
+      throw Error('Unknown error');
+    }
   }
 };
 
 const handleRefreshError = async (error: any) => {
   try {
-    if ([401, 403, 404].includes(error.status)) return await logout();
-
+    if ([401, 403, 404].includes(error.status)) {
+      await logout();
+      window.location.href = '/login';
+    } else {
+      processQueue(error, null);
+    }
+  } catch (error) {
     processQueue(error, null);
-  } catch (err) {
-    processQueue(err, null);
   }
 };
 
