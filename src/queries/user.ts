@@ -5,11 +5,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import type { AxiosError } from 'axios';
 import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/user';
+import { AlertDialog } from '~/components/molecules/dialog/AlertDialog';
+import { useAlertDialogStore } from '~/stores/useAlertDialogStore';
 import { useDialogStore } from '~/stores/useDialogStore';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { commonResponseErrorHandler, httpWithAuth } from '~/utils/http';
 import type { ICommonResponse, LoginPayload, SignInPayload } from '~/types';
-
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
   checkEmail: ['checkEmail'],
@@ -21,7 +22,7 @@ export const useLogin = () => {
 
   const updateUserInfoState = useUserInfoState((state) => state.updateUserInfoState);
   const updateDialogState = useDialogStore((state) => state.updateDialogState);
-
+  const { openDialog } = useAlertDialogStore();
   return useMutation({
     mutationFn: ({ username, password }: LoginPayload) => login({ username, password }),
     onSuccess: (_, variable) => {
@@ -30,11 +31,12 @@ export const useLogin = () => {
     },
     onError: (error: any) => {
       const errorResponse = commonResponseErrorHandler(error);
-      updateDialogState({
-        open: true,
-        mainText: errorResponse?.message || '서버 점검 중입니다.',
-        cancelText: '',
-      });
+
+      // updateDialogState({
+      //   open: true,
+      //   mainText: errorResponse?.message || '서버 점검 중입니다.',
+      //   cancelText: '',
+      // });
     },
   });
 };
