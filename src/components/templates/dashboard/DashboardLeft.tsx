@@ -9,7 +9,7 @@ const DashboardLeft = () => (
     <div className='flex h-[50px] items-center justify-center'>
       <Image src={logo.src} alt='logo' width={130} height={logo.height} />
     </div>
-    <hr className='bg-gray-400'/>
+    <hr className='bg-gray-400' />
     {/* <SearchInput /> */}
     <Divider />
     <DashboardLeftList />
