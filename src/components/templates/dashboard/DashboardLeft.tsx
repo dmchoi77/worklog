@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Divider } from '@mui/material';
 import { DashboardLeftList } from './DashboardLeftList';
-import logo from '../../../../public/assets/images/logo_white.png';
+import logo from '/public/assets/images/logo_white.png';
 import SearchInput from '../../molecules/input/SearchInput';
 
 const DashboardLeft = () => (
