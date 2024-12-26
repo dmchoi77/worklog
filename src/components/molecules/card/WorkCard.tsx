@@ -6,10 +6,10 @@ import { Checkbox } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Container } from './card.style';
 import WorkDetail from '../../templates/detail/WorkDetail';
-import { SplitButton } from '../button/SplitButton';
+import { WorkStatusButton } from '../button/WorkStatusButton';
+import { WorkCategoryOptions } from '~/constants/work';
 import useWork from '~/hooks/useWork';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { WorkCategoryOptions } from '~/constants';
 import { useDeleteWork, useUpdateWork, workQueryKeys } from '~/queries';
 import type { IWork } from '~/types';
 
@@ -82,7 +82,7 @@ const WorkCard = (props: IWork) => {
       <Container bgColor='lightblue' onDoubleClick={() => updateOpenWorkDetail(true)}>
         <div className='flex items-center gap-x-[8px] text-ellipsis overflow-hidden'>
           <div className='m-[4px]'>
-            <SplitButton
+            <WorkStatusButton
               defaultOption={category}
               options={WorkCategoryOptions}
               onSelectOption={workSetter('category')}
