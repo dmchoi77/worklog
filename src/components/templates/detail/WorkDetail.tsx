@@ -1,18 +1,12 @@
 import { useRef } from 'react';
-
 import { useQueryClient } from '@tanstack/react-query';
-
 import { Button, Checkbox } from '@mui/material';
-
 import CloseIcon from '@mui/icons-material/Close';
 import ContentEditable from 'react-contenteditable';
-
-import { SplitButton } from '../../molecules/button/SplitButton';
-
+import { WorkStatusButton } from '../../molecules/button/WorkStatusButton';
 import useMobile from '~/hooks/useMobile';
 import useWork from '~/hooks/useWork';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-
 import { GlobalPortal } from '~/GlobalPortal';
 import { useUpdateWork, workQueryKeys } from '~/queries';
 import type { IWork } from '~/types';
@@ -131,9 +125,9 @@ const WorkDetail = (props: IProps) => {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
                 <span className='font-[600]'>카테고리</span>
-                <SplitButton
+                <WorkStatusButton
                   defaultOption={work.category}
-                  options={['update', 'refactor', 'chore', 'feat']}
+                  options={['UPDATE', 'CHORE', 'FEAT', 'UPDATE']}
                   onSelectOption={workSetter('category')}
                 />
               </div>

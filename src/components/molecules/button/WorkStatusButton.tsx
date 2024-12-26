@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -9,13 +8,22 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
+import { WorkCategory } from '~/types';
 
-interface IProps<T> {
-  defaultOption?: T;
-  options: T[];
+interface WorkStatusButtonProps {
+  defaultOption: WorkCategory;
+  options: WorkCategory[];
   onSelectOption: any;
 }
-export const SplitButton = <T,>({ options, onSelectOption, defaultOption }: IProps<T>) => {
+
+const workCategoryMap: Record<WorkCategory, string> = {
+  UPDATE: '업데이트',
+  CHORE: '기타 수정',
+  FEAT: '기능 개발',
+  REFACTOR: '리팩토링',
+};
+
+export const WorkStatusButton = ({ options, onSelectOption, defaultOption }: WorkStatusButtonProps) => {
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -46,19 +54,17 @@ export const SplitButton = <T,>({ options, onSelectOption, defaultOption }: IPro
         sx={{
           height: '30px',
           '.MuiButtonGroup-firstButton': {
-            width: '60px',
             textAlign: 'left',
             justifyContent: 'flex-start',
             padding: 1,
           },
           '.MuiButtonGroup-lastButton': {
-            width: '12px',
             minWidth: '12px',
           },
         }}
       >
         <Button onClick={handleClick} sx={{ fontSize: 10 }}>
-          {(defaultOption as string) ?? options?.[selectedIndex]}
+          {workCategoryMap[defaultOption]}
         </Button>
         <Button
           aria-controls={open ? 'split-button-menu' : undefined}
@@ -66,9 +72,7 @@ export const SplitButton = <T,>({ options, onSelectOption, defaultOption }: IPro
           aria-label='select merge strategy'
           aria-haspopup='menu'
           onClick={handleToggle}
-          sx={{
-            width: '20px',
-          }}
+          className='w-[20px]'
         >
           <ArrowDropDownIcon />
         </Button>
@@ -86,11 +90,12 @@ export const SplitButton = <T,>({ options, onSelectOption, defaultOption }: IPro
                 <MenuList id='split-button-menu' autoFocusItem>
                   {options?.map((option, index) => (
                     <MenuItem
-                      key={option as string}
+                      key={index}
                       selected={index === selectedIndex}
                       onClick={() => handleClickMenuItem(index)}
+                      className='lowercase'
                     >
-                      {option as string}
+                      {workCategoryMap[option as WorkCategory]}
                     </MenuItem>
                   ))}
                 </MenuList>

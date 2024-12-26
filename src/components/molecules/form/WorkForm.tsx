@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { Button, Paper } from '@mui/material';
 import { buttonStyle, paperStyle, textAreaStyle } from './form.style';
-import { SplitButton } from '../button/SplitButton';
+import { WorkStatusButton } from '../button/WorkStatusButton';
 import useInput from '~/hooks/useInput';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
 import { WorkCategoryOptions } from '~/constants';
@@ -100,7 +100,7 @@ const WorkForm = ({ targetDate }: IProps) => {
         style={{ ...textAreaStyle, height: 120 }}
       />
       <div className='flex justify-between items-center gap-x-[5px] w-[180px]'>
-        <SplitButton options={WorkCategoryOptions} onSelectOption={updateCategory} defaultOption={category} />
+        <WorkStatusButton options={WorkCategoryOptions} onSelectOption={updateCategory} defaultOption={category} />
         <Button sx={buttonStyle} variant='contained' onClick={handleAddWork}>
           저장하기
         </Button>
