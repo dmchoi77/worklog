@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import Logo from '../../../../public/assets/images/logo.png';
+import logo from '/public/assets/images/logo.png';
 
 const LoginTitle = () => (
   <div className='py-[20px]'>
-    <Image src={Logo.src} alt='logo' width={Logo.width} height={Logo.height} />
+    <Image src={logo.src} alt='logo' width={300} height={logo.height} />
   </div>
 );
 
