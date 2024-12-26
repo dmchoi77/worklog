@@ -27,7 +27,7 @@ export const UserInfo = () => {
 
   return (
     <div className='flex items-center gap-x-[8px]'>
-      <Avatar size='1' variant='solid' color='blue' radius='full' fallback={username[0]} />
+      <Avatar size='1' variant='solid' color='indigo' radius='full' fallback={username[0]} />
       <button onClick={() => handleLogout()}>
         <span className='text-[14px] font-[500]'>로그아웃</span>
       </button>
