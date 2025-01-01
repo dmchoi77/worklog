@@ -1,12 +1,8 @@
 import { useState } from 'react';
-
 import { List, ListItemButton, ListItemText, Collapse, ListItemIcon, Divider } from '@mui/material';
-
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import FolderIcon from '@mui/icons-material/Folder';
-
 import DayList from './DayList';
-
 import { useFetchCalendarDays } from '~/queries';
 
 interface IMonthList {
@@ -15,9 +11,9 @@ interface IMonthList {
 }
 
 const MonthList = ({ year, month }: IMonthList) => {
-  const { data: days } = useFetchCalendarDays({ year, month });
-
   const [open, setOpen] = useState(false);
+
+  const { data: days } = useFetchCalendarDays({ year, month }, open);
 
   return (
     <List component='div' disablePadding key={month}>
