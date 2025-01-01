@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { Button, Paper } from '@mui/material';
 import { buttonStyle, paperStyle, textAreaStyle } from './form.style';
 import { WorkStatusButton } from '../button/WorkStatusButton';
+import { Input } from '../input/Input';
 import useInput from '~/hooks/useInput';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
 import { WorkCategoryOptions } from '~/constants';
-import { useAddWork, workQueryKeys, calendarQueryKeys } from '~/queries';
+import { useAddWork } from '~/queries';
 import type { WorkCategory } from '~/types';
 
 interface IProps {
@@ -27,8 +27,6 @@ const getDeadline = () => {
 };
 
 const WorkForm = ({ targetDate }: IProps) => {
-  const queryClient = useQueryClient();
-
   const [category, updateCategory] = useState<WorkCategory>('UPDATE');
 
   const { input: inputTitle, handleInput: handleInputTitle, reset: resetTitle } = useInput();
@@ -61,13 +59,6 @@ const WorkForm = ({ targetDate }: IProps) => {
             message: '저장하였습니다.',
             vertical: 'bottom',
           });
-          queryClient.invalidateQueries(workQueryKeys.fetchWorkList({}));
-          queryClient.invalidateQueries(
-            calendarQueryKeys.fetchCalendarDays({
-              year: Number(dayjs(targetDate).get('year')),
-              month: Number(dayjs(targetDate).get('month')) + 1,
-            }),
-          );
 
           resetTitle();
           resetContent();
@@ -86,7 +77,7 @@ const WorkForm = ({ targetDate }: IProps) => {
   };
   return (
     <Paper elevation={1} style={{ ...paperStyle, height: 'auto' }}>
-      <input
+      <Input
         placeholder='업무'
         value={inputTitle}
         onChange={handleInputTitle}
