@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-
+import { calendarQueryKeys } from './calendar';
+import { useInvalidateQueries } from './common/useInvalidateQueryKeys';
 import { addMemo, deleteMemo, fetchMemoList, searchMemoList, updateMemo, updateMemoOrder } from '~/apis';
 import type {
   IAddMemoRequest,
@@ -17,10 +17,15 @@ export const memoQueryKeys = createQueryKeys('memo', {
   searchMemoList: (filters: string) => [filters],
 });
 
-export const useAddMemo = () =>
-  useMutation({
+export const useAddMemo = () => {
+  const invalidateQueries = useInvalidateQueries();
+  return useMutation({
     mutationFn: ({ content, date }: IAddMemoRequest) => addMemo({ content, date }),
+    onSuccess: (_, { date }) => {
+      invalidateQueries([calendarQueryKeys._def, memoQueryKeys.fetchMemoList({ date }).queryKey]);
+    },
   });
+};
 
 export const useUpdateMemo = () =>
   useMutation({
