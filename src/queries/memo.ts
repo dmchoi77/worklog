@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { calendarQueryKeys } from './calendar';
-import { useInvalidateQueries } from './common/useInvalidateQueryKeys';
+import { useInvalidateQueries } from '~/hooks/useInvalidateQueryKeys';
 import { addMemo, deleteMemo, fetchMemoList, searchMemoList, updateMemo, updateMemoOrder } from '~/apis';
 import type {
   IAddMemoRequest,

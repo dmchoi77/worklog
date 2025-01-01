@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-
 import { fetchCalendarDays, fetchCalendarMonth, fetchCalendarYears } from '~/apis';
 import type { FetchCalendarDaysRequest } from '~/types';
 
@@ -24,9 +22,9 @@ export const useFetchCalendarMonth = (year: number) =>
     enabled: !!year,
   });
 
-export const useFetchCalendarDays = (params: FetchCalendarDaysRequest) =>
+export const useFetchCalendarDays = (params: FetchCalendarDaysRequest, isOpen: boolean) =>
   useQuery({
     queryKey: calendarQueryKeys.fetchCalendarDays(params).queryKey,
     queryFn: () => fetchCalendarDays(params),
-    enabled: !!params.month && !!params.year,
+    enabled: !!params.month && !!params.year && isOpen,
   });
