@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-
+import { calendarQueryKeys } from './calendar';
+import { useInvalidateQueries } from './common/useInvalidateQueryKeys';
 import {
   addWork,
   deleteWork,
@@ -37,10 +37,15 @@ export const useFetchWorkList = (params: IFetchWorkListRequest, initialData?: IW
   });
 };
 
-export const useAddWork = () =>
-  useMutation({
+export const useAddWork = () => {
+  const invalidateQueries = useInvalidateQueries();
+  return useMutation({
     mutationFn: (params: IAddWorkRequest) => addWork(params),
+    onSuccess: (_, { date }) => {
+      invalidateQueries([workQueryKeys.fetchWorkList({ date }).queryKey, calendarQueryKeys._def]);
+    },
   });
+};
 
 export const useDeleteWork = () =>
   useMutation({

@@ -1,19 +1,16 @@
 'use client';
-import { useQueryClient } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { Paper, Button } from '@mui/material';
 import { buttonStyle, paperStyle, textAreaStyle } from './form.style';
 import useInput from '~/hooks/useInput';
 import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { calendarQueryKeys, useAddMemo, memoQueryKeys } from '~/queries';
+import { useAddMemo, memoQueryKeys } from '~/queries';
 
 interface IProps {
   targetDate: string;
 }
 const MemoForm = ({ targetDate }: IProps) => {
-  const queryClient = useQueryClient();
-
   const { input, handleInput, reset } = useInput();
+
   const { mutate } = useAddMemo();
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
@@ -28,18 +25,9 @@ const MemoForm = ({ targetDate }: IProps) => {
             message: '저장하였습니다.',
             vertical: 'bottom',
           });
-          queryClient.invalidateQueries(memoQueryKeys.fetchMemoList({ date: targetDate }));
-          queryClient.invalidateQueries(
-            calendarQueryKeys.fetchCalendarDays({
-              year: Number(dayjs(targetDate).get('year')),
-              month: Number(dayjs(targetDate).get('month')) + 1,
-            }),
-          );
-
           reset();
         },
         onError: (error: any) => {
-          console.log('🚀 ~ handleAddMemo ~ error:', error);
           updateSnackbarState({
             open: true,
             horizontal: 'center',

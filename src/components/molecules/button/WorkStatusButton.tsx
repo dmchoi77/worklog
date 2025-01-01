@@ -63,8 +63,8 @@ export const WorkStatusButton = ({ options, onSelectOption, defaultOption }: Wor
           },
         }}
       >
-        <Button onClick={handleClick} sx={{ fontSize: 10 }}>
-          {workCategoryMap[defaultOption]}
+        <Button onClick={handleClick} className='w-[60px]'>
+          <span className='text-[10px]'>{workCategoryMap[defaultOption]}</span>
         </Button>
         <Button
           aria-controls={open ? 'split-button-menu' : undefined}
