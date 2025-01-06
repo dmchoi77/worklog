@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Fragment, useEffect } from 'react';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { Button } from '~/components/molecules/button/Button';
@@ -18,6 +19,9 @@ interface InputProps {
 
 const UserRegistrationForm = () => {
   const { register, handleSubmit, watch } = useFormContext<UserRegisterationForm>();
+
+  const router = useRouter();
+
   const username = watch('username');
   const email = watch('email');
 
@@ -60,10 +64,8 @@ const UserRegistrationForm = () => {
 
       <Input type='password' placeholder='비밀번호' {...register('password', { required: true })} />
       <Input type='password' placeholder='비밀번호 확인' {...register('passwordCheck', { required: true })} />
-      <Button type='submit'>회원가입</Button>
-      <Link className='mx-auto' href={RoutePath.Login}>
-        <span className='text-[16px] text-[#5e6776] text-center cursor-pointer'>뒤로 가기</span>
-      </Link>
+      <Button type='submit' label='회원가입' />
+      <Button variant='outlined' label='뒤로 가기' onClick={() => router.push(RoutePath.Login)} />
     </form>
   );
 };

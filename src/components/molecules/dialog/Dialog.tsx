@@ -32,16 +32,15 @@ const Dialog = forwardRef<HTMLDivElement, DialogProps>((_, ref) => {
               {Array.isArray(mainText) ? <div>{mainText?.map((text) => <ul key={text}>{text}</ul>)}</div> : mainText}
             </p>
             <div className='flex gap-[10px]'>
-              {cancelText && <Button onClick={() => updateDialogState({ open: !open })}>{confirmText}</Button>}
+              {cancelText && <Button onClick={() => updateDialogState({ open: !open })} label={confirmText} />}
               <Button
+                label={confirmText}
                 fullWidth
                 onClick={() => {
                   updateDialogState({ open: !open });
                   handleConfirm?.();
                 }}
-              >
-                {confirmText}
-              </Button>
+              />
             </div>
           </div>
         </div>
