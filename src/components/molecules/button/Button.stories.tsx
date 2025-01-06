@@ -6,7 +6,8 @@ const meta: Meta<typeof Button> = {
   component: Button,
   args: {
     fullWidth: false,
-    children: '버튼',
+    label: '버튼',
+    disabled: false,
   },
   argTypes: {
     children: {
@@ -24,4 +25,6 @@ const meta: Meta<typeof Button> = {
 
 export default meta;
 
-export const Default: StoryFn<typeof Button> = (args) => <Button {...args}>{args.children}</Button>;
+export const Filled: StoryFn<typeof Button> = (args) => <Button {...args} />;
+
+export const Outlined: StoryFn<typeof Button> = (args) => <Button variant='outlined' {...args} />;
