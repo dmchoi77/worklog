@@ -1,14 +1,15 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import type { AxiosError } from 'axios';
-import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/user';
+import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/auth';
 import { useDialogStore } from '~/stores/useDialogStore';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { commonResponseErrorHandler, httpWithAuth } from '~/utils/http';
-import type { ICommonResponse, LoginPayload, SignInPayload } from '~/types';
+import { getQueryClient } from '~/app/getQueryClient';
+import type { ICommonResponse } from '~/types';
 
 const userQueryKeys = createQueryKeys('user', {
   refreshAccessToken: ['refreshAccessToken'],
@@ -23,7 +24,7 @@ export const useLogin = () => {
   const updateDialogState = useDialogStore((state) => state.updateDialogState);
 
   return useMutation({
-    mutationFn: ({ username, password }: LoginPayload) => login({ username, password }),
+    mutationFn: login,
     onSuccess: (_, variable) => {
       updateUserInfoState(variable.username);
       router.push('/today');
@@ -45,8 +46,7 @@ export const useSignIn = () => {
   const updateDialogState = useDialogStore((state) => state.updateDialogState);
 
   return useMutation({
-    mutationFn: ({ username, email, password, passwordCheck }: SignInPayload) =>
-      signIn({ username, email, password, passwordCheck }),
+    mutationFn: signIn,
     onSuccess: () => {
       updateDialogState({
         open: true,
@@ -68,7 +68,6 @@ export const useSignIn = () => {
 };
 
 export const useCheckEmail = (email: string) => {
-  const queryClient = useQueryClient();
   const query = useQuery<ICommonResponse, AxiosError>({
     queryKey: userQueryKeys.checkEmail.queryKey,
     queryFn: () => checkEmail({ email }),
@@ -77,7 +76,7 @@ export const useCheckEmail = (email: string) => {
 
   useEffect(() => {
     if (query.error) {
-      queryClient.setQueryData(userQueryKeys.checkEmail.queryKey, query.error?.response?.data);
+      getQueryClient().setQueryData(userQueryKeys.checkEmail.queryKey, query.error?.response?.data);
     }
   }, [query.error]);
 
@@ -85,7 +84,6 @@ export const useCheckEmail = (email: string) => {
 };
 
 export const useCheckUsername = (username: string) => {
-  const queryClient = useQueryClient();
   const query = useQuery<ICommonResponse, AxiosError>({
     queryKey: userQueryKeys.checkUsername.queryKey,
     queryFn: () => checkUsername({ username }),
@@ -93,7 +91,7 @@ export const useCheckUsername = (username: string) => {
   });
   useEffect(() => {
     if (query.error) {
-      queryClient.setQueryData(userQueryKeys.checkUsername.queryKey, query.error?.response?.data);
+      getQueryClient().setQueryData(userQueryKeys.checkUsername.queryKey, query.error?.response?.data);
     }
   }, [query.error]);
 
@@ -101,14 +99,13 @@ export const useCheckUsername = (username: string) => {
 };
 
 export const useLogout = () => {
-  const queryClient = useQueryClient();
   const router = useRouter();
 
   return useMutation({
-    mutationFn: () => logout(),
+    mutationFn: logout,
     onSuccess: () => {
       httpWithAuth.defaults.headers.Authorization = null;
-      queryClient.removeQueries();
+      getQueryClient().removeQueries();
       router.push('/login');
     },
   });
