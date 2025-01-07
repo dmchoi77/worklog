@@ -13,16 +13,7 @@ import {
   updateWorkOrder,
   updateWorkState,
 } from '~/apis';
-import type {
-  IAddWorkRequest,
-  IDeleteWorkRequest,
-  IFetchWorkListRequest,
-  IUpdateWorkCategoryRequest,
-  IUpdateWorkContentRequest,
-  IUpdateWorkOrderRequest,
-  IUpdateWorkStateRequest,
-  IWork,
-} from '~/types';
+import type { IFetchWorkListRequest, IWork } from '~/types';
 
 export const workQueryKeys = createQueryKeys('work', {
   fetchWorkList: (filters: IFetchWorkListRequest) => [filters],
@@ -40,7 +31,7 @@ export const useFetchWorkList = (params: IFetchWorkListRequest, initialData?: IW
 export const useAddWork = () => {
   const invalidateQueries = useInvalidateQueries();
   return useMutation({
-    mutationFn: (params: IAddWorkRequest) => addWork(params),
+    mutationFn: addWork,
     onSuccess: (_, { date }) => {
       invalidateQueries([workQueryKeys.fetchWorkList({ date }).queryKey, calendarQueryKeys._def]);
     },
@@ -49,32 +40,32 @@ export const useAddWork = () => {
 
 export const useDeleteWork = () =>
   useMutation({
-    mutationFn: (params: IDeleteWorkRequest) => deleteWork(params),
+    mutationFn: deleteWork,
   });
 
 export const useUpdateWorkCategory = () =>
   useMutation({
-    mutationFn: (params: IUpdateWorkCategoryRequest) => updateWorkCategory(params),
+    mutationFn: updateWorkCategory,
   });
 
 export const useUpdateWorkState = () =>
   useMutation({
-    mutationFn: (params: IUpdateWorkStateRequest) => updateWorkState(params),
+    mutationFn: updateWorkState,
   });
 
 export const useUpdateWorkContent = () =>
   useMutation({
-    mutationFn: (params: IUpdateWorkContentRequest) => updateWorkContent(params),
+    mutationFn: updateWorkContent,
   });
 
 export const useUpdateWorkOrder = () =>
   useMutation({
-    mutationFn: (params: IUpdateWorkOrderRequest) => updateWorkOrder(params),
+    mutationFn: updateWorkOrder,
   });
 
 export const useUpdateWork = () =>
   useMutation({
-    mutationFn: (params: IWork) => updateWork(params),
+    mutationFn: updateWork,
   });
 
 export const useSearchWorkList = (key: string) =>

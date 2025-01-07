@@ -22,7 +22,7 @@ const SearchInput = () => {
         disabled
         value={key}
         placeholder='검색'
-        leftIcon={<SearchIcon />}
+        LeftIcon={<SearchIcon />}
         onKeyDown={(event) => {
           if (event.key === 'Enter') handleSearchButton();
         }}

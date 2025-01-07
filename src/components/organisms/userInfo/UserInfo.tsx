@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { Avatar } from '@radix-ui/themes';
-import { useLogout } from '~/queries/user';
+import { useLogout } from '~/queries/auth';
 import { useUserInfoState } from '~/stores/useUserInfoStore';
 import { getCookie } from '~/utils/cookie';
 import { decodeJWT } from '~/utils/decodeJWT';
