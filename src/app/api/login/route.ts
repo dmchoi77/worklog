@@ -30,6 +30,6 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
 
     return NextResponse.json({ ...response.data }, { status: response.status, headers: newHeaders });
   } catch (error: any) {
-    return NextResponse.json({ ...error.response }, { status: error.response.status });
+    return NextResponse.json({ ...error.response.data }, { status: error.response.status });
   }
 }

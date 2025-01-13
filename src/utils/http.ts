@@ -88,7 +88,7 @@ const refreshAccessToken = async () => {
     return data.accessToken;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      throw error.response.data;
+      throw error.response;
     } else {
       throw Error('Unknown error');
     }
