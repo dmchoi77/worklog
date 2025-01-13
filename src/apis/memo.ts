@@ -7,33 +7,32 @@ import type {
   ISearchMemoList,
   IUpdateMemoOrderRequest,
   IUpdateMemoRequest,
-  ICommonResponse,
 } from '~/types';
 
 export const addMemo = ({ content, date }: IAddMemoRequest) => {
-  return httpWithAuth.post<IAddMemoRequest, ICommonResponse>('/memos', {
+  return httpWithAuth.post('/memos', {
     content,
     date,
   });
 };
 
 export const updateMemo = ({ content, id }: IUpdateMemoRequest) => {
-  return httpWithAuth.patch<ICommonResponse>(`/memos/${id}/content`, { content });
+  return httpWithAuth.patch(`/memos/${id}/content`, { content });
 };
 
 export const updateMemoOrder = ({ id, order }: IUpdateMemoOrderRequest) => {
-  return httpWithAuth.patch<ICommonResponse>(`/memos/${id}/order`, {
+  return httpWithAuth.patch(`/memos/${id}/order`, {
     order,
   });
 };
 
 export const deleteMemo = async ({ id }: IDeleteMemoRequest) => {
-  const { data } = await httpWithAuth.delete<ICommonResponse>(`/memos/${id}`);
+  const { data } = await httpWithAuth.delete(`/memos/${id}`);
   return data;
 };
 
 export const fetchMemoList = async ({ date }: IFetchMemosRequest) => {
-  const { data } = await httpWithAuth.get<ICommonResponse<IMemo[]>>('/memos', {
+  const { data } = await httpWithAuth.get<IMemo[]>('/memos', {
     params: {
       date: date,
     },
@@ -43,7 +42,7 @@ export const fetchMemoList = async ({ date }: IFetchMemosRequest) => {
 };
 
 export const searchMemoList = async (key: string): Promise<ISearchMemoList> => {
-  const { data } = await httpWithAuth.get<ICommonResponse<ISearchMemoList>>('/memos/search', {
+  const { data } = await httpWithAuth.get<ISearchMemoList>('/memos/search', {
     params: {
       key,
     },

@@ -5,6 +5,6 @@ export interface FetchCalendarDaysRequest {
   month: number;
 }
 
-export type CalendarYearsResponse = ICommonResponse<{ years: number[] }>;
-export type CalendarMonthsResponse = ICommonResponse<{ months: number[] }>;
-export type CalendarDaysResponse = ICommonResponse<{ days: number[] }>;
+export type CalendarYearsResponse = { years: number[] };
+export type CalendarMonthsResponse = { months: number[] };
+export type CalendarDaysResponse = { days: number[] };
