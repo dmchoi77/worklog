@@ -84,8 +84,8 @@ const enqueueRequest = async (originalRequest: any) => {
 
 const refreshAccessToken = async () => {
   try {
-    const response = await reissue();
-    return response.data.accessToken;
+    const { accessToken, refreshToken } = await reissue();
+    return accessToken;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       throw error.response.data;

@@ -14,7 +14,7 @@ export const fetchCalendarYears = async () => {
     baseURL,
   });
 
-  return data.data?.years;
+  return data.years;
 };
 
 export const fetchCalendarMonth = async (year: number) => {
@@ -25,7 +25,7 @@ export const fetchCalendarMonth = async (year: number) => {
     },
   });
 
-  return data.data?.months;
+  return data.months;
 };
 
 export const fetchCalendarDays = async ({ month, year }: FetchCalendarDaysRequest) => {
@@ -37,5 +37,5 @@ export const fetchCalendarDays = async ({ month, year }: FetchCalendarDaysReques
     },
   });
 
-  return data.data.days;
+  return data.days;
 };

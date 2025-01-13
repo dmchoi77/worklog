@@ -39,7 +39,7 @@ export const fetchMemoList = async ({ date }: IFetchMemosRequest) => {
     },
   });
 
-  return data.data;
+  return data;
 };
 
 export const searchMemoList = async (key: string): Promise<ISearchMemoList> => {
@@ -49,5 +49,5 @@ export const searchMemoList = async (key: string): Promise<ISearchMemoList> => {
     },
   });
 
-  return data.data;
+  return data;
 };
