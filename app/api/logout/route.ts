@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import { httpWithAuth } from '~/utils/http';
+import { httpWithAuth } from '~/shared/utils/http';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function POST() {

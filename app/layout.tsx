@@ -1,8 +1,7 @@
 import '@radix-ui/themes/styles.css';
-import './globals.css';
-
+import '../src/app/globals.css';
 import type { Metadata } from 'next';
-import Providers from './Providers';
+import Providers from '../src/app/Providers';
 
 export const metadata: Metadata = {
   title: '오늘의 워크로그',

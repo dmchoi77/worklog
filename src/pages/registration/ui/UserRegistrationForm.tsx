@@ -1,14 +1,15 @@
 'use client';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Fragment, useEffect } from 'react';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
-import { Button } from '~/components/molecules/button/Button';
-import { Input } from '~/components/molecules/input/Input';
+
 import { UserRegisterationForm } from '~/constants/user';
-import { useDialogStore } from '~/stores/useDialogStore';
+
 import { RoutePath } from '~/constants';
 import { useCheckUsername, useCheckEmail, useSignIn } from '~/queries';
+import { Button } from '~/shared/components/button/Button';
+import { Input } from '~/shared/components/input/Input';
+import { useDialogStore } from '~/shared/stores/useDialogStore';
 
 interface InputProps {
   email: string;

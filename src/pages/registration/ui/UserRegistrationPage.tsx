@@ -1,8 +1,8 @@
 'use client';
-import Dialog from '~/components/molecules/dialog/Dialog';
-import { UserRegistrationFormProvider } from '~/components/organisms/user/UserRegistrationFormProvider';
-import UserRegistrationForm from '~/components/templates/user/UserRegistrationForm';
-import { useDialogStore } from '~/stores/useDialogStore';
+import UserRegistrationForm from './UserRegistrationForm';
+import { UserRegistrationFormProvider } from './UserRegistrationFormProvider';
+import Dialog from '~/shared/components/dialog/Dialog';
+import { useDialogStore } from '~/shared/stores/useDialogStore';
 
 const UserRegistrationPage = () => {
   const { open } = useDialogStore();

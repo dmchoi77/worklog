@@ -1,18 +1,14 @@
-'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import type { AxiosError } from 'axios';
-import { checkEmail, checkUsername, login, logout, signIn } from '~/apis/auth';
-import { useUserInfoState } from '~/stores/useUserInfoStore';
+import { AxiosError } from 'axios';
+import { checkEmail, checkUsername, signIn } from './fetch';
 import { getQueryClient } from '~/app/getQueryClient';
 import { useDialogStore } from '~/shared/stores/useDialogStore';
-import { commonResponseErrorHandler, httpWithAuth } from '~/shared/utils/http';
-import type { ICommonResponse } from '~/types';
+import { ICommonResponse } from '~/shared/types';
 
 const userQueryKeys = createQueryKeys('user', {
-  refreshAccessToken: ['refreshAccessToken'],
   checkEmail: ['checkEmail'],
   checkUsername: ['checkUsername'],
 });
@@ -74,16 +70,6 @@ export const useCheckUsername = (username: string) => {
 
   return query;
 };
-
-export const useLogout = () => {
-  const router = useRouter();
-
-  return useMutation({
-    mutationFn: logout,
-    onSuccess: () => {
-      httpWithAuth.defaults.headers.Authorization = null;
-      getQueryClient().removeQueries();
-      router.push('/login');
-    },
-  });
-};
+function useMutation(arg0: { mutationFn: any; onSuccess: () => void; onError: (error: any) => void }) {
+  throw new Error('Function not implemented.');
+}

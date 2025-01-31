@@ -1,6 +1,6 @@
 'use client';
 import { Snackbar } from '@mui/material';
-import { useSnackbarStore } from '~/stores/useSnackbarStore';
+import { useSnackbarStore } from '~/shared/stores/useSnackbarStore';
 
 const CustomSnackbar = () => {
   const { horizontal, message, open, vertical, reset, autoHideDuration } = useSnackbarStore();

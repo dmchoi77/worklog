@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import DashboardLeft from '../dashboard/DashboardLeft';
-import CustomSnackbar from '~/components/molecules/snackbar/Snackbar';
+import CustomSnackbar from '~/shared/components/snackbar/Snackbar';
 import Header from '~/components/organisms/header/Header';
 
 export const DashboardLayout = ({ children }: PropsWithChildren) => (

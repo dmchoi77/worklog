@@ -1,4 +1,4 @@
-import { httpWithAuth } from '~/utils/http';
+import { httpWithAuth } from '~/shared/utils/http';
 import type { ICommonResponse } from '~/types';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;

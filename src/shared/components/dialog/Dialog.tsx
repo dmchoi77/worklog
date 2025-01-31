@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Button } from '../button/Button';
-import { useDialogStore } from '~/stores/useDialogStore';
 import { GlobalPortal } from '~/GlobalPortal';
+import { useDialogStore } from '~/shared/stores/useDialogStore';
 
 interface DialogProps {
   cnacelText?: string;

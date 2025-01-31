@@ -2,16 +2,14 @@
 import { useEffect } from 'react';
 import { Avatar } from '@radix-ui/themes';
 import { useLogout } from '~/queries/auth';
-import { useUserInfoState } from '~/stores/useUserInfoStore';
-import { getCookie } from '~/utils/cookie';
-import { decodeJWT } from '~/utils/decodeJWT';
+
 import { AccessToken } from '~/constants';
+import { useUserInfoStore } from '~/shared/stores/useUserInfoStore';
+import { getCookie } from '~/shared/utils/cookie';
+import { decodeJWT } from '~/shared/utils/decodeJWT';
 
 export const UserInfo = () => {
-  const { username, updateUserInfoState } = useUserInfoState(({ updateUserInfoState, username }) => ({
-    username,
-    updateUserInfoState,
-  }));
+  const { username, updateUserName } = useUserInfoStore();
 
   const { mutate: handleLogout } = useLogout();
 
@@ -21,7 +19,7 @@ export const UserInfo = () => {
     const getAccessToken = getCookie(AccessToken);
     if (getAccessToken) {
       const { sub: username } = decodeJWT(getAccessToken);
-      updateUserInfoState(username);
+      updateUserName(username);
     }
   }, []);
 

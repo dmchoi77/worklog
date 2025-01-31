@@ -1,7 +1,7 @@
 'use client';
 import { List, ListSubheader } from '@mui/material';
-import YearList from '~/components/molecules/list/YearList';
 import { useFetchCalendarYears } from '~/queries/calendar';
+import YearList from '~/shared/components/list/YearList';
 
 export const DashboardLeftList = () => {
   const { data: years } = useFetchCalendarYears();

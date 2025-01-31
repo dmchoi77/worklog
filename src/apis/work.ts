@@ -10,7 +10,7 @@ import type {
   IWork,
   ICommonResponse,
 } from '~/types';
-import { httpWithAuth } from '~/utils/http';
+import { httpWithAuth } from '~/shared/utils/http';
 
 export const addWork = ({ title, category, content, date, deadline }: IAddWorkRequest) => {
   return httpWithAuth.post<ICommonResponse>('/works', {

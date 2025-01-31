@@ -1,4 +1,4 @@
-import { fetchRSC } from '~/utils/fetchRSC';
+import { fetchRSC } from '~/shared/utils/fetchRSC';
 
 export const endpoint = {
   addWork: '/works',

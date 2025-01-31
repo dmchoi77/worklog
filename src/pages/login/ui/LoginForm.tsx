@@ -1,12 +1,12 @@
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Button } from '~/components/molecules/button/Button';
-import { Input } from '~/components/molecules/input/Input';
+import { useLogin } from '../api/queries';
 import { RoutePath } from '~/constants';
-import { useLogin } from '~/queries';
+import { Button } from '~/shared/components/button/Button';
+import { Input } from '~/shared/components/input/Input';
 import { LoginInputForm } from '~/types';
 
-const LoginForm = () => {
+export const LoginForm = () => {
   const { register, handleSubmit } = useForm<LoginInputForm>();
 
   const router = useRouter();
@@ -26,5 +26,3 @@ const LoginForm = () => {
     </form>
   );
 };
-
-export default LoginForm;
