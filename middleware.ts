@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getTodayDate } from './shared/utils/date';
 import { AccessToken, RefreshToken } from '~/shared/constants';
-
-const todayDate = getTodayDate();
+import { getTodayDate } from '~/shared/utils/date';
 
 export async function middleware(request: NextRequest) {
+  const todayDate = getTodayDate();
+
   const { nextUrl: url } = request;
 
   const accessToken = request.cookies.get(AccessToken)?.value;
