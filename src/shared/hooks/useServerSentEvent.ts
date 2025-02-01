@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
+import { useSnackbarStore } from '../stores/useSnackbarStore';
+import { useUserInfoStore } from '../stores/useUserInfoStore';
 
 // import { EventSourcePolyfill } from 'event-source-polyfill';
-import { useSnackbarStore } from '~/stores/useSnackbarStore';
-import { useUserInfoState } from '~/stores/useUserInfoStore';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 const useServerSentEvent = () => {
-  const username = useUserInfoState((state) => state.username);
+  const username = useUserInfoStore((state) => state.username);
 
   const updateSnackbarState = useSnackbarStore((state) => state.updateSnackbarState);
 

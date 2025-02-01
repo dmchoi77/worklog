@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 import LoginPage from '../../../app/(auth)/login/page';
-import { AuthLayout } from '~/components/templates/layout/AuthLayout';
+import { AuthLayout } from '~/shared/components/layout/AuthLayout';
 import { loginFailHandler, loginHandler } from '~/tests/handlers/auth';
 
 const meta: Meta<typeof LoginPage> = {

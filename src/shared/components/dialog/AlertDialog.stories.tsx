@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import { AlertDialog } from './AlertDialog';
 import { AlertDialogPortal } from './AlertDialogPortal';
-import { useAlertDialogStore } from '~/stores/useAlertDialogStore';
+import { useAlertDialogStore } from '~/shared/stores/useAlertDialogStore';
 
 const meta: Meta<typeof AlertDialog> = {
   title: 'Components/molecules/AlerDialog',

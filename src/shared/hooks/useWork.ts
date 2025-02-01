@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
+import { Work } from '~/pages/content/model';
 
-import type { IWork } from '~/types';
+const useWork = (props: Work) => {
+  const [work, setWork] = useState<Work>(props);
 
-const useWork = (props: IWork) => {
-  const [work, setWork] = useState<IWork>(props);
-
-  const workSetter = (key: keyof IWork) => (value: any) => {
+  const workSetter = (key: keyof Work) => (value: unknown) => {
     setWork((prev) => ({
       ...prev,
       [key]: value,

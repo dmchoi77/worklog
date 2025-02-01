@@ -1,6 +1,6 @@
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import { useAlertDialogStore } from '~/stores/useAlertDialogStore';
+import { useAlertDialogStore } from '~/shared/stores/useAlertDialogStore';
 
 export const AlertDialogPortal = () => {
   const { dialogStack, resetDialog } = useAlertDialogStore();

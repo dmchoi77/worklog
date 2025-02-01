@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 import * as RadixAlertDialog from '@radix-ui/react-alert-dialog';
-import { useAlertDialogStore } from '~/stores/useAlertDialogStore';
+import { useAlertDialogStore } from '~/shared/stores/useAlertDialogStore';
 
 interface AlertDialogProps {
   title: string;
