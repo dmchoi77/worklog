@@ -1,19 +1,19 @@
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useLogin } from '../api/queries';
-import { RoutePath } from '~/shared/constants';
+import { LoginPayload } from '../api/types';
 import { Button } from '~/shared/components/button/Button';
 import { Input } from '~/shared/components/input/Input';
-import { LoginInputForm } from '~/types';
+import { RoutePath } from '~/shared/constants';
 
 export const LoginForm = () => {
-  const { register, handleSubmit } = useForm<LoginInputForm>();
+  const { register, handleSubmit } = useForm<LoginPayload>();
 
   const router = useRouter();
 
   const { mutate: handleLogin, isPending } = useLogin();
 
-  const onSubmit: SubmitHandler<LoginInputForm> = ({ username, password }) => {
+  const onSubmit: SubmitHandler<LoginPayload> = ({ username, password }) => {
     handleLogin({ username, password });
   };
 
