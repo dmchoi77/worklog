@@ -1,8 +1,8 @@
 import * as https from 'https';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { getCookie } from './cookie';
-import { reissue, logout } from '~/apis';
-import { AccessToken } from '~/constants';
+import { reissue, logout } from '../apis/fetch';
+import { AccessToken } from '~/shared/constants';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -84,8 +84,8 @@ const enqueueRequest = async (originalRequest: any) => {
 
 const refreshAccessToken = async () => {
   try {
-    const { data } = await reissue();
-    return data.accessToken;
+    const { accessToken, refreshToken } = await reissue();
+    return accessToken;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       throw error.response;

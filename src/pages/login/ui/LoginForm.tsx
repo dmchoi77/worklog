@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useLogin } from '../api/queries';
-import { RoutePath } from '~/constants';
+import { RoutePath } from '~/shared/constants';
 import { Button } from '~/shared/components/button/Button';
 import { Input } from '~/shared/components/input/Input';
 import { LoginInputForm } from '~/types';

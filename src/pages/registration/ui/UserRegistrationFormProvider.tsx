@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, FormProvider } from 'react-hook-form';
-import { UserRegisterationForm, userRegistrationSchema } from '~/constants/user';
+import { UserRegisterationForm, userRegistrationSchema } from '~/shared/constants/user';
 
 export const UserRegistrationFormProvider = ({ children }: PropsWithChildren) => {
   const method = useForm<UserRegisterationForm>({

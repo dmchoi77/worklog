@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { AxiosError } from 'axios';
 import { checkEmail, checkUsername, signIn } from './fetch';
@@ -70,6 +70,3 @@ export const useCheckUsername = (username: string) => {
 
   return query;
 };
-function useMutation(arg0: { mutationFn: any; onSuccess: () => void; onError: (error: any) => void }) {
-  throw new Error('Function not implemented.');
-}

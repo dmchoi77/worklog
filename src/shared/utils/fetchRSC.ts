@@ -5,7 +5,7 @@ import { getAccessToken } from './token';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchRSC = async (endpoint: string, options?: RequestInit) => {
-  const { data } = await fetch(`${baseURL}${endpoint}`, {
+  const data = await fetch(`${baseURL}${endpoint}`, {
     ...options,
     headers: {
       Authorization: `Bearer ${getAccessToken()}`,

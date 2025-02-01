@@ -4,7 +4,7 @@ import { ListItemButton, ListItemText, Collapse, ListItemIcon, Divider } from '@
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import FolderIcon from '@mui/icons-material/Folder';
 import MonthList from './MonthList';
-import { useFetchCalendarMonth } from '~/queries/calendar';
+import { useFetchCalendarMonth } from '~/pages/content/api/calendar/queries';
 
 const YearList = ({ year }: { year: number }) => {
   const [open, setOpen] = useState(false);

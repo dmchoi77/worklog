@@ -3,7 +3,7 @@ import { List, ListItemButton, ListItemText, Collapse, ListItemIcon, Divider } f
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import FolderIcon from '@mui/icons-material/Folder';
 import DayList from './DayList';
-import { useFetchCalendarDays } from '~/queries';
+import { useFetchCalendarDays } from '~/pages/content/api/calendar/queries';
 
 interface IMonthList {
   year: number;

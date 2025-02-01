@@ -6,5 +6,6 @@ export const login = async ({ username, password }: LoginPayload): Promise<Login
     username,
     password,
   });
+
   return data;
 };

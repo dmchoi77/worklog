@@ -1,5 +1,6 @@
+'use server';
 import { cookies } from 'next/headers';
-import { AccessToken } from '~/constants';
+import { AccessToken } from '~/shared/constants';
 
 export const getAccessToken = () => {
   const cookieStore = cookies();

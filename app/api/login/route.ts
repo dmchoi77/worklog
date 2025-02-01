@@ -4,14 +4,12 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import axios from 'axios';
 
-import { ICommonResponse } from '~/types/apis/common.types';
-import { LoginResponse } from '~/types';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function POST(req: NextRequest, res: NextApiResponse) {
   const requestBody = await req.json();
   try {
-    const response = await axios.post<LoginResponse>(
+    const response = await axios.post<{ accessToken: string; refreshToken: string }>(
       '/users/login',
       {
         username: requestBody.username,

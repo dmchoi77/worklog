@@ -2,8 +2,7 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import * as https from 'https';
 import axios from 'axios';
-import { ICommonResponse } from '~/types/apis/common.types';
-import { LoginResponse } from '~/types/apis/user.types';
+import { LoginResponse } from '~/pages/login/api/types';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function POST(req: NextRequest, res: NextResponse) {

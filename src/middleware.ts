@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { AccessToken, RefreshToken } from '~/constants';
+import { AccessToken, RefreshToken } from '~/shared/constants';
 
 export async function middleware(request: NextRequest) {
   const { nextUrl: url } = request;

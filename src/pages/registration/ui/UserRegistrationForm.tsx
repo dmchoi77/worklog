@@ -3,12 +3,12 @@ import { useRouter } from 'next/navigation';
 import { Fragment, useEffect } from 'react';
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
-import { UserRegisterationForm } from '~/constants/user';
+import { useCheckEmail, useCheckUsername, useSignIn } from '../api/queries';
 
-import { RoutePath } from '~/constants';
-import { useCheckUsername, useCheckEmail, useSignIn } from '~/queries';
 import { Button } from '~/shared/components/button/Button';
 import { Input } from '~/shared/components/input/Input';
+import { RoutePath } from '~/shared/constants';
+import { UserRegisterationForm } from '~/shared/constants/user';
 import { useDialogStore } from '~/shared/stores/useDialogStore';
 
 interface InputProps {

@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { Button } from '../button/Button';
-import { GlobalPortal } from '~/GlobalPortal';
+import { GlobalPortal } from '~/app/GlobalPortal';
 import { useDialogStore } from '~/shared/stores/useDialogStore';
 
 interface DialogProps {
