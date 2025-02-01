@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getTodayDate } from './shared/utils/date';
 import { AccessToken, RefreshToken } from '~/shared/constants';
+
+const todayDate = getTodayDate();
 
 export async function middleware(request: NextRequest) {
   const { nextUrl: url } = request;
@@ -10,7 +13,7 @@ export async function middleware(request: NextRequest) {
   const isAuth = !!accessToken && !!refreshToken;
 
   if (request.nextUrl.pathname === '/login' && isAuth) {
-    return NextResponse.redirect(new URL('/today', request.url));
+    return NextResponse.redirect(new URL(`/content/${todayDate}`, request.url));
   }
 
   if (request.nextUrl.pathname === '/' && !isAuth) {
@@ -22,7 +25,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (request.nextUrl.pathname === '/' && isAuth) {
-    return NextResponse.redirect(new URL('/today', request.url));
+    return NextResponse.redirect(new URL(`/content/${todayDate}`, request.url));
   }
   return NextResponse.rewrite(url);
 }

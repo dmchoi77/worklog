@@ -3,7 +3,10 @@ import { useMutation } from '@tanstack/react-query';
 import { login } from './fetch';
 import { useDialogStore } from '~/shared/stores/useDialogStore';
 import { useUserInfoStore } from '~/shared/stores/useUserInfoStore';
+import { getTodayDate } from '~/shared/utils/date';
 import { commonResponseErrorHandler } from '~/shared/utils/http';
+
+const todayDate = getTodayDate();
 
 export const useLogin = () => {
   const router = useRouter();
@@ -15,7 +18,7 @@ export const useLogin = () => {
     mutationFn: login,
     onSuccess: (_, variable) => {
       updateUserInfoState(variable.username);
-      router.push('/today');
+      router.push(`/content/${todayDate}`);
     },
     onError: (error: any) => {
       const errorResponse = commonResponseErrorHandler(error);
