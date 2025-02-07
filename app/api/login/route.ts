@@ -23,7 +23,7 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
     const { accessToken, refreshToken } = response.data;
 
     const newHeaders = new Headers();
-    newHeaders.set('set-cookie', `access_token=${accessToken}; path=/; samesite=Lax; secure=true;`);
+    newHeaders.set('set-cookie', `access_token=${accessToken}; path=/; samesite=Lax; httponly; secure=true;`);
     newHeaders.append('set-cookie', `refresh_token=${refreshToken}; path=/; samesite=Lax; httponly; secure=true;`);
 
     return NextResponse.json({ ...response.data }, { status: response.status, headers: newHeaders });
