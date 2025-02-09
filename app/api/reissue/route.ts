@@ -6,6 +6,8 @@ import { LoginResponse } from '~/pages/login/api/types';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function POST(req: NextRequest, res: NextResponse) {
+  const newHeaders = new Headers();
+
   try {
     const refreshToken = cookies().get('refresh_token')?.value;
     const { data } = await axios.post<LoginResponse>(
@@ -22,12 +24,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
     );
     const { accessToken, refreshToken: newRefreshToken } = data;
-    const newHeaders = new Headers();
-    newHeaders.set('set-cookie', `access_token=${accessToken}; path=/; samesite=Lax; secure=true;`);
+    newHeaders.append('set-cookie', `access_token=${accessToken}; path=/; samesite=Lax; secure=true;`);
     newHeaders.append('set-cookie', `refresh_token=${newRefreshToken}; path=/; samesite=Lax; httponly; secure=true;`);
 
     return NextResponse.json({ ...data }, { headers: newHeaders });
   } catch (error: any) {
-    return NextResponse.json({ ...error.response.data }, { status: error.response.status });
+    newHeaders.append('set-cookie', 'refresh_token=; Path=/; Max-Age=0');
+    newHeaders.append('set-cookie', 'access_token=; Path=/; Max-Age=0');
+    return NextResponse.json({ ...error.response.data }, { status: error.response.status, headers: newHeaders });
   }
 }

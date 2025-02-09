@@ -4,7 +4,7 @@ import { login } from './fetch';
 import { useDialogStore } from '~/shared/stores/useDialogStore';
 import { useUserInfoStore } from '~/shared/stores/useUserInfoStore';
 import { getTodayDate } from '~/shared/utils/date';
-import { commonResponseErrorHandler } from '~/shared/utils/http';
+import { commonResponseErrorHandler, httpWithAuth } from '~/shared/utils/http';
 
 const todayDate = getTodayDate();
 
@@ -16,8 +16,9 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: login,
-    onSuccess: (_, variable) => {
+    onSuccess: (data, variable) => {
       updateUserInfoState(variable.username);
+      httpWithAuth.defaults.headers.Authorization = `Bearer ${data.accessToken}`;
       router.push(`/content/${todayDate}`);
     },
     onError: (error: any) => {
