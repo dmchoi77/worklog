@@ -9,11 +9,10 @@ import useDebounce from '~/shared/hooks/useDebounce';
 
 interface WorkListProps {
   targetDate: string;
-  initialData: Work[];
 }
 
-export default function WorkList({ targetDate, initialData }: WorkListProps) {
-  const { data: workList = [] } = useFetchWorkList({ date: targetDate }, initialData);
+export default function WorkList({ targetDate }: WorkListProps) {
+  const { data: workList = [] } = useFetchWorkList({ date: targetDate });
 
   const queryClient = useQueryClient();
   const { mutate } = useUpdateWorkOrder();
@@ -44,7 +43,7 @@ export default function WorkList({ targetDate, initialData }: WorkListProps) {
 
   return (
     <Reorder.Group values={workList} onReorder={reorderCallback} className='overflow-y-auto h-full'>
-      {workList.map((work) => (
+      {workList?.map((work) => (
         <Reorder.Item key={work?.id} value={work}>
           <WorkCard key={work?.id} {...work} />
         </Reorder.Item>

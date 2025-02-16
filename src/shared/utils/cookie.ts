@@ -1,6 +1,5 @@
 import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
-const isProd = process.env.NODE_ENV === 'production';
 export interface CookieSetOptions {
   path?: string;
   expires?: Date;

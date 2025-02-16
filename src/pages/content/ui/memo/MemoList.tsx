@@ -9,11 +9,10 @@ import useDebounce from '~/shared/hooks/useDebounce';
 
 interface MemoListProps {
   targetDate: string;
-  initialData: Memo[];
 }
 
-export default function MemoList({ targetDate, initialData }: MemoListProps) {
-  const { data: memoList = [] } = useFetchMemoList({ date: targetDate }, initialData);
+export default function MemoList({ targetDate }: MemoListProps) {
+  const { data: memoList = [] } = useFetchMemoList({ date: targetDate });
 
   const queryClient = useQueryClient();
   const { mutate } = useUpdateMemoOrder();
@@ -44,7 +43,7 @@ export default function MemoList({ targetDate, initialData }: MemoListProps) {
 
   return (
     <Reorder.Group values={memoList} onReorder={reorderCallback} layoutScroll className='overflow-y-auto h-full'>
-      {memoList.map((memo) => (
+      {memoList?.map((memo) => (
         <Reorder.Item key={memo.id} value={memo}>
           <MemoCard content={memo.content} id={memo.id} />
         </Reorder.Item>

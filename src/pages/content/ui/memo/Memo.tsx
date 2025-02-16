@@ -1,24 +1,32 @@
-import { Suspense } from 'react';
-import { Spinner } from '@radix-ui/themes';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { InnerLayout } from '../InnerLayout';
 import MemoForm from './MemoForm';
 import MemoList from './MemoList';
-import { fetchMemoListWithRSC } from '../../api/memo/fetch';
+import { fetchMemoList } from '../../api/memo/fetch';
+import { memoQueryKeys } from '../../api/memo/queries';
+import { getQueryClient } from '~/app/getQueryClient';
 
 const Memo = async ({ targetDate }: { targetDate: string }) => (
   <InnerLayout>
     <h3 className='font-[600]'>MEMO</h3>
     <MemoForm targetDate={targetDate} />
-    <Suspense fallback={<Spinner size='3' className='mx-auto' />}>
-      <Memos targetDate={targetDate} />
-    </Suspense>
+    <Memos targetDate={targetDate} />
   </InnerLayout>
 );
 
 export default Memo;
 
 const Memos = async ({ targetDate }: { targetDate: string }) => {
-  const memoList = await fetchMemoListWithRSC(targetDate);
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: memoQueryKeys.fetchMemoList({ date: targetDate }).queryKey,
+    queryFn: () => fetchMemoList({ date: targetDate }),
+  });
+  const dehydratedState = dehydrate(queryClient);
 
-  return <MemoList targetDate={targetDate} initialData={memoList} />;
+  return (
+    <HydrationBoundary state={dehydratedState}>
+      <MemoList targetDate={targetDate} />
+    </HydrationBoundary>
+  );
 };

@@ -1,7 +1,7 @@
 import * as https from 'https';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { getCookie } from './cookie';
-import { reissue, logout } from '../apis/fetch';
+import { getAccessToken } from './cookieWithServer';
 import { AccessToken } from '~/shared/constants';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -26,13 +26,21 @@ export const httpWithoutAuth = axios.create(axiosDefaultConfig);
 export const httpWithAuth = axios.create(axiosDefaultConfig);
 
 const injectToken = async (config: InternalAxiosRequestConfig<any>): Promise<InternalAxiosRequestConfig<any>> => {
-  const accessToken = getCookie(AccessToken);
-  if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
+  let accessToken;
+  if (typeof window === 'undefined') {
+    accessToken = await getAccessToken();
+  } else {
+    accessToken = getCookie(AccessToken);
+  }
+
+  config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
 };
 
-httpWithAuth.interceptors.request.use(injectToken, (error) => Promise.reject(error));
+httpWithAuth.interceptors.request.use(injectToken, (error) => {
+  return Promise.reject(error);
+});
 
 interface ErrorResponse {
   status: number;

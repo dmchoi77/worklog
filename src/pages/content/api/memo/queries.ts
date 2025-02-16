@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { addMemo, deleteMemo, fetchMemoList, searchMemoList, updateMemo, updateMemoOrder } from './fetch';
-import { FetchMemosRequest, Memo } from './types';
+import { FetchMemosRequest } from './types';
 import { calendarQueryKeys } from '../calendar/queries';
 import { useInvalidateQueries } from '~/shared/hooks/useInvalidateQueries';
 
@@ -35,11 +35,10 @@ export const useDeleteMemo = () =>
     mutationFn: deleteMemo,
   });
 
-export const useFetchMemoList = (filters: FetchMemosRequest, initialData?: Memo[]) =>
+export const useFetchMemoList = (filters: FetchMemosRequest) =>
   useQuery({
     queryKey: memoQueryKeys.fetchMemoList(filters).queryKey,
     queryFn: () => fetchMemoList(filters),
-    initialData,
   });
 
 export const useSearchMemoList = (key: string) =>

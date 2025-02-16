@@ -1,9 +1,12 @@
 import { Suspense } from 'react';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { Spinner } from '@radix-ui/themes';
 import WorkForm from './WorkForm';
 import WorkList from './WorkList';
-import { fetchWorkListWithRSC } from '../../api/work/fetch';
+import { fetchWorkList } from '../../api/work/fetch';
+import { workQueryKeys } from '../../api/work/queries';
 import { InnerLayout } from '../InnerLayout';
+import { getQueryClient } from '~/app/getQueryClient';
 
 const Work = async ({ targetDate }: { targetDate: string }) => (
   <InnerLayout>
@@ -18,7 +21,16 @@ const Work = async ({ targetDate }: { targetDate: string }) => (
 export default Work;
 
 const Works = async ({ targetDate }: { targetDate: string }) => {
-  const workList = await fetchWorkListWithRSC(targetDate);
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: workQueryKeys.fetchWorkList({ date: targetDate }).queryKey,
+    queryFn: () => fetchWorkList({ date: targetDate }),
+  });
+  const dehydratedState = dehydrate(queryClient);
 
-  return <WorkList targetDate={targetDate} initialData={workList} />;
+  return (
+    <HydrationBoundary state={dehydratedState}>
+      <WorkList targetDate={targetDate} />
+    </HydrationBoundary>
+  );
 };

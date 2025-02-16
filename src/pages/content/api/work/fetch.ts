@@ -9,7 +9,6 @@ import {
   SearchWorkList,
 } from './types';
 import { Work } from '../../model';
-import { fetchRSC } from '~/shared/utils/fetchRSC';
 import { httpWithAuth } from '~/shared/utils/http';
 
 export const addWork = ({ title, category, content, date, deadline }: AddWorkRequest) =>
@@ -75,10 +74,5 @@ export const searchWorkList = async (key: string): Promise<SearchWorkList> => {
     },
   });
 
-  return data;
-};
-
-export const fetchWorkListWithRSC = async (date: string): Promise<Work[]> => {
-  const { data } = await fetchRSC(`/works?date=${date}`);
   return data;
 };

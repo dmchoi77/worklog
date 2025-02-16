@@ -7,7 +7,6 @@ import {
   Memo,
   SearchMemoList,
 } from './types';
-import { fetchRSC } from '~/shared/utils/fetchRSC';
 import { httpWithAuth } from '~/shared/utils/http';
 
 export const addMemo = ({ content, date }: AddMemoRequest) => {
@@ -49,10 +48,5 @@ export const searchMemoList = async (key: string): Promise<SearchMemoList> => {
     },
   });
 
-  return data;
-};
-
-export const fetchMemoListWithRSC = async (date: string): Promise<Memo[]> => {
-  const { data } = await fetchRSC(`/memos?date=${date}`);
   return data;
 };
