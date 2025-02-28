@@ -8,6 +8,7 @@ import { useAxiosInterceptor } from '~/shared/hooks/useAxiosInterceptor';
 export const AppLayout = ({ children }: PropsWithChildren) => {
   useAxiosInterceptor();
 
+  console.log('AppLayout');
   return (
     <div className='w-full flex flex-col justify-start items-center m-0 p-0'>
       <div className='flex w-full h-screen'>
