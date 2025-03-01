@@ -15,7 +15,7 @@
     "lang":"ko",
     "name":"worklog",
     "short_name":"worklog",
-    "start_url":"/login",
+    "start_url":"/",
     "scope":"/",
     "description":"today worklog",
     "id":"https://today-worklog.vercel.app/login"}
