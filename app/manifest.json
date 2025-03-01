@@ -16,6 +16,6 @@
     "name":"worklog",
     "short_name":"worklog",
     "start_url":"/",
-    "scope":"/",
+    "scope":".",
     "description":"today worklog",
     "id":"https://today-worklog.vercel.app/login"}
