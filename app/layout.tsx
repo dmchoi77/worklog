@@ -12,6 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
       <head suppressHydrationWarning>
+        <link rel='manifest' href='./manifest.json' crossOrigin='use-credentials' />
         <link rel='preconnect' href='https://cdn.jsdelivr.net' />
         <link
           rel='preload'
