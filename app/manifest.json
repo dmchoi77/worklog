@@ -1,0 +1,21 @@
+{
+    "theme_color":"#8936FF",
+    "background_color":"#2EC6FE",
+    "icons":[
+        {
+            "purpose":"any",
+            "sizes":"512x512",
+            "src":"icon.png",
+            "type":"image/png"
+        }
+        ],
+    "orientation":"portrait",
+    "display":"standalone",
+    "dir":"auto",
+    "lang":"ko",
+    "name":"worklog",
+    "short_name":"worklog",
+    "start_url":"/",
+    "scope":"/",
+    "description":"today worklog",
+    "id":"https://today-worklog.vercel.app/login"}
