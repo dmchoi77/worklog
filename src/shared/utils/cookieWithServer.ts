@@ -32,8 +32,8 @@ export const setTokens = async (accessToken: string, refreshToken: string) => {
 
 export const removeTokens = async () => {
   const headers = new Headers();
-  headers.set('set-cookie', '${RefreshToken}=; Path=/; Max-Age=0');
-  headers.append('set-cookie', '${AccessToken}=; Path=/; Max-Age=0');
+  headers.set('set-cookie', `${RefreshToken}=; Path=/; Max-Age=0`);
+  headers.append('set-cookie', `${AccessToken}=; Path=/; Max-Age=0`);
 
   return headers;
 };
