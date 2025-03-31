@@ -1,15 +1,14 @@
-import { NextApiResponse } from 'next';
-
 import { NextRequest, NextResponse } from 'next/server';
-
 import axios from 'axios';
+import { LoginResponse } from '~/pages/login/api/types';
+import { setTokens } from '~/shared/utils/cookieWithServer';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function POST(req: NextRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest) {
   const requestBody = await req.json();
   try {
-    const response = await axios.post<{ accessToken: string; refreshToken: string }>(
+    const response = await axios.post<LoginResponse>(
       '/users/login',
       {
         username: requestBody.username,
@@ -22,12 +21,10 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
 
     const { accessToken, refreshToken } = response.data;
 
-    const newHeaders = new Headers();
-    newHeaders.set('set-cookie', `access_token=${accessToken}; path=/; samesite=Lax; secure=true;`);
-    newHeaders.append('set-cookie', `refresh_token=${refreshToken}; path=/; samesite=Lax; httponly; secure=true;`);
+    const headers = await setTokens(accessToken, refreshToken);
 
-    return NextResponse.json({ ...response.data }, { status: response.status, headers: newHeaders });
+    return NextResponse.json(response.data, { status: response.status, headers });
   } catch (error: any) {
-    return NextResponse.json({ ...error.response.data }, { status: error.response.status });
+    return NextResponse.json(error.response.data, { status: error.response.status });
   }
 }

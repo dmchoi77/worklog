@@ -1,2 +1,2 @@
-export const RefreshToken = 'refresh_token';
-export const AccessToken = 'access_token';
+export const RefreshToken = 'wjdklavo';
+export const AccessToken = 'wjasdwx';
