@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { logout, reissue } from './fetch';
 import { httpWithAuth } from '../utils/http';
 import { getQueryClient } from '~/app/getQueryClient';

@@ -1,6 +1,4 @@
-import { Suspense } from 'react';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { Spinner } from '@radix-ui/themes';
 import WorkForm from './WorkForm';
 import WorkList from './WorkList';
 import { fetchWorkList } from '../../api/work/fetch';
@@ -12,9 +10,7 @@ const Work = async ({ targetDate }: { targetDate: string }) => (
   <InnerLayout>
     <h3 className='font-[600]'>WORK</h3>
     <WorkForm targetDate={targetDate} />
-    <Suspense fallback={<Spinner size='3' className='mx-auto' />}>
-      <Works targetDate={targetDate} />
-    </Suspense>
+    <Works targetDate={targetDate} />
   </InnerLayout>
 );
 

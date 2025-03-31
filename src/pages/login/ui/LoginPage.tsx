@@ -1,3 +1,4 @@
+'use client';
 import { LoginForm } from './LoginForm';
 import { LoginTitle } from './LoginTitle';
 import Dialog from '~/shared/components/dialog/Dialog';

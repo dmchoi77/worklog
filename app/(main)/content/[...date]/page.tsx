@@ -1,12 +1,10 @@
 import dayjs from 'dayjs';
 import DashboardRight from '~/pages/content/ui/DashboardRight';
 
-interface ContentPageProps {
-  params: {
-    date: string[];
-  };
-}
-const ContentPage = ({ params: { date } }: ContentPageProps) => {
+type ContentPageProps = Promise<{ date: string[] }>;
+
+const ContentPage = async ({ params }: { params: ContentPageProps }) => {
+  const date = (await params).date;
   const targetDate = dayjs(date.join('-')).format('YYYY-MM-DD');
 
   return (
