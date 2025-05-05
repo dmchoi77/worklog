@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Work } from '~/pages/content/model';
+import { Work } from '~/entities/work/api';
 
 const useWork = (props: Work) => {
   const [work, setWork] = useState<Work>(props);

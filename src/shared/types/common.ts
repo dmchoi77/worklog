@@ -5,3 +5,10 @@ export interface ICommonResponse<T = undefined> {
   code?: string;
   message?: string;
 }
+
+export interface SearchList<T> {
+  content: T[];
+  pageNumber: number;
+  pageSize: number;
+  lastPage: number;
+}

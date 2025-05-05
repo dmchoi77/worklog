@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import * as https from 'https';
 import axios from 'axios';
-import { LoginResponse } from '~/pages/login/api/types';
+import { LoginResponse } from '~/features/auth/api';
 import { RefreshToken } from '~/shared/constants';
 import { removeTokens, setTokens } from '~/shared/utils/cookieWithServer';
 const baseURL = process.env.NEXT_PUBLIC_API_URL;

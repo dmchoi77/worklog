@@ -1,7 +1,6 @@
 'use client';
+import { RegistrationPage } from '~/pages/registration/RegistrationPage';
 
-import UserRegistrationPage from '~/pages/registration/ui/UserRegistrationPage';
-
-const Page = () => <UserRegistrationPage />;
+const Page = () => <RegistrationPage />;
 
 export default Page;

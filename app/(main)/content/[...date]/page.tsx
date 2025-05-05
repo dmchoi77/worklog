@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import DashboardRight from '~/pages/content/ui/DashboardRight';
+import { ContentPage as ContentPageComponent } from '~/pages/content/ContentPage';
 
 type ContentPageProps = Promise<{ date: string[] }>;
 
@@ -9,7 +9,7 @@ const ContentPage = async ({ params }: { params: ContentPageProps }) => {
 
   return (
     <div className='w-full h-full'>
-      <DashboardRight targetDate={targetDate} />
+      <ContentPageComponent targetDate={targetDate} />
     </div>
   );
 };

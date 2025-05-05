@@ -1,5 +1,5 @@
-import { LoginPage } from '~/pages/login/ui/LoginPage';
+import { LoginPage as LoginPageComponent } from '~/pages/login/LoginPage';
 
-const Page = () => <LoginPage />;
+const Page = () => <LoginPageComponent />;
 
 export default Page;

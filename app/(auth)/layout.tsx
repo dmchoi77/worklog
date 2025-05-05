@@ -1,4 +1,4 @@
-import { AuthLayout } from '~/shared/components/layout/AuthLayout';
+import { AuthLayout } from '~/shared/ui/layout/AuthLayout';
 
 export default function Layout({
   children,

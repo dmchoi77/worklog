@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
-import { LoginResponse } from '~/pages/login/api/types';
+import { LoginResponse } from '~/features/auth/api';
 import { setTokens } from '~/shared/utils/cookieWithServer';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL;

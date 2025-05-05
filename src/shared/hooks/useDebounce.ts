@@ -1,3 +1,4 @@
+'use client';
 import { useRef } from 'react';
 
 function useDebounce<T extends any[]>(callback: (...params: T) => void, time: number) {
