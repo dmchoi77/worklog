@@ -21,8 +21,8 @@ export const LoginForm = () => {
     <form className='flex flex-col w-full gap-[10px]' onSubmit={handleSubmit(onSubmit)}>
       <Input type='text' placeholder='아이디' {...register('username', { required: true })} />
       <Input type='password' placeholder='비밀번호' {...register('password', { required: true })} />
-      <Button isLoading={isPending} label='로그인' />
-      <Button label='회원가입' variant='outlined' onClick={() => router.push(RoutePath.Registration)} />
+      <Button isLoading={isPending} label='로그인' type='submit' />
+      <Button label='회원가입' variant='outlined' onClick={() => router.push(RoutePath.Registration)} type='button' />
     </form>
   );
 };
