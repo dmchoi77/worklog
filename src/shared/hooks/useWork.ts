@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Work } from '~/entities/work/api';
 
 const useWork = (props: Work) => {
@@ -10,10 +10,6 @@ const useWork = (props: Work) => {
       [key]: value,
     }));
   };
-
-  useEffect(() => {
-    setWork(props);
-  }, [props]);
 
   return { work, workSetter };
 };

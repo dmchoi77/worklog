@@ -111,7 +111,7 @@ export const WorkDetail = ({ handleClose, ...workProps }: WorkDetailProps) => {
                 <span className='font-semibold'>카테고리</span>
                 <WorkStatusButton
                   defaultOption={work.category}
-                  options={['UPDATE', 'CHORE', 'FEAT', 'UPDATE']}
+                  options={['UPDATE', 'CHORE', 'FEAT', 'REFACTOR']}
                   onSelectOption={workSetter('category')}
                 />
               </div>

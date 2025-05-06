@@ -1,9 +1,10 @@
-import { useCallback, useMemo } from 'react';
+'use client';
+import { useCallback } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import _ from 'lodash';
 import { Reorder } from 'motion/react';
 import { WorkCardEditable } from './WorkCardEditable';
-import { useWorkMutation } from '../model';
+import { useUpdateWorkOrder } from '../model';
 import { Work } from '~/entities/work/api';
 import { useFetchWorkList, workQueryKeys } from '~/entities/work/model/queries';
 import useDebounce from '~/shared/hooks/useDebounce';
@@ -17,11 +18,11 @@ export const WorkList = ({ targetDate }: WorkListProps) => {
   const { data: workList = [] } = useFetchWorkList({ date: targetDate });
 
   const queryClient = useQueryClient();
-  const { updateWorkOrder } = useWorkMutation();
 
+  const { mutate } = useUpdateWorkOrder();
   const reorderCallback = useDebounce(
     useCallback(
-      async (newOrder: Work[]) => {
+      (newOrder: Work[]) => {
         const differences = _.differenceWith(
           workList.map((work, index) => ({ ...work, index })),
           newOrder.map((work, index) => ({ ...work, index })),
@@ -32,7 +33,7 @@ export const WorkList = ({ targetDate }: WorkListProps) => {
 
         const findUpdateIndex = newOrder.findIndex((work) => work.id === differences[0].id);
 
-        await updateWorkOrder(
+        mutate(
           {
             id: differences[0].id,
             order: findUpdateIndex,
@@ -44,18 +45,16 @@ export const WorkList = ({ targetDate }: WorkListProps) => {
           },
         );
       },
-      [workList, queryClient, targetDate],
+      [workList],
     ),
     REORDER_DEBOUNCE_MS,
   );
 
-  const renderWorkCards = useMemo(() => {
-    return workList?.map((work) => (
-      <Reorder.Item key={work?.id} value={work}>
-        <WorkCardEditable key={work?.id} work={work} />
-      </Reorder.Item>
-    ));
-  }, [workList]);
+  const renderWorkCards = workList?.map((work) => (
+    <Reorder.Item key={work?.id} value={work}>
+      <WorkCardEditable work={work} />
+    </Reorder.Item>
+  ));
 
   return (
     <Reorder.Group values={workList} onReorder={reorderCallback} className='overflow-y-auto h-full'>
