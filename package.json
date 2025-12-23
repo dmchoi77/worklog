@@ -41,7 +41,7 @@
     "motion": "^11.13.5",
     "msw": "^2.3.4",
     "msw-storybook-addon": "^2.0.3",
-    "next": "15.2.3",
+    "next": "15.2.8",
     "react": "19.0.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-contenteditable": "^3.3.7",
