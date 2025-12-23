@@ -30,6 +30,7 @@
     "@types/node": "20.4.2",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.2.7",
+    "@vercel/otel": "^2.1.0",
     "axios": "^1.6.1",
     "dayjs": "^1.11.9",
     "eslint": "8.45.0",

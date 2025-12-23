@@ -4,6 +4,9 @@ const isProd = process.env.NODE_ENV === 'production';
 const nextConfig = {
   reactStrictMode: false,
   poweredByHeader: false,
+  experimental: {
+    instrumentationHook: true,
+  },
   compiler: {
     removeConsole: isProd ? true : false,
   },
